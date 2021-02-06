@@ -1,4 +1,8 @@
-#Team_SG/soca
+# SOCA
+## StoneBeans
 
-#dongbin's first commit
-#jaeseok's first commit
+Framework : Spring Boot
+FrontEnd : Thymeleaf + Bootstrap
+BackEnd : Java + Mybatis
+Database : Mysql
+WAS : Apache Tomcat
