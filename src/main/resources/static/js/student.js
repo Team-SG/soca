@@ -15,13 +15,17 @@ $(document).ready(function() {
         }
 
         var param = $("#registerForm").serializeObject();
-        var result = callPostService("/checkDuplicateEmail", param);
-
-        // 해당 이메일 사용이 가능할 경우, 인증 번호 발송
-        if(result == true) {
-
-        } else {
-            alert("해당 이메일은 이미 사용 중입니다.")
-        }
+        callPostService("/checkDuplicateEmail", param, "callSendAuthEmail");
     });
 });
+
+function callSendAuthEmail(data) {
+    // 이메일 중복 확인 후, 결과 값(data)이 true일 경우
+    if(data == true) {
+        // 이메일 전송 로직
+        return;
+    } else {
+        alert('이미 사용 중인 이메일 주소 입니다.')
+        return;
+    }
+}
