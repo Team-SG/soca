@@ -5,7 +5,7 @@
  */
 
 // 서비스 호출
-function callPostService(url, param) {
+function callPostService(url, param, callBack) {
     $.ajax({
         url: url,
         type: "POST",
@@ -15,11 +15,13 @@ function callPostService(url, param) {
         data: JSON.stringify(param),
         success: function(json) {
             console.log(json);
-            return json;
+            // 실행 성공 후, 콜백 메서드 실행
+            if(callBack != null) {
+                eval(callBack)(json);
+            }
         },
         error: function(error) {
             console.log(error);
-            return error;
         }
     });
 }
