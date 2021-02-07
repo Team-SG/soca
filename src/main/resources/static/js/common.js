@@ -5,25 +5,40 @@
  */
 
 // 서비스 호출
-function callService(url, data) {
+function callPostService(url, param) {
     $.ajax({
         url: url,
         type: "POST",
-        dataType: "application/json",
-        data: data,
+        dataType: "json",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(param),
         success: function(json) {
-            alert(json);
+            console.log(json);
+            return json;
         },
         error: function(error) {
-            alert(error);
+            console.log(error);
+            return error;
         }
     });
 }
 
-$(document).ready(function() {
-    // 인증 발송 버튼 클릭
-    $("#btnSendAuth").click(function (event) {
-        var param = $("#registerForm").serialize();
-        callService("/checkDuplicateEmail", param);
+// 폼 데이터 JSON 변환
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
     });
-});
+    return o;
+};
+
