@@ -15,6 +15,7 @@ public class StudentController {
         this.studentSBO = studentSBO;
     }
 
+    // 이메일 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateEmail", method = RequestMethod.POST)
     public boolean checkDuplicateEmail(@RequestBody StudentVO studentVO) {
         return studentSBO.checkDuplicateEmail(studentVO);
