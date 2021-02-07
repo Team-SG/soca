@@ -23,6 +23,7 @@ function callSendAuthEmail(data) {
     // 이메일 중복 확인 후, 결과 값(data)이 true일 경우
     if(data == true) {
         // 이메일 전송 로직
+
         return;
     } else {
         alert('이미 사용 중인 이메일 주소 입니다.')
