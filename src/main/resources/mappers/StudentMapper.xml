@@ -7,4 +7,17 @@
             resultType="stu.stonebeans.soca.vo.StudentVO">
         SELECT * FROM student WHERE email = #{email}
     </select>
+
+    <select id="checkDuplicateNickname"
+            parameterType="String"
+            resultType="stu.stonebeans.soca.vo.StudentVO">
+        SELECT * FROM student WHERE nickname = #{nickname}
+    </select>
+
+    <select id="checkDuplicateStudentID"
+            parameterType="String"
+            resultType="stu.stonebeans.soca.vo.StudentVO">
+        SELECT * FROM student WHERE studentID = #{studentID}
+    </select>
+
 </mapper>
