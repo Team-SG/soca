@@ -10,7 +10,7 @@ $(document).ready(function() {
     $("#btnSendAuth").click(function (event) {
         // 이메일을 입력하지 않고 [인증발송] 버튼을 눌렀을 경우
         if($("#registerEmail").val().length == 0) {
-            alert("이메일을 입력해주세요.");
+            swal("이메일을 입력해주세요.");
             return;
         }
 
@@ -26,7 +26,7 @@ function callSendAuthEmail(data) {
 
         return;
     } else {
-        alert('이미 사용 중인 이메일 주소 입니다.')
+        swal('이미 사용 중인 이메일 주소 입니다.')
         return;
     }
 }
