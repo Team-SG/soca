@@ -9,10 +9,6 @@ public interface StudentSBO {
     /*
         동빈 - 회원가입
      */
-    // 패스워드 조건 충족 여부 체크
-    boolean checkPasswordCondition(String password);
-    // 패스워드 일치 여부 체크
-    boolean checkPasswordAgreement(String source, String target);
     // 닉네임 중복 확인
     boolean checkDuplicateNickname(String nickname);
     // 학번 중복 확인
