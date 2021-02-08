@@ -31,11 +31,19 @@
                     <a class="nav-link" href="#">질문방</a>
                 </li>
             </ul>
-            <button type="button" class="btn btn-secondary btn-sm font-weight-normal mr-2" data-toggle="modal" data-target="#register">
+            <!-- 로그인을 하지 않았을 때 -->
+            <button type="button" id="btnRegister" class="btn btn-secondary btn-sm font-weight-normal mr-2" data-toggle="modal" data-target="#register">
                 회원가입
             </button>
-            <button type="button" class="btn btn-danger btn-sm font-weight-normal" data-toggle="modal" data-target="#login">
+            <button type="button" id="btnLogin" class="btn btn-danger btn-sm font-weight-normal mr-2" data-toggle="modal" data-target="#login">
                 로그인
+            </button>
+            <!-- 로그인을 하였을 때 -->
+            <button type="button" id="btnMyPage" class="btn btn-danger btn-sm font-weight-normal mr-2">
+                마이페이지
+            </button>
+            <button type="button" id="btnLogout" class="btn btn-secondary btn-sm font-weight-normal mr-2">
+                로그아웃
             </button>
         </div>
     </nav>
