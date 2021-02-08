@@ -30,3 +30,45 @@ function callSendAuthEmail(data) {
         return;
     }
 }
+
+$(document).ready(function() {
+    // 비밀번호 focusout 이벤트 발생
+    $("#password").focusout(function (event) {
+        // 영문+숫자+특수문자 조합 8자~20자를 충족하지 못하는 경우
+        if(checkPasswordCondition($("#password").val())===false) {
+            swal("패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다");
+            return;
+        }
+
+    });
+});
+
+function checkPasswordCondition(password){
+    // password가 8자 미만 20자 초과일 경우 false
+    if( password.length < 8 || password.length > 20 ) return false;
+    else {
+        var english = 0,number = 0,character = 0;
+        for( var i=0;i<password.length;i++){
+            var passwordChar=password.charAt(i);
+            if(('A'<= passwordChar && passwordChar <= 'Z') || ('a'<= passwordChar && passwordChar <= 'z'))
+                english++;
+            else if( '0'<= passwordChar && passwordChar <= '9')
+                number++;
+            else character++;
+        }
+        if( english ==0 || number ==0 || character == 0) return false;
+        else return true;
+    }
+}
+
+$(document).ready(function() {
+    // 비밀번호확인 focusout 이벤트 발생
+    $("#passwordCheck").focusout(function (event) {
+        // password와 패스워드 확인이 일치하지 않는 경우
+        if(Object.is($("#password").val(),$("#passwordCheck").val())===false) {
+            swal("패스워드가 일치하지 않습니다");
+            return;
+        }
+
+    });
+});
