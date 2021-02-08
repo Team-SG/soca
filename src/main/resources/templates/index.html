@@ -5,28 +5,188 @@
 <head>
 </head>
 <div layout:fragment="content">
-    -- 메인 화면 디자인 작업 중 --
-    <div class="container m-0">
+    <div class="container m-0 pl-2">
+        <h6 class="mt-4 mb-1" style="color:#000000">> 공부방</h6>
         <div class="row">
             <div class="col-sm p-2">
                 <div class="toast show shadow-none">
-                    <div class="toast-header">
-                        <strong class="mr-auto">인기 강의</strong>
-                        <small><a href="#">더보기</a></small>
+                    <div class="toast-header pt-2 pb-2">
+                        <strong class="mr-auto" style="color:#000000">자바를 자바라</strong>
+                        <small><a href="#" style="color:#444444">바로가기</a></small>
                     </div>
-                    <div class="toast-body">
-                        <a href="#">1. 홍길동 - 미적분학</a><br/>
-                        <a href="#">2. 미란다 - 데이터베이스</a>
+                    <div class="toast-body fs-090">
+                        <span>소그룹 한 줄 소개가 표시되는 곳</span><br/><br/>
+                        <!-- HashTag -->
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#홍길동교수님</span>
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#자바</span>
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#Java</span>
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#컴공</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm p-2">
+                <div class="toast show shadow-none">
+                    <div class="toast-header pt-2 pb-2">
+                        <strong class="mr-auto" style="color:#000000">미적분을 미적미적</strong>
+                        <small><a href="#" style="color:#444444">바로가기</a></small>
+                    </div>
+                    <div class="toast-body fs-090">
+                        <span>소그룹 한 줄 소개가 표시되는 곳</span><br/><br/>
+                        <!-- HashTag -->
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#홍길동교수님</span>
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#자바</span>
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#Java</span>
+                        <span class="badge badge-light fs-085 font-weight-light mr-1">#컴공</span>
                     </div>
                 </div>
             </div>
             <div class="col-sm p-2">
 
             </div>
+        </div>
+        <h6 class="mt-4 mb-1" style="color:#000000">> 평가방</h6>
+        <div class="row">
             <div class="col-sm p-2">
-
+                <div class="toast show shadow-none">
+                    <div class="toast-header pt-2 pb-2">
+                        <strong class="mr-auto" style="color:#000000">금 학기 인기 강의</strong>
+                        <small><a href="#" style="color:#444444">더보기</a></small>
+                    </div>
+                    <div class="toast-body fs-095">
+                        <!-- 나중에 이 데이터는 반복문으로 변경 -->
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-warning fs-090 mr-1">1</span>
+                            <span>김영재 - 어셈블리프로그래밍</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-warning fs-090 mr-1">2</span>
+                            <span>조상현 - 선형대수학</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-warning fs-090 mr-1">3</span>
+                            <span>이성범 - 언어학개론</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-warning fs-090 mr-1">4</span>
+                            <span>김경환 - 도시경제학</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-warning fs-090 mr-1">5</span>
+                            <span>범진욱 - 회로이론</span>
+                        </a>
+                        <!-- 나중에 이 데이터는 반복문으로 변경 -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm p-2">
+                <div class="toast show shadow-none">
+                    <div class="toast-header pt-2 pb-2">
+                        <strong class="mr-auto" style="color:#000000">최근 업로드 된 강의평가</strong>
+                        <small><a href="#" style="color:#444444">더보기</a></small>
+                    </div>
+                    <div class="toast-body fs-095">
+                        <!-- 나중에 이 데이터는 반복문으로 변경 -->
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-danger fs-090 mr-1">N</span>
+                            <span>김영재 - 어셈블리프로그래밍</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-danger fs-090 mr-1">N</span>
+                            <span>조상현 - 선형대수학</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-danger fs-090 mr-1">N</span>
+                            <span>이성범 - 언어학개론</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-danger fs-090 mr-1">N</span>
+                            <span>김경환 - 도시경제학</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-danger fs-090 mr-1">N</span>
+                            <span>범진욱 - 회로이론</span>
+                        </a>
+                        <!-- 나중에 이 데이터는 반복문으로 변경 -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm p-2">
+                <div class="toast show shadow-none">
+                    <div class="toast-header pt-2 pb-2">
+                        <strong class="mr-auto" style="color:#000000">전체 인기 교수</strong>
+                        <small><a href="#" style="color:#444444">더보기</a></small>
+                    </div>
+                    <div class="toast-body fs-095">
+                        <!-- 나중에 이 데이터는 반복문으로 변경! -->
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-success fs-090 mr-1">1</span>
+                            <span>김영재</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-success fs-090 mr-1">2</span>
+                            <span>조상현</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-success fs-090 mr-1">3</span>
+                            <span>이성범</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-success fs-090 mr-1">4</span>
+                            <span>김경환</span>
+                        </a>
+                        <a href="#" class="p-1" style="color:#000000; display: block">
+                            <span class="badge badge-success fs-090 mr-1">5</span>
+                            <span>범진욱</span>
+                        </a>
+                        <!-- 나중에 이 데이터는 반복문으로 변경! -->
+                    </div>
+                </div>
             </div>
         </div>
+        <h6 class="mt-4 mb-1" style="color:#000000">> 질문방</h6>
+        <!-- 최근 업로드 된 질문 -->
+        <ul class="list-group mt-3 fs-090" style="margin-left:-5px; margin-right: -5px;">
+            <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
+                <span class="badge badge-primary">New</span>
+                <a class="ml-2 mr-2" style="color:#000000">질문의 제목이 표시되는 곳이에요</a>
+                <div class="float-right">
+                    <ion-icon name="eye-outline"></ion-icon><span class="p-1">3</span>
+                    <ion-icon name="chatbubble-ellipses-outline"></ion-icon><span class="p-1">13</span>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
+                <span class="badge badge-primary">New</span>
+                <a class="ml-2 mr-2" style="color:#000000">질문의 제목이 표시되는 곳이에요</a>
+                <div class="float-right">
+                    <ion-icon name="eye-outline"></ion-icon><span class="p-1">153</span>
+                    <ion-icon name="chatbubble-ellipses-outline"></ion-icon><span class="p-1">13</span>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
+                <span class="badge badge-primary">New</span>
+                <a class="ml-2 mr-2" style="color:#000000">질문의 제목이 표시되는 곳이에요</a>
+                <div class="float-right">
+                    <ion-icon name="eye-outline"></ion-icon><span class="p-1">44</span>
+                    <ion-icon name="chatbubble-ellipses-outline"></ion-icon><span class="p-1">29</span>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
+                <span class="badge badge-primary">New</span>
+                <a class="ml-2 mr-2" style="color:#000000">질문의 제목이 표시되는 곳이에요</a>
+                <div class="float-right">
+                    <ion-icon name="eye-outline"></ion-icon><span class="p-1">3</span>
+                    <ion-icon name="chatbubble-ellipses-outline"></ion-icon><span class="p-1">1</span>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
+                <span class="badge badge-primary">New</span>
+                <a class="ml-2 mr-2" style="color:#000000">질문의 제목이 표시되는 곳이에요</a>
+                <div class="float-right">
+                    <ion-icon name="eye-outline"></ion-icon><span class="p-1">5123</span>
+                    <ion-icon name="chatbubble-ellipses-outline"></ion-icon><span class="p-1">234</span>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 </html>
