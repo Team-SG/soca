@@ -10482,6 +10482,9 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 /* custom */
+.fs-095 {
+  font-size: 0.95em;
+}
 .fs-090 {
   font-size: 0.9em;
 }
