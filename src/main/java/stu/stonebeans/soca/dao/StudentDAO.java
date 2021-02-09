@@ -5,7 +5,7 @@ import stu.stonebeans.soca.vo.StudentVO;
 @Mapper
 public interface StudentDAO {
     // 이메일 중복 여부 체크
-    public StudentVO checkDuplicateEmail(StudentVO studentVO);
+    public StudentVO checkDuplicateEmail(String email);
 
     /*
         동빈-회원가입

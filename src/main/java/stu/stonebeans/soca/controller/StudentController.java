@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import stu.stonebeans.soca.sbo.StudentSBO;
 import stu.stonebeans.soca.vo.StudentVO;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class StudentController {
 
@@ -17,8 +20,8 @@ public class StudentController {
 
     // 이메일 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateEmail", method = RequestMethod.POST)
-    public boolean checkDuplicateEmail(@RequestBody StudentVO studentVO) {
-        return studentSBO.checkDuplicateEmail(studentVO);
+    public boolean checkDuplicateEmail(@RequestBody HashMap<String, String> map) {
+        return studentSBO.checkDuplicateEmail(map.get("email"));
     }
 
     // 닉네임 중복 여부 체크
