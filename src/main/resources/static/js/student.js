@@ -72,3 +72,44 @@ $(document).ready(function() {
 
     });
 });
+
+$(document).ready(function() {
+    // [중복확인] 버튼 클릭 이벤트
+    $("#btnNicknameCheck").click(function (event) {
+        // 닉네임을 입력하지 않고 [중복확인] 버튼을 눌렀을 경우
+        if($("#nickname").val().length == 0) {
+            swal("닉네임을 입력해주세요.");
+            return;
+        }
+
+        // 여기가 동작이 제대로 안되는 중중
+       // 여기서 ""가 자동으로 추가되는 것 같은데 없애야함
+        var param = $("#nickname").val();
+        callPostService("/checkDuplicateNickname", param, "callDuplicateNickname");
+    });
+});
+
+function callDuplicateNickname(data) {
+    // 닉네임 중복 확인 후, 결과 값(data)이 true일 경우
+    if(data == true) {
+        swal("'"+$("#nickname").val()+"' 은(는) 사용할 수 있는 닉네임입니다.")
+        return;
+    } else {
+        swal('이미 사용중인 닉네임 입니다')
+        return;
+    }
+}
+
+$(document).ready(function() {
+    // [초기화] 버튼 클릭 이벤트
+    $("#btnReset").click(function (event) {
+        // 초기화를 눌렀을떄 모든 내용을 삭제
+        // 한번에 할 수 있는 방법이 있을 것 같은데 찾아볼 예정
+        $("#registerEmail").val(null);
+        $("#emailCode").val(null);
+        $("#password").val(null);
+        $("#passwordCheck").val(null);
+        $("#nickname").val(null);
+        $("#studentID").val(null);
+    });
+});
