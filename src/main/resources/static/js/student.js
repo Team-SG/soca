@@ -16,7 +16,7 @@ $(document).ready(function() {
         var param = {
             email : $("#registerEmail").val()
         };
-        callPostService("/checkDuplicateEmail", param, "callSendAuthEmail");
+        callPostService("/sendAuthEmail", param, "callSendAuthEmail");
     });
 
     // 비밀번호 focusout 이벤트 발생
@@ -65,15 +65,7 @@ $(document).ready(function() {
 });
 
 function callSendAuthEmail(data) {
-    // 이메일 중복 확인 후, 결과 값(data)이 true일 경우
-    if(data == true) {
-        // 이메일 전송 로직
-
-        return;
-    } else {
-        swal('이미 사용 중인 이메일 주소 입니다.')
-        return;
-    }
+    swal(data.msg);
 }
 
 // 패스워드 유효성 체크
