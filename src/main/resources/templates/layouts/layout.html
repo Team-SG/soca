@@ -90,15 +90,22 @@
                         <input type="password" id="password" class="form-control mb-3" placeholder="패스워드(영문+숫자+특수문자 조합 8자~20자)" maxlength="20">
                         <input type="password" id="passwordCheck" class="form-control mb-3" placeholder="패스워드확인" maxlength="20">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="닉네임">
-                            <button type="button" class="btn btn-outline-primary font-weight-normal ml-2">중복확인</button>
+                            <input type="text" id="nickname" class="form-control" placeholder="닉네임">
+                            <button type="button" id="btnNicknameCheck" class="btn btn-outline-primary font-weight-normal ml-2">중복확인</button>
                         </div>
                         <!--<input type="text" class="form-control mb-3" placeholder="닉네임">-->
-                        <input type="text" class="form-control mb-3" placeholder="학번">
+                        <div>
+                            <!-- 얘랑 학번을 한 line에 만들고 싶음-->
+                            <select id="course" name="course" class="form-control mb-3">
+                                <option value="학부">학부</option>
+                                <option value="대학원">대학원</option>
+                            </select>
+                            <input type="text" id="studentID" class="form-control mb-3" placeholder="학번" maxlength="10">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary font-weight-normal">초기화</button>
+                    <button type="button" id="btnReset" class="btn btn-secondary font-weight-normal">초기화</button>
                     <button type="button" class="btn btn-primary font-weight-normal">가입하기</button>
                 </div>
             </div>

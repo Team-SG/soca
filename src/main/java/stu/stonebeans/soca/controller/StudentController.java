@@ -20,4 +20,10 @@ public class StudentController {
     public boolean checkDuplicateEmail(@RequestBody StudentVO studentVO) {
         return studentSBO.checkDuplicateEmail(studentVO);
     }
+
+    // 닉네임 중복 여부 체크
+    @RequestMapping(value = "/checkDuplicateNickname", method = RequestMethod.POST)
+    public boolean checkDuplicateStudentID(@RequestBody String nickname) {
+        return studentSBO.checkDuplicateNickname(nickname);
+    }
 }
