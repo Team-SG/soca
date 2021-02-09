@@ -3,7 +3,7 @@
 <mapper namespace="stu.stonebeans.soca.dao.StudentDAO">
     <!-- 이메일 중복 여부 체크 -->
     <select id="checkDuplicateEmail"
-            parameterType="stu.stonebeans.soca.vo.StudentVO"
+            parameterType="string"
             resultType="stu.stonebeans.soca.vo.StudentVO">
         SELECT * FROM student WHERE email = #{email}
     </select>

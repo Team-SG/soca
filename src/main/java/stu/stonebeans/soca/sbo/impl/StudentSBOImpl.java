@@ -16,8 +16,8 @@ public class StudentSBOImpl implements StudentSBO {
         설명 : Student 테이블에 해당 이메일을 가진 사용자가 존재하는지 확인
      */
     @Override
-    public boolean checkDuplicateEmail(StudentVO studentVO) {
-        StudentVO result = studentDAO.checkDuplicateEmail(studentVO);
+    public boolean checkDuplicateEmail(String email) {
+        StudentVO result = studentDAO.checkDuplicateEmail(email);
 
         // 해당 이메일을 가진 사용자가 없을 경우, 해당 이메일 사용이 가능하므로 true
         // 해당 이메일을 가진 사용자가 있을 경우, 해당 이메일 사용이 불가능하므로 false
