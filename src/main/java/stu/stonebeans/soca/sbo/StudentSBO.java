@@ -4,7 +4,7 @@ import stu.stonebeans.soca.vo.StudentVO;
 
 public interface StudentSBO {
     // 이메일 중복 여부 체크
-    boolean checkDuplicateEmail(StudentVO studentVO);
+    boolean checkDuplicateEmail(String email);
 
     /*
         동빈 - 회원가입
