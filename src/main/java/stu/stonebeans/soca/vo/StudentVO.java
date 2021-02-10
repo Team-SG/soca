@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-
 public class StudentVO {
     private String email; // 이메일
     private String password; // 패스워드

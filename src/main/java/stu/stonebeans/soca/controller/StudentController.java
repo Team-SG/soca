@@ -1,30 +1,38 @@
 package stu.stonebeans.soca.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
+import stu.stonebeans.soca.vo.MailVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 public class StudentController {
 
     private StudentSBO studentSBO;
+    private MailSBO mailSBO;
 
     @Autowired
-    public StudentController(StudentSBO studentSBO) {
+    public StudentController(StudentSBO studentSBO, MailSBO mailSBO) {
         this.studentSBO = studentSBO;
+        this.mailSBO = mailSBO;
     }
 
-    // 이메일 중복 여부 확인 및 인증 번호 전송
+    // 이메일 중복 여부 확인 및 인증 메일 발송
     @RequestMapping(value = "/sendAuthEmail", method = RequestMethod.POST)
     public ResultVO sendAuthEmail(@RequestBody HashMap<String, String> map) {
         ResultVO resultVO = new ResultVO();
-        if(studentSBO.checkDuplicateEmail(map.get("email")) == true) {
-            // 인증 번호 전송
+        String email = map.get("email");
+
+        // 이메일 중복 여부 체크를 통과하였을 경우, 인증 메일 발송
+        if(studentSBO.checkDuplicateEmail(email) == true) {
+            mailSBO.sendEmail(email);
             resultVO.setStatus(1);
             resultVO.setMsg("인증번호 전송이 완료되었습니다.");
         } else {
