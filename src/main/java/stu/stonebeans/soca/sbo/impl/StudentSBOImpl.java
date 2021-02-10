@@ -25,7 +25,6 @@ public class StudentSBOImpl implements StudentSBO {
         else return false;
     }
 
-
     /*
         함수 : 닉네임 중복 여부 체크
         설명 : Student 테이블에 해당 닉네임을 가진 사용자가 존재하는지 확인
@@ -53,5 +52,4 @@ public class StudentSBOImpl implements StudentSBO {
         if(result == null) return true;
         else return false;
     }
-
 }
