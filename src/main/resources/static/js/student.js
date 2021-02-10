@@ -6,6 +6,11 @@
  */
 
 $(document).ready(function() {
+
+    // invalid한 패스워드 입력 전에는 숨김
+    $("#passwordFail").hide();
+    $("#passwordCheckFail").hide();
+
     // [인증발송] 버튼 클릭 이벤트
     $("#btnSendAuth").click(function (event) {
         // 이메일을 입력하지 않고 [인증발송] 버튼을 눌렀을 경우
@@ -23,7 +28,13 @@ $(document).ready(function() {
     $("#registerPassword").focusout(function (event) {
         // 영문+숫자+특수문자 조합 8자~20자를 충족하지 못하는 경우
         if(checkPasswordCondition($("#registerPassword").val())===false) {
-            swal("패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다");
+            $("#registerPassword").val(null);
+            $("#registerPassword").focus();
+            $("#passwordFail").show();
+            return;
+        }
+        else{
+            $("#passwordFail").hide();
             return;
         }
     });
@@ -32,8 +43,21 @@ $(document).ready(function() {
     $("#registerPasswordCheck").focusout(function (event) {
         // password와 패스워드 확인이 일치하지 않는 경우
         if(Object.is($("#registerPassword").val(),$("#registerPasswordCheck").val())===false) {
-            swal("패스워드가 일치하지 않습니다");
+            $("#registerPasswordCheck").val(null);
+            $("#passwordCheckFail").show();
             return;
+        }
+        else{
+            $("#passwordCheckFail").hide();
+            return;
+        }
+    });
+
+    // 비밀번호 최초 작성 후 다시 수정이 이루어지는 경우에
+    $("#registerPassword").keydown(function (event) {
+        if($("#registerPasswordCheck").val().length != 0){
+            $("#registerPasswordCheck").val(null);
+            $("#passwordCheckFail").show();
         }
     });
 
@@ -45,23 +69,19 @@ $(document).ready(function() {
             return;
         }
 
-        // 여기가 동작이 제대로 안되는 중중
-        // 여기서 ""가 자동으로 추가되는 것 같은데 없애야함
-        var param = $("#registerNickname").val();
+        var param = {
+            nickname : $("#registerNickname").val()
+        };
         callPostService("/checkDuplicateNickname", param, "callDuplicateNickname");
     });
 
-    // [초기화] 버튼 클릭 이벤트
-    $("#btnReset").click(function (event) {
-        // 초기화를 눌렀을떄 모든 내용을 삭제
-        // 한번에 할 수 있는 방법이 있을 것 같은데 찾아볼 예정
-        $("#registerEmail").val(null);
-        $("#registerAuthCode").val(null);
-        $("#registerPassword").val(null);
-        $("#registerPasswordCheck").val(null);
-        $("#registerNickname").val(null);
-        $("#registerStudentID").val(null);
+    //중복확인을 한번 한 상태에서 다시 닉네임을 바꾸려고 할 때
+    $("#registerNickname").keydown(function(event){
+       $("#btnNicknameCheck").removeAttr("disabled");
+       //확인이 안 된 걸로 해야함
+        return;
     });
+
 });
 
 // 패스워드 유효성 체크
@@ -78,7 +98,7 @@ function checkPasswordCondition(password){
                 number++;
             else character++;
         }
-        if( english ==0 || number ==0 || character == 0) return false;
+        if( english === 0 || number === 0 || character === 0) return false;
         else return true;
     }
 }
@@ -91,11 +111,15 @@ function callSendAuthEmail(data) {
 // 닉네임 중복 확인 콜백
 function callDuplicateNickname(data) {
     // 닉네임 중복 확인 후, 결과 값(data)이 true일 경우
-    if(data == true) {
-        swal("'"+$("#registerNickname").val()+"' 은(는) 사용할 수 있는 닉네임입니다.")
+    if(data === true) {
+        swal("'"+$("#registerNickname").val()+"' 은(는) 사용할 수 있는 닉네임입니다.");
+        //[중복확인] 버튼을 비활성화
+        //[중복확인] 버튼이 사라지고 체크 표시 그림이 나타나는 것도 괜찮을 듯
+        $("#btnNicknameCheck").attr("disabled","disabled");
         return;
     } else {
         swal('이미 사용중인 닉네임 입니다')
+        $("#registerNickname").val(null);
         return;
     }
 }
