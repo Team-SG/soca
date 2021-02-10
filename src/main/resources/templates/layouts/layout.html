@@ -85,7 +85,7 @@
                 <div class="modal-header">
                     <br>
                     <h5 class="modal-title" id="registerModalLabel">회원가입</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="btnClose" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -101,7 +101,6 @@
                             <button type="button" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
                         </div>
                             <input type="password" id="registerPassword" name="password" class="form-control" placeholder="패스워드(영문+숫자+특수문자 조합 8자~20자)" maxlength="20">
-                            <!--수정할 예정 - 여기서 색을 지정하는 방법 말고 다른 방법이 있을 것-->
                             <div id="passwordFail" class="small mb-3" style="color:red">패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다.</div>
                             <input type="password" id="registerPasswordCheck" name="passwordCheck" class="form-control mt-3" placeholder="패스워드확인" maxlength="20">
                             <div id="passwordCheckFail" class="small mb-3" style="color:red">패스워드가 일치하지 않습니다.</div>
@@ -109,17 +108,10 @@
                             <input type="text" id="registerNickname" name="nickname" class="form-control" placeholder="닉네임">
                             <button type="button" id="btnNicknameCheck" class="btn btn-outline-primary font-weight-normal ml-2">중복확인</button>
                         </div>
-                        <div class="justify-content-between">
-                            <select id="registerCourse" name="course" class="form-control mb-3 d-inline-block" style="width:30%;">
-                                <option value="학부">학부</option>
-                                <option value="대학원">대학원</option>
-                            </select>
-                            <input type="text" id="registerStudentID" name="studentID" class="form-control mb-3 d-inline-block" style="width:68%" placeholder="학번" maxlength="10">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <button type="reset" id="btnReset" class="btn btn-secondary font-weight-normal">초기화</button>
+                    <button type="button" id="btnReset" class="btn btn-secondary font-weight-normal">초기화</button>
                     <button type="button" class="btn btn-primary font-weight-normal">가입하기</button>
                 </div>
             </div>

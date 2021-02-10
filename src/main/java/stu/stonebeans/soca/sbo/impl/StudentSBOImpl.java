@@ -39,17 +39,4 @@ public class StudentSBOImpl implements StudentSBO {
         else return false;
     }
 
-    /*
-        함수 : 학번 중복 여부 체크
-        설명 : Student 테이블에 해당 학번을 가진 사용자가 존재하는지 확인
-    */
-    @Override
-    public boolean checkDuplicateStudentID(String studentID) {
-        StudentVO result = studentDAO.checkDuplicateStudentID(studentID);
-
-        // 해당 학번을 가진 사용자가 없을 경우, 정상적으로 입력을 하였으므로 true
-        // 해당 학번을 가진 사용자가 있을 경우, 누군가 잘못 입력하였으므로 false
-        if(result == null) return true;
-        else return false;
-    }
 }

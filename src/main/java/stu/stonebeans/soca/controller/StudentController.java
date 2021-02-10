@@ -12,7 +12,7 @@ import stu.stonebeans.soca.vo.StudentVO;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 public class StudentController {
 
     private StudentSBO studentSBO;
@@ -44,7 +44,7 @@ public class StudentController {
 
     // 닉네임 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateNickname", method = RequestMethod.POST)
-    public boolean checkDuplicateStudentID(@RequestBody HashMap<String, String> map) {
+    public boolean checkDuplicateNickname(@RequestBody HashMap<String, String> map) {
         return studentSBO.checkDuplicateNickname(map.get("nickname"));
     }
 }

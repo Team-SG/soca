@@ -10,6 +10,4 @@ public interface StudentSBO {
     // 닉네임 중복 확인
     boolean checkDuplicateNickname(String nickname);
 
-    // 학번 중복 확인
-    boolean checkDuplicateStudentID(String studentID);
 }

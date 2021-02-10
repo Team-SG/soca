@@ -55,9 +55,12 @@ $(document).ready(function() {
 
     // 비밀번호 최초 작성 후 다시 수정이 이루어지는 경우에
     $("#registerPassword").keydown(function (event) {
-        if($("#registerPasswordCheck").val().length != 0){
+        if($("#registerPassword").val().length != 0 && $("#registerPasswordCheck").val().length != 0){
             $("#registerPasswordCheck").val(null);
             $("#passwordCheckFail").show();
+        }
+        else{
+            $("#passwordCheckFail").hide();
         }
     });
 
@@ -82,6 +85,21 @@ $(document).ready(function() {
         return;
     });
 
+    //[초기화] 버튼을 눌렀을 때
+    $("#btnReset").click(function(event){
+       $("#registerForm").each(function(){
+          this.reset();
+       });
+    });
+
+    //회원가입 창을 닫았을 때
+    $("#btnClose").click(function(event){
+        $("#registerForm").each(function(){
+            this.reset();
+        });
+        $("#passwordFail").hide();
+        $("#passwordCheckFail").hide();
+    });
 });
 
 // 패스워드 유효성 체크
