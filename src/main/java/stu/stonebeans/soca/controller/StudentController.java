@@ -12,7 +12,7 @@ import stu.stonebeans.soca.vo.StudentVO;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 public class StudentController {
 
     private StudentSBO studentSBO;
