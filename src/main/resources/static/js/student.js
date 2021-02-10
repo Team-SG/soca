@@ -53,7 +53,7 @@ $(document).ready(function() {
         }
     });
 
-    // 비밀번호 최초 작성 후 다시 수정이 이루어지는 경우
+    // 비밀번호 최초 작성 후 다시 수정이 이루어지는 경우에
     $("#registerPassword").keydown(function (event) {
         if($("#registerPasswordCheck").val().length != 0){
             $("#registerPasswordCheck").val(null);
