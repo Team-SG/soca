@@ -15,5 +15,12 @@
         SELECT * FROM student WHERE nickname = #{nickname}
     </select>
 
+    <!--회원가입-->
+    <select id="register"
+            parameterType="stu.stonebeans.soca.vo.StudentVO"
+            resultType="stu.stonebeans.soca.vo.StudentVO">
+        INSERT INTO student
+        VALUES (#{email},#{password},#{nickname},GETDATE(),'Y',GETDATE());
+    </select>
 
 </mapper>

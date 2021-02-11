@@ -10,4 +10,6 @@ public interface StudentSBO {
     // 닉네임 중복 확인
     boolean checkDuplicateNickname(String nickname);
 
+    // 회원가입
+    boolean register(StudentVO studentVO);
 }

@@ -47,4 +47,12 @@ public class StudentController {
     public boolean checkDuplicateNickname(@RequestBody HashMap<String, String> map) {
         return studentSBO.checkDuplicateNickname(map.get("nickname"));
     }
+
+  /*  // 회원가입
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public void register(@RequestBody StudentVO studentVO) {
+        studentSBO.register(studentVO);
+    }
+
+   */
 }

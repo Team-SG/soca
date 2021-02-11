@@ -11,4 +11,7 @@ public interface StudentDAO {
     // 닉네임 중복 여부 체크
     public StudentVO checkDuplicateNickname(String nickname);
 
+    // register
+    public StudentVO register(StudentVO studentVO);
+
 }

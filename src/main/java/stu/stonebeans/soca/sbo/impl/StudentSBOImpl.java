@@ -39,4 +39,13 @@ public class StudentSBOImpl implements StudentSBO {
         else return false;
     }
 
+    @Override
+    public boolean register(StudentVO studentVO){
+        StudentVO result=studentDAO.register(studentVO);
+
+        if(result!=null) return true;
+        else return false;
+    }
+
+
 }
