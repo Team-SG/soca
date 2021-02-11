@@ -90,34 +90,25 @@ $(document).ready(function() {
 
     //중복확인을 한번 한 상태에서 다시 닉네임을 바꾸려고 할 때
     $("#registerNickname").keydown(function(event){
-        $("#validNickname").hide();
-        $("#btnNicknameCheck").show();
-        $("#nicknameAuth").val("0");
-        return;
+        if(event.keyCode<37 || event.keyCode>40) {
+            $("#validNickname").hide();
+            $("#btnNicknameCheck").show();
+            $("#nicknameAuth").val("0");
+            return;
+        }
     });
 
-    //이걸 한번에 할 수 있는 방법이 있을까
+    //이걸 한번에 할 수 있는 방법이 있을까 + 그냥 회원가입 창을 벗어났을떄도 초기화가 필요함
     //[초기화] 버튼을 눌렀을 때
     $("#btnReset").click(function(event){
-       $("#registerForm").each(function(){
-          this.reset();
-       });
-        $("#passwordFail").hide();
-        $("#passwordCheckFail").hide();
-        $("#validNickname").hide();
-        $("#btnNicknameCheck").show();
+       clear();
     });
 
     //회원가입 창을 닫았을 때
     $("#btnClose").click(function(event){
-        $("#registerForm").each(function(){
-            this.reset();
-        });
-        $("#passwordFail").hide();
-        $("#passwordCheckFail").hide();
-        $("#validNickname").hide();
-        $("#btnNicknameCheck").show();
+       clear();
     });
+
 
     //[가입하기] 버튼을 눌렀을 때, 아직 작동 제대로 안됨
     $("#btnSubmit").click(function(event) {
@@ -166,10 +157,11 @@ $(document).ready(function() {
        else{
            var param=$("#registerForm").serializeObject();
            callPostService("/register",param,function(data){
-               if(data==true) swal("회원가입이 완료 되었습니다!");
+               if(data===true) swal("회원가입이 완료 되었습니다!");
                else swal("회원가입실패");
            });
-       }
+            swal("가입하기");
+        }
 
     });
 
@@ -217,4 +209,31 @@ function callDuplicateNickname(data) {
         $("#nicknameAuth").val(0);
         return;
     }
+}
+
+// 내용 초기화 함수
+function clear(){
+    $("#registerForm").each(function(){
+        this.reset();
+    });
+
+/*
+   var authArray= document.querySelectorAll("auth");
+
+   for(var i=0;i<authArray.length;i++)
+       authArray[i].value=0;
+
+
+ */
+    //얘도 한번에 하는 장법이 있을텐데 잘 안됨..
+    $("#emailAuth").val(0);
+    $("#emailCheckAuth").val(0);
+    $("#passwordAuth").val(0);
+    $("#passwordCheckAuth").val(0);
+    $("#nicknameAuth").val(0);
+
+    $("#passwordFail").hide();
+    $("#passwordCheckFail").hide();
+    $("#validNickname").hide();
+    $("#btnNicknameCheck").show();
 }
