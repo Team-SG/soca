@@ -11,7 +11,6 @@ import stu.stonebeans.soca.vo.MailVO;
 @Service
 @AllArgsConstructor
 public class MailSBOImpl implements MailSBO {
-
     private JavaMailSender mailSender;
     private static final String FROM_ADDRESS = PropertyUtil.getProperty("spring.mail.username"); // application.properties 속성 불러오기
 
