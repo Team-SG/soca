@@ -46,6 +46,10 @@ public class StudentSBOImpl implements StudentSBO {
         else return false;
     }
 
+    /*
+        함수 : 회원가입
+        설명 :
+    */
     @Override
     public boolean register(StudentVO studentVO){
         StudentVO result=studentDAO.register(studentVO);
@@ -54,6 +58,10 @@ public class StudentSBOImpl implements StudentSBO {
         else return false;
     }
 
+    /*
+        함수 : 로그인
+        설명 : 사용자로부터 입력 받은 이메일과 패스워드로 인증 정보 확인
+    */
     @Override
     public ResultVO login(String email, String password) {
         StudentVO emailCheck = studentDAO.checkDuplicateEmail(email);
@@ -76,6 +84,10 @@ public class StudentSBOImpl implements StudentSBO {
         return result;
     }
 
+    /*
+        함수 : SHA256 암호화
+        설명 : 파라미터로 넘어온 password 값을 SHA256 방식으로 암호화 하여 리턴
+    */
     @Override
     public String encryptSHA256(String password) {
         String sha = "";
@@ -93,6 +105,4 @@ public class StudentSBOImpl implements StudentSBO {
         }
         return sha;
     }
-
-
 }

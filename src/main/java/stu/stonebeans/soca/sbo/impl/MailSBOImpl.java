@@ -16,7 +16,7 @@ public class MailSBOImpl implements MailSBO {
 
     /*
         함수 : 메일 발송
-        설명 :
+        설명 : 파라미터로 전달받은 email 주소로 메일 전송
     */
     @Override
     public void sendEmail(String email) {
@@ -31,7 +31,7 @@ public class MailSBOImpl implements MailSBO {
 
     /*
         함수 : 인증번호 전송용 메일 정보 생성
-        설명 :
+        설명 : 인증번호 전송 시 필요한 메일 정보 생성
     */
     public MailVO createMailVerificationCodeInfo(String email) {
         MailVO mailVO = new MailVO();
@@ -45,11 +45,11 @@ public class MailSBOImpl implements MailSBO {
 
     /*
         함수 : 임시 비밀번호 전송용 메일 정보 생성
-        설명 :
+        설명 : 임시 비밀번호 전송 시 필요한 메일 정보 생성
     */
     public MailVO createMailPasswordInfo(String email) {
         MailVO mailVO = new MailVO();
-        mailVO.setAddress(email + "@sogang.ac.kr"); // 나중에 이 부분 파라미터로 받은 email로 변경 필요
+        mailVO.setAddress(email + "@sogang.ac.kr"); // 파라미터로 받은 서강대 이메일 주소로 메일 전송
         mailVO.setTitle("SOCA 임시로 변경된 비밀번호입니다.");
         mailVO.setMessage("SOCA 임시로 변경된 비밀번호 안내드립니다.\n" +
                 "임시비밀번호는 " + getTempPassword() + " 입니다.\n" +
@@ -58,8 +58,8 @@ public class MailSBOImpl implements MailSBO {
     }
 
     /*
-        함수 : 랜덤 인증 번호 생성
-        설명 :
+        함수 : 랜덤 인증번호 생성
+        설명 : 영문 + 숫자 조합의 총 6자리 랜덤 인증번호 생성
     */
     @Override
     public String getTempVerificationCode() {
@@ -78,7 +78,7 @@ public class MailSBOImpl implements MailSBO {
 
     /*
         함수 : 랜덤 패스워드 생성
-        설명 :
+        설명 : 영문 4자 + 숫자 2자 + 특문 2자 총 8자리의 랜덤 패스워드 생성
     */
     @Override
     public String getTempPassword() {
