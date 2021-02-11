@@ -7,8 +7,11 @@ public interface MailSBO {
     // 메일 발송
     void sendEmail(String email);
 
-    // 메일 정보 생성
-    public MailVO createMailInfo(String email);
+    // 인증번호 전송 메일 정보 생성
+    public MailVO createMailVerificationCodeInfo(String email);
+
+    // 비밀번호 전송 메일 정보 생성
+    public MailVO createMailPasswordInfo(String email);
 
     // 랜덤 인증 번호 생성
     String getTempVerificationCode();

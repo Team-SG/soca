@@ -42,6 +42,9 @@ public class StudentController {
         return resultVO;
     }
 
+    // 인증번호 동일 여부 체크
+
+
     // 닉네임 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateNickname", method = RequestMethod.POST)
     public boolean checkDuplicateNickname(@RequestBody HashMap<String, String> map) {
