@@ -6,9 +6,6 @@
  */
 
 $(document).ready(function() {
-
-
-
     // invalid한 패스워드 입력 전에는 숨김
     $("#passwordFail").hide();
     $("#passwordCheckFail").hide();
@@ -165,6 +162,38 @@ $(document).ready(function() {
 
     });
 
+    // Login Button
+    $("#btnStudentLogin").click(function(event) {
+
+        if($("#loginEmail").val().length == 0) {
+            swal("이메일을 입력해주세요.");
+            return;
+        }
+        if($("#loginPassword").val().length == 0) {
+            swal("비밀번호를 입력해주세요.");
+            return;
+        }
+
+        var param = {
+            email : $("#loginEmail").val(),
+            password : $("#loginPassword").val()
+        };
+        callPostService("/login", param, function(data) {
+            if(data.status == -1) {
+                swal(data.msg);
+                return;
+            }
+            else {
+                window.location.replace("/");
+            }
+        });
+    });
+
+    $("#btnLoginClose").click(function(event) {
+        $("#loginForm").each(function(){
+            this.reset();
+        });
+    });
 });
 
 // 패스워드 유효성 체크
