@@ -6,8 +6,8 @@
     <style>
         .mypage-image {
             background-color: #eeeeee;
-            width: 150px;
-            height: 150px;
+            width: 143px;
+            height: 143px;
             border-radius: 10px;
             cursor: pointer;
         }
@@ -29,11 +29,10 @@
                     <div class="p-4 flex-grow-1 mypage-image">
                     </div>
                 </div>
-                <div class="p-2 ml-3 bd-highlight text-left w-50">
+                <div class="p-2 ml-3 bd-highlight text-left" style="width:450px">
                     <form id="myPageForm" name="myPageForm">
-                        <label for="myPageEmail" class="d-block">이메일</label>
                         <div class="input-group mb-3">
-                            <input type="text" id="myPageEmail" name="email" class="form-control" placeholder="이메일">
+                            <input type="text" id="myPageEmail" name="email" class="form-control" readonly>
                             <span class="input-group-text ml-2" id="myPageEmailAddon">@sogang.ac.kr</span>
                         </div>
                         <div class="input-group mb-3">
@@ -41,10 +40,15 @@
                         </div>
                         <div class="input-group">
                             <input type="text" id="myPagePassword" name="password" class="form-control" placeholder="패스워드">
-                            <input type="text" id="myPagePasswordCheck" name="password" class="form-control" placeholder="패스워드">
+                            <input type="text" id="myPagePasswordCheck" name="password" class="form-control" placeholder="패스워드 확인">
                         </div>
                     </form>
                 </div>
+            </div>
+            <hr/>
+            <div>
+                <button type="button" class="btn btn-sm btn-outline-danger mr-1">시간표 등록 / 수정</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">기술문의</button>
             </div>
         </div>
     </div>
