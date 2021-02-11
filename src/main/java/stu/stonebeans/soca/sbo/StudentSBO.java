@@ -17,6 +17,6 @@ public interface StudentSBO {
     // 로그인
     ResultVO login(String email, String password);
 
-    //비밀번호 SHA256 암호화
+    // 비밀번호 SHA256 암호화
     String encryptSHA256(String password);
 }

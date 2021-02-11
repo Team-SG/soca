@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MailVO {
-    private String address;
-    private String title;
-    private String message;
+    private String address; // 보낼 이메일 주소
+    private String title; // 제목
+    private String message; // 내용
 }
