@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <style>
+        .mypage-image {
+            background-color: #eeeeee;
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<div layout:fragment="content">
+    <div class="toast show shadow-none mt-3">
+        <div class="toast-header">
+            <strong class="mr-auto">마이페이지</strong>
+            <small>
+                <button type="button" id="btnSave" class="btn btn-outline-primary btn-sm font-weight-normal mt-1 mb-1">
+                    수정
+                </button>
+            </small>
+        </div>
+        <div class="toast-body">
+            <div class="d-flex bd-highlight p-3">
+                <div class="p-2 bd-highlight">
+                    <div class="p-4 flex-grow-1 mypage-image">
+                    </div>
+                </div>
+                <div class="p-2 ml-3 bd-highlight text-left w-50">
+                    <form id="myPageForm" name="myPageForm">
+                        <label for="myPageEmail" class="d-block">이메일</label>
+                        <div class="input-group mb-3">
+                            <input type="text" id="myPageEmail" name="email" class="form-control" placeholder="이메일">
+                            <span class="input-group-text ml-2" id="myPageEmailAddon">@sogang.ac.kr</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" id="myPageNickname" name="nickname" class="form-control" placeholder="닉네임">
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="myPagePassword" name="password" class="form-control" placeholder="패스워드">
+                            <input type="text" id="myPagePasswordCheck" name="password" class="form-control" placeholder="패스워드">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
