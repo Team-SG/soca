@@ -14,4 +14,6 @@ public interface StudentDAO {
     // register
     public StudentVO register(StudentVO studentVO);
 
+    // login
+    public String login(String email);
 }
