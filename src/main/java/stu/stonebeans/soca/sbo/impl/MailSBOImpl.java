@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import stu.stonebeans.soca.config.PropertyUtil;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.vo.MailVO;
+import stu.stonebeans.soca.vo.ResultVO;
 
 @Service
 @AllArgsConstructor
@@ -19,14 +20,24 @@ public class MailSBOImpl implements MailSBO {
         설명 : 파라미터로 전달받은 email 주소로 메일 전송
     */
     @Override
-    public void sendEmail(String email) {
+    public ResultVO sendEmail(String email) {
         MailVO mailVO = createMailVerificationCodeInfo(email);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailVO.getAddress());
         message.setFrom(FROM_ADDRESS);
         message.setSubject(mailVO.getTitle());
         message.setText(mailVO.getMessage());
-        mailSender.send(message);
+
+        ResultVO resultVO = new ResultVO();
+        try {
+            mailSender.send(message);
+            resultVO.setStatus(1);
+            resultVO.setMsg("인증번호 전송이 완료되었습니다.");
+        } catch(Exception err) {
+            resultVO.setStatus(-1);
+            resultVO.setMsg("이메일 전송에 실패하였습니다.\n" + err.getMessage());
+        }
+        return resultVO;
     }
 
     /*

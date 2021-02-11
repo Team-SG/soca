@@ -27,19 +27,14 @@ public class StudentController {
     // 이메일 중복 여부 확인 및 인증 메일 발송
     @RequestMapping(value = "/sendAuthEmail", method = RequestMethod.POST)
     public ResultVO sendAuthEmail(@RequestBody HashMap<String, String> map) {
-        ResultVO resultVO = new ResultVO();
         String email = map.get("email");
 
         // 이메일 중복 여부 체크를 통과하였을 경우, 인증 메일 발송
         if(studentSBO.checkDuplicateEmail(email) == true) {
-            mailSBO.sendEmail(email);
-            resultVO.setStatus(1);
-            resultVO.setMsg("인증번호 전송이 완료되었습니다.");
+            return mailSBO.sendEmail(email);
         } else {
-            resultVO.setStatus(-1);
-            resultVO.setMsg("이미 사용 중인 이메일 입니다.");
+            return new ResultVO(-1, "이미 사용 중인 이메일입니다.");
         }
-        return resultVO;
     }
 
     // 인증번호 동일 여부 체크
