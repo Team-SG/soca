@@ -9,6 +9,7 @@ import stu.stonebeans.soca.vo.MailVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class StudentController {
 
     // 이메일 중복 여부 확인 및 인증 메일 발송
     @RequestMapping(value = "/sendAuthEmail", method = RequestMethod.POST)
-    public ResultVO sendAuthEmail(@RequestBody HashMap<String, String> map) {
+    public ResultVO sendAuthEmail(HttpServletRequest httpServletRequest, @RequestBody HashMap<String, String> map) {
         String email = map.get("email");
 
         // 이메일 중복 여부 체크를 통과하였을 경우, 인증 메일 발송
