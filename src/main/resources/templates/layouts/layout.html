@@ -47,20 +47,22 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="loginModalLabel">로그인</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="btnLoginClose" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body w-75 m-auto">
-                    <div class="input-group mt-3 mb-3">
-                        <input type="text" class="form-control" placeholder="이메일">
-                        <span class="input-group-text ml-2">@sogang.ac.kr</span>
-                    </div>
-                    <input type="password" class="form-control mb-3" placeholder="패스워드">
+                    <form id="loginForm" name="loginForm">
+                        <div class="input-group mt-3 mb-3">
+                            <input type="text" id="loginEmail" class="form-control" placeholder="이메일">
+                            <span class="input-group-text ml-2">@sogang.ac.kr</span>
+                        </div>
+                        <input type="password" id="loginPassword" class="form-control mb-3" placeholder="패스워드">
+                    </form>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <button type="button" class="btn btn-secondary font-weight-normal">회원정보찾기</button>
-                    <button type="button" class="btn btn-primary font-weight-normal">로그인</button>
+                    <button type="button" id="btnStudentLogin" class="btn btn-primary font-weight-normal">로그인</button>
                 </div>
             </div>
         </div>

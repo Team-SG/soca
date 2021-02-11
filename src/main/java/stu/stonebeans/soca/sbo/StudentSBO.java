@@ -1,5 +1,6 @@
 package stu.stonebeans.soca.sbo;
 
+import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
 public interface StudentSBO {
@@ -12,4 +13,10 @@ public interface StudentSBO {
 
     // 회원가입
     boolean register(StudentVO studentVO);
+
+    // 로그인
+    ResultVO login(String email, String password);
+
+    //비밀번호 SHA256 암호화
+    String encryptSHA256(String password);
 }

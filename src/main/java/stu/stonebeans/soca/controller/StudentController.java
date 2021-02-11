@@ -58,4 +58,12 @@ public class StudentController {
     }
 
    */
+
+    // 로그인
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResultVO login(@RequestBody HashMap<String, String> map) {
+        String email = map.get("email");
+        String password = map.get("password");
+        return studentSBO.login(email, password);
+    }
 }
