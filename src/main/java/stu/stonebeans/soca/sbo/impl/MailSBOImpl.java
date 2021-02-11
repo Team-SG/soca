@@ -21,7 +21,7 @@ public class MailSBOImpl implements MailSBO {
     */
     @Override
     public void sendEmail(String email) {
-        MailVO mailVO = createMailInfo(email);
+        MailVO mailVO = createMailVerificationCodeInfo(email);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailVO.getAddress());
         message.setFrom(FROM_ADDRESS);
@@ -31,17 +31,30 @@ public class MailSBOImpl implements MailSBO {
     }
 
     /*
-        함수 : 메일 정보 생성
+        함수 : 인증번호 전송용 메일 정보 생성
         설명 :
     */
-    public MailVO createMailInfo(String email) {
+    public MailVO createMailVerificationCodeInfo(String email) {
         MailVO mailVO = new MailVO();
-        mailVO.setAddress("nuwonjason@sogang.ac.kr"); // 나중에 이 부분 파라미터로 받은 email로 변경 필요
+        mailVO.setAddress(email + "@sogang.ac.kr"); // 파라미터로 받은 서강대 이메일 주소로 메일 전송
         mailVO.setTitle("SOCA 회원가입 인증번호입니다.");
         mailVO.setMessage("SOCA 회원가입 인증번호 안내드립니다.\n" +
                 "인증번호는 " +getTempVerificationCode() + " 입니다.\n" +
-                "임시비밀번호는 " + getTempPassword() + " 입니다.\n" +
                 "회원가입 창에서 안내해드린 6자리 인증번호를 입력하시면 됩니다.");
+        return mailVO;
+    }
+
+    /*
+        함수 : 임시 비밀번호 전송용 메일 정보 생성
+        설명 :
+    */
+    public MailVO createMailPasswordInfo(String email) {
+        MailVO mailVO = new MailVO();
+        mailVO.setAddress(email + "@sogang.ac.kr"); // 나중에 이 부분 파라미터로 받은 email로 변경 필요
+        mailVO.setTitle("SOCA 임시로 변경된 비밀번호입니다.");
+        mailVO.setMessage("SOCA 임시로 변경된 비밀번호 안내드립니다.\n" +
+                "임시비밀번호는 " + getTempPassword() + " 입니다.\n" +
+                "안내해드린 8자리 비밀번호로 로그인하시면 됩니다.");
         return mailVO;
     }
 

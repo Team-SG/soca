@@ -2,31 +2,26 @@ package stu.stonebeans.soca;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import stu.stonebeans.soca.config.PropertyUtil;
 import stu.stonebeans.soca.vo.MailVO;
 
 public class MailTest {
 
-
+    private JavaMailSender mailSender;
+    private static final String FROM_ADDRESS = PropertyUtil.getProperty("spring.mail.username"); // application.properties 속성 불러오기
 
     public static void main(String[] args) {
+
+
+
         String testVerificationCode = getTempVerificationCode();
         String testPassword = getTempPassword();
         System.out.println(testVerificationCode + "\n" + testPassword);
 
-        MailVO mailVO = new MailVO();
-        mailVO.setAddress("nuwonjason@sogang.ac.kr");
-        mailVO.setTitle("SOCA 회원가입 인증번호입니다.");
-        mailVO.setMessage("SOCA 회원가입 인증번호 안내드립니다.\n" +
-                "인증번호는 " + testVerificationCode + " 입니다.\n" +
-                "임시비밀번호는 " + testPassword + " 입니다.\n" +
-                "회원가입 창에서 안내해드린 6자리 인증번호를 입력하시면 됩니다.");
-
-        mailSend(mailVO);
+        //mailSend();
     }
 
     public static void mailSend(MailVO mailVO){
-
-        private JavaMailSender mailSender;
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailVO.getAddress());
@@ -34,7 +29,18 @@ public class MailTest {
         message.setSubject(mailVO.getTitle());
         message.setText(mailVO.getMessage());
 
-        mailSender.send(message);
+        //mailSender.send(message);
+    }
+
+    public MailVO createMailInfo(String email) {
+        MailVO mailVO = new MailVO();
+        mailVO.setAddress("nuwonjason@sogang.ac.kr"); // 나중에 이 부분 파라미터로 받은 email로 변경 필요
+        mailVO.setTitle("SOCA 회원가입 인증번호입니다.");
+        mailVO.setMessage("SOCA 회원가입 인증번호 안내드립니다.\n" +
+                "인증번호는 " +getTempVerificationCode() + " 입니다.\n" +
+                "임시비밀번호는 " + getTempPassword() + " 입니다.\n" +
+                "회원가입 창에서 안내해드린 6자리 인증번호를 입력하시면 됩니다.");
+        return mailVO;
     }
 
     public static String getTempVerificationCode(){
