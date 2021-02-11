@@ -15,11 +15,12 @@
         SELECT * FROM student WHERE nickname = #{nickname}
     </select>
 
-    <!-- 학번 중복 여부 체크-->
-    <select id="checkDuplicateStudentID"
-            parameterType="string"
+    <!--회원가입-->
+    <select id="register"
+            parameterType="stu.stonebeans.soca.vo.StudentVO"
             resultType="stu.stonebeans.soca.vo.StudentVO">
-        SELECT * FROM student WHERE studentID = #{studentID}
+        INSERT INTO student
+        VALUES (#{email},#{password},#{nickname},GETDATE(),'Y',GETDATE());
     </select>
 
 </mapper>
