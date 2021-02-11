@@ -87,21 +87,21 @@
                         <div class="input-group mb-3">
                             <button type="button" id="btnSendAuth" class="btn btn-outline-secondary font-weight-normal mr-2">인증발송</button>
                             <input type="password" id="registerAuthCode" name="authCode" class="form-control" placeholder="인증번호">
-                            <input type="hidden" id="emailAuth" value="0"/>
+                            <input type="hidden" id="emailAuth" class="auth" value="0"/>
                             <button type="button" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
-                            <input type="hidden" id="emailCheckAuth" value="0"/>
+                            <input type="hidden" id="emailCheckAuth" class="auth" value="0"/>
                         </div>
                             <input type="password" id="registerPassword" name="password" class="form-control" placeholder="패스워드(영문+숫자+특수문자 조합 8자~20자)" maxlength="20">
-                            <div id="passwordFail" class="small mb-3" style="color:red">패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다.</div>
-                            <input type="hidden" id="passwordAuth" value="0" />
+                            <span id="passwordFail" class="small mb-3" style="color:red; text-indent:1em">패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다.</span>
+                            <input type="hidden" id="passwordAuth" class="auth" value="0" />
                             <input type="password" id="registerPasswordCheck" name="passwordCheck" class="form-control mt-3" placeholder="패스워드확인" maxlength="20">
-                            <div id="passwordCheckFail" class="small mb-3" style="color:red">패스워드가 일치하지 않습니다.</div>
-                            <input type="hidden" id="passwordCheckAuth" value="0" />
+                            <span id="passwordCheckFail" class="small mb-3" style="color:red; text-indent:1em">패스워드가 일치하지 않습니다.</span>
+                            <input type="hidden" id="passwordCheckAuth" class="auth" value="0" />
                         <div class="input-group mt-3 mb-3">
                             <input type="text" id="registerNickname" name="nickname" class="form-control" placeholder="닉네임">
                             <button type="button" id="btnNicknameCheck" class="btn btn-outline-primary font-weight-normal ml-2" >중복확인</button>
                             <img src="images/check.png" id="validNickname" style="width:12%;">
-                            <input type="hidden" id="nicknameAuth" value="0" />
+                            <input type="hidden" id="nicknameAuth" class="auth" value="0" />
                         </div>
                     </form>
                 </div>
