@@ -1,11 +1,12 @@
 package stu.stonebeans.soca.sbo;
 
 import stu.stonebeans.soca.vo.MailVO;
+import stu.stonebeans.soca.vo.ResultVO;
 
 public interface MailSBO {
 
     // 메일 발송
-    void sendEmail(String email);
+    ResultVO sendEmail(String email);
 
     // 인증번호 전송 메일 정보 생성
     public MailVO createMailVerificationCodeInfo(String email);
