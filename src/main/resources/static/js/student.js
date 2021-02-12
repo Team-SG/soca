@@ -112,6 +112,7 @@ function login() {
         }
     });
 }
+
 // 회원가입 폼 초기화
 function initRegisterForm() {
     // invalid한 패스워드 입력 전에는 숨김
