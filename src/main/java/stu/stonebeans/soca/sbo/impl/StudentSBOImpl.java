@@ -7,11 +7,9 @@ import stu.stonebeans.soca.sbo.StudentSBO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
+import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentSBOImpl implements StudentSBO {
@@ -73,11 +71,9 @@ public class StudentSBOImpl implements StudentSBO {
         }
 
         String passwordCheck = studentDAO.login(email);
-
         if (passwordCheck.equals(encryptSHA256(password))) {
             result.setStatus(1);
-        }
-        else {
+        } else {
             result.setStatus(-1);
             result.setMsg("잘못된 비밀번호입니다.");
         }

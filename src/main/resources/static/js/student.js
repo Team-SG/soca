@@ -9,6 +9,7 @@ $(document).ready(function() {
 
     // 회원가입 폼 초기화
     initRegisterForm();
+    initLoginForm();
 
     // [인증발송] 버튼 클릭 이벤트
     $("#btnSendAuth").click(function (event) {
@@ -66,10 +67,25 @@ $(document).ready(function() {
             this.reset();
         });
     });
+
+    // [로그아웃] 버튼 클릭 이벤트
+    $("#btnHLogout").click(function(event) {
+        callPostService("/logout", null, function(data){
+            window.location.reload(true);
+        });
+    });
+
+    $("#btnSearchInfo").click(function(event) {
+       searchInfo();
+    });
 });
 
 
 // ================================ Custom Function ================================
+
+function initLoginForm() {
+    $("#btnLoginAuthCheck").hide();
+}
 
 // 로그인
 function login() {
@@ -310,4 +326,24 @@ function callDuplicateNickname(data) {
         $("#nicknameAuth").val(0);
         return;
     }
+}
+
+//회원 정보 찾기
+function searchInfo() {
+
+    if($("#loginEmail").val().length == 0) {
+        swal("이메일을 입력해주세요.");
+        return;
+    }
+
+    var param = {
+        email : $("#loginEmail").val()
+    };
+
+    callPostService("/checkStudentInfo", param , function(data) {
+        swal(data.msg);
+        $("#loginAuthCode").attr("type", "text");
+        $("#btnLoginAuthCheck").show();
+        //document.getElementsByName("loginAuthCode")[0].setAttribute("type", "text");
+    });
 }
