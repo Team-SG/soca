@@ -51,19 +51,23 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <form id="loginForm" name="loginForm">
                 <div class="modal-body w-75 m-auto">
-                    <form id="loginForm" name="loginForm">
                         <div class="input-group mt-3 mb-3">
                             <input type="text" id="loginEmail" class="form-control" placeholder="이메일">
                             <span class="input-group-text ml-2">@sogang.ac.kr</span>
                         </div>
                         <input type="password" id="loginPassword" class="form-control mb-3" placeholder="패스워드">
-                    </form>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <button type="button" id="btnSearchInfo" class="btn btn-secondary font-weight-normal">회원정보찾기</button>
+                    <div>
+                        <button type="button" id="btnSearchInfo" class="btn btn-secondary font-weight-normal">회원정보찾기</button>
+                        <input type="hidden" id="loginAuthCode" name="authCode" class="form-control d-inline-block ml-2" placeholder="인증번호" style="width: 150px; height: 36px; padding-top: 3px;">
+                        <button type="button" id="btnLoginAuthCheck" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
+                    </div>
                     <button type="button" id="btnLogin" class="btn btn-primary font-weight-normal">로그인</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

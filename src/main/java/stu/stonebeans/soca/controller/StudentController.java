@@ -1,17 +1,14 @@
 package stu.stonebeans.soca.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
-import stu.stonebeans.soca.vo.MailVO;
 import stu.stonebeans.soca.vo.ResultVO;
-import stu.stonebeans.soca.vo.StudentVO;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class StudentController {
@@ -57,9 +54,41 @@ public class StudentController {
 
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResultVO login(@RequestBody HashMap<String, String> map) {
+    public ResultVO login(HttpSession session, @RequestBody HashMap<String, String> map) {
         String email = map.get("email");
         String password = map.get("password");
-        return studentSBO.login(email, password);
+
+        ResultVO result = studentSBO.login(email, password);
+        if(result.getStatus() == 1)
+            session.setAttribute("email", email);
+
+        return result;
+    }
+
+    // 로그아웃
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public boolean logout(HttpSession session) {
+        session.removeAttribute("email");
+        return true;
+    }
+
+    // 회원 정보 조회
+    @RequestMapping(value = "checkStudentInfo", method = RequestMethod.POST)
+    public ResultVO checkStudentInfo(@RequestBody HashMap<String, String> map) {
+        boolean check = studentSBO.checkDuplicateEmail(map.get("email"));
+        ResultVO result = new ResultVO();
+
+        if(check == true)
+        {
+            result.setStatus(-1);
+            result.setMsg("존재하지 않는 이메일입니다.");
+        }
+        else
+        {
+            result.setStatus(1);
+            mailSBO.sendEmail(map.get("email"));
+            result.setMsg("인증번호 전송이 완료되었습니다.");
+        }
+        return result;
     }
 }
