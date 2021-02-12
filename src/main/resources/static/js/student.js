@@ -78,6 +78,23 @@ $(document).ready(function() {
     $("#btnSearchInfo").click(function(event) {
        searchInfo();
     });
+
+
+    //일단은 작성하고 나중에 함수로 바꾸겠습니다
+    //약관동의 창을 닫았을 떄
+    $("#btnAgreementClose").click(function(event){
+        document.getElementById("checkAgreement").checked=false;
+        $("#btnNext").attr("disabled",true);
+    });
+
+    $("#checkAgreement").click(function(event){
+        if(document.getElementById("checkAgreement").checked==true)
+            $("#btnNext").removeAttr("disabled");
+        else
+            $("#btnNext").attr("disabled",true);
+    });
+
+
 });
 
 
@@ -116,6 +133,7 @@ function login() {
 // 회원가입 폼 초기화
 function initRegisterForm() {
     // invalid한 패스워드 입력 전에는 숨김
+    $("#btnNext").attr("disabled",true);
     $("#passwordFail").hide();
     $("#passwordCheckFail").hide();
     $("#validNickname").hide();
