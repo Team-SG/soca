@@ -17,4 +17,10 @@ public class IndexController {
     public String myPage() {
         return "myPage";
     }
+
+    // 시간표 등록/수정 페이지 이동
+    @RequestMapping(value = "/schedule")
+    public String schedule() {
+        return "schedule";
+    }
 }

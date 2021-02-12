@@ -6,6 +6,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
     <style>
         html, body {
             margin: 0;
@@ -36,11 +37,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 <script src="js/common.js" type="text/javascript"></script>
 <script src="js/student.js" type="text/javascript"></script>
 <div class="layoutContainer">
     <header th:replace="fragments/header :: headerFragment"></header>
-    <div layout:fragment="content" class="layoutContent mt-2"></div>
+    <div layout:fragment="content" class="layoutContent mt-2">
+
+    </div>
     <!-- Login Modal -->
     <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
