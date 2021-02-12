@@ -32,7 +32,7 @@
                 </li>
             </ul>
             <!-- 로그인을 하지 않았을 때 Enable-->
-            <button th:if="${session.email == null}" type="button" id="btnHRegister" class="btn btn-secondary btn-sm font-weight-normal mr-2" data-toggle="modal" data-target="#register">
+            <button th:if="${session.email == null}" type="button" id="btnHRegister" class="btn btn-secondary btn-sm font-weight-normal mr-2" data-toggle="modal" data-target="#serviceAgreement">
                 회원가입
             </button>
             <button th:if="${session.email == null}" type="button" id="btnHLogin" class="btn btn-danger btn-sm font-weight-normal mr-2" data-toggle="modal" data-target="#login">
