@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+<script>
+    function noAuth() {
+        swal({
+            text: "로그인이 필요합니다.",
+            closeOnClickOutside: false
+        }).then((value) => {
+            location.href = "/index";
+        });
+    }
+</script>
+</head>
+<body onload="noAuth();">
+</body>
+</html>
