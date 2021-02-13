@@ -66,6 +66,8 @@ $(document).ready(function() {
         $("#loginForm").each(function(){
             this.reset();
         });
+        $("#loginAuthCode").attr("type", "hidden");
+        $("#btnLoginAuthCheck").hide();
     });
 
     // [로그아웃] 버튼 클릭 이벤트
@@ -75,6 +77,7 @@ $(document).ready(function() {
         });
     });
 
+    // 회원 정보 찾기 클릭 이벤트
     $("#btnSearchInfo").click(function(event) {
        searchInfo();
     });
@@ -93,7 +96,6 @@ $(document).ready(function() {
         else
             $("#btnNext").attr("disabled",true);
     });
-
 
 });
 
@@ -361,8 +363,9 @@ function searchInfo() {
 
     callPostService("/checkStudentInfo", param , function(data) {
         swal(data.msg);
-        $("#loginAuthCode").attr("type", "text");
-        $("#btnLoginAuthCheck").show();
-        //document.getElementsByName("loginAuthCode")[0].setAttribute("type", "text");
+        if(data.status != -1) {
+            $("#loginAuthCode").attr("type", "text");
+            $("#btnLoginAuthCheck").show();
+        }
     });
 }
