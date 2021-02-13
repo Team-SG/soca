@@ -8,26 +8,21 @@
     <div class="toast show shadow-none mt-3">
         <div class="toast-header">
             <strong class="mr-auto mt-2 mb-2">시간표 등록 / 수정</strong>
+            <button type="button" id="btnSave" class="btn btn-outline-danger btn-sm font-weight-normal mt-1 mb-1">저장</button>
         </div>
         <div class="toast-body">
             <form>
-                <div class="form-group">
-                    <select id="selectYear" class="form-control d-inline-block w-auto mr-1">
-                        <option>2021년도 1학기</option>
+                <div class="form-group input-group-sm btn-group-sm mt-2 ml-2">
+                    <select id="selectYear" class="form-control d-inline-block mr-1" style="width: 130px">
+                        <option>수강년도/학기</option>
                     </select>
-                    <select id="selectMajor" class="form-control d-inline-block w-auto mr-1">
-                        <option>학과선택</option>
+                    <select id="selectMajor" class="form-control d-inline-block mr-1" style="width: 200px">
+                        <option>전공</option>
                     </select>
-                    <input type="text" name="" class="form-control d-inline-block w-auto mr-3">
-                    <button type="button" id="btnInsert" class="btn btn-outline-primary align-top mr-1">
-                        추가
-                    </button>
-                    <button type="button" id="btnUpdate" class="btn btn-outline-primary align-top mr-1">
-                        수정
-                    </button>
-                    <button type="button" id="btnDelete" class="btn btn-outline-primary align-top mr-1">
-                        삭제
-                    </button>
+                    <input type="text" id="subject" name="subject" class="form-control d-inline-block mr-1" style="width: 200px">
+                    <!-- Button Group -->
+                    <button type="button" id="btnInsert" class="btn btn-outline-primary align-top mr-1">추가</button>
+                    <button type="button" id="btnDelete" class="btn btn-outline-primary align-top mr-1">삭제</button>
                 </div>
                 <!-- 그리드 -->
                 <div id="grid"></div>
