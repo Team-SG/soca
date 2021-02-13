@@ -363,8 +363,9 @@ function searchInfo() {
 
     callPostService("/checkStudentInfo", param , function(data) {
         swal(data.msg);
-        $("#loginAuthCode").attr("type", "text");
-        $("#btnLoginAuthCheck").show();
-        //document.getElementsByName("loginAuthCode")[0].setAttribute("type", "text");
+        if(data.status == 1) {
+            $("#loginAuthCode").attr("type", "text");
+            $("#btnLoginAuthCheck").show();
+        }
     });
 }
