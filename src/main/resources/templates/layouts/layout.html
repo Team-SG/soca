@@ -76,33 +76,6 @@
             </div>
         </div>
     </div>
-    <!-- Service Agreement Modal -->
-    <div class="modal fade" id="serviceAgreement" tabindex="-1" role="dialog" aria-labelledby="agreementModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <br>
-                    <h5 class="modal-title" id="agreementModalLabel">약관 동의</h5>
-                    <button type="button" id="btnAgreementClose" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body w-75 m-auto">
-                    <form id="agreementForm" name="agreementForm">
-                        <textarea class="form-control">이용약관을 적자
-
-                        </textarea><br>
-                        <!-- 얘를 센터에 두고싶고-->
-                        <input type="checkbox" id="checkAgreement" name="agreement">  상기내용을 확인하였고 동의합니다<br>
-                    </form>
-                </div>
-                <div class="modal-footer" align="right">
-                    <!--이걸 일단 바꿔야할 방법이 있어야할 듯 창을 유지하면서-->
-                    <button type="button" id="btnNext" class="btn btn-primary font-weight-normal" data-toggle="modal" data-target="#register">다음</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Register Modal -->
     <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -116,7 +89,12 @@
                 </div>
                 <div class="modal-body w-75 m-auto">
                     <form id="registerForm" name="registerForm">
-                        <div class="input-group mt-3 mb-3">
+                        <div align="center">
+                            <textarea class="form-control">이용약관을 적자
+
+                             </textarea>
+                            <input type="checkbox" id="checkAgreement" class="mt-2" name="agreement">상기내용을 확인하였고 동의합니다<br></div>
+                        <div class="input-group mt-3 mb-3" >
                             <input type="text" id="registerEmail" name="email" class="form-control" placeholder="이메일">
                             <span class="input-group-text ml-2" id="basic-addon2">@sogang.ac.kr</span>
                         </div>
@@ -124,14 +102,15 @@
                             <button type="button" id="btnSendAuth" class="btn btn-outline-secondary font-weight-normal mr-2">인증발송</button>
                             <input type="password" id="registerAuthCode" name="authCode" class="form-control" placeholder="인증번호">
                             <input type="hidden" id="emailAuth" class="auth" value="0"/>
-                            <button type="button" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
+                            <button type="button" id="btnAuthCodeCheck" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
+                            <img src="images/check.png" id="validAuthCode" style="width:12%;">
                             <input type="hidden" id="emailCheckAuth" class="auth" value="0"/>
                         </div>
                             <input type="password" id="registerPassword" name="password" class="form-control" placeholder="패스워드(영문+숫자+특수문자 조합 8자~20자)" maxlength="20">
-                            <span id="passwordFail" class="small mb-3" style="color:red; text-indent:1em;">패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다.</span>
+                            <div type="hidden" id="passwordFail" class="small mb-3" style="color:red; text-indent:1em;">패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다.</div>
                             <input type="hidden" id="passwordAuth" class="auth" value="0" />
                             <input type="password" id="registerPasswordCheck" name="passwordCheck" class="form-control mt-3" placeholder="패스워드확인" maxlength="20">
-                            <span id="passwordCheckFail" class="small mb-3" style="color:red; text-indent:1em;">패스워드가 일치하지 않습니다.</span>
+                            <div type="hidden" id="passwordCheckFail" class="small mb-3" style="color:red; text-indent:1em;">패스워드가 일치하지 않습니다.</div>
                             <input type="hidden" id="passwordCheckAuth" class="auth" value="0" />
                         <div class="input-group mt-3 mb-3">
                             <input type="text" id="registerNickname" name="nickname" class="form-control" placeholder="닉네임">
