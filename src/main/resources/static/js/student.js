@@ -21,9 +21,9 @@ $(document).ready(function() {
         checkAuthCode();
     });
 
-    /*$("#registerAuthCode").change(function (event){
+    $("#registerAuthCode").change(function (event){
         changeAuthCode();
-    });*/
+    });
 
     // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
     $("#registerPassword").focusout(function (event) {
@@ -180,31 +180,21 @@ function checkAuthCode(){
         swal("인증번호를 입력해주세요.");
         return;
     }
-
+    swal("여기까지");
     var param = {
         AuthCode : $("#registerAuthCode").val()
     };
     callPostService("/checkAuthCode", param, "callAuthCode");
-    /*if(session.getAttribute(verificationCode).equals($("#registerAuthCode").val())){
-
-    }*/
-
-    //session으로부터 받아내기
-    //$("#registerAuthCode").val()랑 session의 코드가 같으면
-    //$("#emailCheckAuth").val(1);
-    //$("#btnAuthCodeCheck").hide();
-    //$("#validAuthCode").show();
 }
-/*
+
 // 인증완료이후 인증번호를 수정하려고 할 떄
 function changeAuthCode(){
-    //$("#emailCheckAuth").val(0);
-    //$("#btnAuthCodeCheck").show();
-    //$("#validAuthCode").hide();
+    $("#emailCheckAuth").val(0);
+    $("#btnAuthCodeCheck").show();
+    $("#validAuthCode").hide();
 }
 
 
- */
 // 닉네임 중복 체크
 function checkDuplicateNickname() {
     // 닉네임을 입력하지 않고 [중복확인] 버튼을 눌렀을 경우
@@ -304,7 +294,7 @@ function register() {
         swal("약관을 동의하셔야 회원가입을 진행할 수 있습니다.");
         $("#checkAgreement").focus();
     }
-    /*else if(email==="0"){
+    else if(email==="0"){
          if($("#registerEmail").val().length===0){
              swal("이메일을 입력해주세요.");
              $("#registerEmail").focus();
@@ -314,7 +304,7 @@ function register() {
              $("#btnSendAuth").focus();
          }
      }
-     else if(emailCode==="0"){
+    else if(emailCheck==="0"){
          if($("#registerAuthCode").val().length===0){
              swal("인증번호를 입력해주세요.");
              $("#registerAuthCode").focus();
@@ -324,7 +314,7 @@ function register() {
              $("#btnAuthCodeCheck").focus();
          }
      }
-     */else if(password==="0"){
+    else if(password==="0"){
         swal("패스워드를 올바르게 입력해주세요.");
         $("#registerPassword").focus();
     }
@@ -364,12 +354,12 @@ function register() {
 // 이메일 중복 확인 콜백
 function callSendAuthEmail(data) {
     swal(data.msg);
-    //if(data.status==1) $("#emailAuth").val(1);
+    if(data.status==1) $("#emailAuth").val(1);
 }
 
 // 인증번호 동일여부 확인 콜백
 function callAuthCode(data){
-    if(data == true){
+    if(data==true){
         swal('인증번호가 확인되었습니다.');
         $("#btnAuthCodeCheck").hide();
         $("#validAuthCode").show();

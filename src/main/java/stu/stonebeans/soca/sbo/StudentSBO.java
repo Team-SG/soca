@@ -8,9 +8,6 @@ public interface StudentSBO {
     // 이메일 중복 여부 체크
     boolean checkDuplicateEmail(String email);
 
-    // 인증번호 동일 확인
-    boolean checkAuthCode(String code);
-
     // 닉네임 중복 확인
     boolean checkDuplicateNickname(String nickname);
 

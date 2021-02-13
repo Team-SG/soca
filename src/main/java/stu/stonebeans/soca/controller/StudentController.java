@@ -38,8 +38,8 @@ public class StudentController {
     // 인증번호 동일 여부 체크
     @RequestMapping(value = "/checkAuthCode", method = RequestMethod.POST)
     public boolean checkAuthCode(HttpSession session, @RequestBody HashMap<String, String> map){
-        String verificationCode = (String)session.getAttribute("verificationCode");
-        return studentSBO.checkAuthCode(verificationCode);
+        String verificationCode= (String)session.getAttribute("verificationCode");
+        return map.get("AuthCode").equals(verificationCode);
     }
 
     // 닉네임 중복 여부 체크

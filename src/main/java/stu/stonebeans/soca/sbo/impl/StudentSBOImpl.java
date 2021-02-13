@@ -31,21 +31,6 @@ public class StudentSBOImpl implements StudentSBO {
     }
 
     /*
-        함수 : 인증번호 동일 여부 체크
-        설명 :
-     */
-    @Override
-    public boolean checkAuthCode(String code) {
-
-
-
-        // 임시로
-        return true;
-    }
-
-
-
-    /*
         함수 : 닉네임 중복 여부 체크
         설명 : Student 테이블에 해당 닉네임을 가진 사용자가 존재하는지 확인
     */
