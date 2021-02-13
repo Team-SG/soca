@@ -11,6 +11,15 @@ public class IndexController {
     public String home() {
         return "index";
     }
+    @RequestMapping("/index")
+    public String index() {
+        return "index";
+    }
+
+    @RequestMapping("/noAuth")
+    public String noAuth() {
+        return "noAuth";
+    }
 
     // 마이 페이지 이동
     @RequestMapping(value = "/myPage")

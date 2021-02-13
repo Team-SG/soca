@@ -93,8 +93,6 @@ $(document).ready(function() {
         else
             $("#btnNext").attr("disabled",true);
     });
-
-
 });
 
 
