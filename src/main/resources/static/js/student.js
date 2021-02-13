@@ -62,10 +62,14 @@ $(document).ready(function() {
         login();
     });
 
+    // [로그인] 에서 X 버튼 클릭 이벤트
     $("#btnLoginClose").click(function(event) {
         $("#loginForm").each(function(){
             this.reset();
         });
+        // 인증번호 입력 칸 사라지게.
+        $("#loginAuthCode").attr("type", "hidden");
+        $("#btnLoginAuthCheck").hide();
     });
 
     // [로그아웃] 버튼 클릭 이벤트
