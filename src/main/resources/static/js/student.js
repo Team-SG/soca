@@ -15,7 +15,7 @@ $(document).ready(function() {
     $("#btnSendAuth").click(function (event) {
         sendAuthEmail();
     });
-
+/*
     //인증번호 [확인]버튼을 클릭했을 때
     $("#btnAuthCodeCheck").click(function (event) {
         checkAuthCode();
@@ -24,7 +24,7 @@ $(document).ready(function() {
     $("#registerAuthCode").change(function (event){
         changeAuthCode();
     });
-
+*/
     // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
     $("#registerPassword").focusout(function (event) {
         checkPasswordFirst();
@@ -181,7 +181,7 @@ function sendAuthEmail() {
     };
     callPostService("/sendAuthEmail", param, "callSendAuthEmail");
 }
-
+/*
 // 인증번호를 체크하는 함수
 function checkAuthCode(){
     //session으로부터 받아내기
@@ -198,6 +198,8 @@ function changeAuthCode(){
     //$("#validAuthCode").hide();
 }
 
+
+ */
 // 닉네임 중복 체크
 function checkDuplicateNickname() {
     // 닉네임을 입력하지 않고 [중복확인] 버튼을 눌렀을 경우
