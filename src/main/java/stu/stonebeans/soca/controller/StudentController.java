@@ -24,19 +24,23 @@ public class StudentController {
 
     // 이메일 중복 여부 확인 및 인증 메일 발송
     @RequestMapping(value = "/sendAuthEmail", method = RequestMethod.POST)
-    public ResultVO sendAuthEmail(HttpServletRequest httpServletRequest, @RequestBody HashMap<String, String> map) {
+    public ResultVO sendAuthEmail(HttpSession session, @RequestBody HashMap<String, String> map) {
         String email = map.get("email");
 
         // 이메일 중복 여부 체크를 통과하였을 경우, 인증 메일 발송
         if(studentSBO.checkDuplicateEmail(email) == true) {
-            return mailSBO.sendEmail(email);
+            return mailSBO.sendEmail(session, email);
         } else {
             return new ResultVO(-1, "이미 사용 중인 이메일입니다.");
         }
     }
 
     // 인증번호 동일 여부 체크
-
+    @RequestMapping(value = "/checkAuthCode", method = RequestMethod.POST)
+    public boolean checkAuthCode(HttpSession session, @RequestBody HashMap<String, String> map){
+        String verificationCode = (String)session.getAttribute("verificationCode");
+        return studentSBO.checkAuthCode(verificationCode);
+    }
 
     // 닉네임 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateNickname", method = RequestMethod.POST)
@@ -60,7 +64,7 @@ public class StudentController {
 
         ResultVO result = studentSBO.login(email, password);
         if(result.getStatus() == 1)
-            session.setAttribute("email", email);
+            session.setAttribute("email", email); // 세션에 이메일 저장
 
         return result;
     }
@@ -74,7 +78,7 @@ public class StudentController {
 
     // 회원 정보 조회
     @RequestMapping(value = "checkStudentInfo", method = RequestMethod.POST)
-    public ResultVO checkStudentInfo(@RequestBody HashMap<String, String> map) {
+    public ResultVO checkStudentInfo(HttpSession session, @RequestBody HashMap<String, String> map) {
         boolean check = studentSBO.checkDuplicateEmail(map.get("email"));
         ResultVO result = new ResultVO();
 
@@ -86,7 +90,7 @@ public class StudentController {
         else
         {
             result.setStatus(1);
-            mailSBO.sendEmail(map.get("email"));
+            mailSBO.sendEmail(session, map.get("email"));
             result.setMsg("인증번호 전송이 완료되었습니다.");
         }
         return result;

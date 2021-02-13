@@ -15,16 +15,16 @@ $(document).ready(function() {
     $("#btnSendAuth").click(function (event) {
         sendAuthEmail();
     });
-/*
+
     //인증번호 [확인]버튼을 클릭했을 때
     $("#btnAuthCodeCheck").click(function (event) {
         checkAuthCode();
     });
 
-    $("#registerAuthCode").change(function (event){
+    /*$("#registerAuthCode").change(function (event){
         changeAuthCode();
-    });
-*/
+    });*/
+
     // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
     $("#registerPassword").focusout(function (event) {
         checkPasswordFirst();
@@ -172,16 +172,30 @@ function sendAuthEmail() {
     };
     callPostService("/sendAuthEmail", param, "callSendAuthEmail");
 }
-/*
+
 // 인증번호를 체크하는 함수
 function checkAuthCode(){
+    // 인증번호를 입력하지 않고 [확인] 버튼을 눌렀을 경우
+    if($("#registerAuthCode").val().length == 0){
+        swal("인증번호를 입력해주세요.");
+        return;
+    }
+
+    var param = {
+        AuthCode : $("#registerAuthCode").val()
+    };
+    callPostService("/checkAuthCode", param, "callAuthCode");
+    /*if(session.getAttribute(verificationCode).equals($("#registerAuthCode").val())){
+
+    }*/
+
     //session으로부터 받아내기
     //$("#registerAuthCode").val()랑 session의 코드가 같으면
     //$("#emailCheckAuth").val(1);
     //$("#btnAuthCodeCheck").hide();
     //$("#validAuthCode").show();
 }
-
+/*
 // 인증완료이후 인증번호를 수정하려고 할 떄
 function changeAuthCode(){
     //$("#emailCheckAuth").val(0);
@@ -353,11 +367,28 @@ function callSendAuthEmail(data) {
     //if(data.status==1) $("#emailAuth").val(1);
 }
 
+// 인증번호 동일여부 확인 콜백
+function callAuthCode(data){
+    if(data == true){
+        swal('인증번호가 확인되었습니다.');
+        $("#btnAuthCodeCheck").hide();
+        $("#validAuthCode").show();
+        $("#emailCheckAuth").val(1);
+        return;
+    } else {
+        swal('인증번호가 일치하지 않습니다.');
+        $("#registerAuthCode").val(null);
+        $("#emailCheckAuth").val(0);
+        return;
+    }
+
+}
+
 // 닉네임 중복 확인 콜백
 function callDuplicateNickname(data) {
     // 닉네임 중복 확인 후, 결과 값(data)이 true일 경우
     if(data === true) {
-        swal("'"+$("#registerNickname").val()+"' 은(는) 사용할 수 있는 닉네임입니다.");
+        swal("'"+$("#registerNickname").val()+"' 은(는) 사용 가능한 닉네임입니다.");
         //[중복확인] 버튼을 비활성화
         //[중복확인] 버튼이 사라지고 체크 표시 그림이 나타나는 것도 괜찮을 듯
         //$("#btnNicknameCheck").attr("disabled","disabled");
@@ -366,7 +397,7 @@ function callDuplicateNickname(data) {
         $("#nicknameAuth").val(1);
         return;
     } else {
-        swal('이미 사용중인 닉네임 입니다')
+        swal('이미 사용중인 닉네임 입니다.');
         $("#registerNickname").val(null);
         $("#nicknameAuth").val(0);
         return;
