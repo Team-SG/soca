@@ -144,15 +144,6 @@ function clear(){
 
     document.getElementById("checkAgreement").checked=false;
 
-    /*
-       var authArray= document.querySelectorAll("auth");
-
-       for(var i=0;i<authArray.length;i++)
-           authArray[i].value=0;
-
-
-     */
-    //얘도 한번에 하는 장법이 있을텐데 잘 안됨..
     $("#emailAuth").val(0);
     $("#emailCheckAuth").val(0);
     $("#passwordAuth").val(0);
@@ -299,7 +290,7 @@ function register() {
         swal("약관을 동의하셔야 회원가입을 진행할 수 있습니다.");
         $("#checkAgreement").focus();
     }
-    /* if(email==="0"){
+    /*else if(email==="0"){
          if($("#registerEmail").val().length===0){
              swal("이메일을 입력해주세요.");
              $("#registerEmail").focus();
@@ -316,7 +307,7 @@ function register() {
          }
          else {
              swal("인증번호를 확인해주세요.");
-             //확인버튼에 focus
+             $("#btnAuthCodeCheck").focus();
          }
      }
      */else if(password==="0"){
@@ -328,8 +319,15 @@ function register() {
         $("#registerPasswordCheck").focus();
     }
     else if(nickname==="0"){
-        swal("닉네임 중복확인을 해주세요.");
-        $("#registerNickname").focus();
+        if($("#registerNickname").val().length==0){
+            swal("닉네임울 입력해 해주세요.");
+            $("#registerNickname").focus();
+        }
+        else{
+            swal("닉네임 중복확인을 해주세요.");
+            $("#btnNicknameCheck").focus();
+        }
+
     }
 
     //아직 얘가 작동 안함
@@ -343,7 +341,7 @@ function register() {
             if(data===true) swal("회원가입이 완료 되었습니다!");
             else swal("회원가입실패");
         });
-        swal("가입하기");
+        //swal("가입하기");
     }
 }
 
@@ -352,6 +350,7 @@ function register() {
 // 이메일 중복 확인 콜백
 function callSendAuthEmail(data) {
     swal(data.msg);
+    //if(data.status==1) $("#emailAuth").val(1);
 }
 
 // 닉네임 중복 확인 콜백
