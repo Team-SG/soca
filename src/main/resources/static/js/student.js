@@ -15,7 +15,16 @@ $(document).ready(function() {
     $("#btnSendAuth").click(function (event) {
         sendAuthEmail();
     });
+/*
+    //인증번호 [확인]버튼을 클릭했을 때
+    $("#btnAuthCodeCheck").click(function (event) {
+        checkAuthCode();
+    });
 
+    $("#registerAuthCode").change(function (event){
+        changeAuthCode();
+    });
+*/
     // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
     $("#registerPassword").focusout(function (event) {
         checkPasswordFirst();
@@ -32,8 +41,8 @@ $(document).ready(function() {
     });
 
     // 비밀번호 최초 작성 후 다시 수정이 이루어지는 경우
-    $("#registerPassword").keydown(function (event) {
-        changePassword(event);
+    $("#registerPassword").change(function (event) {
+        changePassword();
     });
 
     // 닉네임 중복확인을 한번 한 상태에서 다시 닉네임을 변경할 경우
@@ -83,20 +92,6 @@ $(document).ready(function() {
        searchInfo();
     });
 
-
-    //일단은 작성하고 나중에 함수로 바꾸겠습니다
-    //약관동의 창을 닫았을 떄
-    $("#btnAgreementClose").click(function(event){
-        document.getElementById("checkAgreement").checked=false;
-        $("#btnNext").attr("disabled",true);
-    });
-
-    $("#checkAgreement").click(function(event){
-        if(document.getElementById("checkAgreement").checked==true)
-            $("#btnNext").removeAttr("disabled");
-        else
-            $("#btnNext").attr("disabled",true);
-    });
 });
 
 
@@ -135,9 +130,9 @@ function login() {
 // 회원가입 폼 초기화
 function initRegisterForm() {
     // invalid한 패스워드 입력 전에는 숨김
-    $("#btnNext").attr("disabled",true);
     $("#passwordFail").hide();
     $("#passwordCheckFail").hide();
+    $("#validAuthCode").hide();
     $("#validNickname").hide();
 }
 
@@ -146,6 +141,8 @@ function clear(){
     $("#registerForm").each(function(){
         this.reset();
     });
+
+    document.getElementById("checkAgreement").checked=false;
 
     /*
        var authArray= document.querySelectorAll("auth");
@@ -162,8 +159,11 @@ function clear(){
     $("#passwordCheckAuth").val(0);
     $("#nicknameAuth").val(0);
 
+
     $("#passwordFail").hide();
     $("#passwordCheckFail").hide();
+    $("#validAuthCode").hide();
+    $("#btnAuthCodeCheck").show();
     $("#validNickname").hide();
     $("#btnNicknameCheck").show();
 }
@@ -181,7 +181,25 @@ function sendAuthEmail() {
     };
     callPostService("/sendAuthEmail", param, "callSendAuthEmail");
 }
+/*
+// 인증번호를 체크하는 함수
+function checkAuthCode(){
+    //session으로부터 받아내기
+    //$("#registerAuthCode").val()랑 session의 코드가 같으면
+    //$("#emailCheckAuth").val(1);
+    //$("#btnAuthCodeCheck").hide();
+    //$("#validAuthCode").show();
+}
 
+// 인증완료이후 인증번호를 수정하려고 할 떄
+function changeAuthCode(){
+    //$("#emailCheckAuth").val(0);
+    //$("#btnAuthCodeCheck").show();
+    //$("#validAuthCode").hide();
+}
+
+
+ */
 // 닉네임 중복 체크
 function checkDuplicateNickname() {
     // 닉네임을 입력하지 않고 [중복확인] 버튼을 눌렀을 경우
@@ -201,7 +219,6 @@ function checkPasswordFirst() {
     // 영문+숫자+특수문자 조합 8자~20자를 충족하지 못하는 경우
     if(checkPasswordCondition($("#registerPassword").val())===false) {
         $("#registerPassword").val(null);
-        $("#registerPassword").focus();
         $("#passwordFail").show();
         $("#passwordAuth").val(0);
         return;
@@ -232,14 +249,14 @@ function checkPasswordSecond() {
 
 // 패스워드를 변경한 경우
 function changePassword(event) {
-    if(event.keyCode<37 || event.keyCode>40) {
-        if ($("#registerPassword").val().length != 0 && $("#registerPasswordCheck").val().length != 0) {
-            $("#registerPasswordCheck").val(null);
-            $("#passwordCheckFail").show();
-        } else {
-            $("#passwordCheckFail").hide();
-        }
+    if ($("#registerPassword").val().length != 0 && $("#registerPasswordCheck").val().length != 0) {
+        $("#registerPasswordCheck").val(null);
+        $("#passwordCheckFail").show();
+    } else {
+        $("#registerPasswordCheck").focus();
+        $("#passwordCheckFail").hide();
     }
+
 }
 
 // 패스워드 유효성 체크
@@ -278,6 +295,10 @@ function register() {
     var passwordCheck = $("#passwordCheckAuth").val(); //패스워드가 일치하는지 여부
     var nickname = $("#nicknameAuth").val();           //닉네임 중복확인을 통과했는지 여부
 
+    if(document.getElementById("checkAgreement").checked==false){
+        swal("약관을 동의하셔야 회원가입을 진행할 수 있습니다.");
+        $("#checkAgreement").focus();
+    }
     /* if(email==="0"){
          if($("#registerEmail").val().length===0){
              swal("이메일을 입력해주세요.");
@@ -298,7 +319,7 @@ function register() {
              //확인버튼에 focus
          }
      }
-     else*/ if(password==="0"){
+     */else if(password==="0"){
         swal("패스워드를 올바르게 입력해주세요.");
         $("#registerPassword").focus();
     }
@@ -313,7 +334,11 @@ function register() {
 
     //아직 얘가 작동 안함
     else{
-        var param=$("#registerForm").serializeObject();
+        var param={
+          email : $("#registerEmail").val(),
+          password : $("#registerPassword").val(),
+          nickname : $("#registerNickname").val()
+        };
         callPostService("/register",param,function(data){
             if(data===true) swal("회원가입이 완료 되었습니다!");
             else swal("회원가입실패");
