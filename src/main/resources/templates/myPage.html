@@ -10,6 +10,10 @@
             height: 143px;
             border-radius: 10px;
             cursor: pointer;
+            background-image: url("/images/mypage_sogang.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: -3px 0px;
         }
     </style>
 </head>
@@ -32,18 +36,19 @@
                 <div class="p-2 ml-3 bd-highlight text-left" style="width:450px">
                     <form id="myPageForm" name="myPageForm">
                         <div class="input-group mb-3">
-                            <input type="text" id="myPageEmail" name="email" class="form-control" readonly>
-                            <span class="input-group-text ml-2" id="myPageEmailAddon">@sogang.ac.kr</span>
-                            <input type="text" id="myPageNickname" name="nickname" class="form-control" placeholder="닉네임">
+                            <span class="input-group-text">이메일</span>
+                            <input type="text" id="myPageEmail" name="email" class="form-control ml-2" readonly>
                         </div>
                         <div class="input-group mb-3">
-
+                            <span class="input-group-text">닉네임</span>
+                            <input type="text" id="myPageNickname" name="nickname" class="form-control ml-2">
                         </div>
                     </form>
                 </div>
             </div>
             <hr/>
             <div>
+                <button type="button" class="btn btn-sm btn-outline-primary mr-1">패스워드 변경</button>
                 <button type="button" class="btn btn-sm btn-outline-danger mr-1" onclick="location.href='/schedule'">시간표 등록 / 수정</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">기술문의</button>
             </div>
