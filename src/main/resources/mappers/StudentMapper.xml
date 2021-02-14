@@ -19,7 +19,7 @@
     <select id="register"
             parameterType="stu.stonebeans.soca.vo.StudentVO"
             resultType="stu.stonebeans.soca.vo.StudentVO">
-        INSERT INTO student
+        INSERT INTO student(email,password,nickname,startedDate,useYN,passwordUpdate)
         VALUES (#{email},#{password},#{nickname},NOW(),#{useYN},NOW());
     </select>
 
