@@ -36,9 +36,6 @@ public class StudentController {
         }
     }
 
-    // 인증번호 동일 여부 체크
-
-
     // 닉네임 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateNickname", method = RequestMethod.POST)
     public boolean checkDuplicateNickname(@RequestBody HashMap<String, String> map) {
@@ -75,19 +72,17 @@ public class StudentController {
         return true;
     }
 
-    // 회원 정보 조회
+    // 회원 정보 찾기
     @RequestMapping(value = "checkStudentInfo", method = RequestMethod.POST)
     public ResultVO checkStudentInfo(HttpSession session, @RequestBody HashMap<String, String> map) {
         boolean check = studentSBO.checkDuplicateEmail(map.get("email"));
         ResultVO result = new ResultVO();
 
-        if(check == true)
-        {
+        // 이메일이 존재하는 경우에만 인증 메일 전송
+        if(check == true) {
             result.setStatus(-1);
             result.setMsg("존재하지 않는 이메일입니다.");
-        }
-        else
-        {
+        } else {
             result.setStatus(1);
             mailSBO.sendEmail(session, map.get("email"), 1);
             result.setMsg("인증번호 전송이 완료되었습니다.");
@@ -95,6 +90,7 @@ public class StudentController {
         return result;
     }
 
+    // 회원 정보 찾기 화면에서 입력한 인증번호 확인
     @RequestMapping(value="loginAuthCheck", method = RequestMethod.POST)
     public ResultVO loginAuthCheck(HttpSession session, @RequestBody HashMap<String, String> map) {
         ResultVO result = new ResultVO();

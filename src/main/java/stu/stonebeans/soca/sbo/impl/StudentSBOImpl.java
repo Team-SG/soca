@@ -90,16 +90,20 @@ public class StudentSBOImpl implements StudentSBO {
             sh.update(password.getBytes());
             byte byteData[] = sh.digest();
             StringBuffer sb = new StringBuffer();
-            for(int i = 0; i < byteData.length; i++) {
-                sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
             }
             sha = sb.toString();
-        } catch(NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             sha = null;
         }
         return sha;
     }
 
+    /*
+       함수 : 학생 정보 조회
+       설명 : 파라미터로 넘어온 email 값으로 학생 정보 조회
+   */
     @Override
     public StudentVO findStudent(String email) {
         StudentVO result = studentDAO.checkDuplicateEmail(email);

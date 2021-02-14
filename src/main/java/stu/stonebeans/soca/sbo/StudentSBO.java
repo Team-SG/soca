@@ -20,5 +20,6 @@ public interface StudentSBO {
     // 비밀번호 SHA256 암호화
     String encryptSHA256(String password);
 
+    // 학생 정보 조회
     StudentVO findStudent(String email);
 }
