@@ -37,7 +37,11 @@ public class StudentController {
     }
 
     // 인증번호 동일 여부 체크
-
+    @RequestMapping(value = "/checkAuthCode", method = RequestMethod.POST)
+    public boolean checkAuthCode(HttpSession session, @RequestBody HashMap<String, String> map) {
+        String verificationCode = (String) session.getAttribute("verificationCode");
+        return map.get("AuthCode").equals(verificationCode);
+    }
 
     // 닉네임 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateNickname", method = RequestMethod.POST)
@@ -45,13 +49,13 @@ public class StudentController {
         return studentSBO.checkDuplicateNickname(map.get("nickname"));
     }
 
-  /*  // 회원가입
+   // 회원가입
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@RequestBody StudentVO studentVO) {
         studentSBO.register(studentVO);
     }
 
-   */
+
 
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
