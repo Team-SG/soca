@@ -88,8 +88,19 @@ $(document).ready(function() {
         });
     });
 
+    // 회원정보 찾기 클릭 이벤트
     $("#btnSearchInfo").click(function(event) {
        searchInfo();
+    });
+
+    // 회원정보 찾기 클릭 후 인증번호 확인 클릭 시 이벤트
+    $("#btnLoginAuthCheck").click(function() {
+       loginAuthCheck();
+    });
+
+    $('#printNickname').html(function(){
+       callPostService("findNickname", null, function(data){
+       })
     });
 
 });
@@ -393,4 +404,14 @@ function searchInfo() {
             $("#btnLoginAuthCheck").show();
         }
     });
+}
+
+function loginAuthCheck() {
+    var param = {
+        authCode : $("#loginAuthCode").val()
+    };
+
+    callPostService("loginAuthCheck", param, function(data) {
+        swal(data.msg);
+    })
 }

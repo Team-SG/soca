@@ -39,6 +39,7 @@
                 로그인
             </button>
             <!-- 로그인을 하였을 때 Enable-->
+            <div th:if="${session.email != null}" id="printNickname"></div>
             <button th:if="${session.email != null}" type="button" id="btnHMyPage" onclick="location.href='/myPage'" class="btn btn-danger btn-sm font-weight-normal mr-2">
                 마이페이지
             </button>
