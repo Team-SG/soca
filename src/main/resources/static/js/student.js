@@ -86,6 +86,17 @@ $(document).ready(function() {
         $("#btnLoginAuthCheck").hide();
     });
 
+    //바깥 클릭시
+    $(document).click(function(event){
+        if($("#login").is(event.target)){
+            $("#loginForm").each(function(){
+                this.reset();
+            });
+            $("#loginAuthCode").attr("type", "hidden");
+            $("#btnLoginAuthCheck").hide();
+        }
+    });
+
     // [로그아웃] 버튼 클릭 이벤트
     $("#btnHLogout").click(function(event) {
         callPostService("/logout", null, function(data){
@@ -93,10 +104,15 @@ $(document).ready(function() {
         });
     });
 
+    // 회원정보 찾기 클릭 이벤트
     $("#btnSearchInfo").click(function(event) {
        searchInfo();
     });
 
+    // 회원정보 찾기 클릭 후 인증번호 확인 클릭 시 이벤트
+    $("#btnLoginAuthCheck").click(function() {
+       loginAuthCheck();
+    });
 });
 
 
@@ -418,4 +434,14 @@ function searchInfo() {
             $("#btnLoginAuthCheck").show();
         }
     });
+}
+
+function loginAuthCheck() {
+    var param = {
+        authCode : $("#loginAuthCode").val()
+    };
+
+    callPostService("loginAuthCheck", param, function(data) {
+        swal(data.msg);
+    })
 }

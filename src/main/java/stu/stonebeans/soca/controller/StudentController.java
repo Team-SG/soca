@@ -25,7 +25,7 @@ public class StudentController {
 
     // 이메일 중복 여부 확인 및 인증 메일 발송
     @RequestMapping(value = "/sendAuthEmail", method = RequestMethod.POST)
-    public ResultVO sendAuthEmail(HttpSession session, @RequestBody HashMap<String, String> map) {
+    public ResultVO sendAuthEmail(HttpSession session, HttpServletRequest httpServletRequest, @RequestBody HashMap<String, String> map) {
         String email = map.get("email");
 
         // 이메일 중복 여부 체크를 통과하였을 경우, 인증 메일 발송
@@ -37,11 +37,7 @@ public class StudentController {
     }
 
     // 인증번호 동일 여부 체크
-    @RequestMapping(value = "/checkAuthCode", method = RequestMethod.POST)
-    public boolean checkAuthCode(HttpSession session, @RequestBody HashMap<String, String> map){
-        String verificationCode= (String)session.getAttribute("verificationCode");
-        return map.get("AuthCode").equals(verificationCode);
-    }
+
 
     // 닉네임 중복 여부 체크
     @RequestMapping(value = "/checkDuplicateNickname", method = RequestMethod.POST)
@@ -49,12 +45,13 @@ public class StudentController {
         return studentSBO.checkDuplicateNickname(map.get("nickname"));
     }
 
-   // 회원가입
+  /*  // 회원가입
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@RequestBody StudentVO studentVO) {
         studentSBO.register(studentVO);
     }
 
+   */
 
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -62,10 +59,12 @@ public class StudentController {
         String email = map.get("email");
         String password = map.get("password");
 
+        StudentVO student = studentSBO.findStudent(email);
         ResultVO result = studentSBO.login(email, password);
-        if(result.getStatus() == 1)
-            session.setAttribute("email", email); // 세션에 이메일 저장
-
+        if(result.getStatus() == 1) {
+            session.setAttribute("email", email);
+            session.setAttribute("nickname", student.getNickname());
+        }
         return result;
     }
 
@@ -92,6 +91,22 @@ public class StudentController {
             result.setStatus(1);
             mailSBO.sendEmail(session, map.get("email"), 1);
             result.setMsg("인증번호 전송이 완료되었습니다.");
+        }
+        return result;
+    }
+
+    @RequestMapping(value="loginAuthCheck", method = RequestMethod.POST)
+    public ResultVO loginAuthCheck(HttpSession session, @RequestBody HashMap<String, String> map) {
+        ResultVO result = new ResultVO();
+        String authCode = map.get("authCode");
+        String veriCode = (String)session.getAttribute("verificationCode");
+        if(authCode.equals(veriCode)) {
+            result.setStatus(1);
+            result.setMsg("인증되었습니다. 임시 비밀번호를 보내드렸습니다.");
+        }
+        else {
+            result.setStatus(-1);
+            result.setMsg("잘못된 인증번호입니다.");
         }
         return result;
     }
