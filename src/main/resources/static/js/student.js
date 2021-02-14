@@ -7,7 +7,7 @@
 
 $(document).ready(function() {
 
-    // 회원가입 폼 초기화
+    // 회원가입 폼 초기화하기
     $("#btnHRegister").click(function(event){
         initRegisterForm();
     });
