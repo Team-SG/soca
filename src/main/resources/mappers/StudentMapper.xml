@@ -19,12 +19,20 @@
     <select id="register"
             parameterType="stu.stonebeans.soca.vo.StudentVO"
             resultType="stu.stonebeans.soca.vo.StudentVO">
-        INSERT INTO student
+        INSERT INTO student(email,password,nickname,startedDate,useYN,passwordUpdate)
         VALUES (#{email},#{password},#{nickname},NOW(),#{useYN},NOW());
     </select>
 
     <!--로그인-->
-    <select id="login" parameterType="string" resultType="string">
+    <select id="login"
+            parameterType="string"
+            resultType="string">
         SELECT password FROM student WHERE email = #{email}
+    </select>
+
+    <!--임시 비밀번호 변경-->
+    <select id="changePassword"
+            parameterType="stu.stonebeans.soca.vo.StudentVO">
+        UPDATE student SET password = #{password} WHERE email = #{email}
     </select>
 </mapper>

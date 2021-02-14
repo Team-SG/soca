@@ -9,6 +9,7 @@ import stu.stonebeans.soca.vo.StudentVO;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 @Service
 public class StudentSBOImpl implements StudentSBO {
@@ -108,6 +109,14 @@ public class StudentSBOImpl implements StudentSBO {
     public StudentVO findStudent(String email) {
         StudentVO result = studentDAO.checkDuplicateEmail(email);
         return result;
+    }
+
+    @Override
+    public void changePassword(String password, String email) {
+        StudentVO student = new StudentVO();
+        student.setPassword(encryptSHA256(password));
+        student.setEmail(email);
+        studentDAO.changePassword(student);
     }
 
 }
