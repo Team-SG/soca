@@ -15,7 +15,7 @@ $(document).ready(function() {
     $("#btnSendAuth").click(function (event) {
         sendAuthEmail();
     });
-/*
+
     //인증번호 [확인]버튼을 클릭했을 때
     $("#btnAuthCodeCheck").click(function (event) {
         checkAuthCode();
@@ -24,7 +24,7 @@ $(document).ready(function() {
     $("#registerAuthCode").change(function (event){
         changeAuthCode();
     });
-*/
+
     // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
     $("#registerPassword").focusout(function (event) {
         checkPasswordFirst();
@@ -50,7 +50,7 @@ $(document).ready(function() {
         changeNickname(event);
     });
 
-    //이걸 한번에 할 수 있는 방법이 있을까 + 그냥 회원가입 창을 벗어났을떄도 초기화가 필요함
+    //그냥 회원가입 창을 벗어났을떄도 초기화가 필요함
     //[초기화] 버튼을 눌렀을 때
     $("#btnReset").click(function(event){
        clear();
@@ -61,7 +61,12 @@ $(document).ready(function() {
        clear();
     });
 
-    //[가입하기] 버튼을 눌렀을 때, 아직 작동 제대로 안됨
+    $(document).click(function(event){
+        if($("#register").is(event.target)){
+            clear();
+        }
+    });
+    //[가입하기] 버튼을 눌렀을 때
     $("#btnSubmit").click(function(event) {
         register();
     });
@@ -98,10 +103,11 @@ $(document).ready(function() {
        loginAuthCheck();
     });
 
+    /*
     $('#printNickname').html(function(){
        callPostService("findNickname", null, function(data){
        })
-    });
+    });*/
 
 });
 
@@ -155,15 +161,6 @@ function clear(){
 
     document.getElementById("checkAgreement").checked=false;
 
-    /*
-       var authArray= document.querySelectorAll("auth");
-
-       for(var i=0;i<authArray.length;i++)
-           authArray[i].value=0;
-
-
-     */
-    //얘도 한번에 하는 장법이 있을텐데 잘 안됨..
     $("#emailAuth").val(0);
     $("#emailCheckAuth").val(0);
     $("#passwordAuth").val(0);
@@ -192,25 +189,29 @@ function sendAuthEmail() {
     };
     callPostService("/sendAuthEmail", param, "callSendAuthEmail");
 }
-/*
+
 // 인증번호를 체크하는 함수
 function checkAuthCode(){
-    //session으로부터 받아내기
-    //$("#registerAuthCode").val()랑 session의 코드가 같으면
-    //$("#emailCheckAuth").val(1);
-    //$("#btnAuthCodeCheck").hide();
-    //$("#validAuthCode").show();
+    // 인증번호를 입력하지 않고 [확인] 버튼을 눌렀을 경우
+    if($("#registerAuthCode").val().length == 0){
+        swal("인증번호를 입력해주세요.");
+        return;
+    }
+
+    var param = {
+        AuthCode : $("#registerAuthCode").val()
+    };
+    callPostService("/checkAuthCode", param, "callAuthCode");
 }
 
 // 인증완료이후 인증번호를 수정하려고 할 떄
 function changeAuthCode(){
-    //$("#emailCheckAuth").val(0);
-    //$("#btnAuthCodeCheck").show();
-    //$("#validAuthCode").hide();
+    $("#emailCheckAuth").val(0);
+    $("#btnAuthCodeCheck").show();
+    $("#validAuthCode").hide();
 }
 
 
- */
 // 닉네임 중복 체크
 function checkDuplicateNickname() {
     // 닉네임을 입력하지 않고 [중복확인] 버튼을 눌렀을 경우
@@ -310,7 +311,7 @@ function register() {
         swal("약관을 동의하셔야 회원가입을 진행할 수 있습니다.");
         $("#checkAgreement").focus();
     }
-    /* if(email==="0"){
+    else if(email==="0"){
          if($("#registerEmail").val().length===0){
              swal("이메일을 입력해주세요.");
              $("#registerEmail").focus();
@@ -320,17 +321,17 @@ function register() {
              $("#btnSendAuth").focus();
          }
      }
-     else if(emailCode==="0"){
+    else if(emailCheck==="0"){
          if($("#registerAuthCode").val().length===0){
              swal("인증번호를 입력해주세요.");
              $("#registerAuthCode").focus();
          }
          else {
              swal("인증번호를 확인해주세요.");
-             //확인버튼에 focus
+             $("#btnAuthCodeCheck").focus();
          }
      }
-     */else if(password==="0"){
+    else if(password==="0"){
         swal("패스워드를 올바르게 입력해주세요.");
         $("#registerPassword").focus();
     }
@@ -339,22 +340,29 @@ function register() {
         $("#registerPasswordCheck").focus();
     }
     else if(nickname==="0"){
-        swal("닉네임 중복확인을 해주세요.");
-        $("#registerNickname").focus();
+        if($("#registerNickname").val().length==0){
+            swal("닉네임울 입력해 해주세요.");
+            $("#registerNickname").focus();
+        }
+        else{
+            swal("닉네임 중복확인을 해주세요.");
+            $("#btnNicknameCheck").focus();
+        }
+
     }
 
-    //아직 얘가 작동 안함
     else{
         var param={
           email : $("#registerEmail").val(),
           password : $("#registerPassword").val(),
-          nickname : $("#registerNickname").val()
+          nickname : $("#registerNickname").val(),
+          useYN : "Y"
         };
-        callPostService("/register",param,function(data){
-            if(data===true) swal("회원가입이 완료 되었습니다!");
-            else swal("회원가입실패");
-        });
-        swal("가입하기");
+        callPostService("/register",param,null);
+
+        swal("회원가입이 완료 되었습니다!");
+        $("#btnClose").trigger("click");
+
     }
 }
 
@@ -363,13 +371,31 @@ function register() {
 // 이메일 중복 확인 콜백
 function callSendAuthEmail(data) {
     swal(data.msg);
+    if(data.status==1) $("#emailAuth").val(1);
+}
+
+// 인증번호 동일여부 확인 콜백
+function callAuthCode(data){
+    if(data==true){
+        swal('인증번호가 확인되었습니다.');
+        $("#btnAuthCodeCheck").hide();
+        $("#validAuthCode").show();
+        $("#emailCheckAuth").val(1);
+        return;
+    } else {
+        swal('인증번호가 일치하지 않습니다.');
+        $("#registerAuthCode").val(null);
+        $("#emailCheckAuth").val(0);
+        return;
+    }
+
 }
 
 // 닉네임 중복 확인 콜백
 function callDuplicateNickname(data) {
     // 닉네임 중복 확인 후, 결과 값(data)이 true일 경우
     if(data === true) {
-        swal("'"+$("#registerNickname").val()+"' 은(는) 사용할 수 있는 닉네임입니다.");
+        swal("'"+$("#registerNickname").val()+"' 은(는) 사용 가능한 닉네임입니다.");
         //[중복확인] 버튼을 비활성화
         //[중복확인] 버튼이 사라지고 체크 표시 그림이 나타나는 것도 괜찮을 듯
         //$("#btnNicknameCheck").attr("disabled","disabled");
@@ -378,7 +404,7 @@ function callDuplicateNickname(data) {
         $("#nicknameAuth").val(1);
         return;
     } else {
-        swal('이미 사용중인 닉네임 입니다')
+        swal('이미 사용중인 닉네임 입니다.');
         $("#registerNickname").val(null);
         $("#nicknameAuth").val(0);
         return;

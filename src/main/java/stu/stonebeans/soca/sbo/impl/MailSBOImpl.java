@@ -9,6 +9,8 @@ import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.vo.MailVO;
 import stu.stonebeans.soca.vo.ResultVO;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 @AllArgsConstructor
 public class MailSBOImpl implements MailSBO {
@@ -20,8 +22,9 @@ public class MailSBOImpl implements MailSBO {
         설명 : 파라미터로 전달받은 email 주소로 메일 전송
     */
     @Override
-    public ResultVO sendEmail(String email) {
-        MailVO mailVO = createMailVerificationCodeInfo(email);
+    public ResultVO sendEmail(HttpSession session, String email) {
+        String verificationCode = getTempVerificationCode();
+        MailVO mailVO = createMailVerificationCodeInfo(email, verificationCode);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailVO.getAddress());
         message.setFrom(FROM_ADDRESS);
@@ -31,6 +34,7 @@ public class MailSBOImpl implements MailSBO {
         ResultVO resultVO = new ResultVO();
         try {
             mailSender.send(message);
+            session.setAttribute("verificationCode", verificationCode);
             resultVO.setStatus(1);
             resultVO.setMsg("인증번호 전송이 완료되었습니다.");
         } catch(Exception err) {
@@ -44,12 +48,12 @@ public class MailSBOImpl implements MailSBO {
         함수 : 인증번호 전송용 메일 정보 생성
         설명 : 인증번호 전송 시 필요한 메일 정보 생성
     */
-    public MailVO createMailVerificationCodeInfo(String email) {
+    public MailVO createMailVerificationCodeInfo(String email, String verificationCode) {
         MailVO mailVO = new MailVO();
         mailVO.setAddress(email + "@sogang.ac.kr"); // 파라미터로 받은 서강대 이메일 주소로 메일 전송
         mailVO.setTitle("SOCA 회원가입 인증번호입니다.");
         mailVO.setMessage("SOCA 회원가입 인증번호 안내드립니다.\n" +
-                "인증번호는 " +getTempVerificationCode() + " 입니다.\n" +
+                "인증번호는 " + verificationCode + " 입니다.\n" +
                 "회원가입 창에서 안내해드린 6자리 인증번호를 입력하시면 됩니다.");
         return mailVO;
     }
