@@ -7,7 +7,6 @@ import stu.stonebeans.soca.sbo.StudentSBO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
-import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -49,11 +48,10 @@ public class StudentSBOImpl implements StudentSBO {
         설명 :
     */
     @Override
-    public boolean register(StudentVO studentVO){
-        StudentVO result=studentDAO.register(studentVO);
-
-        if(result!=null) return true;
-        else return false;
+    public void register(StudentVO studentVO){
+        String password= studentVO.getPassword();
+        studentVO.setPassword(encryptSHA256(password));
+        studentDAO.register(studentVO);
     }
 
     /*

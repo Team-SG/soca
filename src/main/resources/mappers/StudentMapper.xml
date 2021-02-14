@@ -20,7 +20,7 @@
             parameterType="stu.stonebeans.soca.vo.StudentVO"
             resultType="stu.stonebeans.soca.vo.StudentVO">
         INSERT INTO student
-        VALUES (#{email},#{password},#{nickname},GETDATE(),'Y',GETDATE());
+        VALUES (#{email},#{password},#{nickname},NOW(),#{useYN},NOW());
     </select>
 
     <!--로그인-->

@@ -25,4 +25,12 @@ public class StudentVO {
                 ", passwordUpdate='" + passwordUpdate + '\'' +
                 '}';
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

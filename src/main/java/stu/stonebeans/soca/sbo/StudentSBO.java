@@ -12,7 +12,7 @@ public interface StudentSBO {
     boolean checkDuplicateNickname(String nickname);
 
     // 회원가입
-    boolean register(StudentVO studentVO);
+    void register(StudentVO studentVO);
 
     // 로그인
     ResultVO login(String email, String password);
