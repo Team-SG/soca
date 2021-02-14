@@ -30,7 +30,7 @@ public class StudentController {
 
         // 이메일 중복 여부 체크를 통과하였을 경우, 인증 메일 발송
         if(studentSBO.checkDuplicateEmail(email) == true) {
-            return mailSBO.sendEmail(session, email);
+            return mailSBO.sendEmail(session, email, 1);
         } else {
             return new ResultVO(-1, "이미 사용 중인 이메일입니다.");
         }
@@ -90,7 +90,7 @@ public class StudentController {
         else
         {
             result.setStatus(1);
-            mailSBO.sendEmail(session, map.get("email"));
+            mailSBO.sendEmail(session, map.get("email"), 1);
             result.setMsg("인증번호 전송이 완료되었습니다.");
         }
         return result;
