@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="stu.stonebeans.soca.dao.ScheduleDAO">
-
+    <select id="getYearSemester"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT distinct year, semester FROM subject
+        ORDER BY year desc, semester asc; -- 수강년도는 내림차순, 학기는 오름차순으로 조회
+    </select>
 </mapper>

@@ -13,7 +13,7 @@ import java.util.List;
 public class LoginInterceptor implements HandlerInterceptor {
 
     // 세션 체크
-    public List includePath = Arrays.asList("/myPage", "/schedule");
+    public List includePath = Arrays.asList("/myPage", "/schedule", "/evaluteList", "/myEvaluate");
 
     // 세션 체크 제외 화면
     public List excludePath = Arrays.asList("/css/**", "/js/**", "/images/**", "/", "/index");
