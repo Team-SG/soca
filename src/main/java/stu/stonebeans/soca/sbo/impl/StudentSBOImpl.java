@@ -62,7 +62,7 @@ public class StudentSBOImpl implements StudentSBO {
     public ResultVO login(String email, String password) {
         StudentVO emailCheck = studentDAO.checkDuplicateEmail(email);
         ResultVO result = new ResultVO();
-        if(emailCheck == null) {
+        if(emailCheck == null || emailCheck.getUseYN().equals("N") ) {
             result.setStatus(-1);
             result.setMsg("존재하지 않는 이메일입니다.");
             return result;
@@ -99,4 +99,11 @@ public class StudentSBOImpl implements StudentSBO {
         }
         return sha;
     }
+
+    @Override
+    public StudentVO findStudent(String email) {
+        StudentVO result = studentDAO.checkDuplicateEmail(email);
+        return result;
+    }
+
 }

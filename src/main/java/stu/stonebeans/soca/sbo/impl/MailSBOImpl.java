@@ -19,12 +19,14 @@ public class MailSBOImpl implements MailSBO {
 
     /*
         함수 : 메일 발송
-        설명 : 파라미터로 전달받은 email 주소로 메일 전송
+        설명 : 파라미터로 전달받은 email 주소로 메일 전송; flag가 1이면 인증번호를, 2이면 임시비밀번호를 발송
     */
     @Override
-    public ResultVO sendEmail(HttpSession session, String email) {
-        String verificationCode = getTempVerificationCode();
-        MailVO mailVO = createMailVerificationCodeInfo(email, verificationCode);
+    public ResultVO sendEmail(HttpSession session, String email, int flag) {
+        String code = null;
+        if(flag == 1) code = getTempVerificationCode();
+        else if(flag == 2) code = getTempPassword();
+        MailVO mailVO = createMailVerificationCodeInfo(email, code);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailVO.getAddress());
         message.setFrom(FROM_ADDRESS);
@@ -33,10 +35,18 @@ public class MailSBOImpl implements MailSBO {
 
         ResultVO resultVO = new ResultVO();
         try {
-            mailSender.send(message);
-            session.setAttribute("verificationCode", verificationCode);
-            resultVO.setStatus(1);
-            resultVO.setMsg("인증번호 전송이 완료되었습니다.");
+            if(flag == 1){
+                mailSender.send(message);
+                session.setAttribute("verificationCode", code);
+                resultVO.setStatus(1);
+                resultVO.setMsg("인증번호 전송이 완료되었습니다.");
+            }
+            else if(flag == 2){
+                mailSender.send(message);
+                session.setAttribute("tempPassword", code);
+                resultVO.setStatus(1);
+                resultVO.setMsg("임시비밀번호 전송이 완료되었습니다.");
+            }
         } catch(Exception err) {
             resultVO.setStatus(-1);
             resultVO.setMsg("이메일 전송에 실패하였습니다.\n" + err.getMessage());
@@ -62,12 +72,12 @@ public class MailSBOImpl implements MailSBO {
         함수 : 임시 비밀번호 전송용 메일 정보 생성
         설명 : 임시 비밀번호 전송 시 필요한 메일 정보 생성
     */
-    public MailVO createMailPasswordInfo(String email) {
+    public MailVO createMailPasswordInfo(String email, String password) {
         MailVO mailVO = new MailVO();
         mailVO.setAddress(email + "@sogang.ac.kr"); // 파라미터로 받은 서강대 이메일 주소로 메일 전송
         mailVO.setTitle("SOCA 임시로 변경된 비밀번호입니다.");
         mailVO.setMessage("SOCA 임시로 변경된 비밀번호 안내드립니다.\n" +
-                "임시비밀번호는 " + getTempPassword() + " 입니다.\n" +
+                "임시비밀번호는 " + password + " 입니다.\n" +
                 "안내해드린 8자리 비밀번호로 로그인하시면 됩니다.");
         return mailVO;
     }
