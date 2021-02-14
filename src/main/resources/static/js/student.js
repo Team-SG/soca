@@ -5,11 +5,24 @@
     회원의 공통적인 기능이 정의되는 JavaScript
  */
 
+// 로그인 회원가입 폼의 바깥 부분을 클릭했을 때 입력 데이터 모두 초기화
+$(document).click(function(event){
+    if($("#register").is(event.target)){
+        clear();
+    }
+    if($("#login").is(event.target)){
+        initLoginForm();
+    }
+});
+
 $(document).ready(function() {
 
     // 회원가입 폼 초기화
     initRegisterForm();
+    // 로그인 폼 초기화
     initLoginForm();
+
+    // ================================ Register Form ================================
 
     // [인증발송] 버튼 클릭 이벤트
     $("#btnSendAuth").click(function (event) {
@@ -21,6 +34,7 @@ $(document).ready(function() {
         checkAuthCode();
     });
 
+    // 인증 완료 이후 인증번호를 수정하려고 할 떄
     $("#registerAuthCode").change(function (event){
         changeAuthCode();
     });
@@ -61,15 +75,12 @@ $(document).ready(function() {
        clear();
     });
 
-    $(document).click(function(event){
-        if($("#register").is(event.target)){
-            clear();
-        }
-    });
     //[가입하기] 버튼을 눌렀을 때
     $("#btnSubmit").click(function(event) {
         register();
     });
+
+    // ================================ Login Form ================================
 
     // [로그인] 버튼 클릭 이벤트
     $("#btnLogin").click(function(event) {
@@ -78,23 +89,7 @@ $(document).ready(function() {
 
     // [로그인] 에서 X 버튼 클릭 이벤트
     $("#btnLoginClose").click(function(event) {
-        $("#loginForm").each(function(){
-            this.reset();
-        });
-        // 인증번호 입력 칸 사라지게.
-        $("#loginAuthCode").attr("type", "hidden");
-        $("#btnLoginAuthCheck").hide();
-    });
-
-    //바깥 클릭시
-    $(document).click(function(event){
-        if($("#login").is(event.target)){
-            $("#loginForm").each(function(){
-                this.reset();
-            });
-            $("#loginAuthCode").attr("type", "hidden");
-            $("#btnLoginAuthCheck").hide();
-        }
+        initLoginForm();
     });
 
     // [로그아웃] 버튼 클릭 이벤트
@@ -118,7 +113,12 @@ $(document).ready(function() {
 
 // ================================ Custom Function ================================
 
+// 로그인 폼 초기 세팅
 function initLoginForm() {
+    $("#loginForm").each(function(){
+        this.reset();
+    });
+    $("#loginAuthCode").attr("type", "hidden");
     $("#btnLoginAuthCheck").hide();
 }
 
