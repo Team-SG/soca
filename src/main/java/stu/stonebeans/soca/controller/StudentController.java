@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
 import stu.stonebeans.soca.vo.ResultVO;
+import stu.stonebeans.soca.vo.StudentVO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,13 +49,12 @@ public class StudentController {
         return studentSBO.checkDuplicateNickname(map.get("nickname"));
     }
 
-  /*  // 회원가입
+   // 회원가입
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@RequestBody StudentVO studentVO) {
         studentSBO.register(studentVO);
     }
 
-   */
 
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)

@@ -180,7 +180,7 @@ function checkAuthCode(){
         swal("인증번호를 입력해주세요.");
         return;
     }
-    swal("여기까지");
+
     var param = {
         AuthCode : $("#registerAuthCode").val()
     };
@@ -339,13 +339,16 @@ function register() {
         var param={
           email : $("#registerEmail").val(),
           password : $("#registerPassword").val(),
-          nickname : $("#registerNickname").val()
+          nickname : $("#registerNickname").val(),
+          useYN : "Y"
         };
-        callPostService("/register",param,function(data){
-            if(data===true) swal("회원가입이 완료 되었습니다!");
-            else swal("회원가입실패");
+        callPostService("/register",param,function(){
+
         });
-        //swal("가입하기");
+        //window.location.replace("/");
+        swal("회원가입이 완료 되었습니다!");
+       // $("#register").modal("hide");
+
     }
 }
 
