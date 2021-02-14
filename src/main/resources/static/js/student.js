@@ -8,8 +8,28 @@
 $(document).ready(function() {
 
     // 회원가입 폼 초기화
-    initRegisterForm();
+    $("#btnHRegister").click(function(event){
+        initRegisterForm();
+    });
+
+    // 로그인 폼 초기화
     initLoginForm();
+
+    // 약관동의를 체크했을 때
+    $("#checkAgreement").click(function(event){
+        if(document.getElementById("checkAgreement").checked==true){
+            $("#btnNext").removeAttr("disabled");
+        }
+        else{
+            $("#btnNext").attr("disabled", true);
+        }
+
+    });
+
+    // [다음]버튼을 눌렀을 떄
+    $("#btnNext").click(function(event){
+        $("#btnAgreementClose").trigger("click");
+    })
 
     // [인증발송] 버튼 클릭 이벤트
     $("#btnSendAuth").click(function (event) {
@@ -21,6 +41,7 @@ $(document).ready(function() {
         checkAuthCode();
     });
 
+    // 인증 번호를 수정했을 때
     $("#registerAuthCode").change(function (event){
         changeAuthCode();
     });
@@ -50,7 +71,7 @@ $(document).ready(function() {
         changeNickname(event);
     });
 
-    //그냥 회원가입 창을 벗어났을떄도 초기화가 필요함
+
     //[초기화] 버튼을 눌렀을 때
     $("#btnReset").click(function(event){
        clear();
@@ -58,14 +79,24 @@ $(document).ready(function() {
 
     //회원가입 창을 닫았을 때
     $("#btnClose").click(function(event){
-       clear();
+        document.getElementById("checkAgreement").checked=false;
+        $("#btnNext").attr("disabled",true);
+        clear();
     });
 
+    //그냥 회원가입 창을 벗어났을떄
     $(document).click(function(event){
+        if($("#agreement").is(event.target)){
+            document.getElementById("checkAgreement").checked=false;
+            $("#btnNext").attr("disabled",true);
+        }
         if($("#register").is(event.target)){
+            document.getElementById("checkAgreement").checked=false;
+            $("#btnNext").attr("disabled",true);
             clear();
         }
     });
+
     //[가입하기] 버튼을 눌렀을 때
     $("#btnSubmit").click(function(event) {
         register();
@@ -151,6 +182,8 @@ function login() {
 // 회원가입 폼 초기화
 function initRegisterForm() {
     // invalid한 패스워드 입력 전에는 숨김
+    document.getElementById("checkAgreement").checked=false;
+    $("#btnNext").attr("disabled",true);
     $("#passwordFail").hide();
     $("#passwordCheckFail").hide();
     $("#validAuthCode").hide();
@@ -311,11 +344,8 @@ function register() {
     var passwordCheck = $("#passwordCheckAuth").val(); //패스워드가 일치하는지 여부
     var nickname = $("#nicknameAuth").val();           //닉네임 중복확인을 통과했는지 여부
 
-    if(document.getElementById("checkAgreement").checked==false){
-        swal("약관을 동의하셔야 회원가입을 진행할 수 있습니다.");
-        $("#checkAgreement").focus();
-    }
-    else if(email==="0"){
+
+   if(email==="0"){
          if($("#registerEmail").val().length===0){
              swal("이메일을 입력해주세요.");
              $("#registerEmail").focus();
