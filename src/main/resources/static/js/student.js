@@ -334,7 +334,6 @@ function register() {
 
     }
 
-    //아직 얘가 작동 안함
     else{
         var param={
           email : $("#registerEmail").val(),
@@ -342,12 +341,10 @@ function register() {
           nickname : $("#registerNickname").val(),
           useYN : "Y"
         };
-        callPostService("/register",param,function(){
-
-        });
+        callPostService("/register",param,null);
         //window.location.replace("/");
         swal("회원가입이 완료 되었습니다!");
-       // $("#register").modal("hide");
+
 
     }
 }
