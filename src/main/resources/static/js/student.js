@@ -445,7 +445,7 @@ function callDuplicateNickname(data) {
     }
 }
 
-//회원 정보 찾기
+// 회원 정보 찾기
 function searchInfo() {
 
     if($("#loginEmail").val().length == 0) {
@@ -466,9 +466,11 @@ function searchInfo() {
     });
 }
 
+// 인증번호 입력 후 임시 비밀번호 발급
 function loginAuthCheck() {
     var param = {
-        authCode : $("#loginAuthCode").val()
+        authCode : $("#loginAuthCode").val(),
+        email : $("#loginEmail").val()
     };
 
     callPostService("loginAuthCheck", param, function(data) {
