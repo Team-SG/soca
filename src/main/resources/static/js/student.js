@@ -50,7 +50,7 @@ $(document).ready(function() {
         changeNickname(event);
     });
 
-    //이걸 한번에 할 수 있는 방법이 있을까 + 그냥 회원가입 창을 벗어났을떄도 초기화가 필요함
+    //그냥 회원가입 창을 벗어났을떄도 초기화가 필요함
     //[초기화] 버튼을 눌렀을 때
     $("#btnReset").click(function(event){
        clear();
@@ -61,7 +61,12 @@ $(document).ready(function() {
        clear();
     });
 
-    //[가입하기] 버튼을 눌렀을 때, 아직 작동 제대로 안됨
+    $(document).click(function(event){
+        if($("#register").is(event.target)){
+            clear();
+        }
+    });
+    //[가입하기] 버튼을 눌렀을 때
     $("#btnSubmit").click(function(event) {
         register();
     });
@@ -342,9 +347,9 @@ function register() {
           useYN : "Y"
         };
         callPostService("/register",param,null);
-        //window.location.replace("/");
-        swal("회원가입이 완료 되었습니다!");
 
+        swal("회원가입이 완료 되었습니다!");
+        $("#btnClose").trigger("click");
 
     }
 }
