@@ -55,6 +55,8 @@ public class StudentController {
         studentSBO.register(studentVO);
     }
 
+
+
     // 로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResultVO login(HttpSession session, @RequestBody HashMap<String, String> map) {
