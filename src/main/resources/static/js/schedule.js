@@ -10,6 +10,7 @@ var schedule;
 $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
+    getYearSemester(); // 수강년도/학기 데이터 조회
 
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
@@ -22,6 +23,8 @@ $(document).ready(function() {
         deleteGridData();
     });
 });
+
+// ================================ Custom Function ================================
 
 // 그리드 초기 세팅
 function initGrid() {
@@ -94,8 +97,18 @@ function initGrid() {
     schedule.resetData(data);
 }
 
+function getYearSemester() {
+    callPostService('getYearSemester', null, 'callGetYearSemester')
+}
+
 // 그리드 선택된 항목 삭제
 function deleteGridData() {
     var checkedRows = schedule.getCheckedRows();
     schedule.removeRow(checkedRows);
+}
+
+// ================================ Callback Function ================================
+
+function callGetYearSemester() {
+
 }
