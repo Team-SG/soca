@@ -86,6 +86,17 @@ $(document).ready(function() {
         $("#btnLoginAuthCheck").hide();
     });
 
+    //바깥 클릭시
+    $(document).click(function(event){
+        if($("#login").is(event.target)){
+            $("#loginForm").each(function(){
+                this.reset();
+            });
+            $("#loginAuthCode").attr("type", "hidden");
+            $("#btnLoginAuthCheck").hide();
+        }
+    });
+
     // [로그아웃] 버튼 클릭 이벤트
     $("#btnHLogout").click(function(event) {
         callPostService("/logout", null, function(data){
@@ -102,13 +113,6 @@ $(document).ready(function() {
     $("#btnLoginAuthCheck").click(function() {
        loginAuthCheck();
     });
-
-    /*
-    $('#printNickname').html(function(){
-       callPostService("findNickname", null, function(data){
-       })
-    });*/
-
 });
 
 

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
 import stu.stonebeans.soca.vo.ResultVO;
+import stu.stonebeans.soca.vo.StudentVO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -58,10 +59,12 @@ public class StudentController {
         String email = map.get("email");
         String password = map.get("password");
 
+        StudentVO student = studentSBO.findStudent(email);
         ResultVO result = studentSBO.login(email, password);
-        if(result.getStatus() == 1)
+        if(result.getStatus() == 1) {
             session.setAttribute("email", email);
-
+            session.setAttribute("nickname", student.getNickname());
+        }
         return result;
     }
 
@@ -88,6 +91,22 @@ public class StudentController {
             result.setStatus(1);
             mailSBO.sendEmail(session, map.get("email"));
             result.setMsg("인증번호 전송이 완료되었습니다.");
+        }
+        return result;
+    }
+
+    @RequestMapping(value="loginAuthCheck", method = RequestMethod.POST)
+    public ResultVO loginAuthCheck(HttpSession session, @RequestBody HashMap<String, String> map) {
+        ResultVO result = new ResultVO();
+        String authCode = map.get("authCode");
+        String veriCode = (String)session.getAttribute("verificationCode");
+        if(authCode.equals(veriCode)) {
+            result.setStatus(1);
+            result.setMsg("인증되었습니다. 임시 비밀번호를 보내드렸습니다.");
+        }
+        else {
+            result.setStatus(-1);
+            result.setMsg("잘못된 인증번호입니다.");
         }
         return result;
     }
