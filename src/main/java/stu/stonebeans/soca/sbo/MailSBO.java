@@ -14,7 +14,7 @@ public interface MailSBO {
     public MailVO createMailVerificationCodeInfo(String email, String verificationCode);
 
     // 비밀번호 전송 메일 정보 생성
-    public MailVO createMailPasswordInfo(String email, String verificationCode);
+    public MailVO createMailPasswordInfo(String email, String password);
 
     // 랜덤 인증 번호 생성
     String getTempVerificationCode();
