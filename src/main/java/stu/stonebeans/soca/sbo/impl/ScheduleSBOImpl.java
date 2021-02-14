@@ -1,8 +1,14 @@
 package stu.stonebeans.soca.sbo.impl;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import stu.stonebeans.soca.dao.ScheduleDAO;
 import stu.stonebeans.soca.sbo.ScheduleSBO;
+import stu.stonebeans.soca.vo.StudentVO;
+import stu.stonebeans.soca.vo.SubjectVO;
 
 import java.util.List;
 
@@ -10,10 +16,17 @@ import java.util.List;
 @AllArgsConstructor
 public class ScheduleSBOImpl implements ScheduleSBO {
 
-    // 수강년도 및 학기 데이터 가져오기
-    @Override
-    public List<String> getYearSemester() {
+    private final Logger logger = LoggerFactory.getLogger(ScheduleSBOImpl.class);
 
-        return null;
+    @Autowired
+    private ScheduleDAO scheduleDAO;
+
+    /*
+        함수 : 수강년도 및 학기 데이터 조회
+        설명 : 과목 테이블에 존재하는 모든 수강년도와 학기 데이터를 조회
+     */
+    @Override
+    public List<SubjectVO> getYearSemester() {
+        return scheduleDAO.getYearSemester();
     }
 }

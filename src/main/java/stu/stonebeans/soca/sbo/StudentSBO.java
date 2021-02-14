@@ -22,4 +22,7 @@ public interface StudentSBO {
 
     // 학생 정보 조회
     StudentVO findStudent(String email);
+
+    // 비밀번호 변경
+    void changePassword(String password, String email);
 }

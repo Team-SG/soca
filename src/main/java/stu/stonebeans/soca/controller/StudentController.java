@@ -92,9 +92,7 @@ public class StudentController {
         }
         else
         {
-            result.setStatus(1);
-            mailSBO.sendEmail(session, map.get("email"), 1);
-            result.setMsg("인증번호 전송이 완료되었습니다.");
+            result = mailSBO.sendEmail(session, map.get("email"), 2);
         }
         return result;
     }
@@ -105,8 +103,7 @@ public class StudentController {
         String authCode = map.get("authCode");
         String veriCode = (String)session.getAttribute("verificationCode");
         if(authCode.equals(veriCode)) {
-            result.setStatus(1);
-            result.setMsg("인증되었습니다. 임시 비밀번호를 보내드렸습니다.");
+            result = mailSBO.sendEmail(session, map.get("email"), 3);
         }
         else {
             result.setStatus(-1);

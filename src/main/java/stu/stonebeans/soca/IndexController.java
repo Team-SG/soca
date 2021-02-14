@@ -32,4 +32,20 @@ public class IndexController {
     public String schedule() {
         return "schedule";
     }
+
+    // 평가방 이동
+    @RequestMapping(value = "/evaluate")
+    public String evalute() {
+        return "evaluateList";
+    }
+    @RequestMapping(value = "/evaluateList")
+    public String evaluteList() {
+        return "evaluateList";
+    }
+
+    // 나의 강의평가
+    @RequestMapping(value = "/myEvaluate")
+    public String myEvaluate() {
+        return "myEvaluate";
+    }
 }

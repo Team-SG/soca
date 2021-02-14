@@ -6,14 +6,18 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import stu.stonebeans.soca.config.PropertyUtil;
 import stu.stonebeans.soca.sbo.MailSBO;
+import stu.stonebeans.soca.sbo.StudentSBO;
 import stu.stonebeans.soca.vo.MailVO;
 import stu.stonebeans.soca.vo.ResultVO;
+import stu.stonebeans.soca.dao.StudentDAO;
 
 import javax.servlet.http.HttpSession;
 
 @Service
 @AllArgsConstructor
 public class MailSBOImpl implements MailSBO {
+
+    private StudentSBO studentSBO;
     private JavaMailSender mailSender;
     private static final String FROM_ADDRESS = PropertyUtil.getProperty("spring.mail.username"); // application.properties 속성 불러오기
 
@@ -65,6 +69,7 @@ public class MailSBOImpl implements MailSBO {
                 session.setAttribute("tempPassword", code);
                 resultVO.setStatus(1);
                 resultVO.setMsg("임시비밀번호 전송이 완료되었습니다.");
+                studentSBO.changePassword(code, email);
             }
         } catch(Exception err) {
             resultVO.setStatus(-1);

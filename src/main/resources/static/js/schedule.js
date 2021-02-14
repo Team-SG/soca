@@ -1,7 +1,7 @@
 /*
     2021.02.12
     최초 작성자 : PYE
-    시간표 등록 / 수정 관 기능이 정의되는 JavaScript
+    시간표 등록 / 수정 관련 기능이 정의되는 JavaScript
  */
 
 const Grid = tui.Grid;
@@ -97,6 +97,9 @@ function initGrid() {
     schedule.resetData(data);
 }
 
+// ================================ Custom Function ================================
+
+// 수강년도 및 학기 데이터 가져오기
 function getYearSemester() {
     callPostService('getYearSemester', null, 'callGetYearSemester')
 }
@@ -109,6 +112,12 @@ function deleteGridData() {
 
 // ================================ Callback Function ================================
 
-function callGetYearSemester() {
-
+// 수강년도 및 학기 데이터 가져오기 콜백
+function callGetYearSemester(data) {
+    // 수강년도/학기 리스트에 데이터 추가
+    $.each(data, function(index, item) {
+        console.log(item)
+        var option = "<option>" + item.year + "년도 " + item.semester + "학기" + "</option>";
+        $("#selectYear").append(option);
+    });
 }
