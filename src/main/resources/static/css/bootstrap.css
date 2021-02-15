@@ -8075,6 +8075,10 @@ button.bg-dark:focus {
   width: 25% !important;
 }
 
+.w-47 {
+  width: 47% !important;
+}
+
 .w-50 {
   width: 50% !important;
 }
@@ -10482,6 +10486,9 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 /* custom */
+.fs-100 {
+  font-size: 1.0em;
+}
 .fs-095 {
   font-size: 0.95em;
 }

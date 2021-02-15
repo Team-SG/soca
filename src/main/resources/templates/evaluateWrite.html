@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <style>
+
+    </style>
+</head>
+<div layout:fragment="content">
+    <div class="toast show shadow-none mt-3">
+        <div class="toast-header">
+            <strong class="mr-auto mt-2 mb-2">평가 작성</strong>
+            <button type="button" id="btnMyPageSave" class="btn btn-outline-danger btn-sm font-weight-normal mt-1 mb-1">등록</button>
+        </div>
+        <div class="toast-body">
+            <form>
+                <div class="form-group input-group-sm mt-2 ml-2">
+                    <h5 class="ml-2 mb-4">과목명 - 교수이름</h5>
+
+                    <!-- 총평 -->
+                    <span class="badge badge-primary fs-095 font-weight-light m-2">총평</span><br/>
+                    <!-- 학점 -->
+                    <span class="badge badge-primary fs-095 font-weight-light m-2">받은 학점</span>
+                    <select id="grade" class="form-control d-inline-block mr-1" style="width: 100px;">
+                        <option value="A+">A+</option>
+                        <option value="A0">A0</option>
+                        <option value="A-">A-</option>
+                    </select>
+                    <br/><hr/>
+                    <!-- 상세 평점 -->
+                    <div class="d-inline-block">
+                        <h5 class="ml-2 mb-4">상세 평점</h5>
+                        <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">강의력</span><br/>
+                        <div class="range">
+                            <input type="range" min="1" max="7" steps="1" value="1">
+                        </div>
+
+                        <ul class="range-labels">
+                            <li class="active selected">Today</li>
+                            <li>2 days</li>
+                            <li>3 days</li>
+                            <li>4 days</li>
+                            <li>5 days</li>
+                            <li>6 days</li>
+                            <li>7 days</li>
+                        </ul>
+                        <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">학점만족도</span><br/>
+                        <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">난이도</span><br/>
+                        <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">과제량</span><br/>
+                        <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">시험량</span><br/>
+                    </div>
+                    <br/><hr/>
+
+                    <!-- 코멘트 -->
+                    <span class="badge badge-danger fs-095 font-weight-light m-2 mb-3">
+                        강의에 대한 평가를 작성해주세요! (10자 이상)
+                    </span>
+                    <textarea id="commentFinal" name="commentFinal" class="d-block w-75 ml-2 mr-2" style="border:1px solid #dddddd; height: 100px"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/evaluateWrite.js" type="text/javascript"></script>
+</div>
+</html>
