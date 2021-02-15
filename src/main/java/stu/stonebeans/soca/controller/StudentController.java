@@ -2,6 +2,7 @@ package stu.stonebeans.soca.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
 import stu.stonebeans.soca.vo.ResultVO;
@@ -9,6 +10,7 @@ import stu.stonebeans.soca.vo.StudentVO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
@@ -110,5 +112,33 @@ public class StudentController {
             result.setMsg("잘못된 인증번호입니다.");
         }
         return result;
+    }
+
+
+    // 패스워드를 변경할 경우
+    @RequestMapping(value="/passwordChange",method=RequestMethod.POST)
+    public ResultVO passwordChange(HttpSession session, @RequestBody HashMap<String,String> map){
+        ResultVO result=new ResultVO();
+        String email=(String)session.getAttribute("email");
+        String currentPassword=map.get("currentPassword");
+        String newPassword=map.get("password");
+
+        String password=studentSBO.findStudent(email).getPassword();
+        if(studentSBO.encryptSHA256(currentPassword).equals(password)){
+            if(currentPassword.equals(newPassword)){
+                result.setStatus(-2);
+                result.setMsg("현재 비밀번호와 다른 비밀번호로 설정하십시오.");
+            }
+            else{
+                studentSBO.changePassword(newPassword,email);
+                result.setStatus(1);
+                result.setMsg("비밀번호 변경을 완료했습니다.");
+            }
+        }
+        else{
+            result.setStatus(-1);
+            result.setMsg("현재 비밀번호가 일치하지 않습니다.");
+        }
+         return result;
     }
 }

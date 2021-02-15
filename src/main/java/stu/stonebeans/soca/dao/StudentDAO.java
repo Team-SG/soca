@@ -21,4 +21,5 @@ public interface StudentDAO {
 
     // 비밀번호 변경
     public void changePassword(StudentVO student);
+
 }

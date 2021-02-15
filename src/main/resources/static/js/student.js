@@ -48,12 +48,12 @@ $(document).ready(function() {
 
     // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
     $("#registerPassword").focusout(function (event) {
-        checkPasswordFirst();
+        checkPasswordFirst(1);
     });
 
     // 비밀번호확인 focusout 이벤트 발생 (password1과 password2가 같은지 체크)
     $("#registerPasswordCheck").focusout(function (event) {
-        checkPasswordSecond();
+        checkPasswordSecond(1);
     });
 
     // 닉네임 [중복확인] 버튼 클릭 이벤트
@@ -63,7 +63,7 @@ $(document).ready(function() {
 
     // 비밀번호 최초 작성 후 다시 수정이 이루어지는 경우
     $("#registerPassword").change(function (event) {
-        changePassword();
+        changePassword(1);
     });
 
     // 닉네임 중복확인을 한번 한 상태에서 다시 닉네임을 변경할 경우
@@ -144,6 +144,54 @@ $(document).ready(function() {
     $("#btnLoginAuthCheck").click(function() {
        loginAuthCheck();
     });
+
+    //==================== 마이페이지 관련================================
+    //비밃번호 변경 폼 초기화
+    $("#btnPasswordChange").click(function(event){
+        initPasswordChange();
+        passwordChangeClear();
+    })
+
+
+    // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
+    $("#changePassword").focusout(function (event) {
+        checkPasswordFirst(2);
+    });
+
+    // 비밀번호확인 focusout 이벤트 발생 (password1과 password2가 같은지 체크)
+    $("#changePasswordCheck").focusout(function (event) {
+        checkPasswordSecond(2);
+    });
+
+
+    // 비밀번호 최초 작성 후 다시 수정이 이루어지는 경우
+    $("#changePassword").change(function (event) {
+        changePassword(2);
+    });
+
+    //패스워드 [변경하기] 버튼을 눌렀을 때
+    $("#btnPasswordChangeSubmit").click(function(){
+        var password1=$("#changePasswordAuth").val();
+        var password2=$("#changePasswordCheckAuth").val();
+
+        if($("#currentPassword").val().length==0){
+            swal("현재 비밀번호를 입력해주세요.");
+        }else if(password1==0){
+            swal("새 패스워드를 올바르게 입력하세요.")
+        }else if(password2==0){
+            swal("새 패스워드가 일치하지 않습니다.")
+        }
+        else{
+            var param={
+                currentPassword: $("#currentPassword").val(),
+                password: $("#changePassword").val()
+            }
+            callPostService("/passwordChange",param, "callPasswordChange");
+        }
+
+    });
+
+
 });
 
 
@@ -264,47 +312,92 @@ function checkDuplicateNickname() {
 }
 
 // 패스워드 유효성 체크(영+숫+특)
-function checkPasswordFirst() {
+function checkPasswordFirst(flag) {
+    // 1: 회원가입 2: 비밀번호 변경
     // 영문+숫자+특수문자 조합 8자~20자를 충족하지 못하는 경우
-    if(checkPasswordCondition($("#registerPassword").val())===false) {
-        $("#registerPassword").val(null);
-        $("#passwordFail").show();
-        $("#passwordAuth").val(0);
-        return;
+    if(flag==1) {
+        if (checkPasswordCondition($("#registerPassword").val()) === false) {
+            $("#registerPassword").val(null);
+            $("#passwordFail").show();
+            $("#passwordAuth").val(0);
+            return;
+        } else {
+            $("#passwordFail").hide();
+            $("#passwordAuth").val(1);
+            return;
+        }
     }
-    else{
-        $("#passwordFail").hide();
-        $("#passwordAuth").val(1);
-        return;
+    else if(flag==2){
+        if (checkPasswordCondition($("#changePassword").val()) === false) {
+            $("#changePassword").val(null);
+            $("#changePasswordFail").show();
+            $("#changePasswordAuth").val(0);
+            return;
+        } else {
+            $("#changePasswordFail").hide();
+            $("#changePasswordAuth").val(1);
+            return;
+        }
     }
+
+
 }
 
 // 패스워드 유효성 체크(password1과 password2가 같은지 체크)
-function checkPasswordSecond() {
+function checkPasswordSecond(flag) {
+    // 1: 회원가입 2: 비밀번호 변경
     // password와 패스워드 확인이 일치하지 않는 경우
-    if(Object.is($("#registerPassword").val(),$("#registerPasswordCheck").val())===false) {
-        $("#registerPasswordCheck").val(null);
-        $("#passwordCheckFail").show();
-        $("#passwordCheckAuth").val(0);
+    if(flag==1){
+        if(Object.is($("#registerPassword").val(),$("#registerPasswordCheck").val())===false) {
+            $("#registerPasswordCheck").val(null);
+            $("#passwordCheckFail").show();
+            $("#passwordCheckAuth").val(0);
+            return;
+        }
+        else{
+            $("#passwordCheckFail").hide();
+            $("#passwordCheckAuth").val(1);
+            return;
+        }
+    }
+    else if(flag==2){
+        if(Object.is($("#changePassword").val(),$("#changePasswordCheck").val())===false) {
+            $("#changePasswordCheck").val(null);
+            $("#changePasswordCheckFail").show();
+            $("#changePasswordCheckAuth").val(0);
+            return;
+        }
+        else{
+            $("#changePasswordCheckFail").hide();
+            $("#changePasswordCheckAuth").val(1);
+            return;
+        }
+    }
 
-        return;
-    }
-    else{
-        $("#passwordCheckFail").hide();
-        $("#passwordCheckAuth").val(1);
-        return;
-    }
 }
 
 // 패스워드를 변경한 경우
-function changePassword(event) {
-    if ($("#registerPassword").val().length != 0 && $("#registerPasswordCheck").val().length != 0) {
-        $("#registerPasswordCheck").val(null);
-        $("#passwordCheckFail").show();
-    } else {
-        $("#registerPasswordCheck").focus();
-        $("#passwordCheckFail").hide();
+function changePassword(flag) {
+    // 1: 회원가입 2: 비밀번호 변경
+    if(flag==1){
+        if ($("#registerPassword").val().length != 0 && $("#registerPasswordCheck").val().length != 0) {
+            $("#registerPasswordCheck").val(null);
+            $("#passwordCheckFail").show();
+        } else {
+            $("#registerPasswordCheck").focus();
+            $("#passwordCheckFail").hide();
+        }
     }
+    else if(flag==2){
+        if ($("#changePassword").val().length != 0 && $("#changePasswordCheck").val().length != 0) {
+            $("#changePasswordCheck").val(null);
+            $("#changePasswordCheckFail").show();
+        } else {
+            $("#changePasswordCheck").focus();
+            $("#changePasswordCheckFail").hide();
+        }
+    }
+
 
 }
 
@@ -337,6 +430,7 @@ function changeNickname(event) {
     }
 }
 
+// 회원가입을 시도하는 경우
 function register() {
     var email = $("#emailAuth").val();                 //인증 번호를 발송 했는지 여부
     var emailCheck = $("#emailCheckAuth").val();        //인증번호를 확인했는지 여부
@@ -400,6 +494,21 @@ function register() {
     }
 }
 
+//============================ 마이페이지 관련 function=========================
+function initPasswordChange(){
+    $("#changePasswordFail").hide();
+    $("#changePasswordCheckFail").hide();
+}
+
+function passwordChangeClear(){
+    $("#currentPassword").val(null);
+    $("#changePassword").val(null);
+    $("#changePasswordCheck").val(null);
+    $("#changePasswordAuth").val(0);
+    $("#changePasswordCheckAuth").val(0);
+}
+
+
 // ================================ Callback Function ================================
 
 // 이메일 중복 확인 콜백
@@ -430,9 +539,8 @@ function callDuplicateNickname(data) {
     // 닉네임 중복 확인 후, 결과 값(data)이 true일 경우
     if(data === true) {
         swal("'"+$("#registerNickname").val()+"' 은(는) 사용 가능한 닉네임입니다.");
-        //[중복확인] 버튼을 비활성화
+
         //[중복확인] 버튼이 사라지고 체크 표시 그림이 나타나는 것도 괜찮을 듯
-        //$("#btnNicknameCheck").attr("disabled","disabled");
         $("#btnNicknameCheck").hide();
         $("#validNickname").show();
         $("#nicknameAuth").val(1);
@@ -443,6 +551,16 @@ function callDuplicateNickname(data) {
         $("#nicknameAuth").val(0);
         return;
     }
+}
+
+//비밀번호 변경
+function callPasswordChange(data){
+    swal(data.msg);
+    if(data.status>0)
+        $("#btnPassChangeClose").trigger("click");
+    else
+        passwordChangeClear();
+
 }
 
 // 회원 정보 찾기

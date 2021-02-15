@@ -25,4 +25,5 @@ public interface StudentSBO {
 
     // 비밀번호 변경
     void changePassword(String password, String email);
+
 }
