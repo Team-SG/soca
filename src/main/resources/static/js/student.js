@@ -147,7 +147,11 @@ $(document).ready(function() {
 
     //==================== 마이페이지 관련================================
     //비밃번호 변경 폼 초기화
-    initPasswordChange();
+    $("#btnPasswordChange").click(function(event){
+        initPasswordChange();
+        passwordChangeClear();
+    })
+
 
     // 비밀번호 focusout 이벤트 발생 (영+숫+특 체크)
     $("#changePassword").focusout(function (event) {
@@ -166,7 +170,7 @@ $(document).ready(function() {
     });
 
     //패스워드 [변경하기] 버튼을 눌렀을 때
-    $("#btnPasswordChange").click(function(){
+    $("#btnPasswordChangeSubmit").click(function(){
         var password1=$("#changePasswordAuth").val();
         var password2=$("#changePasswordCheckAuth").val();
 
@@ -186,6 +190,7 @@ $(document).ready(function() {
         }
 
     });
+
 
 });
 
@@ -495,6 +500,15 @@ function initPasswordChange(){
     $("#changePasswordCheckFail").hide();
 }
 
+function passwordChangeClear(){
+    $("#currentPassword").val(null);
+    $("#changePassword").val(null);
+    $("#changePasswordCheck").val(null);
+    $("#changePasswordAuth").val(0);
+    $("#changePasswordCheckAuth").val(0);
+}
+
+
 // ================================ Callback Function ================================
 
 // 이메일 중복 확인 콜백
@@ -544,6 +558,8 @@ function callPasswordChange(data){
     swal(data.msg);
     if(data.status>0)
         $("#btnPassChangeClose").trigger("click");
+    else
+        passwordChangeClear();
 
 }
 
