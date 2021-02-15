@@ -48,4 +48,10 @@ public class IndexController {
     public String myEvaluate() {
         return "myEvaluate";
     }
+
+    // 강의평가 작성
+    @RequestMapping(value = "/evaluateWrite")
+    public String evaluateWrite() {
+        return "evaluateWrite";
+    }
 }
