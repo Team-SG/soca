@@ -16,6 +16,7 @@
         }
     </style>
 </head>
+
 <div layout:fragment="content">
     <div class="toast show shadow-none mt-3">
         <div class="toast-header">
@@ -34,20 +35,51 @@
                     <form id="myPageForm" name="myPageForm">
                         <div class="input-group mb-3">
                             <span class="input-group-text">이메일</span>
-                            <input type="text" id="myPageEmail" name="email" class="form-control ml-2" readonly>
+                            <input type="text" id="myPageEmail" name="email" th:text="${session.email} + '@sogang.ac.kr'" class="form-control ml-2" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">닉네임</span>
-                            <input type="text" id="myPageNickname" name="nickname" class="form-control ml-2">
+                            <input type="text" id="myPageNickname" name="nickname" th:text="${session.nickname}" class="form-control ml-2">
                         </div>
                     </form>
                 </div>
             </div>
             <hr/>
             <div>
-                <button type="button" class="btn btn-sm btn-outline-primary mr-1">패스워드 변경</button>
+                <button type="button" class="btn btn-sm btn-outline-primary mr-1" data-toggle="modal" data-target="#passwordUpdate">패스워드 변경</button>
                 <button type="button" class="btn btn-sm btn-outline-danger mr-1" onclick="location.href='/schedule'">시간표 등록 / 수정</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">기술문의</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- password Update modal -->
+    <div class="modal fade" id="passwordUpdate" tabindex="-1" role="dialog" aria-labelledby="passwordUpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <br>
+                    <h5 class="modal-title" id="passwordUpdateModalLabel">비밀번호 변경</h5>
+                    <button type="button" id="btnPassChangeClose" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body w-75 m-auto">
+                    <form id="passwordUpdateForm" name="passwordUpdateForm">
+                        <input type="password" id="currentPassword" name="password" class="form-control mb-3" placeholder="현재 패스워드" maxlength="20">
+                        <!--<div id="passwordFail" class="small mb-3" style="color:red; text-indent:1em;">현재 패스워드와 일치하지 않습니다.</div>-->
+                        <input type="hidden" id="currentPasswordAuth" class="auth" value="0" />
+                        <input type="password" id="changePassword" name="password" class="form-control" placeholder="새 패스워드(영문+숫자+특수문자 조합 8자~20자)" maxlength="20">
+                        <div id="changePasswordFail" class="small mb-3" style="color:red; text-indent:1em;">패스워드는 영문+숫자+특수문자 조합 8자~20자이어야 합니다.</div>
+                        <input type="hidden" id="changePasswordAuth" class="auth" value="0" />
+                        <input type="password" id="changePasswordCheck" name="passwordCheck" class="form-control mt-3" placeholder="새 패스워드 확인" maxlength="20">
+                        <div id="changePasswordCheckFail" class="small mb-3" style="color:red; text-indent:1em;">패스워드가 일치하지 않습니다.</div>
+                        <input type="hidden" id="changePasswordCheckAuth" class="auth" value="0" />
+                    </form>
+                </div>
+                <div class="modal-footer" align="right">
+                    <button type="button" id="btnPasswordChange" class="btn btn-primary font-weight-normal">변경하기</button>
+                </div>
             </div>
         </div>
     </div>

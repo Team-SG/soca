@@ -46,7 +46,7 @@ public class StudentSBOImpl implements StudentSBO {
 
     /*
         함수 : 회원가입
-        설명 :
+        설명 : 이용자가 입력한 정보를 이용하여 회원가입을 진행
     */
     @Override
     public void register(StudentVO studentVO){
@@ -118,5 +118,7 @@ public class StudentSBOImpl implements StudentSBO {
         student.setEmail(email);
         studentDAO.changePassword(student);
     }
+
+
 
 }
