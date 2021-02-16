@@ -7,7 +7,6 @@
 const Grid = tui.Grid;
 var schedule;
 var subjectLists = [];
-
 $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
@@ -24,7 +23,7 @@ $(document).ready(function() {
         deleteGridData();
     });
 
-    // autoComplete
+    // autoComplete 뜨게.
     $("#subject").autocomplete({
         source : subjectLists
     });
@@ -134,6 +133,9 @@ function findSubjects() {
     }
 
     callPostService("findSubjects", param, function(data) {
-        subjectLists = data;
+        for(var i = 0; i < data.length; i++) {
+            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID});
+        }
+        console.log(subjectLists[1]);
     })
 }

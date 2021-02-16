@@ -39,7 +39,7 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "/findSubjects", method=RequestMethod.POST)
-    public String[] findSubjects(@RequestBody HashMap<String, String> map) {
+    public SubjectVO[] findSubjects(@RequestBody HashMap<String, String> map) {
         String yearSemester = map.get("yearSemester");
         SubjectVO subject = new SubjectVO();
         String year = yearSemester.substring(0, 4);
@@ -48,10 +48,6 @@ public class ScheduleController {
         subject.setSemester(semester);
         List<SubjectVO> subjectList = scheduleSBO.findSubjects(subject);
         SubjectVO[] array = subjectList.toArray(new SubjectVO[subjectList.size()]);
-        String[] s = new String[array.length];
-        for(int i = 0; i < array.length; i++) {
-            s[i] = array[i].getSubjectNO();
-        }
-        return s;
+        return array;
     }
 }
