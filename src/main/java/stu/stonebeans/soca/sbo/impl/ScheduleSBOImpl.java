@@ -10,6 +10,7 @@ import stu.stonebeans.soca.sbo.ScheduleSBO;
 import stu.stonebeans.soca.vo.StudentVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
+import javax.security.auth.Subject;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,5 +37,10 @@ public class ScheduleSBOImpl implements ScheduleSBO {
     @Override
     public List<SubjectVO> getSubjectList(HashMap<String,String> map) {
         return scheduleDAO.getSubjectList(map);
+    }
+
+    @Override
+    public List<SubjectVO> findSubjects(SubjectVO subject) {
+        return scheduleDAO.findSubjects(subject);
     }
 }

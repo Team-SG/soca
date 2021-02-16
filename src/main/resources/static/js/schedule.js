@@ -6,6 +6,7 @@
 
 const Grid = tui.Grid;
 var schedule;
+var subjectList = [];
 
 $(document).ready(function() {
 
@@ -23,22 +24,14 @@ $(document).ready(function() {
         deleteGridData();
     });
 
-     var array = [ "김밥", "김치", "김치찌개", "김치김밥"];
+    // autoComplete
     $("#subject").autocomplete({
-        source : array
-        /* function(request, response) {
-            $.ajax({
-                type: 'post',
-                url: "",
-                dataType: "json",
-                data: $("#subject").val(),
-                success: function(data) {
-                    var result = data;
-                    response(result);
-                }
-            })
-        }*/
+        source : subjectList
     });
+
+    $("#btnTest").click(function() {
+        findSubjects(); // 해당학기/년도 데이터 찾기..
+    })
 });
 
 // ================================ Custom Function ================================
@@ -134,7 +127,17 @@ function callGetYearSemester(data) {
     // 수강년도/학기 리스트에 데이터 추가
     $.each(data, function(index, item) {
         console.log(item)
-        var option = "<option>" + item.year + "년도 " + item.semester + "학기" + "</option>";
+        var option = "<option value='" + item.year + item.semester + "'>"+ item.year + "년도 " + item.semester + "학기" + "</option>";
         $("#selectYear").append(option);
     });
+}
+
+function findSubjects() {
+    var param = {
+        yearSemester : $("#selectYear option:selected").val()
+    }
+
+    callPostService("findSubjects", param, function(data) {
+        subjectList = data;
+    })
 }

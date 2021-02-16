@@ -13,4 +13,10 @@
         SELECT A.code,A.subjectNO,A.professor FROM subject A
         JOIN schedule B ON B.email=#{email} AND A.year=#{year} AND A.semester=#{semester};
     </select>
+
+    <select id="findSubjects"
+            parameterType="stu.stonebeans.soca.vo.SubjectVO"
+            resultType="List">
+        SELECT * FROM subject where year=#{year} and semester=#{semester};
+    </select>
 </mapper>
