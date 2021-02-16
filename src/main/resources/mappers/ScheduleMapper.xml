@@ -6,4 +6,17 @@
         SELECT distinct year, semester FROM subject
         ORDER BY year desc, semester asc; -- 수강년도는 내림차순, 학기는 오름차순으로 조회
     </select>
+
+    <select id="getSubjectList"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT A.code,A.subjectNO,A.professor FROM subject A
+        JOIN schedule B ON B.email=#{email} AND A.year=#{year} AND A.semester=#{semester};
+    </select>
+
+    <select id="findSubjects"
+            parameterType="stu.stonebeans.soca.vo.SubjectVO"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT * FROM subject where year=#{year} and semester=#{semester};
+    </select>
 </mapper>

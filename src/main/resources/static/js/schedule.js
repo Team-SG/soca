@@ -6,12 +6,12 @@
 
 const Grid = tui.Grid;
 var schedule;
-
+var subjectLists = [];
 $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
     getYearSemester(); // 수강년도/학기 데이터 조회
-
+    findSubjects();
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
         // #subject 에 입력된 데이터를 기반으로 insert 필요
@@ -21,6 +21,11 @@ $(document).ready(function() {
     $("#btnDelete").click(function() {
         // 그리드 선택된 항목 삭제
         deleteGridData();
+    });
+
+    // autoComplete 뜨게.
+    $("#subject").autocomplete({
+        source : subjectLists
     });
 });
 
@@ -117,7 +122,20 @@ function callGetYearSemester(data) {
     // 수강년도/학기 리스트에 데이터 추가
     $.each(data, function(index, item) {
         console.log(item)
-        var option = "<option>" + item.year + "년도 " + item.semester + "학기" + "</option>";
+        var option = "<option value='" + item.year + item.semester + "'>"+ item.year + "년도 " + item.semester + "학기" + "</option>";
         $("#selectYear").append(option);
     });
+}
+
+function findSubjects() {
+    var param = {
+        yearSemester : $("#selectYear option:selected").val()
+    }
+
+    callPostService("findSubjects", param, function(data) {
+        for(var i = 0; i < data.length; i++) {
+            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID});
+        }
+        console.log(subjectLists[1]);
+    })
 }
