@@ -22,6 +22,23 @@ $(document).ready(function() {
         // 그리드 선택된 항목 삭제
         deleteGridData();
     });
+
+     var array = [ "김밥", "김치", "김치찌개", "김치김밥"];
+    $("#subject").autocomplete({
+        source : array
+        /* function(request, response) {
+            $.ajax({
+                type: 'post',
+                url: "",
+                dataType: "json",
+                data: $("#subject").val(),
+                success: function(data) {
+                    var result = data;
+                    response(result);
+                }
+            })
+        }*/
+    });
 });
 
 // ================================ Custom Function ================================
