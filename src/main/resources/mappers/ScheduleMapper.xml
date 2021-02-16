@@ -16,7 +16,7 @@
 
     <select id="findSubjects"
             parameterType="stu.stonebeans.soca.vo.SubjectVO"
-            resultType="List">
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
         SELECT * FROM subject where year=#{year} and semester=#{semester};
     </select>
 </mapper>

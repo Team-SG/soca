@@ -6,13 +6,13 @@
 
 const Grid = tui.Grid;
 var schedule;
-var subjectList = [];
+var subjectLists = [];
 
 $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
     getYearSemester(); // 수강년도/학기 데이터 조회
-
+    findSubjects();
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
         // #subject 에 입력된 데이터를 기반으로 insert 필요
@@ -26,12 +26,8 @@ $(document).ready(function() {
 
     // autoComplete
     $("#subject").autocomplete({
-        source : subjectList
+        source : subjectLists
     });
-
-    $("#btnTest").click(function() {
-        findSubjects(); // 해당학기/년도 데이터 찾기..
-    })
 });
 
 // ================================ Custom Function ================================
@@ -138,6 +134,6 @@ function findSubjects() {
     }
 
     callPostService("findSubjects", param, function(data) {
-        subjectList = data;
+        subjectLists = data;
     })
 }
