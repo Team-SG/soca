@@ -10,6 +10,7 @@ import stu.stonebeans.soca.sbo.ScheduleSBO;
 import stu.stonebeans.soca.vo.StudentVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -26,7 +27,14 @@ public class ScheduleSBOImpl implements ScheduleSBO {
         설명 : 과목 테이블에 존재하는 모든 수강년도와 학기 데이터를 조회
      */
     @Override
-    public List<SubjectVO> getYearSemester() {
-        return scheduleDAO.getYearSemester();
+    public List<SubjectVO> getYearSemester() { return scheduleDAO.getYearSemester(); }
+
+    /*
+       함수 : 해당 수강년도 및 학기 수강과목 조회
+       설명 : 로그인한 이용자의 선택 년도와 학기의 수강과목 목록을 조회
+    */
+    @Override
+    public List<SubjectVO> getSubjectList(HashMap<String,String> map) {
+        return scheduleDAO.getSubjectList(map);
     }
 }

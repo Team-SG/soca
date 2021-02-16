@@ -35,11 +35,11 @@
                     <form id="myPageForm" name="myPageForm">
                         <div class="input-group mb-3">
                             <span class="input-group-text">이메일</span>
-                            <input type="text" id="myPageEmail" name="email" th:text="${session.email} + '@sogang.ac.kr'" class="form-control ml-2" readonly>
+                            <input type="text" id="myPageEmail" name="email" th:value="${session.email} + '@sogang.ac.kr'" class="form-control ml-2" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">닉네임</span>
-                            <input type="text" id="myPageNickname" name="nickname" th:text="${session.nickname}" class="form-control ml-2">
+                            <input type="text" id="myPageNickname" name="nickname" th:value="${session.nickname}" class="form-control ml-2">
                         </div>
                     </form>
                 </div>
