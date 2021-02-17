@@ -35,11 +35,20 @@
                     <form id="myPageForm" name="myPageForm">
                         <div class="input-group mb-3">
                             <span class="input-group-text">이메일</span>
-                            <input type="text" id="myPageEmail" name="email" th:value="${session.email} + '@sogang.ac.kr'" class="form-control ml-2" readonly>
+                            <input type="text" id="myPageEmail" name="email" th:value="${session.email}" class="form-control ml-2" readonly>
+                            <span class="input-group-text ml-2" id="basic-addon2">@sogang.ac.kr</span>
+                            <button type="button" id="btnChangeEmail" class="btn btn-outline-primary font-weight-normal ml-2">수정</button>
+                            <button type="button" id="btnMySendAuth" class="btn btn-outline-secondary font-weight-normal mr-2">인증발송</button>
+                            <input type="password" id="myAuthCode" name="authCode" class="form-control" placeholder="인증번호">
+                            <input type="hidden" id="myEmailAuth" class="auth" value="0"/>
+                            <button type="button" id="btnMyAuthCodeCheck" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
+                            <img src="images/check.png" id="myValidAuthCode" style="width:12%;">
+                            <input type="hidden" id="myEmailCheckAuth" class="auth" value="0"/>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">닉네임</span>
-                            <input type="text" id="myPageNickname" name="nickname" th:value="${session.nickname}" class="form-control ml-2">
+                            <input type="text" id="myPageNickname" name="nickname" th:value="${session.nickname}" class="form-control ml-2" readonly>
+                            <button type="button" id="btnChangeNickname" class="btn btn-outline-primary font-weight-normal ml-2">수정</button>
                         </div>
                     </form>
                 </div>

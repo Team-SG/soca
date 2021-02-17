@@ -146,6 +146,11 @@ $(document).ready(function() {
     });
 
     //==================== 마이페이지 관련================================
+
+    // 마이페이지 초기화
+    initMyPage();
+
+
     //비밃번호 변경 폼 초기화
     $("#btnPasswordChange").click(function(event){
         initPasswordChange();
@@ -171,27 +176,16 @@ $(document).ready(function() {
 
     //패스워드 [변경하기] 버튼을 눌렀을 때
     $("#btnPasswordChangeSubmit").click(function(){
-        var password1=$("#changePasswordAuth").val();
-        var password2=$("#changePasswordCheckAuth").val();
-
-        if($("#currentPassword").val().length==0){
-            swal("현재 비밀번호를 입력해주세요.");
-        }else if(password1==0){
-            swal("새 패스워드를 올바르게 입력하세요.")
-        }else if(password2==0){
-            swal("새 패스워드가 일치하지 않습니다.")
-        }
-        else{
-            var param={
-                currentPassword: $("#currentPassword").val(),
-                password: $("#changePassword").val()
-            }
-            callPostService("/passwordChange",param, "callPasswordChange");
-        }
-
+        passwordChange();
     });
 
+    $("#btnChangeEmail").click(function(event){
+        emailChange();
+    });
 
+    $("#btnChangeNickname").click(function(event){
+        nicknameChange();
+    });
 });
 
 
@@ -495,17 +489,63 @@ function register() {
 }
 
 //============================ 마이페이지 관련 function=========================
+
+//마이페이지를 초기화
+function initMyPage(){
+    $("#btnMySendAuth").hide();
+    $("#myAuthCode").hide();
+    $("#btnMyAuthCodeCheck").hide();
+    $("#myValidAuthCode").hide();
+}
+
+// 비밀번호 변경을 초기화
 function initPasswordChange(){
     $("#changePasswordFail").hide();
     $("#changePasswordCheckFail").hide();
+
 }
 
+// 비밀번호 변경 clear
 function passwordChangeClear(){
     $("#currentPassword").val(null);
     $("#changePassword").val(null);
     $("#changePasswordCheck").val(null);
     $("#changePasswordAuth").val(0);
     $("#changePasswordCheckAuth").val(0);
+}
+
+//비밀번호 변경하기
+function passwordChange(){
+    var password1=$("#changePasswordAuth").val();
+    var password2=$("#changePasswordCheckAuth").val();
+
+    if($("#currentPassword").val().length==0){
+        swal("현재 비밀번호를 입력해주세요.");
+    }else if(password1==0){
+        swal("새 패스워드를 올바르게 입력하세요.")
+    }else if(password2==0){
+        swal("새 패스워드가 일치하지 않습니다.")
+    }
+    else{
+        var param={
+            currentPassword: $("#currentPassword").val(),
+            password: $("#changePassword").val()
+        }
+        callPostService("/passwordChange",param, "callPasswordChange");
+    }
+
+}
+
+//email 변경하기
+function emailChange(){
+    $("#btnChangeEmail").hide();
+    $("#btnMySendAuth").show();
+    $("#myPageEmail").attr("readonly",false);
+}
+
+//닉네임 변경하기
+function nicknameChange(){
+
 }
 
 
