@@ -7,7 +7,7 @@
 const Grid = tui.Grid;
 var schedule;
 var subjectLists = [];
-var showSubjectLists = [];
+var subject;
 
 $(document).ready(function() {
 
@@ -34,6 +34,9 @@ $(document).ready(function() {
                     return (item.label + " - " + item.value.substring(14, item.value.length));
                 }
             }));
+        },
+        select : function(event, ui) {
+            subject = $("#subject").val(ui.item.value());
         }
     });
 });
@@ -126,12 +129,14 @@ function deleteGridData() {
 
 // 그리드에 넣기
 function insertGridData() {
-    var param = {
-        subject : $("#subject")
-    }
-    callPostService("insertGridData", param, function(data) {
 
-    })
+    console.log(subject);
+    console.log( $("#subject").val() );
+    var param = {
+        subject : $("#subject").val()
+    }
+
+    callPostService("insertSubject", param, null);
 }
 
 // ================================ Callback Function ================================
@@ -212,9 +217,6 @@ function findSubjects() {
                 time = day + ", " + day2 + " " + daytime;
             }
             subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID + time + " / " + data[i].professor + " 교수님"});
-            if(showSubjectLists.indexOf(data[i].subjectNO) == -1) {
-                showSubjectLists.push(data[i].subjectNO);
-            }
         }
     })
 }

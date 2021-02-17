@@ -51,9 +51,10 @@ public class ScheduleController {
         return array;
     }
 
-    @RequestMapping(value = "/insertGridData", method=RequestMethod.POST)
+    @RequestMapping(value = "/insertSubject", method=RequestMethod.POST)
     public void insertGridData(@RequestBody HashMap<String, String> map) {
         String s = map.get("subject");
-        String s2 = map.get("subject");
+        SubjectVO subject = new SubjectVO();
+        scheduleSBO.insertSubject(subject);
     }
 }
