@@ -50,4 +50,9 @@ public class ScheduleController {
         SubjectVO[] array = subjectList.toArray(new SubjectVO[subjectList.size()]);
         return array;
     }
+
+    @RequestMapping(value = "/insertGridData", method=RequestMethod.POST)
+    public void insertGridData(@RequestBody HashMap<String, String> map) {
+
+    }
 }

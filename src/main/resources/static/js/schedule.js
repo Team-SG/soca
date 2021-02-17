@@ -14,7 +14,7 @@ $(document).ready(function() {
     findSubjects();
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
-        // #subject 에 입력된 데이터를 기반으로 insert 필요
+        insertGridData();
     });
 
     // [삭제] 버튼 클릭 이벤트
@@ -23,9 +23,17 @@ $(document).ready(function() {
         deleteGridData();
     });
 
+    array = ["김밥", "김치", "김치찌개", "김치김밥"];
     // autoComplete 뜨게.
     $("#subject").autocomplete({
-        source : subjectLists
+        source : function(request, response) {
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.map(subjectLists, function(item) {
+                if (matcher.test(item.label)) {
+                    return (item.label);
+                }
+            }));
+        }
     });
 });
 
@@ -113,6 +121,16 @@ function getYearSemester() {
 function deleteGridData() {
     var checkedRows = schedule.getCheckedRows();
     schedule.removeRow(checkedRows);
+}
+
+// 그리드에 넣기
+function insertGridData() {
+    var param = {
+        subject : $("#subject")
+    }
+    callPostService("insertGridData", param, function(data) {
+
+    })
 }
 
 // ================================ Callback Function ================================
