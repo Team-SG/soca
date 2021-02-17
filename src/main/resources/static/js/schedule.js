@@ -7,6 +7,8 @@
 const Grid = tui.Grid;
 var schedule;
 var subjectLists = [];
+var showSubjectLists = [];
+
 $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
@@ -14,7 +16,7 @@ $(document).ready(function() {
     findSubjects();
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
-        // #subject 에 입력된 데이터를 기반으로 insert 필요
+        insertGridData();
     });
 
     // [삭제] 버튼 클릭 이벤트
@@ -25,8 +27,16 @@ $(document).ready(function() {
 
     // autoComplete 뜨게.
     $("#subject").autocomplete({
-        source : subjectLists
+        source : function(request, response) {
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.map(subjectLists, function(item) {
+                if (matcher.test(item.label)) {
+                    return (item.label + " - " + item.value.substring(14, item.value.length));
+                }
+            }));
+        }
     });
+
 });
 
 // ================================ Custom Function ================================
@@ -115,6 +125,16 @@ function deleteGridData() {
     schedule.removeRow(checkedRows);
 }
 
+// 그리드에 넣기
+function insertGridData() {
+    var param = {
+        subject : $("#subject")
+    }
+    callPostService("insertGridData", param, function(data) {
+
+    })
+}
+
 // ================================ Callback Function ================================
 
 // 수강년도 및 학기 데이터 가져오기 콜백
@@ -134,8 +154,69 @@ function findSubjects() {
 
     callPostService("findSubjects", param, function(data) {
         for(var i = 0; i < data.length; i++) {
-            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID});
+            var time;
+            var day = data[i].time.substring(0, 3);
+            var daytime = data[i].time.substring(3, 11);
+            daytime = daytime.substring(0, 2) + ":" + daytime.substring(2, 4) + "~" + daytime.substring(4, 6) + ":" + daytime.substring(6, 8)
+            switch(day)
+            {
+                case "MON":
+                    day="월";
+                    break;
+                case "TUE":
+                    day="화";
+                    break;
+                case "WED":
+                    day="수";
+                    break;
+                case "THR":
+                    day="목";
+                    break;
+                case "FRI":
+                    day="금";
+                    break;
+                case "SAT":
+                    day="토";
+                    break;
+                case "SUN":
+                    day="일";
+                    break;
+            }
+            if(data[i].time.length == 11) {
+                time = day + " " + daytime;
+            } else if(data[i].time.length == 22) {
+                var day2 = data[i].time.substring(11, 14);
+                switch(day2)
+                {
+                    case "MON":
+                        day2="월";
+                        break;
+                    case "TUE":
+                        day2="화";
+                        break;
+                    case "WED":
+                        day2="수";
+                        break;
+                    case "THU":
+                        day2="목";
+                        break;
+                    case "FRI":
+                        day2="금";
+                        break;
+                    case "SAT":
+                        day2="토";
+                        break;
+                    case "SUN":
+                        day2="일";
+                        break;
+                }
+                time = day + ", " + day2 + " " + daytime;
+            }
+            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID + time + " / " + data[i].professor + " 교수님"});
+            if(showSubjectLists.indexOf(data[i].subjectNO) == -1) {
+                showSubjectLists.push(data[i].subjectNO);
+            }
         }
-        console.log(subjectLists[1]);
+
     })
 }
