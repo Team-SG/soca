@@ -36,7 +36,6 @@ $(document).ready(function() {
             }));
         }
     });
-
 });
 
 // ================================ Custom Function ================================
@@ -217,6 +216,5 @@ function findSubjects() {
                 showSubjectLists.push(data[i].subjectNO);
             }
         }
-
     })
 }
