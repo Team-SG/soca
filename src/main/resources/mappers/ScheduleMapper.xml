@@ -10,8 +10,8 @@
     <select id="getSubjectList"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.SubjectVO">
-        SELECT A.code,A.subjectNO,A.professor FROM subject A
-        JOIN schedule B ON B.email=#{email} AND A.year=#{year} AND A.semester=#{semester};
+        SELECT A.code,A.subjectNO,A.professor FROM schedule as B
+        JOIN subject as A WHERE B.subjectID=A.subjectID AND B.email=#{email} AND A.year=#{year} AND A.semester=#{semester};
     </select>
 
     <select id="findSubjects"

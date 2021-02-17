@@ -30,7 +30,7 @@ public class ScheduleController {
 
     // 해당 수강년도 및 학기에 수강과목 가져오기
     @RequestMapping(value = "/getSubjectList", method=RequestMethod.POST)
-    public List<SubjectVO> getSubjectList(HttpSession session, HashMap<String, String> map){
+    public List<SubjectVO> getSubjectList(HttpSession session,@RequestBody HashMap<String, String> map){
         HashMap<String,String> hmap=new HashMap<>();
         hmap.put("email",(String)session.getAttribute("email"));
         hmap.put("year", map.get("year"));
