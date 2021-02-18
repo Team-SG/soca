@@ -24,12 +24,12 @@ function getSubjectList(){
     var end=selectedYear.indexOf("학기");
     var year=selectedYear.substring(0,start);
     var semester=selectedYear.substring(start+3,end);
-    //swal(year+semester);
+
     var param={
         year : year,
         semester : semester
     }
-    //아직 제대로 동작을 안함
+
     callPostService('/getSubjectList',param,"callGetSubjectList");
 }
 // ================================ Callback Function ================================
@@ -48,7 +48,7 @@ function callGetSubjectList(data){
     var start= '<li class="list-group-item d-flex justify-content-between align-items-center">';
     var last= '<span class="badge badge-primary fs-090" style="cursor:pointer">평가하기</span></li>';
     $.each(data,function(index,item){
-        var li = start + "<div> <strong>"+item.code+"</strong>"+ "      "+item.subjectNO+"     - "+item.professor +" 교수님</div>" + last;
+        var li = start + "<div> <strong>["+item.code+"] </strong>"+ "      "+item.subjectNO+"     - "+item.professor +" 교수님</div>" + last;
         $("#subjectList").append(li);
     })
 }

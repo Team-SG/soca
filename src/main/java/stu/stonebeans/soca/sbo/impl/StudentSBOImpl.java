@@ -119,6 +119,13 @@ public class StudentSBOImpl implements StudentSBO {
         studentDAO.changePassword(student);
     }
 
-
+    /*
+       함수 : 마이페이지 정보 수정
+       설명 : email과 nickname변경
+   */
+    @Override
+    public void changeMyPage(HashMap<String,String> map) {
+        studentDAO.changeMyPage(map);
+    }
 
 }

@@ -13,5 +13,9 @@ public interface ScheduleSBO {
     // 해당 수강년도 및 학기 수강과목 가져오기
     List<SubjectVO> getSubjectList(HashMap<String,String> map);
 
+    // 과목 목록 가져오기
     List<SubjectVO> findSubjects(SubjectVO subject);
+
+    //
+    void insertSubject(SubjectVO subject);
 }

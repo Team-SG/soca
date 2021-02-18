@@ -43,4 +43,9 @@ public class ScheduleSBOImpl implements ScheduleSBO {
     public List<SubjectVO> findSubjects(SubjectVO subject) {
         return scheduleDAO.findSubjects(subject);
     }
+
+    @Override
+    public void insertSubject(SubjectVO subject) {
+        scheduleDAO.insertSubject(subject);
+    }
 }

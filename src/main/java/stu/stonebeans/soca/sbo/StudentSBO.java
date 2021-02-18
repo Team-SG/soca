@@ -3,6 +3,8 @@ package stu.stonebeans.soca.sbo;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
+import java.util.HashMap;
+
 public interface StudentSBO {
 
     // 이메일 중복 여부 체크
@@ -26,4 +28,6 @@ public interface StudentSBO {
     // 비밀번호 변경
     void changePassword(String password, String email);
 
+    // 마이페이지 정보 변경
+    void changeMyPage(HashMap<String,String> map);
 }

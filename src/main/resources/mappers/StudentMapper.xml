@@ -33,6 +33,12 @@
     <!--임시 비밀번호 변경-->
     <select id="changePassword"
             parameterType="stu.stonebeans.soca.vo.StudentVO">
-        UPDATE student SET password = #{password} WHERE email = #{email}
+        UPDATE student SET password = #{password}, passwordUpdate=NOW() WHERE email = #{email}
+    </select>
+
+    <!--마이페이지 정보 변경-->
+    <select id="changeMyPage"
+            parameterType="HashMap">
+        UPDATE student SET nickname=#{newNickname},email=#{newEmail} WHERE email = #{currentEmail}
     </select>
 </mapper>
