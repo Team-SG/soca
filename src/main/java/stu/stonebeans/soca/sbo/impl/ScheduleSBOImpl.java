@@ -60,7 +60,7 @@ public class ScheduleSBOImpl implements ScheduleSBO {
     public ResultVO checkDuplicateSchedule(ScheduleVO schedule) {
         ScheduleVO check = scheduleDAO.checkDuplicateSchedule(schedule);
         ResultVO result = new ResultVO();
-        if(result == null) {
+        if(check == null) {
             result.setStatus(1);
         } else {
             result.setStatus(-1);

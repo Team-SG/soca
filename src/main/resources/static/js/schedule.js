@@ -166,7 +166,22 @@ function deleteGridData() {
 }
 
 function insertGridData() {
-
+    var rowData = [
+        {
+            id: '20211AAT200201',
+            subjectID: '1',
+            code: 'ABZ21001',
+            major: '한국발전과국제개발협력연계전공',
+            subject: '1960년대의저항문화',
+            time: '월,수 10:00 ~ 12:00',
+            credit: '3',
+            professor: '김진영'
+        }
+    ];
+    schedule.appendRow(rowData, {
+        at : 1
+    })
+    //schedule.resetData(rowData);
 }
 
 // Schedule DB에 넣기
@@ -234,7 +249,7 @@ function callGetMajor(data) {
 
 // 그리드에 뿌려줄 형태로 시간 변환
 function callFormatTime(data) {
-    if(data.length == 0) return null;
+    if(data.length == 0) return "";
 
     var time;
     var day1, day2;
@@ -251,30 +266,4 @@ function callFormatTime(data) {
 
     time = data.length == 11 ? (day1 + " " + daytime) : (day1 + ", " + day2 + " " + daytime);
     return time;
-}
-
-function findSubjects() {
-    var param = {
-        yearSemester : $("#selectYear option:selected").val()
-    }
-
-    callPostService("findSubjects", param, function(data) {
-        for(var i = 0; i < data.length; i++) {
-            var time;
-            var day = data[i].time.substring(0, 3);
-            var daytime = data[i].time.substring(3, 11);
-            daytime = daytime.substring(0, 2) + ":" + daytime.substring(2, 4) + "~" + daytime.substring(4, 6) + ":" + daytime.substring(6, 8)
-            getWeekday(day);
-            if(data[i].time.length == 11) {
-                time = day + " " + daytime;
-            } else if(data[i].time.length == 22) {
-                var day2 = data[i].time.substring(11, 14);
-                getWeekday(day2);
-                time = day + ", " + day2 + " " + daytime;
-            } else {
-                time = "";
-            }
-            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID + time + " / " + data[i].professor + " 교수님"});
-        }
-    })
 }
