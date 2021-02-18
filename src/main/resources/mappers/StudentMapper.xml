@@ -39,6 +39,9 @@
     <!--마이페이지 정보 변경-->
     <select id="changeMyPage"
             parameterType="HashMap">
-        UPDATE student SET nickname=#{newNickname},email=#{newEmail} WHERE email = #{currentEmail}
+        UPDATE student AS A
+        RIGHT JOIN schedule AS B ON A.email=B.email
+        SET A.nickname=#{newNickname},A.email=#{newEmail},B.email=#{newEmail}
+        WHERE A.email = #{currentEmail}
     </select>
 </mapper>

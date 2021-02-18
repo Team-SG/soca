@@ -205,7 +205,7 @@ $(document).ready(function() {
 
     //마이페이지 변경내용을 취소할 때
     $("#btnMyPageCancel").click(function(event){
-        //window.location.reload();
+        window.location.reload();
     });
 
     //마이페이지 변경내용을 저장할 때
@@ -749,7 +749,7 @@ function callMyAuthCode(data){
         $("#myValidAuthCode").show();
         $("#myEmailCheckAuth").val(1);
         $("#myPageEmail").attr("readonly",true);
-        $("#myAuthCode").attr("readonly",true);
+        $("#myAuthCode").hide();
         return;
     } else {
         swal('인증번호가 일치하지 않습니다.');
