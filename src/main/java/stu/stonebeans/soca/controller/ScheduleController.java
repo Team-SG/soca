@@ -72,9 +72,25 @@ public class ScheduleController {
 
     @RequestMapping(value = "/getMajor", method=RequestMethod.POST)
     public List<SubjectVO> getMajor(@RequestBody HashMap<String, String> map) {
+        String yearSemester = map.get("yearSemester");
+        String year = yearSemester.substring(0, 4);
+        String semester = yearSemester.substring(4, 5);
         SubjectVO subject = new SubjectVO();
-        subject.setYear(map.get("year"));
-        subject.setSemester(map.get("semester"));
+        subject.setYear(year);
+        subject.setSemester(semester);
         return scheduleSBO.getMajor(subject);
     }
+
+    @RequestMapping(value = "/getSchedule", method=RequestMethod.POST)
+    public SubjectVO[] getSchedule(HttpSession session, @RequestBody HashMap<String, String> map) {
+        String email = (String)session.getAttribute("email");
+        SubjectVO subject = new SubjectVO();
+        String yearSemester = map.get("yearSemester");
+        String year = yearSemester.substring(0, 4);
+        String semester = yearSemester.substring(4, 5);
+        subject.setYear(year);
+        subject.setSemester(semester);
+        return null;
+    }
+
 }

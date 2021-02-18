@@ -33,19 +33,22 @@ $(document).ready(function() {
             response($.map(subjectLists, function(item) {
                 if (matcher.test(item.subjectNO)) {
                     var major = $("#selectMajor").val();
+                    var result = {
+                        label: item.subjectNO + " " + item.formatTime + " / " + item.professor,
+                        value: item.subjectID,
+                        subjectID: item.subjectID,
+                        code: item.code,
+                        major: item.major,
+                        subjectNO: item.subjectNO,
+                        time: item.formatTime,
+                        credit: item.credit,
+                        professor: item.professor
+                    }
                     if(major == "전공") {
-                        return {
-                            label: item.subjectNO + " " + item.formatTime + " / " + item.professor,
-                            value: item.subjectID,
-                            test: item.subjectID
-                        }
+                        return result;
                     } else {
                         if(major == item.major) {
-                            return {
-                                label: item.subjectNO + " " + item.formatTime + " / " + item.professor,
-                                value: item.subjectID,
-                                test: item.subjectID
-                            }
+                            return result;
                         }
                     }
                 }
@@ -55,7 +58,7 @@ $(document).ready(function() {
             event.preventDefault();
             $("#subject").val(ui.item.label);
             $("#subjectID").val(ui.item.value);
-            selectSubject = ui.item.value;
+            selectSubject = ui.item;
             //alert(ui.item.value);
         }
     });
@@ -65,19 +68,13 @@ $(document).ready(function() {
 
 // 그리드 초기 세팅
 function initGrid() {
-    const data = [
-        {
-            id: '20211AAT200201',
-            subjectID: '1',
-            code: 'ABZ21001',
-            major: '한국발전과국제개발협력연계전공',
-            subject: '1960년대의저항문화',
-            time: '월,수 10:00 ~ 12:00',
-            credit: '3',
-            professor: '홍길동'
-        }
-    ];
+    const data = [];
+    var param = {
+        yearSemester : $("#selectYear option:selected").val()
+    }
+    callPostService("getSchedule", param, function(data){
 
+    })
     schedule = new Grid({
         el: document.getElementById('grid'),
         data: data,
@@ -106,7 +103,7 @@ function initGrid() {
                 header: '과목',
                 width: 'auto',
                 minWidth: '250',
-                name: 'subject'
+                name: 'subjectNO'
             },
             {
                 header: '시간',
@@ -151,10 +148,8 @@ function getSubject() {
 
 // 전공 가져오기
 function getMajor() {
-    var yearSemester = $("#selectYear").val();
     var param = {
-        year : yearSemester.substring(0, 4),
-        semester : yearSemester.substring(4, 5)
+        yearSemester : $("#selectYear option:selected").val()
     }
     callPostService('getMajor', param, 'callGetMajor')
 }
@@ -168,27 +163,23 @@ function deleteGridData() {
 function insertGridData() {
     var rowData = [
         {
-            id: '20211AAT200201',
-            subjectID: '1',
-            code: 'ABZ21001',
-            major: '한국발전과국제개발협력연계전공',
-            subject: '1960년대의저항문화',
-            time: '월,수 10:00 ~ 12:00',
-            credit: '3',
-            professor: '김진영'
+            subjectID: selectSubject.subjectID,
+            code: selectSubject.code,
+            major: selectSubject.major,
+            subjectNO: selectSubject.subjectNO,
+            time: selectSubject.time,
+            credit: selectSubject.credit,
+            professor: selectSubject.professor
         }
     ];
-    schedule.appendRow(rowData, {
-        at : 1
-    })
-    //schedule.resetData(rowData);
+    schedule.appendRows(rowData);
 }
 
 // Schedule DB에 넣기
 function insertSchedule() {
 
     var param = {
-        subject : selectSubject
+        subject : selectSubject.value
     };
 
     callPostService("insertSchedule", param, function(data) {
