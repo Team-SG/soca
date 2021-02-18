@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stu.stonebeans.soca.sbo.ScheduleSBO;
+import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.Result;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,16 +54,20 @@ public class ScheduleController {
         return array;
     }
 
-    @RequestMapping(value = "/insertSubject", method=RequestMethod.POST)
-    public void insertGridData(HttpSession session, @RequestBody HashMap<String, String> map) {
+    @RequestMapping(value = "/insertSchedule", method=RequestMethod.POST)
+    public ResultVO insertSchedule(HttpSession session, @RequestBody HashMap<String, String> map) {
         //String s = map.get("subject");
         //SubjectVO subject = new SubjectVO();
         String email = (String)session.getAttribute("email");
-        String subjectID = "20211AAT200201";
+        String subjectID = map.get("subject");
         ScheduleVO schedule = new ScheduleVO();
         schedule.setEmail(email);
         schedule.setSubjectID(subjectID);;
-        scheduleSBO.insertSubject(schedule);
+        ResultVO result = scheduleSBO.checkDuplicateSchedule(schedule);
+        if(result.getStatus() == 1) {
+            scheduleSBO.insertSchedule(schedule);
+        }
+        return result;
     }
 
     @RequestMapping(value = "/getMajor", method=RequestMethod.POST)

@@ -7,17 +7,17 @@
 const Grid = tui.Grid;
 var schedule;
 var subjectLists = [];
-var subject;
+var selectSubject;
 
 $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
     getYearSemester(); // 수강년도/학기 데이터 조회
     getMajor(); // 전공 데이터 조회
-    findSubjects();
+    getSubject(); // 수강 과목 조회
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
-        insertGridData();
+        insertSchedule();
     });
 
     // [삭제] 버튼 클릭 이벤트
@@ -26,23 +26,37 @@ $(document).ready(function() {
         deleteGridData();
     });
 
-    var auto = [{"label" : "김치", "value" : "gimchi"}, {"label" : "김밥", "value" : "gimbab"}]
     // autoComplete 뜨게.
     $("#subject").autocomplete({
-        source :
-         function(request, response) {
+        source : function(request, response) {
             var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
             response($.map(subjectLists, function(item) {
-                if (matcher.test(item.label)) {
-                    return (item.label + " - " + item.time + " / " + item.professor + " 교수님");
+                if (matcher.test(item.subjectNO)) {
+                    var major = $("#selectMajor").val();
+                    if(major == "전공") {
+                        return {
+                            label: item.subjectNO + " " + item.formatTime + " / " + item.professor,
+                            value: item.subjectID,
+                            test: item.subjectID
+                        }
+                    } else {
+                        if(major == item.major) {
+                            return {
+                                label: item.subjectNO + " " + item.formatTime + " / " + item.professor,
+                                value: item.subjectID,
+                                test: item.subjectID
+                            }
+                        }
+                    }
                 }
-            })); },
-        select :
-        function(event, ui) {
+            }));
+        },
+        select : function(event, ui) {
+            event.preventDefault();
+            $("#subject").val(ui.item.label);
+            $("#subjectID").val(ui.item.value);
+            selectSubject = ui.item.value;
             //alert(ui.item.value);
-            //alert(ui.item.label);
-            console.log(ui.item.label);
-            console.log(ui.item.subjectID);
         }
     });
 });
@@ -127,6 +141,14 @@ function getYearSemester() {
     callPostService('getYearSemester', null, 'callGetYearSemester')
 }
 
+// 수강 과목 가져오기
+function getSubject() {
+    var param = {
+        yearSemester : $("#selectYear option:selected").val()
+    }
+    callPostService("findSubjects", param, 'callGetSubject');
+}
+
 // 전공 가져오기
 function getMajor() {
     var yearSemester = $("#selectYear").val();
@@ -143,15 +165,40 @@ function deleteGridData() {
     schedule.removeRow(checkedRows);
 }
 
-// 그리드에 넣기
 function insertGridData() {
-    //console.log(subject);
-    //console.log( $("#subject").val() );
+
+}
+
+// Schedule DB에 넣기
+function insertSchedule() {
+
     var param = {
-        subject : "hi" //$("#subject").val()
+        subject : selectSubject
     };
 
-    callPostService("insertSubject", param, null);
+    callPostService("insertSchedule", param, function(data) {
+        if(data.status == 1) {
+            insertGridData();
+        } else {
+            swal(data.msg);
+            return;
+        }
+    });
+}
+
+// 요일 가져오기
+function getWeekday(data) {
+    var day;
+    switch(data)  {
+        case "MON": day = "월"; break;
+        case "TUE": day = "화"; break;
+        case "WED": day = "수"; break;
+        case "THU": day = "목"; break;
+        case "FRI": day = "금"; break;
+        case "SAT": day = "토"; break;
+        case "SUN": day = "일"; break;
+    }
+    return day;
 }
 
 // ================================ Callback Function ================================
@@ -166,15 +213,44 @@ function callGetYearSemester(data) {
     });
 }
 
+// 수강 과목 가져오기 콜백
+function callGetSubject(data) {
+    subjectLists = data;
+    $.each(subjectLists, function(index, item) {
+        subjectLists[index].formatTime = callFormatTime(subjectLists[index].time);
+    });
+}
+
 // 전공 데이터 가져오기 콜백
 function callGetMajor(data) {
     // 전공에 데이터 추가
     $.each(data, function(index, item) {
-        console.log(item.major)
+        //console.log(item.major)
         var option = "<option value='" + item.major + "'>"+ item.major + "</option>";
         //var option = "<option value='" + "전공"  + "'>" + "</option>";
         $("#selectMajor").append(option);
     });
+}
+
+// 그리드에 뿌려줄 형태로 시간 변환
+function callFormatTime(data) {
+    if(data.length == 0) return null;
+
+    var time;
+    var day1, day2;
+    var daytime = data.substring(3, 11);
+    daytime = daytime.substring(0, 2) + ":" + daytime.substring(2, 4) + "~"
+        + daytime.substring(4, 6) + ":" + daytime.substring(6, 8);
+
+    if(data.length == 11) {
+        day1 = getWeekday(data.substring(0, 3));
+    } else if(data.length == 22) {
+        day1 = getWeekday(data.substring(0, 3));
+        day2 = getWeekday(data.substring(11, 14));
+    }
+
+    time = data.length == 11 ? (day1 + " " + daytime) : (day1 + ", " + day2 + " " + daytime);
+    return time;
 }
 
 function findSubjects() {
@@ -188,61 +264,17 @@ function findSubjects() {
             var day = data[i].time.substring(0, 3);
             var daytime = data[i].time.substring(3, 11);
             daytime = daytime.substring(0, 2) + ":" + daytime.substring(2, 4) + "~" + daytime.substring(4, 6) + ":" + daytime.substring(6, 8)
-            switch(day)
-            {
-                case "MON":
-                    day="월";
-                    break;
-                case "TUE":
-                    day="화";
-                    break;
-                case "WED":
-                    day="수";
-                    break;
-                case "THR":
-                    day="목";
-                    break;
-                case "FRI":
-                    day="금";
-                    break;
-                case "SAT":
-                    day="토";
-                    break;
-                case "SUN":
-                    day="일";
-                    break;
-            }
+            getWeekday(day);
             if(data[i].time.length == 11) {
                 time = day + " " + daytime;
             } else if(data[i].time.length == 22) {
                 var day2 = data[i].time.substring(11, 14);
-                switch(day2)
-                {
-                    case "MON":
-                        day2="월";
-                        break;
-                    case "TUE":
-                        day2="화";
-                        break;
-                    case "WED":
-                        day2="수";
-                        break;
-                    case "THU":
-                        day2="목";
-                        break;
-                    case "FRI":
-                        day2="금";
-                        break;
-                    case "SAT":
-                        day2="토";
-                        break;
-                    case "SUN":
-                        day2="일";
-                        break;
-                }
+                getWeekday(day2);
                 time = day + ", " + day2 + " " + daytime;
+            } else {
+                time = "";
             }
-            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID, "time":time, "professor": data[i].professor, "subjectID":data[i].subjectID});
+            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID + time + " / " + data[i].professor + " 교수님"});
         }
     })
 }

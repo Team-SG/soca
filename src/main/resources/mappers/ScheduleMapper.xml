@@ -20,9 +20,9 @@
         SELECT * FROM subject where year=#{year} and semester=#{semester};
     </select>
 
-    <select id="insertSubject"
+    <select id="insertSchedule"
             parameterType="stu.stonebeans.soca.vo.ScheduleVO">
-        INSERT INTO schedule(email, subjectID) values(#{emial}, #{subjectID});
+        INSERT INTO schedule(email, subjectID) values(#{email}, #{subjectID});
     </select>
 
     <select id="getMajor"
@@ -31,4 +31,9 @@
         SELECT DISTINCT major FROM subject WHERE year=#{year} AND semester=#{semester} ORDER BY major;
     </select>
 
+    <select id="checkDuplicateSchedule"
+            parameterType="stu.stonebeans.soca.vo.ScheduleVO"
+            resultType="stu.stonebeans.soca.vo.ScheduleVO">
+        SELECT * FROM schedule WHERE email=#{email} AND subjectID=#{subjectID}
+    </select>
 </mapper>
