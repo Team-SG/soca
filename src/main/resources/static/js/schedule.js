@@ -13,6 +13,7 @@ $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
     getYearSemester(); // 수강년도/학기 데이터 조회
+    getMajor(); // 전공 데이터 조회
     findSubjects();
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
@@ -25,18 +26,23 @@ $(document).ready(function() {
         deleteGridData();
     });
 
+    var auto = [{"label" : "김치", "value" : "gimchi"}, {"label" : "김밥", "value" : "gimbab"}]
     // autoComplete 뜨게.
     $("#subject").autocomplete({
-        source : function(request, response) {
+        source :
+         function(request, response) {
             var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
             response($.map(subjectLists, function(item) {
                 if (matcher.test(item.label)) {
-                    return (item.label + " - " + item.value.substring(14, item.value.length));
+                    return (item.label + " - " + item.time + " / " + item.professor + " 교수님");
                 }
-            }));
-        },
-        select : function(event, ui) {
-            subject = $("#subject").val(ui.item.value());
+            })); },
+        select :
+        function(event, ui) {
+            //alert(ui.item.value);
+            //alert(ui.item.label);
+            console.log(ui.item.label);
+            console.log(ui.item.subjectID);
         }
     });
 });
@@ -121,6 +127,16 @@ function getYearSemester() {
     callPostService('getYearSemester', null, 'callGetYearSemester')
 }
 
+// 전공 가져오기
+function getMajor() {
+    var yearSemester = $("#selectYear").val();
+    var param = {
+        year : yearSemester.substring(0, 4),
+        semester : yearSemester.substring(4, 5)
+    }
+    callPostService('getMajor', param, 'callGetMajor')
+}
+
 // 그리드 선택된 항목 삭제
 function deleteGridData() {
     var checkedRows = schedule.getCheckedRows();
@@ -129,12 +145,11 @@ function deleteGridData() {
 
 // 그리드에 넣기
 function insertGridData() {
-
-    console.log(subject);
-    console.log( $("#subject").val() );
+    //console.log(subject);
+    //console.log( $("#subject").val() );
     var param = {
-        subject : $("#subject").val()
-    }
+        subject : "hi" //$("#subject").val()
+    };
 
     callPostService("insertSubject", param, null);
 }
@@ -148,6 +163,17 @@ function callGetYearSemester(data) {
         console.log(item)
         var option = "<option value='" + item.year + item.semester + "'>"+ item.year + "년도 " + item.semester + "학기" + "</option>";
         $("#selectYear").append(option);
+    });
+}
+
+// 전공 데이터 가져오기 콜백
+function callGetMajor(data) {
+    // 전공에 데이터 추가
+    $.each(data, function(index, item) {
+        console.log(item.major)
+        var option = "<option value='" + item.major + "'>"+ item.major + "</option>";
+        //var option = "<option value='" + "전공"  + "'>" + "</option>";
+        $("#selectMajor").append(option);
     });
 }
 
@@ -216,7 +242,7 @@ function findSubjects() {
                 }
                 time = day + ", " + day2 + " " + daytime;
             }
-            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID + time + " / " + data[i].professor + " 교수님"});
+            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID, "time":time, "professor": data[i].professor, "subjectID":data[i].subjectID});
         }
     })
 }

@@ -19,4 +19,16 @@
             resultType="stu.stonebeans.soca.vo.SubjectVO">
         SELECT * FROM subject where year=#{year} and semester=#{semester};
     </select>
+
+    <select id="insertSubject"
+            parameterType="stu.stonebeans.soca.vo.ScheduleVO">
+        INSERT INTO schedule(email, subjectID) values(#{emial}, #{subjectID});
+    </select>
+
+    <select id="getMajor"
+            parameterType="stu.stonebeans.soca.vo.SubjectVO"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT major FROM subject WHERE year=#{year} AND semester=#{semester} ORDER BY major;
+    </select>
+
 </mapper>

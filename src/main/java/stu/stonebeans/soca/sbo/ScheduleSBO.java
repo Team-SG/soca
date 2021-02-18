@@ -1,5 +1,6 @@
 package stu.stonebeans.soca.sbo;
 
+import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import java.util.HashMap;
@@ -17,5 +18,7 @@ public interface ScheduleSBO {
     List<SubjectVO> findSubjects(SubjectVO subject);
 
     //
-    void insertSubject(SubjectVO subject);
+    void insertSubject(ScheduleVO schedule);
+
+    List<SubjectVO> getMajor(SubjectVO subject);
 }

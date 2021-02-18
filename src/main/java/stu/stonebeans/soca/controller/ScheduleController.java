@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stu.stonebeans.soca.sbo.ScheduleSBO;
+import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import javax.servlet.http.HttpSession;
@@ -52,9 +53,22 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "/insertSubject", method=RequestMethod.POST)
-    public void insertGridData(@RequestBody HashMap<String, String> map) {
-        String s = map.get("subject");
+    public void insertGridData(HttpSession session, @RequestBody HashMap<String, String> map) {
+        //String s = map.get("subject");
+        //SubjectVO subject = new SubjectVO();
+        String email = (String)session.getAttribute("email");
+        String subjectID = "20211AAT200201";
+        ScheduleVO schedule = new ScheduleVO();
+        schedule.setEmail(email);
+        schedule.setSubjectID(subjectID);;
+        scheduleSBO.insertSubject(schedule);
+    }
+
+    @RequestMapping(value = "/getMajor", method=RequestMethod.POST)
+    public List<SubjectVO> getMajor(@RequestBody HashMap<String, String> map) {
         SubjectVO subject = new SubjectVO();
-        scheduleSBO.insertSubject(subject);
+        subject.setYear(map.get("year"));
+        subject.setSemester(map.get("semester"));
+        return scheduleSBO.getMajor(subject);
     }
 }

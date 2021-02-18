@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stu.stonebeans.soca.dao.ScheduleDAO;
 import stu.stonebeans.soca.sbo.ScheduleSBO;
+import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.StudentVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
@@ -45,7 +46,12 @@ public class ScheduleSBOImpl implements ScheduleSBO {
     }
 
     @Override
-    public void insertSubject(SubjectVO subject) {
-        scheduleDAO.insertSubject(subject);
+    public void insertSubject(ScheduleVO schedule) {
+        scheduleDAO.insertSubject(schedule);
+    }
+
+    @Override
+    public List<SubjectVO> getMajor(SubjectVO subject) {
+        return scheduleDAO.getMajor(subject);
     }
 }
