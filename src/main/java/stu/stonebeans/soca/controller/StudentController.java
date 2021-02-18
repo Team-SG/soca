@@ -57,6 +57,19 @@ public class StudentController {
         studentSBO.register(studentVO);
     }
 
+    // 마이페이지 정보 변경
+    @RequestMapping(value="/changeMyPage",method=RequestMethod.POST)
+    public void changeMyPage(HttpSession session,@RequestBody StudentVO studentVO){
+        HashMap<String,String> map=new HashMap<>();
+        map.put("currentEmail",(String)session.getAttribute("email"));
+        map.put("newEmail",studentVO.getEmail());
+        map.put("newNickname",studentVO.getNickname());
+
+        session.setAttribute("email",studentVO.getEmail());
+        session.setAttribute("nickname",studentVO.getNickname());
+
+        studentSBO.changeMyPage(map);
+    }
 
 
     // 로그인
