@@ -27,7 +27,7 @@ public class MailSBOImpl implements MailSBO {
             flag = 1 : 회원가입 과정에서 인증번호 발송
             flag = 2 : 비밀번호변경 과정에서 인증번호 발송
             flag = 3 : 비밀번호변경 과정에서 임시비밀번호 발송
-            flag = 4 : 마이페이지에서 이메일을 변경하고자 할 때
+            flag = 4 : 마이페이지에서 이메일 변경시 인증번호 발송
     */
     @Override
     public ResultVO sendEmail(HttpSession session, String email, int flag) {
@@ -57,13 +57,7 @@ public class MailSBOImpl implements MailSBO {
 
         ResultVO resultVO = new ResultVO();
         try {
-            if(flag == 1){
-                mailSender.send(message);
-                session.setAttribute("verificationCode", code);
-                resultVO.setStatus(1);
-                resultVO.setMsg("인증번호 전송이 완료되었습니다.");
-            }
-            else if(flag == 2){
+            if(flag == 1 || flag == 2 || flag == 4){
                 mailSender.send(message);
                 session.setAttribute("verificationCode", code);
                 resultVO.setStatus(1);
@@ -75,12 +69,6 @@ public class MailSBOImpl implements MailSBO {
                 resultVO.setStatus(1);
                 resultVO.setMsg("임시비밀번호 전송이 완료되었습니다.");
                 studentSBO.changePassword(code, email);
-            }
-            else if(flag == 4){
-                mailSender.send(message);
-                session.setAttribute("verificationCode", code);
-                resultVO.setStatus(1);
-                resultVO.setMsg("인증번호 전송이 완료되었습니다.");
             }
         } catch(Exception err) {
             resultVO.setStatus(-1);
@@ -132,7 +120,7 @@ public class MailSBOImpl implements MailSBO {
     }
 
     /*
-        함수 : 마이페이지에서 이메일 변경 시도 시 인증번호 전송용 메일 정보 생성
+        함수 : 마이페이지에서 이메일 변경시 인증번호 전송용 메일 정보 생성
         설명 : 마이메이지 이메일 변결 과정에서 인증번호를 전송하기 위해 필요한 메일 정보 생성
     */
     public MailVO createMyMailChangeVerificationCode(String email, String code) {
