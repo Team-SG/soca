@@ -664,13 +664,7 @@ function saveMyPageChange(){
         nickname: $("#myPageNickname").val()
     }
     callPostService("/changeMyPage",param,null);
-
-   swal("회원정보 수정을 완료했습니다.");
-   window.location.replace("/");
-   //$("#myPageEmail").load(window.location.href+'#myPageEmail');
-   //$("#myPageNickname").load(window.location.href+'#myPageNickname');
-
-
+    window.location.reload();
 }
 
 

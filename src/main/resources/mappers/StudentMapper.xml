@@ -40,7 +40,7 @@
     <select id="changeMyPage"
             parameterType="HashMap">
         UPDATE student AS A
-        RIGHT JOIN schedule AS B ON A.email=B.email
+        LEFT JOIN schedule AS B ON A.email=B.email
         SET A.nickname=#{newNickname},A.email=#{newEmail},B.email=#{newEmail}
         WHERE A.email = #{currentEmail}
     </select>
