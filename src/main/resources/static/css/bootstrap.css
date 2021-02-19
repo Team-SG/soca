@@ -10505,3 +10505,7 @@ a.text-dark:hover, a.text-dark:focus {
 .bg-white {
   background-color: #ffffff !important;
 }
+
+.tab{
+  white-space: pre;
+}

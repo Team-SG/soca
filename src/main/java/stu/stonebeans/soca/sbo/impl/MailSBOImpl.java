@@ -27,6 +27,7 @@ public class MailSBOImpl implements MailSBO {
             flag = 1 : 회원가입 과정에서 인증번호 발송
             flag = 2 : 비밀번호변경 과정에서 인증번호 발송
             flag = 3 : 비밀번호변경 과정에서 임시비밀번호 발송
+            flag = 4 : 마이페이지에서 이메일을 변경하고자 할 때
     */
     @Override
     public ResultVO sendEmail(HttpSession session, String email, int flag) {
@@ -43,6 +44,10 @@ public class MailSBOImpl implements MailSBO {
         else if(flag == 3) {
             code = makeTempPassword();
             mailVO = createMailTempPassword(email, code);
+        }
+        else if(flag == 4){
+            code = makeVerificationCode();
+            mailVO = createMyMailChangeVerificationCode(email, code);
         }
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailVO.getAddress());
@@ -70,6 +75,12 @@ public class MailSBOImpl implements MailSBO {
                 resultVO.setStatus(1);
                 resultVO.setMsg("임시비밀번호 전송이 완료되었습니다.");
                 studentSBO.changePassword(code, email);
+            }
+            else if(flag == 4){
+                mailSender.send(message);
+                session.setAttribute("verificationCode", code);
+                resultVO.setStatus(1);
+                resultVO.setMsg("인증번호 전송이 완료되었습니다.");
             }
         } catch(Exception err) {
             resultVO.setStatus(-1);
@@ -117,6 +128,20 @@ public class MailSBOImpl implements MailSBO {
         mailVO.setMessage("SOCA 임시로 변경된 비밀번호 안내드립니다.\n" +
                 "임시비밀번호는 " + password + " 입니다.\n" +
                 "안내해드린 8자리 비밀번호로 로그인하시면 됩니다.");
+        return mailVO;
+    }
+
+    /*
+        함수 : 마이페이지에서 이메일 변경 시도 시 인증번호 전송용 메일 정보 생성
+        설명 : 마이메이지 이메일 변결 과정에서 인증번호를 전송하기 위해 필요한 메일 정보 생성
+    */
+    public MailVO createMyMailChangeVerificationCode(String email, String code) {
+        MailVO mailVO = new MailVO();
+        mailVO.setAddress(email + "@sogang.ac.kr"); // 파라미터로 받은 서강대 이메일 주소로 메일 전송
+        mailVO.setTitle("SOCA 이메일 변경 인증번호입니다.");
+        mailVO.setMessage("SOCA 이메일 변경 인증번호 안내드립니다.\n" +
+                "인증번호는 " + code + " 입니다.\n" +
+                "MyPage 창에서 안내해드린 6자리 인증번호를 입력하시면 됩니다.");
         return mailVO;
     }
 

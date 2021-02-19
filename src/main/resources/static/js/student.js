@@ -33,7 +33,7 @@ $(document).ready(function() {
 
     // [인증발송] 버튼 클릭 이벤트
     $("#btnSendAuth").click(function (event) {
-        sendAuthEmail(1);
+        sendAuthEmail();
     });
 
     //인증번호 [확인]버튼을 클릭했을 때
@@ -184,8 +184,9 @@ $(document).ready(function() {
         emailChange();
     });
 
+    //마이페이지에서 이메일 변경을 위해 인증번호 전송을 누르는 경우
     $("#btnMySendAuth").click(function(event){
-        sendAuthEmail(2);
+        sendAuthMyEmail();
     });
 
     //마이페이지애서 닉네임을 변경하고자 할 때
@@ -282,32 +283,16 @@ function clear(){
 }
 
 // 이메일 중복 체크 후 사용자가 입력한 이메일 주소로 인증번호 발송
-function sendAuthEmail(flag) {
-    //1: 회원가입, 2: 마이페이지
+function sendAuthEmail() {
     // 이메일을 입력하지 않고 [인증발송] 버튼을 눌렀을 경우
-    if(flag==1){
-        if($("#registerEmail").val().length == 0) {
-            swal("이메일을 입력해주세요.");
-            return;
-        }
-
-        var param = {
-            email : $("#registerEmail").val()
-        };
-        callPostService("/sendAuthEmail", param, "callSendAuthEmail");
+    if($("#registerEmail").val().length == 0) {
+        swal("이메일을 입력해주세요.");
+        return;
     }
-    else if(flag==2){
-        if($("#myPageEmail").val().length == 0) {
-            swal("이메일을 입력해주세요.");
-            return;
-        }
-
-        var param = {
-            email : $("#myPageEmail").val()
-        };
-        callPostService("/sendAuthEmail", param, "callSendAuthMyEmail");
-    }
-
+    var param = {
+        email : $("#registerEmail").val()
+    };
+    callPostService("/sendAuthEmail", param, "callSendAuthEmail");
 }
 
 // 인증번호를 체크하는 함수
@@ -607,6 +592,20 @@ function emailChange(){
     $("#myPageEmail").val(null);
     $("#myEmailAuth").val(-1);
     $("#myEmailCheckAuth").val(-1);
+}
+
+// 이메일 중복 체크 후 사용자가 입력한 이메일 주소로 인증번호 발송
+function sendAuthMyEmail() {
+    // 이메일을 입력하지 않고 [인증발송] 버튼을 눌렀을 경우
+    if($("#myPageEmail").val().length == 0) {
+        swal("이메일을 입력해주세요.");
+        return;
+    }
+
+    var param = {
+        email : $("#myPageEmail").val()
+    };
+    callPostService("/sendAuthMyEmail", param, "callSendAuthMyEmail");
 }
 
 //닉네임 변경하기
