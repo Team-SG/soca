@@ -10509,3 +10509,8 @@ a.text-dark:hover, a.text-dark:focus {
 .tab{
   white-space: pre;
 }
+
+.center-sort{
+  width: 30%;
+  margin: 0 auto;
+}
