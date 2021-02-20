@@ -70,6 +70,7 @@ $(document).ready(function() {
         getSubject();
         schedule.clear();
         loadSubjectList();
+        $("#subject").val("");
         //schedule.resetData(data);
     })
 });
