@@ -68,4 +68,7 @@ public class ScheduleSBOImpl implements ScheduleSBO {
         }
         return result;
     }
+
+    @Override
+    public void deleteSchedule(ScheduleVO schedule) { scheduleDAO.deleteSchedule(schedule); }
 }

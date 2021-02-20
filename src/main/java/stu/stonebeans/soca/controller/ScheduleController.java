@@ -62,7 +62,7 @@ public class ScheduleController {
         String subjectID = map.get("subject");
         ScheduleVO schedule = new ScheduleVO();
         schedule.setEmail(email);
-        schedule.setSubjectID(subjectID);;
+        schedule.setSubjectID(subjectID);
         ResultVO result = scheduleSBO.checkDuplicateSchedule(schedule);
         if(result.getStatus() == 1) {
             scheduleSBO.insertSchedule(schedule);
@@ -97,5 +97,15 @@ public class ScheduleController {
     public void goEvaluateWrite(HttpSession session, HashMap<String, String> map){
         session.setAttribute("subjectNo",map.get("subjectNo"));
         session.setAttribute("professor",map.get("professor"));
+    }
+
+    @RequestMapping(value="/deleteSchedule", method=RequestMethod.POST)
+    public void deleteSchedule(HttpSession session, @RequestBody HashMap<String, String> map) {
+        String email = (String)session.getAttribute("email");
+        String subjectID = map.get("subject");
+        ScheduleVO schedule = new ScheduleVO();
+        schedule.setEmail(email);
+        schedule.setSubjectID(subjectID);
+        scheduleSBO.deleteSchedule(schedule);
     }
 }

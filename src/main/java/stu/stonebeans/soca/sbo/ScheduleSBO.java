@@ -26,4 +26,6 @@ public interface ScheduleSBO {
 
     // 시간표에 중복 확인
     ResultVO checkDuplicateSchedule(ScheduleVO schedule);
+
+    void deleteSchedule(ScheduleVO schedule);
 }

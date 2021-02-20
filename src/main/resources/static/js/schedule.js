@@ -159,7 +159,16 @@ function getMajor() {
 // 그리드 선택된 항목 삭제
 function deleteGridData() {
     var checkedRows = schedule.getCheckedRows();
-    schedule.removeRow(checkedRows);
+    /*for(var i=0; i<checkedRows.length; i++){
+        schedule.removeRow(checkedRows);
+    }*/
+    schedule.removeCheckedRows(checkedRows);
+    for(var i = 0; i < checkedRows.length; i++) {
+        var param = {
+            subject : checkedRows[i].subjectID
+        }
+        callPostService('deleteSchedule', param, null);
+    }
 }
 
 function insertGridData() {

@@ -24,4 +24,6 @@ public interface ScheduleDAO {
     public List<SubjectVO> getMajor(SubjectVO subject);
 
     public ScheduleVO checkDuplicateSchedule(ScheduleVO schedule);
+
+    public void deleteSchedule(ScheduleVO schedule);
 }

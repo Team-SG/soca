@@ -36,4 +36,9 @@
             resultType="stu.stonebeans.soca.vo.ScheduleVO">
         SELECT * FROM schedule WHERE email=#{email} AND subjectID=#{subjectID}
     </select>
+
+    <select id="deleteSchedule"
+            parameterType="stu.stonebeans.soca.vo.ScheduleVO">
+        DELETE FROM schedule WHERE email=#{email} AND subjectID=#{subjectID}
+    </select>
 </mapper>
