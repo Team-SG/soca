@@ -64,6 +64,14 @@ $(document).ready(function() {
             //alert(ui.item.value);
         }
     });
+
+    $("#selectYear").change(function(){
+        getMajor(); // 전공 데이터 조회
+        getSubject();
+        schedule.clear();
+        loadSubjectList();
+        //schedule.resetData(data);
+    })
 });
 
 // ================================ Custom Function ================================
@@ -71,12 +79,7 @@ $(document).ready(function() {
 // 그리드 초기 세팅
 function initGrid() {
     const data = [];
-    var param = {
-        yearSemester : $("#selectYear option:selected").val()
-    }
-    callPostService("getSchedule", param, function(data){
 
-    })
     schedule = new Grid({
         el: document.getElementById('grid'),
         data: data,
@@ -162,7 +165,7 @@ function deleteGridData() {
     /*for(var i=0; i<checkedRows.length; i++){
         schedule.removeRow(checkedRows);
     }*/
-    schedule.removeCheckedRows(checkedRows);
+    schedule.removeCheckedRows(false);
     for(var i = 0; i < checkedRows.length; i++) {
         var param = {
             subject : checkedRows[i].subjectID
@@ -266,6 +269,7 @@ function callGetMajor(data) {
 
 // 그리드에 뿌려줄 형태로 시간 변환
 function callFormatTime(data) {
+    if(data == null) return "";
     if(data.length == 0) return "";
 
     var time;
