@@ -15,6 +15,8 @@ $(document).ready(function() {
     getYearSemester(); // 수강년도/학기 데이터 조회
     getMajor(); // 전공 데이터 조회
     getSubject(); // 수강 과목 조회
+    loadSubjectList();//현재 학생의 수강과목 조회
+
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
         insertSchedule();
@@ -207,6 +209,21 @@ function getWeekday(data) {
     return day;
 }
 
+function loadSubjectList() {
+    var selectedYear=$("#selectYear").val();
+    //var start=selectedYear.indexOf("년도");
+    //var end=selectedYear.indexOf("학기");
+    var year=selectedYear.substring(0,4);
+    var semester=selectedYear.substring(4);
+    //swal(selectedYear+"   "+year+semester);
+    var param={
+        year : year,
+        semester : semester
+    }
+
+    callPostService('/getSubjectList',param,"callLoadSubjectList");
+}
+
 // ================================ Callback Function ================================
 
 // 수강년도 및 학기 데이터 가져오기 콜백
@@ -257,4 +274,25 @@ function callFormatTime(data) {
 
     time = data.length == 11 ? (day1 + " " + daytime) : (day1 + ", " + day2 + " " + daytime);
     return time;
+}
+
+// 본인의 시간표를 가져옴
+function callLoadSubjectList(data){
+
+    $.each(data,function(index,item){
+        var rowData = [
+            {
+                subjectID: item.subjectID,
+                code: item.code,
+                major: item.major,
+                subjectNO: item.subjectNO,
+                time: callFormatTime(item.time),
+                credit: item.credit,
+                professor: item.professor
+            }
+        ];
+        schedule.appendRows(rowData);
+    })
+
+
 }
