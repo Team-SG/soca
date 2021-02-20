@@ -6,5 +6,10 @@
 
 $(document).ready(function() {
 
+    //initEvaluateWrite();
 });
 
+/*function initEvaluateWrite(){
+    var code=location.search("code");
+
+}*/

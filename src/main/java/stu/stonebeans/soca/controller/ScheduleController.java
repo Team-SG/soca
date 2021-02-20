@@ -93,4 +93,9 @@ public class ScheduleController {
         return null;
     }
 
+    @RequestMapping(value="/goEvaluteWrite", method=RequestMethod.POST)
+    public void goEvaluateWrite(HttpSession session, HashMap<String, String> map){
+        session.setAttribute("subjectNo",map.get("subjectNo"));
+        session.setAttribute("professor",map.get("professor"));
+    }
 }
