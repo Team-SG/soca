@@ -48,3 +48,20 @@ $.fn.serializeObject = function()
 function tabChar(){
     return '<span class="tab">&#9;</span>';
 }
+
+//url에서 파라미터를 가져오기
+function getQuery(){
+    var url=document.location.href;
+    var qs=url.substring(url.indexOf('?')+1).split('&');
+    for(var i=0, result={};i<qs.length;i++){
+        qs[i]=qs[i].split('=');
+        result[qs[i][0]]=decodeURIComponent(qs[i][1]);
+    }
+    return result;
+}
+
+//url에서 파라미터를 가져오기
+function getQuery2(){
+    var url=new URL(document.location.href);
+    return url.searchParams;
+}

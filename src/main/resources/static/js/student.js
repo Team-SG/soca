@@ -544,6 +544,8 @@ function initMyPage(){
     $("#myAuthCode").val(null);
     $("#myValidNickname").hide();
     $("#myNicknameAuth").val(0);
+    $("#btnMyPageSave").attr("disabled",true);
+    $("#btnMyPageCancel").attr("disabled",true);
 }
 
 // 비밀번호 변경을 초기화
@@ -590,6 +592,8 @@ function emailChange(){
     $("#btnMySendAuth").show();
     $("#myPageEmail").attr("readonly",false);
     $("#myPageEmail").val(null);
+    $("#btnMyPageSave").removeAttr("disabled");
+    $("#btnMyPageCancel").removeAttr("disabled");
     $("#myEmailAuth").val(-1);
     $("#myEmailCheckAuth").val(-1);
 }
@@ -614,6 +618,8 @@ function nicknameChange(){
     $("#btnMyNicknameCheck").show();
     $("#myPageNickname").attr("readonly",false);
     $("#myPageNickname").val(null);
+    $("#btnMyPageSave").removeAttr("disabled");
+    $("#btnMyPageCancel").removeAttr("disabled");
     $("#myNicknameAuth").val(-1);
 }
 
