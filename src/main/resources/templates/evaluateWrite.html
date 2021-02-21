@@ -16,16 +16,55 @@
         <div class="toast-body">
             <form>
                 <div class="form-group input-group-sm mt-2 ml-2">
-                    <h5 id="header" class="ml-2 mb-4"></h5>
+                    <div class="ml-2 mb-2 d-flex align-items-baseline">
+                        <h4 id="subject"></h4>
+                        <h5 id="professor" class="fs-100"></h5>
+                    </div>
 
                     <!-- 총평 -->
                     <span class="badge badge-primary fs-095 font-weight-light m-2">총평</span><br/>
+                    <!--<div class="star-box">
+                        <span class="star star_left"></span>
+                        <span class="star star_right"></span>
+
+                        <span class="star star_left"></span>
+                        <span class="star star_right"></span>
+
+                        <span class="star star_left"></span>
+                        <span class="star star_right"></span>
+
+                        <span class="star star_left"></span>
+                        <span class="star star_right"></span>
+
+                        <span class="star star_left"></span>
+                        <span class="star star_right"></span>
+                    </div>-->
+                    <div class="star-box">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+
                     <!-- 학점 -->
                     <span class="badge badge-primary fs-095 font-weight-light m-2">받은 학점</span>
                     <select id="grade" class="form-control d-inline-block mr-1" style="width: 100px;">
                         <option value="A+">A+</option>
                         <option value="A0">A0</option>
                         <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B0">B0</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C0">C0</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D0">D0</option>
+                        <option value="D-">D-</option>
+                        <option value="F">F</option>
+                        <option value="FA">FA</option>
+
                     </select>
                     <br/><hr/>
                     <!-- 상세 평점 -->
