@@ -71,6 +71,7 @@ $(document).ready(function() {
         schedule.clear();
         loadSubjectList();
         $("#subject").val("");
+        $("#selectMajor").val("전공");
         //schedule.resetData(data);
     })
 });
