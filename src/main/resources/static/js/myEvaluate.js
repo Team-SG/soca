@@ -61,8 +61,10 @@ function callGetSubjectList(data){
     var start= '<li class="list-group-item d-flex justify-content-between align-items-center">';
     var last;
     $.each(data,function(index,item){
-        last= '<span class="badge badge-primary fs-090"  onclick="location.href=\'/evaluateWrite?code='+item.code+'&subjectNo='+item.subjectNO+'&professor='+item.professor+'\'"  style="cursor:pointer">평가하기</span></li>';
-        var li = start + "<div> <strong>["+item.code+"] </strong>"+ tabChar() +item.subjectNO+tabChar()+" - "+item.professor +" 교수님</div>" + last;
+        last= '<span class="badge badge-primary fs-090"  onclick="location.href=\'/evaluateWrite?subjectID='+item.subjectID+'\'"  style="cursor:pointer">평가하기</span></li>';
+        var prof="";
+        if(item.professor!="") prof=tabChar()+" - "+item.professor +" 교수님";
+        var li = start + "<div> <strong>["+item.code+"] </strong>"+ tabChar() +item.subjectNO+prof+"</div>" + last;
         $("#subjectList").append(li);
     })
 }

@@ -19,7 +19,15 @@ $(document).ready(function() {
 
 function initEvaluateWrite(){
     var result=getQuery2();
-    $("#subject").append('<strong>'+result.get('subjectNo')+'</strong>');
-    $("#professor").append(tabChar()+"-"+result.get('professor')+" 교수님");
+    var subjectID=result.get("subjectID");
 
+
+    var param={
+        subjectID : subjectID
+    };
+
+    callPostService('/getSubjectData',param,function(data){
+        $("#subject").append('<strong>'+data.subjectNO+'</strong>');
+        $("#professor").append(tabChar()+"-"+data.professor+" 교수님");
+    });
 }

@@ -128,4 +128,5 @@ public class StudentSBOImpl implements StudentSBO {
         studentDAO.changeMyPage(map);
     }
 
+
 }
