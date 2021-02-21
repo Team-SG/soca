@@ -201,6 +201,7 @@ function insertSchedule() {
     callPostService("insertSchedule", param, function(data) {
         if(data.status == 1) {
             insertGridData();
+            $("#subject").val("");
         } else {
             swal(data.msg);
             return;
