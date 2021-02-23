@@ -16,6 +16,7 @@ import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.dao.EvaluateDAO;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -28,4 +29,10 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public SubjectVO getSubjectData(String subjectID){
         return evaluateDAO.getSubjectData(subjectID);
     }
+
+    @Override
+    public List<SubjectVO> getAllMajors() { return evaluateDAO.getAllMajors(); }
+
+    @Override
+    public List<SubjectVO> findSubjects() { return evaluateDAO.getAllSubjects(); }
 }

@@ -7,5 +7,13 @@
         SELECT * FROM subject WHERE subjectID=#{subjectID}
     </select>
 
+    <select id="getAllMajors"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT major FROM subject
+    </select>
 
+    <select id="getAllSubjects"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT subjectNo, professor, code, major FROM subject ORDER BY subjectNo
+    </select>
 </mapper>
