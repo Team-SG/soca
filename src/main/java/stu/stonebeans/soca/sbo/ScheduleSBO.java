@@ -1,5 +1,7 @@
 package stu.stonebeans.soca.sbo;
 
+import stu.stonebeans.soca.vo.ResultVO;
+import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import java.util.HashMap;
@@ -16,6 +18,14 @@ public interface ScheduleSBO {
     // 과목 목록 가져오기
     List<SubjectVO> findSubjects(SubjectVO subject);
 
-    //
-    void insertSubject(SubjectVO subject);
+    // 시간표에 과목 넣기
+    void insertSchedule(ScheduleVO schedule);
+
+    // 전공 목록 가져오기
+    List<SubjectVO> getMajor(SubjectVO subject);
+
+    // 시간표에 중복 확인
+    ResultVO checkDuplicateSchedule(ScheduleVO schedule);
+
+    void deleteSchedule(ScheduleVO schedule);
 }

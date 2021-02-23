@@ -27,7 +27,6 @@
 
         <div class="toast-body">
             <strong class="mr-auto" style="color:#000000">최근 강의평가</strong>
-
             <ul class="list-group mt-3 fs-090">
                 <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
                     <span class="badge badge-primary">New</span>
@@ -35,12 +34,15 @@
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <div class="float-right">
                         <ion-icon name="heart-circle-outline"></ion-icon><span class="pl-1 pr-3">3</span>
+                        <!-- 아래 별점 부분은 나중에 반복문으로 해야 할듯...-->
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star-half"></ion-icon>
                         <ion-icon name="star-outline"></ion-icon>
                     </div>
+                    </br></br>
+                    <a class="ml-3" style="color:#000000">교수님 강의력 짱!</a>
                 </li>
                 <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
                     <span class="badge badge-primary">New</span>
@@ -53,6 +55,8 @@
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star-half"></ion-icon>
                     </div>
+                    </br></br>
+                    <a class="ml-3" style="color:#000000">교수님 강의력 짱!</a>
                 </li>
                 <li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">
                     <span class="badge badge-primary">New</span>
@@ -66,16 +70,25 @@
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star-outline"></ion-icon>
                     </div>
+                    </br></br>
+                    <a class="ml-3" style="color:#000000">교수님 강의력 짱!</a>
+                </li>
             </ul>
         </div>
     </div>
-    <button onClick="location.reload();">1</button>
-    <button onClick="location.reload();">2</button>
-    <button onClick="location.reload();">3</button>
-    <button onClick="location.reload();">4</button>
-    <button onClick="location.reload();">5</button>
-    <button onClick="location.reload();">▶</button>
-    <button onClick="location.reload();">▶▶</button>
+    <h6 class="mt-4 mb-1" style="color:#000000">(<ion-icon name="add-circle-outline"></ion-icon>아이콘이 있는 강의평가는 추가 강의정보가 입력되어 있습니다.)</h6><br>
+    <div class="center-sort">
+        <!--조건에 따라 페이지 번호 및 화살표 변화하는 코드 필요-->
+        <!--<button onClick="location.reload();">◀</button>
+        <button onClick="location.reload();">◀◀</button>-->
+        <button onClick="location.reload();">1</button>
+        <button onClick="location.reload();">2</button>
+        <button onClick="location.reload();">3</button>
+        <button onClick="location.reload();">4</button>
+        <button onClick="location.reload();">5</button>
+        <button onClick="location.reload();">▶</button>
+        <button onClick="location.reload();">▶▶</button>
+    </div>
     <script src="js/evaluate.js" type="text/javascript"></script>
 </div>
 </html>

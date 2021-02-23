@@ -10,7 +10,6 @@ import stu.stonebeans.soca.vo.StudentVO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
@@ -153,5 +152,18 @@ public class StudentController {
             result.setMsg("현재 비밀번호가 일치하지 않습니다.");
         }
          return result;
+    }
+
+    // 마이페이지에서 이메일 중복 여부 확인 및 인증 메일 발송
+    @RequestMapping(value = "/sendAuthMyEmail", method = RequestMethod.POST)
+    public ResultVO sendAuthMyEmail(HttpSession session, HttpServletRequest httpServletRequest, @RequestBody HashMap<String, String> map) {
+        String email = map.get("email");
+
+        // 이메일 중복 여부 체크를 통과하였을 경우, 인증 메일 발송
+        if(studentSBO.checkDuplicateEmail(email) == true) {
+            return mailSBO.sendEmail(session, email, 4);
+        } else {
+            return new ResultVO(-1, "이미 사용 중인 이메일입니다.");
+        }
     }
 }

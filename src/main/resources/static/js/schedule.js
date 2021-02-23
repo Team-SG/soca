@@ -7,16 +7,19 @@
 const Grid = tui.Grid;
 var schedule;
 var subjectLists = [];
-var subject;
+var selectSubject;
 
 $(document).ready(function() {
 
     initGrid(); // 그리드 초기 세팅
     getYearSemester(); // 수강년도/학기 데이터 조회
-    findSubjects();
+    getMajor(); // 전공 데이터 조회
+    getSubject(); // 수강 과목 조회
+    loadSubjectList();//현재 학생의 수강과목 조회
+
     // [추가] 버튼 클릭 이벤트
     $("#btnInsert").click(function() {
-        insertGridData();
+        insertSchedule();
     });
 
     // [삭제] 버튼 클릭 이벤트
@@ -30,33 +33,54 @@ $(document).ready(function() {
         source : function(request, response) {
             var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
             response($.map(subjectLists, function(item) {
-                if (matcher.test(item.label)) {
-                    return (item.label + " - " + item.value.substring(14, item.value.length));
+                if (matcher.test(item.subjectNO)) {
+                    var major = $("#selectMajor").val();
+                    var result = {
+                        label: item.subjectNO + " " + item.formatTime + " / " + item.professor,
+                        value: item.subjectID,
+                        subjectID: item.subjectID,
+                        code: item.code,
+                        major: item.major,
+                        subjectNO: item.subjectNO,
+                        time: item.formatTime,
+                        credit: item.credit,
+                        professor: item.professor
+                    }
+                    if(major == "전공") {
+                        return result;
+                    } else {
+                        if(major == item.major) {
+                            return result;
+                        }
+                    }
                 }
             }));
         },
         select : function(event, ui) {
-            subject = $("#subject").val(ui.item.value());
+            event.preventDefault();
+            $("#subject").val(ui.item.label);
+            $("#subjectID").val(ui.item.value);
+            selectSubject = ui.item;
+            //alert(ui.item.value);
         }
     });
+
+    $("#selectYear").change(function(){
+        getMajor(); // 전공 데이터 조회
+        getSubject();
+        schedule.clear();
+        loadSubjectList();
+        $("#subject").val("");
+        $("#selectMajor").val("전공");
+        //schedule.resetData(data);
+    })
 });
 
 // ================================ Custom Function ================================
 
 // 그리드 초기 세팅
 function initGrid() {
-    const data = [
-        {
-            id: '20211AAT200201',
-            subjectID: '1',
-            code: 'ABZ21001',
-            major: '한국발전과국제개발협력연계전공',
-            subject: '1960년대의저항문화',
-            time: '월,수 10:00 ~ 12:00',
-            credit: '3',
-            professor: '홍길동'
-        }
-    ];
+    const data = [];
 
     schedule = new Grid({
         el: document.getElementById('grid'),
@@ -86,7 +110,7 @@ function initGrid() {
                 header: '과목',
                 width: 'auto',
                 minWidth: '250',
-                name: 'subject'
+                name: 'subjectNO'
             },
             {
                 header: '시간',
@@ -121,22 +145,98 @@ function getYearSemester() {
     callPostService('getYearSemester', null, 'callGetYearSemester')
 }
 
+// 수강 과목 가져오기
+function getSubject() {
+    var param = {
+        yearSemester : $("#selectYear option:selected").val()
+    }
+    callPostService("findSubjects", param, 'callGetSubject');
+}
+
+// 전공 가져오기
+function getMajor() {
+    var param = {
+        yearSemester : $("#selectYear option:selected").val()
+    }
+    callPostService('getMajor', param, 'callGetMajor')
+}
+
 // 그리드 선택된 항목 삭제
 function deleteGridData() {
     var checkedRows = schedule.getCheckedRows();
-    schedule.removeRow(checkedRows);
+    /*for(var i=0; i<checkedRows.length; i++){
+        schedule.removeRow(checkedRows);
+    }*/
+    schedule.removeCheckedRows(false);
+    for(var i = 0; i < checkedRows.length; i++) {
+        var param = {
+            subject : checkedRows[i].subjectID
+        }
+        callPostService('deleteSchedule', param, null);
+    }
 }
 
-// 그리드에 넣기
 function insertGridData() {
+    var rowData = [
+        {
+            subjectID: selectSubject.subjectID,
+            code: selectSubject.code,
+            major: selectSubject.major,
+            subjectNO: selectSubject.subjectNO,
+            time: selectSubject.time,
+            credit: selectSubject.credit,
+            professor: selectSubject.professor
+        }
+    ];
+    schedule.appendRows(rowData);
+}
 
-    console.log(subject);
-    console.log( $("#subject").val() );
+// Schedule DB에 넣기
+function insertSchedule() {
+
     var param = {
-        subject : $("#subject").val()
+        subject : selectSubject.value
+    };
+
+    callPostService("insertSchedule", param, function(data) {
+        if(data.status == 1) {
+            insertGridData();
+            $("#subject").val("");
+        } else {
+            swal(data.msg);
+            return;
+        }
+    });
+}
+
+// 요일 가져오기
+function getWeekday(data) {
+    var day;
+    switch(data)  {
+        case "MON": day = "월"; break;
+        case "TUE": day = "화"; break;
+        case "WED": day = "수"; break;
+        case "THU": day = "목"; break;
+        case "FRI": day = "금"; break;
+        case "SAT": day = "토"; break;
+        case "SUN": day = "일"; break;
+    }
+    return day;
+}
+
+function loadSubjectList() {
+    var selectedYear=$("#selectYear").val();
+    //var start=selectedYear.indexOf("년도");
+    //var end=selectedYear.indexOf("학기");
+    var year=selectedYear.substring(0,4);
+    var semester=selectedYear.substring(4);
+    //swal(selectedYear+"   "+year+semester);
+    var param={
+        year : year,
+        semester : semester
     }
 
-    callPostService("insertSubject", param, null);
+    callPostService('/getSubjectList',param,"callLoadSubjectList");
 }
 
 // ================================ Callback Function ================================
@@ -151,72 +251,64 @@ function callGetYearSemester(data) {
     });
 }
 
-function findSubjects() {
-    var param = {
-        yearSemester : $("#selectYear option:selected").val()
+// 수강 과목 가져오기 콜백
+function callGetSubject(data) {
+    subjectLists = data;
+    $.each(subjectLists, function(index, item) {
+        subjectLists[index].formatTime = callFormatTime(subjectLists[index].time);
+    });
+}
+
+// 전공 데이터 가져오기 콜백
+function callGetMajor(data) {
+    // 전공에 데이터 추가
+    $.each(data, function(index, item) {
+        //console.log(item.major)
+        var option = "<option value='" + item.major + "'>"+ item.major + "</option>";
+        //var option = "<option value='" + "전공"  + "'>" + "</option>";
+        $("#selectMajor").append(option);
+    });
+}
+
+// 그리드에 뿌려줄 형태로 시간 변환
+function callFormatTime(data) {
+    if(data == null) return "";
+    if(data.length == 0) return "";
+
+    var time;
+    var day1, day2;
+    var daytime = data.substring(3, 11);
+    daytime = daytime.substring(0, 2) + ":" + daytime.substring(2, 4) + "~"
+        + daytime.substring(4, 6) + ":" + daytime.substring(6, 8);
+
+    if(data.length == 11) {
+        day1 = getWeekday(data.substring(0, 3));
+    } else if(data.length == 22) {
+        day1 = getWeekday(data.substring(0, 3));
+        day2 = getWeekday(data.substring(11, 14));
     }
 
-    callPostService("findSubjects", param, function(data) {
-        for(var i = 0; i < data.length; i++) {
-            var time;
-            var day = data[i].time.substring(0, 3);
-            var daytime = data[i].time.substring(3, 11);
-            daytime = daytime.substring(0, 2) + ":" + daytime.substring(2, 4) + "~" + daytime.substring(4, 6) + ":" + daytime.substring(6, 8)
-            switch(day)
+    time = data.length == 11 ? (day1 + " " + daytime) : (day1 + ", " + day2 + " " + daytime);
+    return time;
+}
+
+// 본인의 시간표를 가져옴
+function callLoadSubjectList(data){
+
+    $.each(data,function(index,item){
+        var rowData = [
             {
-                case "MON":
-                    day="월";
-                    break;
-                case "TUE":
-                    day="화";
-                    break;
-                case "WED":
-                    day="수";
-                    break;
-                case "THR":
-                    day="목";
-                    break;
-                case "FRI":
-                    day="금";
-                    break;
-                case "SAT":
-                    day="토";
-                    break;
-                case "SUN":
-                    day="일";
-                    break;
+                subjectID: item.subjectID,
+                code: item.code,
+                major: item.major,
+                subjectNO: item.subjectNO,
+                time: callFormatTime(item.time),
+                credit: item.credit,
+                professor: item.professor
             }
-            if(data[i].time.length == 11) {
-                time = day + " " + daytime;
-            } else if(data[i].time.length == 22) {
-                var day2 = data[i].time.substring(11, 14);
-                switch(day2)
-                {
-                    case "MON":
-                        day2="월";
-                        break;
-                    case "TUE":
-                        day2="화";
-                        break;
-                    case "WED":
-                        day2="수";
-                        break;
-                    case "THU":
-                        day2="목";
-                        break;
-                    case "FRI":
-                        day2="금";
-                        break;
-                    case "SAT":
-                        day2="토";
-                        break;
-                    case "SUN":
-                        day2="일";
-                        break;
-                }
-                time = day + ", " + day2 + " " + daytime;
-            }
-            subjectLists.push({"label":data[i].subjectNO, "value":data[i].subjectID + time + " / " + data[i].professor + " 교수님"});
-        }
+        ];
+        schedule.appendRows(rowData);
     })
+
+
 }

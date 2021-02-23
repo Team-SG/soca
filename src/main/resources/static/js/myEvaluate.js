@@ -7,6 +7,19 @@
 $(document).ready(function() {
     getYearSemester(); // 수강년도/학기 데이터 조회
     getSubjectList();
+    $("#selectYear").change(function (event){
+        $("#subjectList").empty();
+        getSubjectList();
+    })
+
+    /*$("#goEvaluateWrite").click(function (event){
+        var param={
+
+        }
+        callPostService("/goEvaluateWrite",param,function(){
+           window.location.href="/evaluateWrite";
+       })
+    });*/
 });
 
 
@@ -46,9 +59,12 @@ function callGetYearSemester(data) {
 
 function callGetSubjectList(data){
     var start= '<li class="list-group-item d-flex justify-content-between align-items-center">';
-    var last= '<span class="badge badge-primary fs-090" style="cursor:pointer">평가하기</span></li>';
+    var last;
     $.each(data,function(index,item){
-        var li = start + "<div> <strong>["+item.code+"] </strong>"+ "      "+item.subjectNO+"     - "+item.professor +" 교수님</div>" + last;
+        last= '<span class="badge badge-primary fs-090"  onclick="location.href=\'/evaluateWrite?subjectID='+item.subjectID+'\'"  style="cursor:pointer">평가하기</span></li>';
+        var prof="";
+        if(item.professor!="") prof=tabChar()+" - "+item.professor +" 교수님";
+        var li = start + "<div> <strong>["+item.code+"] </strong>"+ tabChar() +item.subjectNO+prof+"</div>" + last;
         $("#subjectList").append(li);
     })
 }

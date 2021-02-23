@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stu.stonebeans.soca.dao.ScheduleDAO;
 import stu.stonebeans.soca.sbo.ScheduleSBO;
+import stu.stonebeans.soca.vo.ResultVO;
+import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.StudentVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
@@ -45,7 +47,28 @@ public class ScheduleSBOImpl implements ScheduleSBO {
     }
 
     @Override
-    public void insertSubject(SubjectVO subject) {
-        scheduleDAO.insertSubject(subject);
+    public void insertSchedule(ScheduleVO schedule) {
+        scheduleDAO.insertSchedule(schedule);
     }
+
+    @Override
+    public List<SubjectVO> getMajor(SubjectVO subject) {
+        return scheduleDAO.getMajor(subject);
+    }
+
+    @Override
+    public ResultVO checkDuplicateSchedule(ScheduleVO schedule) {
+        ScheduleVO check = scheduleDAO.checkDuplicateSchedule(schedule);
+        ResultVO result = new ResultVO();
+        if(check == null) {
+            result.setStatus(1);
+        } else {
+            result.setStatus(-1);
+            result.setMsg("이미 추가된 과목입니다.");
+        }
+        return result;
+    }
+
+    @Override
+    public void deleteSchedule(ScheduleVO schedule) { scheduleDAO.deleteSchedule(schedule); }
 }
