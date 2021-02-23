@@ -5,11 +5,12 @@
  */
 
 var subjectLists = [];
+var professors = [];
 
 $(document).ready(function() {
     getAllMajors();
-    getAllSubjects();
-
+    getAllSubjects(1);
+    getAllSubjects(2);
     $("#selectMajor").change(function(){
         $("#subject").val("");
     })
@@ -29,11 +30,17 @@ $(document).ready(function() {
 });
 
 function autoComplete(num) {
+    var autoData = [];
+    if(num == 3) {
+        autoData = professors;
+    } else {
+        autoData = subjectLists
+    }
 
     $("#subject").autocomplete({
         source : function(request, response) {
             var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-            response($.map(subjectLists, function(item) {
+            response($.map(autoData, function(item) {
                 var testVal;
                 if(num == 1) {
                     testVal = item.code;
@@ -45,11 +52,15 @@ function autoComplete(num) {
                 if (matcher.test(testVal)) {
                     var major = $("#selectMajor").val();
                     var result = {
-                        label: item.subjectNO + "[" + item.code + "]"+ " / " + item.professor,
-                        value: item.subjectNO + item.code + item.professor,
+                        label: item.subjectNO + "[" + item.code + "]",
+                        value: item.subjectNO + item.code,
                         code: item.code,
                         major: item.major,
                         professor: item.professor
+                    }
+                    if(num == 3) {
+                        result.label = item.professor + " 교수님";
+                        result.value = item.professor
                     }
                     if(major == "전공") {
                         return result;
@@ -83,8 +94,12 @@ function callGetAllMajors(data) {
     });
 }
 
-function getAllSubjects() {
-    callPostService("getAllSubjects", null, function(data) {
-        subjectLists = data;
+function getAllSubjects(num) {
+    callPostService("getAllSubjects", num, function(data) {
+        if(num == 1) {
+            subjectLists = data;
+        } else if(num == 2) {
+            professors = data;
+        }
     });
 }

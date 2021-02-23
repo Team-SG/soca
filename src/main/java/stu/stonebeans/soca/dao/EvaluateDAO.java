@@ -14,5 +14,7 @@ public interface EvaluateDAO {
 
     List<SubjectVO> getAllMajors();
 
-    List<SubjectVO> getAllSubjects();
+    List<SubjectVO> getSubjectsBySub();
+
+    List<SubjectVO> getSubjectsByProf();
 }

@@ -34,5 +34,13 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public List<SubjectVO> getAllMajors() { return evaluateDAO.getAllMajors(); }
 
     @Override
-    public List<SubjectVO> findSubjects() { return evaluateDAO.getAllSubjects(); }
+    public List<SubjectVO> findSubjects(int num) {
+        if(num == 1) {
+            return evaluateDAO.getSubjectsBySub();
+        } else if(num == 2) {
+            return evaluateDAO.getSubjectsByProf();
+        } else {
+            return null;
+        }
+    }
 }

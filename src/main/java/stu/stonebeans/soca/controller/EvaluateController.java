@@ -31,8 +31,8 @@ public class EvaluateController {
     }
 
     @RequestMapping(value = "/getAllSubjects", method = RequestMethod.POST)
-    public SubjectVO[] findSubjects() {
-        List<SubjectVO> subjectList = evaluateSBO.findSubjects();
+    public SubjectVO[] findSubjects(@RequestBody int num) {
+        List<SubjectVO> subjectList = evaluateSBO.findSubjects(num);
         SubjectVO[] array = subjectList.toArray(new SubjectVO[subjectList.size()]);
         return array;
     }

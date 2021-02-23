@@ -12,8 +12,13 @@
         SELECT DISTINCT major FROM subject
     </select>
 
-    <select id="getAllSubjects"
+    <select id="getSubjectsBySub"
             resultType="stu.stonebeans.soca.vo.SubjectVO">
-        SELECT DISTINCT subjectNo, professor, code, major FROM subject ORDER BY subjectNo
+        SELECT DISTINCT subjectNo, code, major FROM subject ORDER BY subjectNo
+    </select>
+
+    <select id="getSubjectsByProf"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT professor FROM subject ORDER BY professor
     </select>
 </mapper>

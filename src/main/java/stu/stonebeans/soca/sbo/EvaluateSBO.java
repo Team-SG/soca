@@ -11,5 +11,5 @@ public interface EvaluateSBO {
 
     List<SubjectVO> getAllMajors();
 
-    List<SubjectVO> findSubjects();
+    List<SubjectVO> findSubjects(int num);
 }
