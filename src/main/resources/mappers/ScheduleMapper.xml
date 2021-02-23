@@ -41,4 +41,16 @@
             parameterType="stu.stonebeans.soca.vo.ScheduleVO">
         DELETE FROM schedule WHERE email=#{email} AND subjectID=#{subjectID}
     </select>
+
+    <select id="getSchedule"
+            parameterType="string"
+            resultType="stu.stonebeans.soca.vo.ScheduleVO">
+        SELECT * FROM schedule WHERE email=#{email} AND substring(subjectID, 1, 4)=substring(#{subjectID}, 1, 4)
+    </select>
+
+    <select id="getSubjectData"
+            parameterType="string"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT * FROM subject WHERE subjectID=#{subjectID}
+    </select>
 </mapper>

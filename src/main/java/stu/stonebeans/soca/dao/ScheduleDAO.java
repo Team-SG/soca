@@ -26,4 +26,8 @@ public interface ScheduleDAO {
     public ScheduleVO checkDuplicateSchedule(ScheduleVO schedule);
 
     public void deleteSchedule(ScheduleVO schedule);
+
+    public List<ScheduleVO> getSchedule(ScheduleVO schedule);
+
+    public SubjectVO getSubjectData(String subjectID);
 }

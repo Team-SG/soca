@@ -58,13 +58,31 @@ public class ScheduleSBOImpl implements ScheduleSBO {
 
     @Override
     public ResultVO checkDuplicateSchedule(ScheduleVO schedule) {
-        ScheduleVO check = scheduleDAO.checkDuplicateSchedule(schedule);
+        ScheduleVO duplicateCheck = scheduleDAO.checkDuplicateSchedule(schedule);
+        List<ScheduleVO> allSchedule = scheduleDAO.getSchedule(schedule);
         ResultVO result = new ResultVO();
-        if(check == null) {
-            result.setStatus(1);
-        } else {
+        result.setStatus(1);
+        if(duplicateCheck != null) {
             result.setStatus(-1);
             result.setMsg("이미 추가된 과목입니다.");
+        } else {
+            SubjectVO nowSubject = scheduleDAO.getSubjectData(schedule.getSubjectID());
+            int credit = 0;
+            int i;
+            for(i = 0; i < allSchedule.size(); i++) {
+                SubjectVO Subjects = scheduleDAO.getSubjectData(allSchedule.get(i).getSubjectID());
+                credit += Subjects.getCredit();
+                if(Subjects.getTime().equals(nowSubject.getTime()))
+                    break; //time 겹치는거 제거 알고리즘 생각해봐야할텐데..
+            }
+            credit += nowSubject.getCredit();
+            if(credit > 22) {
+                result.setStatus(-1);
+                result.setMsg("최대 수강 학점을 초과하였습니다.");
+            } else if(i != allSchedule.size()) {
+                result.setStatus(-1);
+                result.setMsg("수강 시간이 겹치는 과목이 추가되었습니다.");
+            }
         }
         return result;
     }

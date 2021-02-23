@@ -8,7 +8,6 @@ $(document).ready(function() {
 
     initEvaluateWrite();
 
-
     $('#evaluation .starPoint span').click(function(){
         $(this).parent().children('span').removeClass('on');
         $(this).addClass('on').prevAll('span').addClass('on');
@@ -35,6 +34,13 @@ $(document).ready(function() {
         $("#gradeSatisValue").remove();
         $("#gradeSatis").append('<h6 id="gradeSatisValue">( '+value+' / 5.0 )</h6>');
     });
+
+    $("#btnEvaluateWriteSave").click(function(event){
+        swal($("#evaluation").val()+" "+$("#grade").val()+" "+$("#quality").val()+" "+
+            $("#gradeSatis").val()+" "+$('input[name="difficulty"]:checked').val()+" "+
+            $('input[name="homework"]:checked').val()+" "+$('input[name="coverage"]:checked').val());
+    })
+
 });
 
 function initEvaluateWrite(){
@@ -50,5 +56,14 @@ function initEvaluateWrite(){
         $("#subject").append('<strong>'+data.subjectNO+'</strong>');
         $("#professor").append(tabChar()+"-"+data.professor+" 교수님");
     });
+
+    $("#evaluation").val(1);
+    $("#quality").val(1);
+    $("#gradeSatis").val(1);
+    $("#difficulty").val($('input[name="difficulty"]:checked').val());
+    $("#homework").val($('input[name="homework"]:checked').val());
+    $("#coverage").val($('input[name="coverage"]:checked').val());
+
+
 }
 

@@ -9,6 +9,7 @@ import stu.stonebeans.soca.sbo.EvaluateSBO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class EvaluateController {
@@ -21,5 +22,18 @@ public class EvaluateController {
     @RequestMapping(value = "/getSubjectData", method = RequestMethod.POST)
     public SubjectVO getSubjectData(@RequestBody HashMap<String,String> map) {
         return evaluateSBO.getSubjectData(map.get("subjectID"));
+    }
+
+    @RequestMapping(value = "/getAllMajors", method = RequestMethod.POST)
+    public List<SubjectVO> getMajor() {
+        List<SubjectVO> subjectLists =  evaluateSBO.getAllMajors();
+        return subjectLists;
+    }
+
+    @RequestMapping(value = "/getAllSubjects", method = RequestMethod.POST)
+    public SubjectVO[] findSubjects(@RequestBody int num) {
+        List<SubjectVO> subjectList = evaluateSBO.findSubjects(num);
+        SubjectVO[] array = subjectList.toArray(new SubjectVO[subjectList.size()]);
+        return array;
     }
 }
