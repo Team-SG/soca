@@ -11,7 +11,7 @@
     <div class="toast show shadow-none mt-3">
         <div class="toast-header">
             <strong class="mr-auto mt-2 mb-2">평가 작성</strong>
-            <button type="button" id="btnMyPageSave" class="btn btn-outline-danger btn-sm font-weight-normal mt-1 mb-1">등록</button>
+            <button type="button" id="btnEvaluateWriteSave" class="btn btn-outline-danger btn-sm font-weight-normal mt-1 mb-1">등록</button>
         </div>
         <div class="toast-body">
             <form>
@@ -61,81 +61,118 @@
                     </select>
                     <br/><hr/>
                     <!-- 상세 평점 -->
-                    <div class="d-inline-block">
-                        <h5 class="ml-2 mb-4">상세 평점</h5>
+                    <div class="d-flex">
+                        <div class="d-inline-block">
+                            <h5 class="ml-2 mb-4">상세 평점</h5>
 
-                        <!--강의력-->
-                        <div id="quality" class="d-flex align-items-center">
-                            <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">강의력</span>
-                            <div class="starPoint mr-4 mb-2" style="margin-left:2.5em">
-                                <span class="star starLeft on"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
+                            <!--강의력-->
+                            <div id="quality" class="d-flex align-items-center">
+                                <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">강의력</span>
+                                <div class="starPoint mr-4 mb-2" style="margin-left:2.5em">
+                                    <span class="star starLeft on"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                </div>
+                                <h6 id="qualityValue">( 0.5 / 5.0 )</h6>
                             </div>
-                            <h6 id="qualityValue">( 0.5 / 5.0 )</h6>
-                        </div>
-                        <!--<div class="range">
-                            <input type="range" min="1" max="7" steps="1" value="1">
-                        </div>-->
+                            <!--<div class="range">
+                                <input type="range" min="1" max="7" steps="1" value="1">
+                            </div>-->
 
-                        <!--<ul class="range-labels">
-                            <li class="active selected">Today</li>
-                            <li>2 days</li>
-                            <li>3 days</li>
-                            <li>4 days</li>
-                            <li>5 days</li>
-                            <li>6 days</li>
-                            <li>7 days</li>
-                        </ul>-->
-                        <!--학점만족도-->
-                        <div id="gradeSatis" class="d-flex align-items-center">
-                            <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">학점만족도</span>
-                            <div class="starPoint mr-4 mb-2" style="margin-left:0.8em">
-                                <span class="star starLeft on"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
-                                <span class="star starLeft"></span>
-                                <span class="star starRight"></span>
+                            <!--<ul class="range-labels">
+                                <li class="active selected">Today</li>
+                                <li>2 days</li>
+                                <li>3 days</li>
+                                <li>4 days</li>
+                                <li>5 days</li>
+                                <li>6 days</li>
+                                <li>7 days</li>
+                            </ul>-->
+                            <!--학점만족도-->
+                            <div id="gradeSatis" class="d-flex align-items-center">
+                                <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">학점만족도</span>
+                                <div class="starPoint mr-4 mb-2" style="margin-left:0.8em">
+                                    <span class="star starLeft on"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                    <span class="star starLeft"></span>
+                                    <span class="star starRight"></span>
+                                </div>
+                                <h6 id="gradeSatisValue">( 0.5 / 5.0 )</h6>
                             </div>
-                            <h6 id="gradeSatisValue">( 0.5 / 5.0 )</h6>
-                        </div>
 
-                        <div class="d-flex align-items-center">
-                            <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">난이도</span>
-                            <div id="difficulty" class=" ml-3 mt-2">
-                                <label for="difficulty"><input type="radio" name="difficulty" value="1"><span class="badge badge-cyan fs-095 font-weight-light m-2 mb-3">매우 쉬움</span></label>
-                                <label for="difficulty"><input type="radio" name="difficulty" value="2"><span class="badge badge-green fs-095 font-weight-light m-2 mb-3">쉬움</span></label>
-                                <label for="difficulty"><input type="radio" name="difficulty" value="3"><span class="badge badge-yellow fs-095 font-weight-light m-2 mb-3">보통</span></label>
-                                <label for="difficulty"><input type="radio" name="difficulty" value="4"><span class="badge badge-orange fs-095 font-weight-light m-2 mb-3">어려움</span></label>
-                                <label for="difficulty"><input type="radio" name="difficulty" value="5"><span class="badge badge-pink fs-095 font-weight-light m-2 mb-3">매우 어려움</span></label>
+                            <div class="d-flex align-items-center">
+                                <span class="badge badge-dark fs-095 font-weight-light m-2">난이도</span>
+                                <div id="difficulty" class=" ml-3 mt-2">
+                                    <label for="diff1"><input type="radio" class="radioDiff" name="difficulty" id="diff1" value="1"><span class="badge badge-cyan fs-095 font-weight-light m-2 mr-3">매우 쉬움</span></label>
+                                    <label for="diff2"><input type="radio" class="radioDiff" name="difficulty" id="diff2" value="2"><span class="badge badge-green fs-095 font-weight-light m-2 mr-3">쉬움</span></label>
+                                    <label for="diff3"><input type="radio" class="radioDiff" name="difficulty" id="diff3" value="3"><span class="badge badge-yellow fs-095 font-weight-light m-2 mr-3">보통</span></label>
+                                    <label for="diff4"><input type="radio" class="radioDiff" name="difficulty" id="diff4" value="4"><span class="badge badge-orange fs-095 font-weight-light m-2 mr-3">어려움</span></label>
+                                    <label for="diff5"><input type="radio" class="radioDiff" name="difficulty" id="diff5" value="5"><span class="badge badge-pink fs-095 font-weight-light m-2 mr-3">매우 어려움</span></label>
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex align-items-center">
+                                <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">과제량</span>
+                                <div id="homework" class=" ml-3 mt-2">
+                                    <label for="home1"><input type="radio" class="radioHome" name="homework" id="home1" value="1"><span class="badge badge-cyan fs-095 font-weight-light m-2 mr-3">매우 적음</span></label>
+                                    <label for="home2"><input type="radio" class="radioHome" name="homework" id="home2" value="2"><span class="badge badge-green fs-095 font-weight-light m-2 mr-3">적음</span></label>
+                                    <label for="home3"><input type="radio" class="radioHome" name="homework" id="home3" value="3"><span class="badge badge-yellow fs-095 font-weight-light m-2 mr-3">보통</span></label>
+                                    <label for="home4"><input type="radio" class="radioHome" name="homework" id="home4" value="4"><span class="badge badge-orange fs-095 font-weight-light m-2 mr-3">많음</span></label>
+                                    <label for="home5"><input type="radio" class="radioHome" name="homework" id="home5" value="5"><span class="badge badge-pink fs-095 font-weight-light m-2 mr-3">매우 많음</span></label>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">시험량</span>
+                                <div id="coverage" class=" ml-3 mt-2">
+                                    <label for="cover1"><input type="radio" class="radioCover" name="coverage" id="cover1" value="1"><span class="badge badge-cyan fs-095 font-weight-light m-2 mr-3">매우 적음</span></label>
+                                    <label for="cover2"><input type="radio" class="radioCover" name="coverage" id="cover2" value="2"><span class="badge badge-green fs-095 font-weight-light m-2 mr-3">적음</span></label>
+                                    <label for="cover3"><input type="radio" class="radioCover" name="coverage" id="cover3" value="3"><span class="badge badge-yellow fs-095 font-weight-light m-2 mr-3">보통</span></label>
+                                    <label for="cover4"><input type="radio" class="radioCover" name="coverage" id="cover4" value="4"><span class="badge badge-orange fs-095 font-weight-light m-2 mr-3">많음</span></label>
+                                    <label for="cover5"><input type="radio" class="radioCover" name="coverage" id="cover5" value="5"><span class="badge badge-pink fs-095 font-weight-light m-2 mr-3">매우 많음</span></label>
+                                </div>
                             </div>
                         </div>
 
+                        <!--추가 정보-->
+                        <div class=" d-inline-block">
+                            <div class="d-flex">
+                                <h5 class="ml-2 mb-4">추가 정보(+50p)</h5>
+                                <p> &nbsp;&nbsp;&nbsp; 아는 대로 최대한 적어주시면 큰 도움이 됩니다!</p>
+                            </div>
 
 
+                            <!--시험횟수-->
+                            <span class="badge badge-dark fs-095 font-weight-light m-2">시험 정보</span>
+                            <select id="testNum" class="form-control d-inline-block ml-3 mr-1" style="width: 120px;">
+                                <option value="1">1차 고사</option>
+                                <option value="2">2차 고사</option>
+                                <option value="3">3차 고사</option>
+                                <option value="4">4차 고사</option>
+                            </select>
+                        </div>
 
-
-                        <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">과제량</span><br/>
-                        <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">시험량</span><br/>
-                    </input>
+                    </div>
                     <br/><hr/>
 
                     <!-- 코멘트 -->
                     <span class="badge badge-danger fs-095 font-weight-light m-2 mb-3">
-                        강의에 대한 평가를 작성해주세요! (10자 이상)
-                    </span>
+                             강의에 대한 평가를 작성해주세요! (10자 이상)
+                         </span>
                     <textarea id="commentFinal" name="commentFinal" class="d-block w-75 ml-2 mr-2" style="border:1px solid #dddddd; height: 100px"></textarea>
                 </div>
             </form>
