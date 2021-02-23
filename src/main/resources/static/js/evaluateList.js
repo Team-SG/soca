@@ -5,6 +5,7 @@
  */
 
 $(document).ready(function() {
-
+    /*getMajor();
+    if($("input[id='courseNum']:checked").prop("checked")) { }*/
 });
 

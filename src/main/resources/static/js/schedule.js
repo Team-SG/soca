@@ -262,6 +262,8 @@ function callGetSubject(data) {
 // 전공 데이터 가져오기 콜백
 function callGetMajor(data) {
     // 전공에 데이터 추가
+    $("#selectMajor").find('option').remove();
+    $("#selectMajor").append("<option>전공</option>")
     $.each(data, function(index, item) {
         //console.log(item.major)
         var option = "<option value='" + item.major + "'>"+ item.major + "</option>";
