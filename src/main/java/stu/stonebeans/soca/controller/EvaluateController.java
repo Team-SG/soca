@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stu.stonebeans.soca.sbo.EvaluateSBO;
+import stu.stonebeans.soca.vo.EvaluateVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import java.util.HashMap;
@@ -35,5 +36,11 @@ public class EvaluateController {
         List<SubjectVO> subjectList = evaluateSBO.findSubjects(num);
         SubjectVO[] array = subjectList.toArray(new SubjectVO[subjectList.size()]);
         return array;
+    }
+
+    @RequestMapping(value = "/saveEvaluateWrite",method=RequestMethod.POST)
+    public void saveEvaluateWrite(@RequestBody EvaluateVO evaluateVO){
+        evaluateVO.increasePostNum();
+        evaluateSBO.saveEvaluateWrite(evaluateVO);
     }
 }
