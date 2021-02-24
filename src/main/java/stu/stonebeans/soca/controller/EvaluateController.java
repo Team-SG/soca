@@ -40,7 +40,6 @@ public class EvaluateController {
 
     @RequestMapping(value = "/saveEvaluateWrite",method=RequestMethod.POST)
     public void saveEvaluateWrite(@RequestBody EvaluateVO evaluateVO){
-        evaluateVO.increasePostNum();
         evaluateSBO.saveEvaluateWrite(evaluateVO);
     }
 }
