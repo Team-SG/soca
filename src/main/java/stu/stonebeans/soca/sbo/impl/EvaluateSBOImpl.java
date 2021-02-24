@@ -9,6 +9,7 @@ import stu.stonebeans.soca.config.PropertyUtil;
 import stu.stonebeans.soca.sbo.EvaluateSBO;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
+import stu.stonebeans.soca.vo.EvaluateVO;
 import stu.stonebeans.soca.vo.MailVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.SubjectVO;
@@ -16,6 +17,7 @@ import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.dao.EvaluateDAO;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -42,5 +44,11 @@ public class EvaluateSBOImpl implements EvaluateSBO {
         } else {
             return null;
         }
+    }
+
+    //강의 평가 저장하기
+    @Override
+    public void saveEvaluateWrite(EvaluateVO evaluateVO){
+        evaluateDAO.saveEvaluateWrite(evaluateVO);
     }
 }
