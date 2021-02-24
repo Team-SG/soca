@@ -155,11 +155,11 @@
                                 <div class="d-flex align-items-center input-group ml-3 mt-3 mb-3" style="height:32px">
                                     <h6>1차 &nbsp; </h6>
                                     <h6 class="ml-3">내 점수:</h6>
-                                    <input type="text" class="form-control ml-2" id="score1" style="width:10px; text-align:center">
+                                    <input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');" class="form-control ml-2" id="score1" style="width:10px; text-align:center">
                                     <h6 class="ml-3">평균:</h6>
-                                    <input type="text" class="form-control ml-2" id="average1" style="width:10px; text-align:center">
+                                    <input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');" class="form-control ml-2" id="average1" style="width:10px; text-align:center">
                                     <h6 class="ml-3">등수:</h6>
-                                    <input type="text" class="form-control ml-2" id="rank1" style="width:10px; text-align:center">
+                                    <input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');" class="form-control ml-2" id="rank1" style="width:10px; text-align:center">
                                 </div>
                             </div>
 

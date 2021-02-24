@@ -24,10 +24,10 @@
 
     <select id="saveEvaluateWrite"
             parameterType="stu.stonebeans.soca.vo.EvaluateVO">
-        INSERT INTO evaluate (postNum,subjectID,evaluation,grade,quality,gradeSatis,difficulty,homework,coverage,
+        INSERT INTO evaluate (subjectID,evaluation,grade,quality,gradeSatis,difficulty,homework,coverage,
                               testNum,score1,score2,score3,score4,average1,average2,average3,average4,rank1,rank2,rank3,rank4,
                               commentFinal,commentTest,postTime,recommendNum)
-                              VALUES(#{postNum},#{subjectID},#{evaluation},#{grade},#{quality},#{gradeSatis},#{difficulty},#{homework},#{coverage},
+        VALUES(#{subjectID},#{evaluation},#{grade},#{quality},#{gradeSatis},#{difficulty},#{homework},#{coverage},
                                      #{testNum},#{score1},#{score2},#{score3},#{score4},#{average1},#{average2},#{average3},#{average4},#{rank1},#{rank2},#{rank3},#{rank4},
                                      #{commentFinal},#{commentTest},NOW(),0)
     </select>
