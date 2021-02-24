@@ -42,14 +42,15 @@ $(document).ready(function() {
         var average= '<h6 class="ml-3">평균:</h6>\n'
         var rank= '<h6 class="ml-3">등수:</h6>\n'
 
+
         $("#testData").empty();
         var testNum=$("#testNum").val().valueOf();
         //swal(""+testNum);
         for(var i=1;i<=testNum;i++){
             var context= header+ '<h6>'+i+'차 &nbsp; </h6>'+
-                score + '<input type="text" class="form-control ml-2" id="score'+i+'" style="width:10px; text-align:center">'+
-                average + '<input type="text" class="form-control ml-2" id="average'+i+'" style="width:10px; text-align:center">'+
-                rank + '<input type="text" class="form-control ml-2" id="rank'+i+'" style="width:10px; text-align:center"></div>';
+                score + '<input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,\'\').replace(/(\\..*)\\./g,\'$1\');" class="form-control ml-2" id="score'+i+'" style="width:10px; text-align:center">'+
+                average + '<input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,\'\').replace(/(\\..*)\\./g,\'$1\');" class="form-control ml-2" id="average'+i+'" style="width:10px; text-align:center">'+
+                rank + '<input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,\'\').replace(/(\\..*)\\./g,\'$1\');" class="form-control ml-2" id="rank'+i+'" style="width:10px; text-align:center"></div>';
             $("#testData").append(context);
         }
     });
@@ -63,7 +64,7 @@ $(document).ready(function() {
         if($("#commentFinal").val().length<10)
             swal("강의 평가를 10자 이상 작성해 주세요!");
         //swal(""+$("#commentFinal").val().length)
-        saveEvaluateWrite();
+        else saveEvaluateWrite();
     })
 
 });
@@ -99,8 +100,14 @@ function saveEvaluateWrite(){
         buttons:["취소","확인"],
     }).then((result)=>{
         if(result) {
-            swal("여기까지");
+           // swal("여기까지");
             //아직 작동안함
+            //swal($("#commentFinal").val());
+            /*swal(subjectID+" "+$("#evaluation").val()+" "+$("#grade").val()+" "+$("#quality").val()+" "+
+                $("#gradeSatis").val()+" "+$('input[name="difficulty"]:checked').val()+" "+
+                $('input[name="homework"]:checked').val()+" "+$('input[name="coverage"]:checked').val()+" "+
+                $("#testNum").val());*/
+           // swal($("#score1").val().valueOf());
             var param={
                 subjectID: subjectID,
                 evaluation: $("#evaluation").val(),
@@ -111,16 +118,14 @@ function saveEvaluateWrite(){
                 homework: $('input[name="homework"]:checked').val(),
                 coverage: $('input[name="coverage"]:checked').val(),
                 testNum: $("#testNum").val().valueOf(),
-                score1 :$("#score1").val().valueOf(),score2 :$("#score2").val().valueOf(),score3 :$("#score3").val().valueOf(),score4 :$("#score4").val().valueOf(),
-                average1 :$("#average1").val().valueOf(),average2 :$("#average2").val().valueOf(),average3 :$("#average3").val().valueOf(),average4 :$("#average4").val().valueOf(),
-                rank1 :$("#rank1").val().valueOf(),rank2 :$("#rank2").val().valueOf(),rank3 :$("#rank3").val().valueOf(),rank4 :$("#rank4").val().valueOf(),
+                score1 :$("#score1").val(),score2 :$("#score2").val(),score3 :$("#score3").val(),score4 :$("#score4").val(),
+                average1 :$("#average1").val(),average2 :$("#average2").val(),average3 :$("#average3").val(),average4 :$("#average4").val(),
+                rank1 :$("#rank1").val(),rank2 :$("#rank2").val(),rank3 :$("#rank3").val(),rank4 :$("#rank4").val(),
                 commentFinal: $("#commentFinal").val(),
                 commentTest: $("#commentTest").val()
             }
-            callPostService("/saveEvaluateWrite",param,function(){
-                swal("저장을 완료했습니다.");
-            })
+            callPostService("/saveEvaluateWrite",param,null);
+            location.replace("/myEvaluate");
         }
-
     })
 }
