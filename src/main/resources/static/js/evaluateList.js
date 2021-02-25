@@ -8,6 +8,7 @@ var subjectLists = [];
 var professors = [];
 var thisYearSubjectLists = [];
 var thisYearProfessors = [];
+var selectItem;
 
 $(document).ready(function() {
     getAllMajors();
@@ -42,7 +43,7 @@ $(document).ready(function() {
     })
 
     $("#btnSearch").click(function(){
-
+        showSearchData();
     });
 });
 
@@ -81,11 +82,14 @@ function autoComplete(num) {
                         value: item.subjectNO + item.code,
                         code: item.code,
                         major: item.major,
-                        professor: item.professor
+                        professor: item.professor,
+                        subjectNO: item.subjectNO,
+                        num : 1
                     }
                     if(num == 3) {
                         result.label = item.professor + " 교수님";
-                        result.value = item.professor
+                        result.value = item.professor;
+                        result.num = 3;
                     }
                     if(major == "전공") {
                         return result;
@@ -100,10 +104,13 @@ function autoComplete(num) {
         select : function(event, ui) {
             event.preventDefault();
             $("#subject").val(ui.item.label);
-            $("#subjectID").val(ui.item.value);
-            selectSubject = ui.item;
+            selectItem = ui.item;
         }
     });
+}
+
+function showSearchData() {
+    $("#searchSubject").document.write("hi");
 }
 
 function getAllMajors() {
