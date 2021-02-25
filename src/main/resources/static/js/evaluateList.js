@@ -20,6 +20,8 @@ $(document).ready(function() {
         $("#subject").val("");
     })
 
+    getRecentEval();
+
     // 기본 설정이 과목번호 이므로 autocomplete 1
     autoComplete(1);
     $("input[name='searchCondition']").change(function() {
@@ -189,4 +191,34 @@ function getAllSubjects() {
             }
         });
     }
+}
+
+function getRecentEval() {
+
+    callPostService("getRecentEval", null, function(data){
+        var param = {
+            subjectID : data[0].subjectID
+        }
+        callPostService("getSubjectData", param, function(data2) {
+            var text =
+                '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                + '<span class="badge badge-primary">New</span>'
+                + '<a class="ml-2 mr-2" style="color:#000000">' + data2.subjectNO + ' - ' + data2.professor + '</a>'
+                + '<ion-icon name="add-circle-outline"></ion-icon>'
+                + '<div class="float-right">'
+                + '<ion-icon name="heart-circle-outline"></ion-icon>'
+                + '<span class="pl-1 pr-3">3</span>'
+                + '<ion-icon name="star"></ion-icon>'
+                + '<ion-icon name="star"></ion-icon>'
+                + '<ion-icon name="star"></ion-icon>'
+                + '<ion-icon name="star-half"></ion-icon>'
+                + '<ion-icon name="star-outline"></ion-icon>'
+                + '</div>'
+                + '</br></br>'
+                + '<a class="ml-3" style="color:#000000">' + data[0].commentFinal + '</a>'
+                + '</li>'
+
+            $("#recentEval").append(text);
+        })
+    })
 }

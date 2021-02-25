@@ -19,6 +19,8 @@ public interface EvaluateSBO {
 
     List<String> findSubByProf(String nowItem, String num);
 
+    List<EvaluateVO> getRecentEval();
+
     //강의 평가 저장하기
     void saveEvaluateWrite(EvaluateVO evaluateVO);
 

@@ -60,6 +60,12 @@ public class EvaluateController {
         return returnVal;
     }
 
+    // 최근 강의 평가 가져오기
+    @RequestMapping(value = "/getRecentEval", method = RequestMethod.POST)
+    public List<EvaluateVO> getRecentEval() {
+        return evaluateSBO.getRecentEval();
+    }
+
     //강의 평가 결과를 저장
     @RequestMapping(value = "/saveEvaluateWrite",method=RequestMethod.POST)
     public void saveEvaluateWrite(HttpSession session, @RequestBody EvaluateVO evaluateVO){

@@ -32,6 +32,8 @@ public interface EvaluateDAO {
 
     List<String> findThisYearSub(String nowItem);
 
+    List<EvaluateVO> getRecentEval();
+
     //강의 평가 저장하기
     void saveEvaluateWrite(EvaluateVO evaluateVO);
 

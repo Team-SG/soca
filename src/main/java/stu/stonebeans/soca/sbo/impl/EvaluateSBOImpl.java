@@ -69,6 +69,11 @@ public class EvaluateSBOImpl implements EvaluateSBO {
         }
     }
 
+    @Override
+    public List<EvaluateVO> getRecentEval() {
+        return evaluateDAO.getRecentEval();
+    }
+
     //강의 평가 저장하기
     @Override
     public void saveEvaluateWrite(EvaluateVO evaluateVO){

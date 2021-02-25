@@ -56,6 +56,11 @@
         SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
     </select>
 
+    <select id="getRecentEval"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT * FROM evaluate ORDER BY postTime
+    </select>
+
     <select id="saveEvaluateWrite"
             parameterType="stu.stonebeans.soca.vo.EvaluateVO">
         INSERT INTO evaluate (email,subjectID,evaluation,grade,quality,gradeSatis,difficulty,homework,coverage,
