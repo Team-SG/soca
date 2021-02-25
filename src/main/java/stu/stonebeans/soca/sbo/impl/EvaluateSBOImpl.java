@@ -50,6 +50,25 @@ public class EvaluateSBOImpl implements EvaluateSBO {
         }
     }
 
+    @Override
+    public List<String> findProfBySubject(String nowItem, String num)
+    {
+        if(num.equals("1")) {
+            return evaluateDAO.findProfBySubject(nowItem);
+        } else {
+            return evaluateDAO.findThisYearProf(nowItem);
+        }
+    }
+
+    @Override
+    public List<String> findSubByProf(String nowItem, String num) {
+        if(num.equals("1")) {
+            return evaluateDAO.findSubByProf(nowItem);
+        } else {
+            return evaluateDAO.findThisYearSub(nowItem);
+        }
+    }
+
     //강의 평가 저장하기
     @Override
     public void saveEvaluateWrite(EvaluateVO evaluateVO){

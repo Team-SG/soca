@@ -32,6 +32,30 @@
         SELECT DISTINCT professor FROM subject WHERE year="2021" AND semester="1" ORDER BY professor
     </select>
 
+    <select id="findProfBySubject"
+            parameterType="string"
+            resultType="string">
+        SELECT DISTINCT professor FROM subject WHERE subjectNO=#{nowItem} ORDER BY professor
+    </select>
+
+    <select id="findSubByProf"
+            parameterType="string"
+            resultType="string">
+        SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} ORDER BY subjectNO
+    </select>
+
+    <select id="findThisYearSub"
+            parameterType="string"
+            resultType="string">
+        SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
+    </select>
+
+    <select id="findThisYearProf"
+            parameterType="string"
+            resultType="string">
+        SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
+    </select>
+
     <select id="saveEvaluateWrite"
             parameterType="stu.stonebeans.soca.vo.EvaluateVO">
         INSERT INTO evaluate (email,subjectID,evaluation,grade,quality,gradeSatis,difficulty,homework,coverage,

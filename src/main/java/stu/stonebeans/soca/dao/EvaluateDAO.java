@@ -24,6 +24,14 @@ public interface EvaluateDAO {
 
     List<SubjectVO> getThisYearProf();
 
+    List<String> findProfBySubject(String nowItem);
+
+    List<String> findSubByProf(String nowItem);
+
+    List<String> findThisYearProf(String nowItem);
+
+    List<String> findThisYearSub(String nowItem);
+
     //강의 평가 저장하기
     void saveEvaluateWrite(EvaluateVO evaluateVO);
 

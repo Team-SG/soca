@@ -27,17 +27,37 @@ public class EvaluateController {
         return evaluateSBO.getSubjectData(map.get("subjectID"));
     }
 
+    // 전공 종류 가져오기
     @RequestMapping(value = "/getAllMajors", method = RequestMethod.POST)
     public List<SubjectVO> getMajor() {
         List<SubjectVO> subjectLists =  evaluateSBO.getAllMajors();
         return subjectLists;
     }
 
+    // 과목 가져오기
     @RequestMapping(value = "/getAllSubjects", method = RequestMethod.POST)
     public SubjectVO[] findSubjects(@RequestBody int num) {
         List<SubjectVO> subjectList = evaluateSBO.findSubjects(num);
         SubjectVO[] array = subjectList.toArray(new SubjectVO[subjectList.size()]);
         return array;
+    }
+
+    // 과목으로 교수명 가져오기
+    @RequestMapping(value = "/findProfBySubject", method = RequestMethod.POST)
+    public List<String> findProfBySubject(@RequestBody HashMap<String, String> map) {
+        String nowItem = map.get("nowItem");
+        String num = map.get("num");
+        List<String> returnVal = evaluateSBO.findProfBySubject(nowItem, num);
+        return returnVal;
+    }
+
+    // 교수명으로 과목 가져오기
+    @RequestMapping(value = "/findSubByProf", method = RequestMethod.POST)
+    public List<String> findSubByProf(@RequestBody HashMap<String, String> map) {
+        String nowItem = map.get("nowItem");
+        String num = map.get("num");
+        List<String> returnVal = evaluateSBO.findSubByProf(nowItem, num);
+        return returnVal;
     }
 
     //강의 평가 결과를 저장
