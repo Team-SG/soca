@@ -89,4 +89,15 @@ public class ScheduleSBOImpl implements ScheduleSBO {
 
     @Override
     public void deleteSchedule(ScheduleVO schedule) { scheduleDAO.deleteSchedule(schedule); }
+
+    /*
+        함수:강의평가를 완료하였는지 확인
+        설명: 로그인한 학생이 해당과목의 강의 평가를 완료하였는지 확인
+     */
+    @Override
+    public boolean isEvaluated(HashMap<String,String> map){
+        ScheduleVO result=scheduleDAO.isEvaluated(map);
+        if(result.getEvaluateYN().equals("Y")) return true;
+        else return false;
+    }
 }

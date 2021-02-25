@@ -93,6 +93,7 @@ public class ScheduleController {
         return null;
     }
 
+
     @RequestMapping(value="/goEvaluteWrite", method=RequestMethod.POST)
     public void goEvaluateWrite(HttpSession session, HashMap<String, String> map){
         session.setAttribute("subjectNo",map.get("subjectNo"));
@@ -107,5 +108,12 @@ public class ScheduleController {
         schedule.setEmail(email);
         schedule.setSubjectID(subjectID);
         scheduleSBO.deleteSchedule(schedule);
+    }
+
+    //해당학생이 해당과목의 강의평가를 완료하였는지 확인
+    @RequestMapping(value="/isEvaluated",method=RequestMethod.POST)
+    public boolean isEvaluated(HttpSession session, @RequestBody HashMap<String,String> map){
+        map.put("email",(String)session.getAttribute("email"));
+        return scheduleSBO.isEvaluated(map);
     }
 }

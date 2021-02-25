@@ -53,4 +53,10 @@
             resultType="stu.stonebeans.soca.vo.SubjectVO">
         SELECT * FROM subject WHERE subjectID=#{subjectID}
     </select>
+
+    <select id="isEvaluated"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.ScheduleVO">
+        SELECT evaluateYN from schedule WHERE email=#{email} AND subjectID=#{subjectID}
+    </select>
 </mapper>
