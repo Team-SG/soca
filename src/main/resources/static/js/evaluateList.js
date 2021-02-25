@@ -13,7 +13,9 @@ var selectItem;
 $(document).ready(function() {
     getAllMajors();
     getAllSubjects();
-
+    selectItem = {
+        label: ""
+    }
     $("#selectMajor").change(function(){
         $("#subject").val("");
     })
@@ -26,25 +28,38 @@ $(document).ready(function() {
         if($("input[id='courseNum']:checked").prop("checked")) {
             //$("#majortext").show();
             $("#major").show();
+            $("#hideSubjectLists").empty();
+            $("#subjectLists").hide();
             // 과목번호 autocomplete
             autoComplete(1);
         } else if($("input[id='courseName']:checked").prop("checked")) {
             //$("#majortext").show();
             $("#major").show();
+            $("#hideSubjectLists").empty();
+            $("#subjectLists").hide();
             // 과목명 autocomplete
             autoComplete(2);
         } else if($("input[id='professorName']:checked").prop("checked")) {
             // 교수 명일 때 소속구분 가리기
             //$("#majortext").hide();
             $("#major").hide();
+            $("#hideSubjectLists").empty();
+            $("#subjectLists").hide();
             // 교수명 autocomplete
             autoComplete(3);
         }
     })
 
+    $("#subjectLists").hide();
     $("#btnSearch").click(function(){
         showSearchData();
+        $("#subjectLists").show(); //slideUp slideDown..
     });
+
+    $(".menu>a").click(function(){
+        $(this).next("ul").toggleClass("hide");
+    })
+
 });
 
 function autoComplete(num) {
@@ -110,8 +125,42 @@ function autoComplete(num) {
 }
 
 function showSearchData() {
-    $("#searchSubject").document.write("hi");
+    //$("#subjectLists").cleanData();
+    //$("#subjectLists").append(selectItem.label);
+    $("#menuSubjectLists").attr('alt', selectItem.label);
+    $("#hideSubjectLists").empty();
+    var param;
+    if($("input[id='professorName']:checked").prop("checked")) {
+        param = {
+            nowItem: selectItem.professor,
+            num:1
+        }
+        if($("input[id='thisSem']:checked").prop("checked")) {
+            param.num = 2;
+        }
+        callPostService("findSubByProf", param, function(data) {
+            for(var i = 0; i < data.length; i++) {
+                $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+            }
+        })
+    } else {
+        param = {
+            nowItem: selectItem.subjectNO,
+            num:1
+        }
+        if($("input[id='thisSem']:checked").prop("checked")) {
+            param.num = 2;
+        }
+        callPostService("findProfBySubject", param, function(data) {
+            for(var i = 0; i < data.length; i++) {
+                $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+            }
+        })
+    }
+
+    //$("#hideSubjectLists").append.html("<li>메뉴1-1</li>")
 }
+
 
 function getAllMajors() {
     callPostService('getAllMajors', null, 'callGetAllMajors')
