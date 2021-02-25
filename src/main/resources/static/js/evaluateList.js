@@ -196,29 +196,43 @@ function getAllSubjects() {
 function getRecentEval() {
 
     callPostService("getRecentEval", null, function(data){
-        var param = {
-            subjectID : data[0].subjectID
-        }
-        callPostService("getSubjectData", param, function(data2) {
-            var text =
-                '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
-                + '<span class="badge badge-primary">New</span>'
-                + '<a class="ml-2 mr-2" style="color:#000000">' + data2.subjectNO + ' - ' + data2.professor + '</a>'
-                + '<ion-icon name="add-circle-outline"></ion-icon>'
-                + '<div class="float-right">'
-                + '<ion-icon name="heart-circle-outline"></ion-icon>'
-                + '<span class="pl-1 pr-3">3</span>'
-                + '<ion-icon name="star"></ion-icon>'
-                + '<ion-icon name="star"></ion-icon>'
-                + '<ion-icon name="star"></ion-icon>'
-                + '<ion-icon name="star-half"></ion-icon>'
-                + '<ion-icon name="star-outline"></ion-icon>'
-                + '</div>'
-                + '</br></br>'
-                + '<a class="ml-3" style="color:#000000">' + data[0].commentFinal + '</a>'
-                + '</li>'
+        for(var dataN = 0; dataN < 3; dataN++) {
+            var param = {
+                subjectID: data[dataN].subjectID
+            }
+            callPostService("getSubjectData", param, function (data2) {
+                var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                    + '<span class="badge badge-primary">New</span>'
+                    + '<a class="ml-2 mr-2" style="color:#000000">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
 
-            $("#recentEval").append(text);
-        })
+                if(data[dataN].score1 != 0) {
+                    text += '<ion-icon name="add-circle-outline"></ion-icon>';
+                }
+
+                // 좋아요 개수
+                text += '<div class="float-right">'
+                text += '<ion-icon name="heart-circle-outline"></ion-icon>'
+                    + '<span class="pl-1 pr-3">' + data[dataN].recommendNum + '</span>'
+
+                // 별점
+                for (var i = 2; i <= data[dataN].quality; i = i + 2) {
+                    text += '<ion-icon name="star"></ion-icon>';
+                }
+                if (data[dataN].quality % 2 == 1) {
+                    text += '<ion-icon name="star-half"></ion-icon>'
+                }
+                for (var i = data[dataN].quality; i < 9; i = i + 2) {
+                    text += '<ion-icon name="star-outline"></ion-icon>'
+                }
+
+                // comment
+                text += '</div>' + '</br></br>'
+                    + '<a class="ml-3" style="color:#000000">' + data[dataN].commentFinal + '</a>'
+                    + '</li>'
+
+                // 삽입
+                $("#recentEval").append(text);
+            })
+        }
     })
 }
