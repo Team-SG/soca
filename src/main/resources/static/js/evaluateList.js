@@ -196,7 +196,7 @@ function getAllSubjects() {
 function getRecentEval() {
 
     callPostService("getRecentEval", null, function(data){
-        for(var dataN = 0; dataN < 3; dataN++) {
+        for(var dataN = data.length - 1; dataN >= data.length - 3; dataN--) {
             var param = {
                 subjectID: data[dataN].subjectID
             }
