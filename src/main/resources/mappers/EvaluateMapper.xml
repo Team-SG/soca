@@ -22,6 +22,16 @@
         SELECT DISTINCT professor FROM subject ORDER BY professor
     </select>
 
+    <select id="getThisYearSubjects"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT subjectNo, code, major FROM subject WHERE year="2021" AND semester="1" ORDER BY subjectNo
+    </select>
+
+    <select id="getThisYearProf"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT professor FROM subject WHERE year="2021" AND semester="1" ORDER BY professor
+    </select>
+
     <select id="saveEvaluateWrite"
             parameterType="stu.stonebeans.soca.vo.EvaluateVO">
         INSERT INTO evaluate (email,subjectID,evaluation,grade,quality,gradeSatis,difficulty,homework,coverage,

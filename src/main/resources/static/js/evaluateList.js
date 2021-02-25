@@ -6,35 +6,60 @@
 
 var subjectLists = [];
 var professors = [];
+var thisYearSubjectLists = [];
+var thisYearProfessors = [];
 
 $(document).ready(function() {
     getAllMajors();
-    getAllSubjects(1);
-    getAllSubjects(2);
+    getAllSubjects();
+
     $("#selectMajor").change(function(){
         $("#subject").val("");
     })
 
+    // 기본 설정이 과목번호 이므로 autocomplete 1
     autoComplete(1);
     $("input[name='searchCondition']").change(function() {
         $("#subject").val("");
         $("#selectMajor").val("전공");
         if($("input[id='courseNum']:checked").prop("checked")) {
+            //$("#majortext").show();
+            $("#major").show();
+            // 과목번호 autocomplete
             autoComplete(1);
         } else if($("input[id='courseName']:checked").prop("checked")) {
+            //$("#majortext").show();
+            $("#major").show();
+            // 과목명 autocomplete
             autoComplete(2);
         } else if($("input[id='professorName']:checked").prop("checked")) {
+            // 교수 명일 때 소속구분 가리기
+            //$("#majortext").hide();
+            $("#major").hide();
+            // 교수명 autocomplete
             autoComplete(3);
         }
     })
+
+    $("#btnSearch").click(function(){
+
+    });
 });
 
 function autoComplete(num) {
     var autoData = [];
-    if(num == 3) {
-        autoData = professors;
+    if($("input[id='thisSem']:checked").prop("checked")) {
+        if (num == 3) {
+            autoData = thisYearProfessors;
+        } else {
+            autoData = thisYearSubjectLists;
+        }
     } else {
-        autoData = subjectLists
+        if (num == 3) {
+            autoData = professors;
+        } else {
+            autoData = subjectLists;
+        }
     }
 
     $("#subject").autocomplete({
@@ -94,12 +119,18 @@ function callGetAllMajors(data) {
     });
 }
 
-function getAllSubjects(num) {
-    callPostService("getAllSubjects", num, function(data) {
-        if(num == 1) {
-            subjectLists = data;
-        } else if(num == 2) {
-            professors = data;
-        }
-    });
+function getAllSubjects() {
+    for(var num = 1; num <= 4; num++) {
+        callPostService("getAllSubjects", num, function (data) {
+            if (num == 1) {
+                subjectLists = data;
+            } else if (num == 2) {
+                professors = data;
+            } else if (num == 3) {
+                thisYearSubjectLists = data;
+            } else if (num == 4) {
+                thisYearProfessors = data;
+            }
+        });
+    }
 }
