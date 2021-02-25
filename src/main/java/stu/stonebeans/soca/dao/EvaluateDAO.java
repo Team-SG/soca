@@ -20,6 +20,10 @@ public interface EvaluateDAO {
 
     List<SubjectVO> getSubjectsByProf();
 
+    List<SubjectVO> getThisYearSubjects();
+
+    List<SubjectVO> getThisYearProf();
+
     //강의 평가 저장하기
     void saveEvaluateWrite(EvaluateVO evaluateVO);
 

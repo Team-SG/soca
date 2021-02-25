@@ -41,6 +41,10 @@ public class EvaluateSBOImpl implements EvaluateSBO {
             return evaluateDAO.getSubjectsBySub();
         } else if(num == 2) {
             return evaluateDAO.getSubjectsByProf();
+        } else if(num == 3) {
+            return evaluateDAO.getThisYearSubjects();
+        } else if(num == 4) {
+            return evaluateDAO.getThisYearProf();
         } else {
             return null;
         }

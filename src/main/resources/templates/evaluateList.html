@@ -13,14 +13,15 @@
                     <input type="radio" name="searchCondition" id="courseNum" checked="checked"><span class="pl-1 pr-3"><label for="courseNum">과목번호</label></span>
                     <input type="radio" name="searchCondition" id="courseName"><span class="pl-1 pr-3"><label for="courseName">교과목명</label></span>
                     <input type="radio" name="searchCondition" id="professorName"><span class="pl-1 pr-3"><label for="professorName">교수명</label></span>
-                    <br><span class="pr-3"><strong class="mr-auto" style="color:#000000">소속 구분</strong></span>
-                    <select id="selectMajor" class="form-control d-inline-block mr-1" style="width: 200px">
-                    </select>
+                    <br><span class="pr-3" id="majortext"><strong class="mr-auto" style="color:#000000">소속 구분</strong></span>
+                    <span id="major">
+                        <select id="selectMajor" class="form-control d-inline-block mr-1" style="width: 200px"></select>
+                    </span>
                     <link rel="stylesheet" href="css/jquery-ui.css" type="text/css"/>
                     <script src="//code.jquery.com/jquery.min.js"></script>
                     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
                     <input type="text" id="subject" name="subject" class="form-control d-inline-block mr-1" style="width: 400px" placeholder="">
-                    <button type="button" id="btnInsert" class="btn btn-outline-primary align-top mr-1">검색</button>
+                    <button type="button" id="btnSearch" class="btn btn-outline-primary align-top mr-1">검색</button>
                     <div style="padding-left:5rem;">
                     <br><input type="checkbox" name="searchCondition" id="thisSem"><span class="pl-1"><label for="thisSem">이번 학기 개설 과목만</label></span>
                     </div>
