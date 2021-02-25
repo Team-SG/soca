@@ -28,4 +28,7 @@ public interface ScheduleSBO {
     ResultVO checkDuplicateSchedule(ScheduleVO schedule);
 
     void deleteSchedule(ScheduleVO schedule);
+
+    //해당학생이 해당과목의 강의평가를 완료하였는지 확인
+   boolean isEvaluated(HashMap<String,String> map);
 }

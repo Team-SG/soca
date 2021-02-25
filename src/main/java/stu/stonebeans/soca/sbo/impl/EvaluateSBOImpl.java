@@ -9,6 +9,7 @@ import stu.stonebeans.soca.config.PropertyUtil;
 import stu.stonebeans.soca.sbo.EvaluateSBO;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
+import stu.stonebeans.soca.vo.EvaluateVO;
 import stu.stonebeans.soca.vo.MailVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.SubjectVO;
@@ -16,6 +17,7 @@ import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.dao.EvaluateDAO;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -39,8 +41,46 @@ public class EvaluateSBOImpl implements EvaluateSBO {
             return evaluateDAO.getSubjectsBySub();
         } else if(num == 2) {
             return evaluateDAO.getSubjectsByProf();
+        } else if(num == 3) {
+            return evaluateDAO.getThisYearSubjects();
+        } else if(num == 4) {
+            return evaluateDAO.getThisYearProf();
         } else {
             return null;
         }
     }
+
+    @Override
+    public List<String> findProfBySubject(String nowItem, String num)
+    {
+        if(num.equals("1")) {
+            return evaluateDAO.findProfBySubject(nowItem);
+        } else {
+            return evaluateDAO.findThisYearProf(nowItem);
+        }
+    }
+
+    @Override
+    public List<String> findSubByProf(String nowItem, String num) {
+        if(num.equals("1")) {
+            return evaluateDAO.findSubByProf(nowItem);
+        } else {
+            return evaluateDAO.findThisYearSub(nowItem);
+        }
+    }
+
+    @Override
+    public List<EvaluateVO> getRecentEval() {
+        return evaluateDAO.getRecentEval();
+    }
+
+    //강의 평가 저장하기
+    @Override
+    public void saveEvaluateWrite(EvaluateVO evaluateVO){
+        evaluateDAO.saveEvaluateWrite(evaluateVO);
+    }
+
+    //학생의 강의 평가 결과를 가져옴
+    @Override
+    public EvaluateVO getEvaluateResult(HashMap<String,String> map){ return evaluateDAO.getEvaluateResult(map);}
 }

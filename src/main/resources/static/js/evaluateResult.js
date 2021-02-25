@@ -1,8 +1,9 @@
 /*
     2021.02.15
-    최초 작성자 : PYE
-    평가방 - 평가 작성 폼 관련 JavaScript
+    최초 작성자 : KDB
+    평가방 - 평가 완료 폼 관련 JavaScript
  */
+var evaluateResult;
 var subjectID;
 
 $(document).ready(function() {
@@ -61,12 +62,17 @@ function initEvaluateWrite(){
         $("#professor").append(tabChar()+"-"+data.professor+" 교수님");
     });
 
+    callPostService("/getEvaluateResult",param,function(data){
+        evaluateResult=data;
+
+    })
+
+    //
+    $("#commentFinal").append(evaluateResult.commentFinal);
+    getTestData();
     $("#evaluation").val(1);
     $("#quality").val(1);
     $("#gradeSatis").val(1);
-   /* $("#difficulty").val($('input[name="difficulty"]:checked').val());
-    $("#homework").val($('input[name="homework"]:checked').val());
-    $("#coverage").val($('input[name="coverage"]:checked').val());*/
 
 
 }
@@ -95,8 +101,7 @@ function saveEvaluateWrite(){
                 commentTest: $("#commentTest").val()
             }
             callPostService("/saveEvaluateWrite",param,null);
-            //location.replace("/myEvaluate");
-            history.back();
+            location.replace("/myEvaluate");
         }
     })
 }
@@ -107,14 +112,12 @@ function getTestData(){
     var average= '<h6 class="ml-3">평균:</h6>\n'
     var rank= '<h6 class="ml-3">등수:</h6>\n'
 
-
-    $("#testData").empty();
-    var testNum=$("#testNum").val().valueOf();
+    var testNum=evaluateResult.testNum;
     for(var i=1;i<=testNum;i++){
         var context= header+ '<h6>'+i+'차 &nbsp; </h6>'+
-            score + '<input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,\'\').replace(/(\\..*)\\./g,\'$1\');" class="form-control ml-2" id="score'+i+'" style="width:10px; text-align:center">'+
-            average + '<input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,\'\').replace(/(\\..*)\\./g,\'$1\');" class="form-control ml-2" id="average'+i+'" style="width:10px; text-align:center">'+
-            rank + '<input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,\'\').replace(/(\\..*)\\./g,\'$1\');" class="form-control ml-2" id="rank'+i+'" style="width:10px; text-align:center"></div>';
+            score + '<textarea class="form-control ml-2" id="score'+i+'" style="height: 38px; text-align:center; resize:none" readonly>'+evaluateResult.score1+'</textarea>'+
+            average + '<textarea class="form-control ml-2" id="average'+i+'" style="height: 38px; text-align:center; resize:none" readonly>'+evaluateResult.average1+'</textarea>'+
+            rank + '<textarea class="form-control ml-2" id="rank'+i+'" style="height: 38px; text-align:center; resize:none" readonly>'+evaluateResult.rank1+'</textarea></div>';
         $("#testData").append(context);
     }
 }
