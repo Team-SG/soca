@@ -1,6 +1,7 @@
 package stu.stonebeans.soca.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +10,7 @@ import stu.stonebeans.soca.sbo.EvaluateSBO;
 import stu.stonebeans.soca.vo.EvaluateVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,7 +41,8 @@ public class EvaluateController {
     }
 
     @RequestMapping(value = "/saveEvaluateWrite",method=RequestMethod.POST)
-    public void saveEvaluateWrite(@RequestBody EvaluateVO evaluateVO){
+    public void saveEvaluateWrite(HttpSession session, @RequestBody EvaluateVO evaluateVO){
+        evaluateVO.setEmail((String)session.getAttribute("email"));
         evaluateSBO.saveEvaluateWrite(evaluateVO);
     }
 }

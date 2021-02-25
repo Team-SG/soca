@@ -14,7 +14,7 @@ public interface ScheduleDAO {
     public List<SubjectVO> getYearSemester();
 
     // 해당 수강년도 및 학기 수강과복 가져오기
-    public List<SubjectVO> getSubjectList(HashMap<String,String> map);
+    public List<SubjectVO> getSubjectList(HashMap<String, String> map);
 
     // 선택한 년도 및 학기 수강과목 가져오기
     public List<SubjectVO> findSubjects(SubjectVO subject);
@@ -30,4 +30,8 @@ public interface ScheduleDAO {
     public List<ScheduleVO> getSchedule(ScheduleVO schedule);
 
     public SubjectVO getSubjectData(String subjectID);
+
+    //해당학생이 해당과목의 강의평가를 완료하였는지 확인
+    public ScheduleVO isEvaluated(HashMap<String, String> map);
 }
+
