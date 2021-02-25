@@ -10,6 +10,7 @@ import lombok.*;
 public class ScheduleVO {
     private String subjectID;
     private String email;
+    private String evaluateYN;
 
     @Override
     public String toString() {
@@ -17,5 +18,9 @@ public class ScheduleVO {
                 "subjectID='" + subjectID + '\'' +
                 ", email=" + email +
                 '}';
+    }
+
+    public String getEvaluateYN() {
+        return evaluateYN;
     }
 }

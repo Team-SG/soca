@@ -22,13 +22,31 @@
         SELECT DISTINCT professor FROM subject ORDER BY professor
     </select>
 
+    <select id="getThisYearSubjects"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT subjectNo, code, major FROM subject WHERE year="2021" AND semester="1" ORDER BY subjectNo
+    </select>
+
+    <select id="getThisYearProf"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT professor FROM subject WHERE year="2021" AND semester="1" ORDER BY professor
+    </select>
+
     <select id="saveEvaluateWrite"
             parameterType="stu.stonebeans.soca.vo.EvaluateVO">
-        INSERT INTO evaluate (subjectID,evaluation,grade,quality,gradeSatis,difficulty,homework,coverage,
+        INSERT INTO evaluate (email,subjectID,evaluation,grade,quality,gradeSatis,difficulty,homework,coverage,
                               testNum,score1,score2,score3,score4,average1,average2,average3,average4,rank1,rank2,rank3,rank4,
                               commentFinal,commentTest,postTime,recommendNum)
-        VALUES(#{subjectID},#{evaluation},#{grade},#{quality},#{gradeSatis},#{difficulty},#{homework},#{coverage},
+        VALUES(#{email},#{subjectID},#{evaluation},#{grade},#{quality},#{gradeSatis},#{difficulty},#{homework},#{coverage},
                                      #{testNum},#{score1},#{score2},#{score3},#{score4},#{average1},#{average2},#{average3},#{average4},#{rank1},#{rank2},#{rank3},#{rank4},
-                                     #{commentFinal},#{commentTest},NOW(),0)
+                                     #{commentFinal},#{commentTest},NOW(),0);
+        UPDATE schedule SET evaluateYN="Y" WHERE subjectID=#{subjectID} AND email=#{email};
     </select>
+
+    <select id="getEvaluateResult"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT * FROM evaluate WHERE email=#{email} AND subjectID=#{subjectID}
+    </select>
+
 </mapper>

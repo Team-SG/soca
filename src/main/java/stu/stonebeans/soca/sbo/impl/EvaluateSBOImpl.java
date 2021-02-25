@@ -41,6 +41,10 @@ public class EvaluateSBOImpl implements EvaluateSBO {
             return evaluateDAO.getSubjectsBySub();
         } else if(num == 2) {
             return evaluateDAO.getSubjectsByProf();
+        } else if(num == 3) {
+            return evaluateDAO.getThisYearSubjects();
+        } else if(num == 4) {
+            return evaluateDAO.getThisYearProf();
         } else {
             return null;
         }
@@ -51,4 +55,8 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public void saveEvaluateWrite(EvaluateVO evaluateVO){
         evaluateDAO.saveEvaluateWrite(evaluateVO);
     }
+
+    //학생의 강의 평가 결과를 가져옴
+    @Override
+    public EvaluateVO getEvaluateResult(HashMap<String,String> map){ return evaluateDAO.getEvaluateResult(map);}
 }
