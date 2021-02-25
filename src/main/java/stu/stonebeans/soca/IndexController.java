@@ -54,4 +54,10 @@ public class IndexController {
     public String evaluateWrite() {
         return "evaluateWrite";
     }
+
+    // 강의평가 결과 확인
+    @RequestMapping(value = "/evaluateResult")
+    public String evaluateResult() {
+        return "evaluateResult";
+    }
 }

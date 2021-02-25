@@ -40,9 +40,18 @@ public class EvaluateController {
         return array;
     }
 
+    //강의 평가 결과를 저장
     @RequestMapping(value = "/saveEvaluateWrite",method=RequestMethod.POST)
     public void saveEvaluateWrite(HttpSession session, @RequestBody EvaluateVO evaluateVO){
         evaluateVO.setEmail((String)session.getAttribute("email"));
         evaluateSBO.saveEvaluateWrite(evaluateVO);
+    }
+
+    //학생의 강의 평가 결과를 가져옴
+    @RequestMapping(value="/getEvaluateResult",method=RequestMethod.POST)
+    public EvaluateVO getEvaluateResult(HttpSession session,@RequestBody HashMap<String,String> map){
+        map.put("email",(String)session.getAttribute("email"));
+        map.put("id","20211AAT200201");
+        return evaluateSBO.getEvaluateResult(map);
     }
 }

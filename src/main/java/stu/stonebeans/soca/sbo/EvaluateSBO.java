@@ -17,4 +17,7 @@ public interface EvaluateSBO {
 
     //강의 평가 저장하기
     void saveEvaluateWrite(EvaluateVO evaluateVO);
+
+    //학생의 강의 평가 결과를 가져옴
+    EvaluateVO getEvaluateResult(HashMap<String,String> map);
 }

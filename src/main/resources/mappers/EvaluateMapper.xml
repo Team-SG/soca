@@ -32,4 +32,11 @@
                                      #{commentFinal},#{commentTest},NOW(),0);
         UPDATE schedule SET evaluateYN="Y" WHERE subjectID=#{subjectID} AND email=#{email};
     </select>
+
+    <select id="getEvaluateResult"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT * FROM evaluate WHERE email=#{email} AND subjectID=#{subjectID}
+    </select>
+
 </mapper>

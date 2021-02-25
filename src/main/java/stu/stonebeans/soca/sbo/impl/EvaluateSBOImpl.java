@@ -51,4 +51,8 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public void saveEvaluateWrite(EvaluateVO evaluateVO){
         evaluateDAO.saveEvaluateWrite(evaluateVO);
     }
+
+    //학생의 강의 평가 결과를 가져옴
+    @Override
+    public EvaluateVO getEvaluateResult(HashMap<String,String> map){ return evaluateDAO.getEvaluateResult(map);}
 }
