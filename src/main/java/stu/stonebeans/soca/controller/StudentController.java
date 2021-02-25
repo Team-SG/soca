@@ -102,7 +102,7 @@ public class StudentController {
         if(check == true)
         {
             result.setStatus(-1);
-            result.setMsg("존재하지 않는 이메일입니다.");
+            result.setMsg("존재하지 않는 이메일입니다.");   
         }
         else
         {
