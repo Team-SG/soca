@@ -113,7 +113,7 @@ function getTestData(){
     var rank= '<h6 class="ml-3">등수:</h6>\n'
 
     var testNum=evaluateResult.testNum;
-    for(var i=1;i<=testNum;i++) {
+    for(var i=1;i<=testNum;i++){
         var context= header+ '<h6>'+i+'차 &nbsp; </h6>'+
             score + '<textarea class="form-control ml-2" id="score'+i+'" style="height: 38px; text-align:center; resize:none" readonly>'+evaluateResult.score1+'</textarea>'+
             average + '<textarea class="form-control ml-2" id="average'+i+'" style="height: 38px; text-align:center; resize:none" readonly>'+evaluateResult.average1+'</textarea>'+
