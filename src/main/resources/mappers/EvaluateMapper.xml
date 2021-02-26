@@ -56,6 +56,12 @@
         SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
     </select>
 
+    <select id="findSubBySubstr"
+            parameterType="string"
+            resultType="string">
+        SELECT DISTINCT subjectNO FROM subject WHERE subjectNO LIKE #{nowItem} ORDER BY subjectNO
+    </select>
+
     <select id="getRecentEval"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
         SELECT * FROM evaluate ORDER BY postTime

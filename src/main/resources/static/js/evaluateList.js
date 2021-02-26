@@ -4,6 +4,7 @@
     평가방 - 강의목록 기능이 정의되는 JavaScript
  */
 
+const Grid = tui.Grid;
 var subjectLists = [];
 var professors = [];
 var thisYearSubjectLists = [];
@@ -11,6 +12,7 @@ var thisYearProfessors = [];
 var selectItem;
 
 $(document).ready(function() {
+    initGrid(); // 그리드 초기 세팅
     getAllMajors();
     getAllSubjects();
     selectItem = {
@@ -63,6 +65,71 @@ $(document).ready(function() {
     })
 
 });
+
+// ================================ Custom Function ================================
+
+// 그리드 초기 세팅
+function initGrid() {
+    const data = [];
+
+    schedule = new Grid({
+        el: document.getElementById('grid'),
+        data: data,
+        // rowHeaders: ['checkbox'],
+        scrollY: false,
+        columns: [
+            {
+                header: 'subjectID',
+                name: 'subjectID',
+                hidden: true
+            },
+            {
+                header: '과목코드',
+                width: 'auto',
+                minWidth: '90',
+                align: 'center',
+                name: 'code',
+                sortable: true,
+            },
+            {
+                header: '학과',
+                width: 'auto',
+                minWidth: '230',
+                name: 'major',
+                sortable: true,
+            },
+            {
+                header: '과목',
+                width: 'auto',
+                minWidth: '250',
+                name: 'subjectNO'
+            },
+            {
+                header: '시간',
+                width: 'auto',
+                minWidth: '150',
+                align: 'center',
+                name: 'time'
+            },
+            {
+                header: '학점',
+                width: 'auto',
+                align: 'center',
+                name: 'credit'
+            },
+            {
+                header: '교수',
+                width: 'auto',
+                minWidth: '100',
+                align: 'center',
+                name: 'professor'
+            }
+        ]
+    });
+
+    schedule.resetData(data);
+}
+
 
 function autoComplete(num) {
     var autoData = [];
@@ -129,40 +196,96 @@ function autoComplete(num) {
 function showSearchData() {
     //$("#subjectLists").cleanData();
     //$("#subjectLists").append(selectItem.label);
-    $("#menuSubjectLists").attr('alt', selectItem.label);
     $("#hideSubjectLists").empty();
+
     var param;
-    if($("input[id='professorName']:checked").prop("checked")) {
+
+    // autocomplete select를 하지 않았을 때
+    if (selectItem.label.length == 0) {
+        //$("#menuSubjectLists").attr('alt', "검색결과");
         param = {
-            nowItem: selectItem.professor,
-            num:1
+            nowItem: $("#subject").val(),
+            num: 1
         }
-        if($("input[id='thisSem']:checked").prop("checked")) {
+        if ($("input[id='thisSem']:checked").prop("checked")) {
             param.num = 2;
         }
-        callPostService("findSubByProf", param, function(data) {
-            for(var i = 0; i < data.length; i++) {
-                $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
-            }
-        })
-    } else {
-        param = {
-            nowItem: selectItem.subjectNO,
-            num:1
+
+        if ($("input[id='professorName']:checked").prop("checked")) {
+            callPostService("findSubBySubstr", param, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $("#menuSubjectLists").attr('alt', "검색결과");
+                    var param2 = {
+                        nowItem: data[i],
+                        num: 1
+                    }
+                    if ($("input[id='thisSem']:checked").prop("checked")) {
+                        param2.num = 2;
+                    }
+                    findSubByProf(param2);
+                }
+            })
         }
-        if($("input[id='thisSem']:checked").prop("checked")) {
-            param.num = 2;
+        else {
+            callPostService("findProfBySubstr", param, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $("#menuSubjectLists").attr('alt', "검색결과");
+                    var param2 = {
+                        nowItem: data[i],
+                        num: 1
+                    }
+                    if ($("input[id='thisSem']:checked").prop("checked")) {
+                        param2.num = 2;
+                    }
+                    findProfBySubject(param2);
+                }
+            })
         }
-        callPostService("findProfBySubject", param, function(data) {
-            for(var i = 0; i < data.length; i++) {
-                $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+    }
+    // autocomplete select를 했을 때때
+    else {
+        $("#menuSubjectLists").attr('alt', selectItem.label);
+        if ($("input[id='professorName']:checked").prop("checked")) {
+            param = {
+                nowItem: selectItem.professor,
+                num: 1
             }
-        })
+            if ($("input[id='thisSem']:checked").prop("checked")) {
+                param.num = 2;
+            }
+            findSubByProf(param);
+        } else {
+            if (selectItem.label.length != 0) {
+                param = {
+                    nowItem: selectItem.subjectNO,
+                    num: 1
+                }
+            }
+            if ($("input[id='thisSem']:checked").prop("checked")) {
+                param.num = 2;
+            }
+            findProfBySubject(param);
+        }
     }
 
     //$("#hideSubjectLists").append.html("<li>메뉴1-1</li>")
 }
 
+function findProfBySubject(param) {
+    callPostService("findProfBySubject", param, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+        }
+    })
+}
+
+function findSubByProf(param) {
+    callPostService("findSubByProf", param, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+        }
+    })
+}
 
 function getAllMajors() {
     callPostService('getAllMajors', null, 'callGetAllMajors')
@@ -197,6 +320,9 @@ function getRecentEval() {
 
     callPostService("getRecentEval", null, function(data){
         for(var dataN = data.length - 1; dataN >= data.length - 3; dataN--) {
+            if(dataN < 0) {
+                break;
+            }
             var param = {
                 subjectID: data[dataN].subjectID
             }

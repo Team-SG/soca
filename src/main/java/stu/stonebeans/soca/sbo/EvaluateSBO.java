@@ -19,6 +19,8 @@ public interface EvaluateSBO {
 
     List<String> findSubByProf(String nowItem, String num);
 
+    List<String> findProfBySubstr(String nowItem, String num);
+
     List<EvaluateVO> getRecentEval();
 
     //강의 평가 저장하기
@@ -35,5 +37,4 @@ public interface EvaluateSBO {
 
     //추천해제하기
     void deleteRecommend(HashMap<String,Object> map);
-
 }

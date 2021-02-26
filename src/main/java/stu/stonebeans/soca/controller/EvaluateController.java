@@ -59,6 +59,15 @@ public class EvaluateController {
         return returnVal;
     }
 
+    @RequestMapping(value = "/findProfBySubstr", method = RequestMethod.POST)
+    public List<String> findProfBySubstr(@RequestBody HashMap<String, String> map) {
+        String nowItem = map.get("nowItem");
+        String num = map.get("num");
+        List<String> returnVal = evaluateSBO.findProfBySubstr(nowItem, num);
+        return returnVal;
+    }
+
+
     // 최근 강의 평가 가져오기
     @RequestMapping(value = "/getRecentEval", method = RequestMethod.POST)
     public List<EvaluateVO> getRecentEval() {

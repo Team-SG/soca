@@ -31,6 +31,10 @@ public interface EvaluateDAO {
 
     List<String> findThisYearSub(String nowItem);
 
+    List<String> findSubBySubstr(String nowItem);
+
+    List<String> findThisYearBySubstr(String nowItem);
+
     List<EvaluateVO> getRecentEval();
 
     //강의 평가 저장하기

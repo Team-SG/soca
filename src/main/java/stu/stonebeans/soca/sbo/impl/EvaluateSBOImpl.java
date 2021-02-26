@@ -67,6 +67,15 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     }
 
     @Override
+    public List<String> findProfBySubstr(String nowItem, String num) {
+        if(num.equals("1")) {
+            return evaluateDAO.findSubBySubstr(nowItem + "%");
+        } else {
+            return evaluateDAO.findThisYearBySubstr(nowItem + "%");
+        }
+    }
+
+    @Override
     public List<EvaluateVO> getRecentEval() {
         return evaluateDAO.getRecentEval();
     }
