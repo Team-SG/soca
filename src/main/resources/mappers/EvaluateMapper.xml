@@ -78,4 +78,19 @@
         SELECT * FROM evaluate WHERE email=#{email} AND subjectID=#{subjectID}
     </select>
 
+    <select id="isRecommended"
+            parameterType="HashMap"
+            resultType="HashMap">
+        SELECT * FROM recommendation WHERE email=#{email} AND postNum=#{postNum}
+    </select>
+
+    <select id="addRecommend"
+            parameterType="HashMap">
+        INSERT INTO recommendation(postNum,email,recommendDate) VALUES (#{postNum},#{email},NOW())
+    </select>
+
+    <select id="deleteRecommend"
+            parameterType="HashMap">
+        DELETE FROM recommendation WHERE postNum=#{postNum} AND email=#{email}
+    </select>
 </mapper>

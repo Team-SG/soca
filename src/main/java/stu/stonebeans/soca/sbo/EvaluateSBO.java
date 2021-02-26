@@ -26,4 +26,14 @@ public interface EvaluateSBO {
 
     //학생의 강의 평가 결과를 가져옴
     EvaluateVO getEvaluateResult(HashMap<String,String> map);
+
+    //추천 했는지 여부를 확인
+    boolean isRecommended( HashMap<String,Object> map);
+
+    //추천하기
+    void addRecommend(HashMap<String,Object> map);
+
+    //추천해제하기
+    void deleteRecommend(HashMap<String,Object> map);
+
 }

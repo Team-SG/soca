@@ -9,10 +9,7 @@ import stu.stonebeans.soca.config.PropertyUtil;
 import stu.stonebeans.soca.sbo.EvaluateSBO;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
-import stu.stonebeans.soca.vo.EvaluateVO;
-import stu.stonebeans.soca.vo.MailVO;
-import stu.stonebeans.soca.vo.ResultVO;
-import stu.stonebeans.soca.vo.SubjectVO;
+import stu.stonebeans.soca.vo.*;
 import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.dao.EvaluateDAO;
 
@@ -83,4 +80,20 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     //학생의 강의 평가 결과를 가져옴
     @Override
     public EvaluateVO getEvaluateResult(HashMap<String,String> map){ return evaluateDAO.getEvaluateResult(map);}
+
+    //추천 했는지 여부를 확인
+    @Override
+    public boolean isRecommended( HashMap<String,Object> map){
+        HashMap<String,Object> result=evaluateDAO.isRecommended(map);
+        if(result==null) return false;
+        else return true;
+    }
+
+    //추천하기
+    @Override
+    public void addRecommend(HashMap<String,Object> map){ evaluateDAO.addRecommend(map);}
+
+    //추천해제하기
+    @Override
+    public void deleteRecommend(HashMap<String,Object> map){ evaluateDAO.deleteRecommend(map);}
 }
