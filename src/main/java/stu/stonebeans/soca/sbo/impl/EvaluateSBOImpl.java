@@ -58,7 +58,7 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     }
 
     @Override
-    public List<String> findSubByProf(String nowItem, String num) {
+    public List<SubjectVO> findSubByProf(String nowItem, String num) {
         if(num.equals("1")) {
             return evaluateDAO.findSubByProf(nowItem);
         } else {

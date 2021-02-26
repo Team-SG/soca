@@ -25,11 +25,11 @@ public interface EvaluateDAO {
 
     List<String> findProfBySubject(String nowItem);
 
-    List<String> findSubByProf(String nowItem);
+    List<SubjectVO> findSubByProf(String nowItem);
 
     List<String> findThisYearProf(String nowItem);
 
-    List<String> findThisYearSub(String nowItem);
+    List<SubjectVO> findThisYearSub(String nowItem);
 
     List<String> findSubBySubstr(String nowItem);
 

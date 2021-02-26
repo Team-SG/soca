@@ -19,6 +19,7 @@ $(document).ready(function() {
         label: ""
     }
     $("#selectMajor").change(function(){
+        schedule.clear();
         $("#subject").val("");
     })
 
@@ -27,6 +28,7 @@ $(document).ready(function() {
     // 기본 설정이 과목번호 이므로 autocomplete 1
     autoComplete(1);
     $("input[name='searchCondition']").change(function() {
+        schedule.clear();
         $("#subject").val("");
         $("#selectMajor").val("전공");
         if($("input[id='courseNum']:checked").prop("checked")) {
@@ -56,6 +58,7 @@ $(document).ready(function() {
 
     $("#subjectLists").hide();
     $("#btnSearch").click(function(){
+        schedule.clear();
         showSearchData();
         $("#subjectLists").show(); //slideUp slideDown..
     });
@@ -79,12 +82,7 @@ function initGrid() {
         scrollY: false,
         columns: [
             {
-                header: 'subjectID',
-                name: 'subjectID',
-                hidden: true
-            },
-            {
-                header: '과목코드',
+                header: '과목번호',
                 width: 'auto',
                 minWidth: '90',
                 align: 'center',
@@ -105,24 +103,25 @@ function initGrid() {
                 name: 'subjectNO'
             },
             {
-                header: '시간',
-                width: 'auto',
-                minWidth: '150',
-                align: 'center',
-                name: 'time'
-            },
-            {
-                header: '학점',
-                width: 'auto',
-                align: 'center',
-                name: 'credit'
-            },
-            {
                 header: '교수',
                 width: 'auto',
                 minWidth: '100',
                 align: 'center',
                 name: 'professor'
+            },
+            {
+                header: '평점',
+                width: 'auto',
+                minWidth: '100',
+                align: 'center',
+                name: 'quality'
+            },
+            {
+                header: '학점만족도',
+                width: 'auto',
+                minWidth: '100',
+                align: 'center',
+                name: 'gradeSatis'
             }
         ]
     });
@@ -242,7 +241,7 @@ function showSearchData() {
             })
         }
     }
-    // autocomplete select를 했을 때때
+    // autocomplete select를 했을 때
     else {
         $("#menuSubjectLists").attr('alt', selectItem.label);
         if ($("input[id='professorName']:checked").prop("checked")) {
@@ -258,6 +257,8 @@ function showSearchData() {
             if (selectItem.label.length != 0) {
                 param = {
                     nowItem: selectItem.subjectNO,
+                    code: selectItem.code,
+                    major: selectItem.major,
                     num: 1
                 }
             }
@@ -274,6 +275,17 @@ function showSearchData() {
 function findProfBySubject(param) {
     callPostService("findProfBySubject", param, function (data) {
         for (var i = 0; i < data.length; i++) {
+            var rowData = [
+                {
+                    code: param.code,
+                    major: param.major,
+                    subjectNO: param.nowItem,
+                    professor: data[i],
+                    quality: 0,
+                    gradeSatis: 0
+                }
+            ];
+            schedule.appendRows(rowData);
             $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
         }
     })
@@ -282,7 +294,16 @@ function findProfBySubject(param) {
 function findSubByProf(param) {
     callPostService("findSubByProf", param, function (data) {
         for (var i = 0; i < data.length; i++) {
-            $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+            var rowData = [
+                {
+                    code: data[i].code,
+                    major: data[i].major,
+                    subjectNO: data[i].subjectNO,
+                    professor: param.nowItem
+                }
+            ];
+            schedule.appendRows(rowData);
+            //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
         }
     })
 }

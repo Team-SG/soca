@@ -40,14 +40,14 @@
 
     <select id="findSubByProf"
             parameterType="string"
-            resultType="string">
-        SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} ORDER BY subjectNO
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT subjectNo, major, code FROM subject WHERE professor=#{nowItem} ORDER BY subjectNO
     </select>
 
     <select id="findThisYearSub"
             parameterType="string"
             resultType="string">
-        SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
+        SELECT DISTINCT subjectNo, major, code FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
     </select>
 
     <select id="findThisYearProf"

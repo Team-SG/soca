@@ -17,7 +17,7 @@ public interface EvaluateSBO {
 
     List<String> findProfBySubject(String nowItem, String num);
 
-    List<String> findSubByProf(String nowItem, String num);
+    List<SubjectVO> findSubByProf(String nowItem, String num);
 
     List<String> findProfBySubstr(String nowItem, String num);
 

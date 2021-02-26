@@ -52,10 +52,10 @@ public class EvaluateController {
 
     // 교수명으로 과목 가져오기
     @RequestMapping(value = "/findSubByProf", method = RequestMethod.POST)
-    public List<String> findSubByProf(@RequestBody HashMap<String, String> map) {
+    public List<SubjectVO> findSubByProf(@RequestBody HashMap<String, String> map) {
         String nowItem = map.get("nowItem");
         String num = map.get("num");
-        List<String> returnVal = evaluateSBO.findSubByProf(nowItem, num);
+        List<SubjectVO> returnVal = evaluateSBO.findSubByProf(nowItem, num);
         return returnVal;
     }
 
