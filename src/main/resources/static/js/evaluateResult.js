@@ -3,7 +3,7 @@
     최초 작성자 : KDB
     평가방 - 평가 완료 폼 관련 JavaScript
  */
-var evaluateResult;//=new EvaluateVO();
+var evaluateResult;
 var subjectID;
 var isRecommended;
 
@@ -17,9 +17,10 @@ $(document).ready(function() {
     $("#btnRecommend").click(function(event){
         var param={
             postNum: evaluateResult.postNum,
-            isRecommended: isRecommended
+            isRecommended: isRecommended,
+            recommendNum:evaluateResult.recommendNum
         }
-        callPostService("/RecommendOrNot",param,'callIsRecommended');
+        callPostService("/RecommendOrNot",param,'callRecommendOrNot');
     })
 
 });
@@ -116,7 +117,6 @@ function getTestData(){
 
 function callIsRecommended(data){
     isRecommended=data;
-    //swal(""+data);
     if(data==true){
         $("#btnRecommend").removeClass("btn-outline-danger");
         $("#btnRecommend").addClass("btn-danger");
@@ -125,4 +125,10 @@ function callIsRecommended(data){
         $("#btnRecommend").removeClass("btn-danger");
         $("#btnRecommend").addClass("btn-outline-danger");
     }
+}
+
+function callRecommendOrNot(data){
+    callIsRecommended(data);
+    if(data==true) evaluateResult.recommendNum=evaluateResult.recommendNum+1;
+    else evaluateResult.recommendNum=evaluateResult.recommendNum-1;
 }

@@ -86,11 +86,13 @@
 
     <select id="addRecommend"
             parameterType="HashMap">
-        INSERT INTO recommendation(postNum,email,recommendDate) VALUES (#{postNum},#{email},NOW())
+        INSERT INTO recommendation(postNum,email,recommendDate) VALUES (#{postNum},#{email},NOW());
+        UPDATE evaluate SET recommendNum=(#{recommendNum}+1) WHERE postNum=#{postNum};
     </select>
 
     <select id="deleteRecommend"
             parameterType="HashMap">
-        DELETE FROM recommendation WHERE postNum=#{postNum} AND email=#{email}
+        DELETE FROM recommendation WHERE postNum=#{postNum} AND email=#{email};
+        UPDATE evaluate SET recommendNum=(#{recommendNum}-1) WHERE postNum=#{postNum};
     </select>
 </mapper>
