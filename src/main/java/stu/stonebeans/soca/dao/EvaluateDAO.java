@@ -41,7 +41,7 @@ public interface EvaluateDAO {
     void saveEvaluateWrite(EvaluateVO evaluateVO);
 
     //학생의 강의 평가 결과를 가져옴
-    EvaluateVO getEvaluateResult(HashMap<String,String> map);
+    EvaluateVO getEvaluateComplete(HashMap<String,String> map);
 
     //추천여부확인
     HashMap<String,Object> isRecommended( HashMap<String,Object> map);
@@ -51,4 +51,7 @@ public interface EvaluateDAO {
 
     //추천해제하기
     void deleteRecommend(HashMap<String,Object> map);
+
+    //강의평가 과목별 결과 가져오기
+    HashMap<String,Object> getEvaluateData(HashMap<String,String> map);
 }

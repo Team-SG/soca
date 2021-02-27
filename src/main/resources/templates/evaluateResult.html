@@ -9,9 +9,9 @@
 </head>
 <div layout:fragment="content">
     <div class="toast show shadow-none mt-3">
-        <div class="toast-header d-flex justify-content-end">
+       <!-- <div class="toast-header d-flex justify-content-end">
             <button type="button" id="btnRecommend" class="btn btn-outline-danger font-weight-normal m-2" style="text-align: center;">추천</button>
-        </div>
+        </div>-->
         <div class="toast-body">
             <form>
                 <div class="form-group input-group-sm mt-2 ml-2">
@@ -37,10 +37,10 @@
                         </div>
                     </div>
                     <!-- 학점 -->
-                    <div class="d-flex align-items-center">
+                   <!-- <div class="d-flex align-items-center">
                         <span class="badge badge-primary fs-095 font-weight-light m-2 mt-4">받은 학점</span>
                         <textarea class="form-control ml-3 mt-3" id="grade" style="width:7%; height:36px; text-align:center; resize:none; outline-style: none;" readonly></textarea>
-                    </div>
+                    </div>-->
                     <br/><hr/>
 
                     <!-- 상세 평점 -->
@@ -106,7 +106,7 @@
                             </div>
 
                             <div class="d-flex align-items-center">
-                                <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">시험량</span>
+                                <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">진도량</span>
                                 <div id="coverage" class=" ml-3 mt-2">
                                     <label for="cover1"><input type="radio" class="radioCover" name="coverage" id="cover1" value="1"><span class="badge badge-cyan fs-095 font-weight-light m-2 mr-3">매우 적음</span></label>
                                     <label for="cover2"><input type="radio" class="radioCover" name="coverage" id="cover2" value="2"><span class="badge badge-green fs-095 font-weight-light m-2 mr-3">적음</span></label>
@@ -117,29 +117,30 @@
                             </div>
                         </div>
 
-                        <!--추가 정보-->
+                        <!--
                         <div class=" d-inline-block ml-4" style="width:40%">
                             <h5 class="mb-3">추가 정보</h5>
 
-                            <!--시험정보-->
+
                             <span class="badge badge-dark fs-095 font-weight-light m-2">시험 정보</span>
                             <div id="testData" style="width:100%"></div>
 
-                            <!--추가정보 코멘트-->
+
                             <span class="badge badge-danger fs-095 font-weight-light m-2 mb-1">
                              시험 세부사항
                             </span>
                             <textarea id="commentTest" name="commentTest" class="d-block w-100 ml-2 mr-2" style="border:1px solid #dddddd;height:100px;resize:none; outline-style: none;" readonly onfocus="this.blur()"></textarea>
-                        </div>
+                        </div>추가 정보-->
 
                     </div>
                     <br/><hr/>
 
-                    <!-- 코멘트 -->
+                    <!--
                     <span class="badge badge-danger fs-095 font-weight-light m-2 ml-3 mb-3">
                              강의 평가
                          </span>
                     <textarea id="commentFinal" name="commentFinal" class="d-block ml-3 mr-2" style="border:1px solid #dddddd; width:90%; height: 100px; resize: none; outline-style: none;" readonly onfocus="this.blur()"></textarea>
+                    코멘트 -->
                 </div>
             </form>
         </div>

@@ -82,10 +82,10 @@ public class EvaluateController {
     }
 
     //학생의 강의 평가 결과를 가져옴
-    @RequestMapping(value="/getEvaluateResult",method=RequestMethod.POST)
-    public EvaluateVO getEvaluateResult(HttpSession session,@RequestBody HashMap<String,String> map){
+    @RequestMapping(value="/getEvaluateComplete",method=RequestMethod.POST)
+    public EvaluateVO getEvaluateComplete(HttpSession session,@RequestBody HashMap<String,String> map){
         map.put("email",(String)session.getAttribute("email"));
-        return evaluateSBO.getEvaluateResult(map);
+        return evaluateSBO.getEvaluateComplete(map);
     }
 
     //추천 했는지 여부를 확인
@@ -107,6 +107,12 @@ public class EvaluateController {
             evaluateSBO.addRecommend(map);
             return true;
         }
+    }
+
+    //강의평가 과목별 결과 가져오기
+    @RequestMapping(value="/getEvaluateData",method=RequestMethod.POST)
+    public boolean getEvaluateData(@RequestBody HashMap<String,String> map){/*HashMap<String,Object>*/
+        return true;//map.get("code");//evaluateSBO.getEvaluateData(map);
     }
 
 }

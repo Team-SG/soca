@@ -1,31 +1,31 @@
 /*
-    2021.02.27
+    2021.02.24
     최초 작성자 : KDB
-    평가방 - 평가 결과 폼 관련 JavaScript
+    평가방 - 평가 완료 폼 관련 JavaScript
  */
-var evaluateData;
+var evaluateResult;
 var subjectID;
-var subject;
+var isRecommended;
 
 $(document).ready(function() {
-    initEvaluateResult();
+    initEvaluateComplete();
 
     $("#btnGoToList").click(function(event){
         history.back();
     })
 
-  /*  $("#btnRecommend").click(function(event){
+    $("#btnRecommend").click(function(event){
         var param={
             postNum: evaluateResult.postNum,
             isRecommended: isRecommended,
             recommendNum:evaluateResult.recommendNum
         }
         callPostService("/RecommendOrNot",param,'callRecommendOrNot');
-    }) */
+    })
 
 });
 
-function initEvaluateResult(){
+function initEvaluateComplete(){
     var result=getQuery2();
     subjectID=result.get("subjectID");
 
@@ -35,47 +35,33 @@ function initEvaluateResult(){
     };
 
     callPostService('/getSubjectData',param,function(data){
-        subject=data;
         $("#subject").append('<strong>'+data.subjectNO+'</strong>');
         $("#professor").append(tabChar()+"-"+data.professor+" 교수님");
     });
 
-    //swal(subject.code);
-    var param2={
-        code:subject.code,
-        professor:subject.professor
-    }
-   // swal("여기까지");
+    callPostService("/getEvaluateComplete",param,function(data){
+        evaluateResult=data;
 
-    callPostService('/getEvaluateData',param2,function(data){
-        evaluateData="AAA";
-        //swal("여기까지");
-       //swal(""+data);
-    });
-    //evaluateData="AAA";
+    })
 
-    swal(evaluateData+"!");
-
-   // swal(evaluateData.get("evaluationAvg")+"!");
-/*
     $("#grade").append(evaluateResult.grade);
     $("#commentFinal").append(evaluateResult.commentFinal)
     $("#commentTest").append(evaluateResult.commentTest);
 
     getTestData();
-*//*
+
     //일단 간단히 할 방법을 못찾아서 되게끔만 해놨어요
     for(var i=0;i<evaluateResult.evaluation;i++)
         $("#evaluation .star").eq(i).addClass("on");
-    $("#evaluation").append('<h6 id="evaluationValue">( '+(evaluateResult.evaluation/2).toFixed(1)+' / 5.0 )</h6>');
+    $("#evaluation").append('<h6>( '+(evaluateResult.evaluation/2).toFixed(1)+' / 5.0 )</h6>');
 
     for(var i=0;i<evaluateResult.quality;i++)
         $("#quality .star").eq(i).addClass("on");
-    $("#quality").append('<h6 id="evaluationValue">( '+(evaluateResult.quality/2).toFixed(1)+' / 5.0 )</h6>');
+    $("#quality").append('<h6>( '+(evaluateResult.quality/2).toFixed(1)+' / 5.0 )</h6>');
 
     for(var i=0;i<evaluateResult.gradeSatis;i++)
         $("#gradeSatis .star").eq(i).addClass("on");
-    $("#gradeSatis").append('<h6 id="evaluationValue">( '+(evaluateResult.gradeSatis/2).toFixed(1)+' / 5.0 )</h6>');
+    $("#gradeSatis").append('<h6>( '+(evaluateResult.gradeSatis/2).toFixed(1)+' / 5.0 )</h6>');
 
     $("#diff"+evaluateResult.difficulty).attr("checked",true);
     $("input[name=difficulty]").attr("disabled",true);
@@ -85,15 +71,15 @@ function initEvaluateResult(){
 
     $("#cover"+evaluateResult.coverage).attr("checked",true);
     $("input[name=coverage]").attr("disabled",true);
-*/
-/*
+
+
     var param2={
         postNum: evaluateResult.postNum,
     }
     callPostService("/isRecommended",param2,'callIsRecommended')
-*/
+
 }
-/*
+
 function getTestData(){
     var header='<div class="d-flex align-items-center input-group ml-3 mt-2 mb-3" style="height:32px">'
     var score= '<h6 class="ml-3">내 점수:</h6>\n'
@@ -128,8 +114,7 @@ function getTestData(){
         $("#testData").append(context);
     }
 }
-*/
-/*
+
 function callIsRecommended(data){
     isRecommended=data;
     if(data==true){
@@ -142,8 +127,8 @@ function callIsRecommended(data){
     }
 }
 
-function callRecommendOrNot(data){
+function callRecommendOrNot(data) {
     callIsRecommended(data);
-    if(data==true) evaluateResult.recommendNum=evaluateResult.recommendNum+1;
-    else evaluateResult.recommendNum=evaluateResult.recommendNum-1;
-}*/
+    if (data == true) evaluateResult.recommendNum = evaluateResult.recommendNum + 1;
+    else evaluateResult.recommendNum = evaluateResult.recommendNum - 1;
+}

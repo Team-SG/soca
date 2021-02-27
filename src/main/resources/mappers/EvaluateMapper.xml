@@ -78,7 +78,7 @@
         UPDATE schedule SET evaluateYN="Y" WHERE subjectID=#{subjectID} AND email=#{email};
     </select>
 
-    <select id="getEvaluateResult"
+    <select id="getEvaluateComplete"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
         SELECT * FROM evaluate WHERE email=#{email} AND subjectID=#{subjectID}
@@ -100,5 +100,15 @@
             parameterType="HashMap">
         DELETE FROM recommendation WHERE postNum=#{postNum} AND email=#{email};
         UPDATE evaluate SET recommendNum=(#{recommendNum}-1) WHERE postNum=#{postNum};
+    </select>
+
+    <select id="getEvaluateData"
+            parameterType="HashMap"
+            resultType="HashMap">
+        SELECT AVG(evaluation) AS evaluationAvg,COUNT(evaluation) AS evaluationCnt,
+               AVG(quality) AS qualityAvg,AVG(gradeSatis) AS gradeSatisAvg,AVG(difficulty) AS difficultyAvg,
+               AVG(homework) AS homeworkAvg,AVG(coverage) AS coverageAvg
+        FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor}
     </select>
 </mapper>

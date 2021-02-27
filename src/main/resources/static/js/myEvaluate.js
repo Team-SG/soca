@@ -62,7 +62,7 @@ function callGetSubjectList(data){
     var last;
     $.each(data,function(index,item){
         if(isEvaluated(item.subjectID))
-            last= '<span class="badge badge-dark fs-090"  onclick="location.href=\'/evaluateResult?subjectID='+item.subjectID+'\'"  style="cursor:pointer">평가완료</span></li>';
+            last= '<span class="badge badge-dark fs-090"  onclick="location.href=\'/evaluateComplete?subjectID='+item.subjectID+'\'"  style="cursor:pointer">평가완료</span></li>';
         else
             last= '<span class="badge badge-primary fs-090"  onclick="location.href=\'/evaluateWrite?subjectID='+item.subjectID+'\'"  style="cursor:pointer">평가하기</span></li>';
         var prof="";

@@ -88,7 +88,7 @@ public class EvaluateSBOImpl implements EvaluateSBO {
 
     //학생의 강의 평가 결과를 가져옴
     @Override
-    public EvaluateVO getEvaluateResult(HashMap<String,String> map){ return evaluateDAO.getEvaluateResult(map);}
+    public EvaluateVO getEvaluateComplete(HashMap<String,String> map){ return evaluateDAO.getEvaluateComplete(map);}
 
     //추천 했는지 여부를 확인
     @Override
@@ -105,4 +105,25 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     //추천해제하기
     @Override
     public void deleteRecommend(HashMap<String,Object> map){ evaluateDAO.deleteRecommend(map);}
+
+    //강의평가 과목별 결과 가져오기
+    @Override
+    public String getEvaluateData(HashMap<String,String> map){/*HashMap<String,Object>*/
+        //if(evaluateDAO.getEvaluateData(map)==null) return "false";
+        //else return "true";
+       /* HashMap<String,Object> result= evaluateDAO.getEvaluateData(map);
+        HashMap<String,Object> s=new HashMap<>();
+        s.put("email",2);*/
+        return "ahwl";
+        /*HashMap<String,Object> data=new HashMap<>();
+        data.put("evaluationAvg", result.get("AVG(evaluation)"));
+        data.put("evaluationCnt", result.get("COUNT(evaluation)"));
+        data.put("qualityAvg", result.get("AVG(quality)"));
+        data.put("gradeSatisAvg",result.get("AVG(gradeSatis)"));
+        data.put("difficultyAvg",result.get("AVG(difficulty)"));
+        data.put("homeworkAvg",result.get("AVG(homework)"));
+        data.put("coverageAvg",result.get("AVG(coverage)"));
+*/
+      //  return result;
+    }
 }
