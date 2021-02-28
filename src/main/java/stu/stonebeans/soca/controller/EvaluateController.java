@@ -110,9 +110,8 @@ public class EvaluateController {
     }
 
     //강의평가 과목별 결과 가져오기
-    @RequestMapping(value="/getEvaluateData",method=RequestMethod.POST)
-    public boolean getEvaluateData(@RequestBody HashMap<String,String> map){/*HashMap<String,Object>*/
-        return true;//map.get("code");//evaluateSBO.getEvaluateData(map);
+   @RequestMapping(value="/getEvaluationData",method = RequestMethod.POST)
+    public String getEvaluationData(){
+        return "WWW";
     }
-
 }
