@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stu.stonebeans.soca.sbo.EvaluateSBO;
+import stu.stonebeans.soca.vo.EvaluateResultVO;
 import stu.stonebeans.soca.vo.EvaluateVO;
+import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import javax.servlet.http.HttpSession;
@@ -110,8 +112,11 @@ public class EvaluateController {
     }
 
     //강의평가 과목별 결과 가져오기
-   @RequestMapping(value="/getEvaluationData",method = RequestMethod.POST)
-    public String getEvaluationData(){
-        return "WWW";
+   @RequestMapping(value="/getEvaluateData",method = RequestMethod.POST)
+    public float getEvaluateData(@RequestBody HashMap<String,String> map){
+        /*ResultVO resultVO=new ResultVO();
+        resultVO.setMsg(evaluateSBO.getEvaluateData(map).toString());
+        return resultVO;*/
+       return evaluateSBO.getEvaluateData(map).getEvaluationAvg();
     }
 }

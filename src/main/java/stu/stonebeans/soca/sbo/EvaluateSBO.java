@@ -1,5 +1,6 @@
 package stu.stonebeans.soca.sbo;
 
+import stu.stonebeans.soca.vo.EvaluateResultVO;
 import stu.stonebeans.soca.vo.EvaluateVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
@@ -39,5 +40,5 @@ public interface EvaluateSBO {
     void deleteRecommend(HashMap<String,Object> map);
 
     //강의평가 과목별 결과 가져오기/*HashMap<String,Object>*/
-    String getEvaluateData(HashMap<String,String> map);
+    EvaluateResultVO getEvaluateData(HashMap<String,String> map);
 }
