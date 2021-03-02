@@ -1,7 +1,6 @@
 package stu.stonebeans.soca.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,12 +52,21 @@ public class EvaluateController {
 
     // 교수명으로 과목 가져오기
     @RequestMapping(value = "/findSubByProf", method = RequestMethod.POST)
-    public List<String> findSubByProf(@RequestBody HashMap<String, String> map) {
+    public List<SubjectVO> findSubByProf(@RequestBody HashMap<String, String> map) {
         String nowItem = map.get("nowItem");
         String num = map.get("num");
-        List<String> returnVal = evaluateSBO.findSubByProf(nowItem, num);
+        List<SubjectVO> returnVal = evaluateSBO.findSubByProf(nowItem, num);
         return returnVal;
     }
+
+    @RequestMapping(value = "/findProfBySubstr", method = RequestMethod.POST)
+    public List<String> findProfBySubstr(@RequestBody HashMap<String, String> map) {
+        String nowItem = map.get("nowItem");
+        String num = map.get("num");
+        List<String> returnVal = evaluateSBO.findProfBySubstr(nowItem, num);
+        return returnVal;
+    }
+
 
     // 최근 강의 평가 가져오기
     @RequestMapping(value = "/getRecentEval", method = RequestMethod.POST)
@@ -74,10 +82,36 @@ public class EvaluateController {
     }
 
     //학생의 강의 평가 결과를 가져옴
-    @RequestMapping(value="/getEvaluateResult",method=RequestMethod.POST)
-    public EvaluateVO getEvaluateResult(HttpSession session,@RequestBody HashMap<String,String> map){
+    @RequestMapping(value="/getEvaluateComplete",method=RequestMethod.POST)
+    public EvaluateVO getEvaluateComplete(HttpSession session,@RequestBody HashMap<String,String> map){
         map.put("email",(String)session.getAttribute("email"));
-        map.put("id","20211AAT200201");
-        return evaluateSBO.getEvaluateResult(map);
+        return evaluateSBO.getEvaluateComplete(map);
+    }
+
+    //추천 했는지 여부를 확인
+    @RequestMapping(value="/isRecommended",method=RequestMethod.POST)
+    public boolean isRecommended(HttpSession session, @RequestBody HashMap<String,Object> map){
+        map.put("email",(String)session.getAttribute("email"));
+        return evaluateSBO.isRecommended(map);
+    }
+
+    //추천 or 추천해제
+    @RequestMapping(value="/RecommendOrNot",method=RequestMethod.POST)
+    public boolean RecommendOrNot(HttpSession session,@RequestBody HashMap<String,Object> map){
+        map.put("email",(String)session.getAttribute("email"));
+
+        if((boolean)map.get("isRecommended")==true){
+            evaluateSBO.deleteRecommend(map);
+            return false;
+        }else{
+            evaluateSBO.addRecommend(map);
+            return true;
+        }
+    }
+
+    //강의평가 과목별 결과 가져오기
+   @RequestMapping(value="/getEvaluationData",method = RequestMethod.POST)
+    public String getEvaluationData(){
+        return "WWW";
     }
 }

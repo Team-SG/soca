@@ -55,7 +55,13 @@ public class IndexController {
         return "evaluateWrite";
     }
 
-    // 강의평가 결과 확인
+    // 강의평가 (개별)결과 확인
+    @RequestMapping(value = "/evaluateComplete")
+    public String evaluateComplete() {
+        return "evaluateComplete";
+    }
+
+    // 강의평가 (전쳬) 결과 확인
     @RequestMapping(value = "/evaluateResult")
     public String evaluateResult() {
         return "evaluateResult";

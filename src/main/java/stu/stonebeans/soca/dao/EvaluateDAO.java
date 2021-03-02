@@ -2,7 +2,6 @@ package stu.stonebeans.soca.dao;
 import org.apache.ibatis.annotations.Mapper;
 
 import stu.stonebeans.soca.vo.EvaluateVO;
-import stu.stonebeans.soca.vo.StudentVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
 import java.util.HashMap;
@@ -26,11 +25,15 @@ public interface EvaluateDAO {
 
     List<String> findProfBySubject(String nowItem);
 
-    List<String> findSubByProf(String nowItem);
+    List<SubjectVO> findSubByProf(String nowItem);
 
     List<String> findThisYearProf(String nowItem);
 
-    List<String> findThisYearSub(String nowItem);
+    List<SubjectVO> findThisYearSub(String nowItem);
+
+    List<String> findSubBySubstr(String nowItem);
+
+    List<String> findThisYearBySubstr(String nowItem);
 
     List<EvaluateVO> getRecentEval();
 
@@ -38,5 +41,17 @@ public interface EvaluateDAO {
     void saveEvaluateWrite(EvaluateVO evaluateVO);
 
     //학생의 강의 평가 결과를 가져옴
-    EvaluateVO getEvaluateResult(HashMap<String,String> map);
+    EvaluateVO getEvaluateComplete(HashMap<String,String> map);
+
+    //추천여부확인
+    HashMap<String,Object> isRecommended( HashMap<String,Object> map);
+
+    //추천하기
+    void addRecommend(HashMap<String,Object> map);
+
+    //추천해제하기
+    void deleteRecommend(HashMap<String,Object> map);
+
+    //강의평가 과목별 결과 가져오기
+    HashMap<String,Object> getEvaluateData(HashMap<String,String> map);
 }

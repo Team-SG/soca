@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @Builder
 public class EvaluateVO {
-    private static int postNum;
+    private int postNum;
     private String email, subjectID;
     private int evaluation,quality, gradeSatis, difficulty, homework, coverage, testNum;
     private String grade;
