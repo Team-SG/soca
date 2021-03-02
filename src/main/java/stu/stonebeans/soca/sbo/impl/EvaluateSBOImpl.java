@@ -108,13 +108,13 @@ public class EvaluateSBOImpl implements EvaluateSBO {
 
     //강의평가 과목별 결과 가져오기
     @Override
-    public String getEvaluateData(HashMap<String,String> map){/*HashMap<String,Object>*/
+    public EvaluateResultVO getEvaluateData(HashMap<String,String> map){/*HashMap<String,Object>*/
         //if(evaluateDAO.getEvaluateData(map)==null) return "false";
         //else return "true";
        /* HashMap<String,Object> result= evaluateDAO.getEvaluateData(map);
         HashMap<String,Object> s=new HashMap<>();
         s.put("email",2);*/
-        return "ahwl";
+        //return "ahwl";
         /*HashMap<String,Object> data=new HashMap<>();
         data.put("evaluationAvg", result.get("AVG(evaluation)"));
         data.put("evaluationCnt", result.get("COUNT(evaluation)"));
@@ -125,5 +125,6 @@ public class EvaluateSBOImpl implements EvaluateSBO {
         data.put("coverageAvg",result.get("AVG(coverage)"));
 */
       //  return result;
+        return evaluateDAO.getEvaluateData(map);
     }
 }

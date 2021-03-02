@@ -1,6 +1,7 @@
 package stu.stonebeans.soca.dao;
 import org.apache.ibatis.annotations.Mapper;
 
+import stu.stonebeans.soca.vo.EvaluateResultVO;
 import stu.stonebeans.soca.vo.EvaluateVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 
@@ -53,5 +54,5 @@ public interface EvaluateDAO {
     void deleteRecommend(HashMap<String,Object> map);
 
     //강의평가 과목별 결과 가져오기
-    HashMap<String,Object> getEvaluateData(HashMap<String,String> map);
+    EvaluateResultVO getEvaluateData(HashMap<String,String> map);
 }

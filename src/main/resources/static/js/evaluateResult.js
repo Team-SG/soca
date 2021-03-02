@@ -5,7 +5,7 @@
  */
 var evaluateResult;
 var subjectID;
-var isRecommended;
+var subject;
 
 $(document).ready(function() {
    initEvaluateResult();
@@ -21,11 +21,19 @@ function initEvaluateResult(){
     }
 
     callPostService("/getSubjectData",param,function(data){
+        subject=data;
+        //swal(data.code);
         $("#subject").append('<strong>'+data.subjectNO+'</strong>');
         $("#professor").append(tabChar()+"-"+data.professor+" 교수님");
     });
 
-    callPostService("/getEvaluationData",null,function(data){
-        swal(""+data);
-    })
+    var param2={
+        code:subject.code,
+        professor:subject.professor
+    }
+    callPostService("/getEvaluateData",param2,function(data){
+       evaluateResult=data;
+    });
+    swal(evaluateResult.evaluationCnt+"");
+
 }
