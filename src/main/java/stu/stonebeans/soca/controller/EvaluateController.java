@@ -113,10 +113,10 @@ public class EvaluateController {
 
     //강의평가 과목별 결과 가져오기
    @RequestMapping(value="/getEvaluateData",method = RequestMethod.POST)
-    public float getEvaluateData(@RequestBody HashMap<String,String> map){
+    public EvaluateResultVO getEvaluateData(@RequestBody HashMap<String,String> map){
         /*ResultVO resultVO=new ResultVO();
         resultVO.setMsg(evaluateSBO.getEvaluateData(map).toString());
         return resultVO;*/
-       return evaluateSBO.getEvaluateData(map).getEvaluationAvg();
+       return evaluateSBO.getEvaluateData(map);
     }
 }
