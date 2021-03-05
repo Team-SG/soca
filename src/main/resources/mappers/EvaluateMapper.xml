@@ -105,9 +105,9 @@
     <select id="getEvaluateData"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.EvaluateResultVO">
-        SELECT ROUND(AVG(evaluation),2) AS evaluationAvg, COUNT(evaluation) AS evaluationCnt,
-               ROUND(AVG(quality),2) AS qualityAvg, ROUND(AVG(gradeSatis),2) AS gradeSatisAvg, ROUND(AVG(difficulty),2) AS difficultyAvg,
-               ROUND(AVG(homework),2) AS homeworkAvg, ROUND(AVG(coverage),2) AS coverageAvg
+        SELECT AVG(evaluation) AS evaluationAvg, COUNT(evaluation) AS evaluationCnt,
+               AVG(quality) AS qualityAvg, AVG(gradeSatis) AS gradeSatisAvg, AVG(difficulty) AS difficultyAvg,
+               AVG(homework) AS homeworkAvg,AVG(coverage) AS coverageAvg
         FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
         WHERE B.code=#{code} AND B.professor=#{professor}
     </select>
