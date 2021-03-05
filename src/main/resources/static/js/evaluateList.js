@@ -63,9 +63,10 @@ $(document).ready(function() {
         $("#subjectLists").show(); //slideUp slideDown..
     });
 
+    /*
     $(".menu>a").click(function(){
         $(this).next("ul").toggleClass("hide");
-    })
+    })*/
 
 });
 
@@ -74,11 +75,15 @@ $(document).ready(function() {
 // 그리드 초기 세팅
 function initGrid() {
     const data = [];
-
     schedule = new Grid({
         el: document.getElementById('grid'),
         data: data,
         // rowHeaders: ['checkbox'],
+        treeColumnOptions: {
+            name: 'code',
+            useIcon: false,
+            useCascadingCheckbox : true
+        },
         scrollY: false,
         columns: [
             {
@@ -87,14 +92,12 @@ function initGrid() {
                 minWidth: '90',
                 align: 'center',
                 name: 'code',
-                sortable: true,
             },
             {
                 header: '학과',
                 width: 'auto',
                 minWidth: '230',
                 name: 'major',
-                sortable: true,
             },
             {
                 header: '과목',
@@ -114,14 +117,16 @@ function initGrid() {
                 width: 'auto',
                 minWidth: '100',
                 align: 'center',
-                name: 'quality'
+                name: 'quality',
+                sortable: true,
             },
             {
                 header: '학점만족도',
                 width: 'auto',
                 minWidth: '100',
                 align: 'center',
-                name: 'gradeSatis'
+                name: 'gradeSatis',
+                sortable: true,
             }
         ]
     });
@@ -198,75 +203,29 @@ function showSearchData() {
     $("#hideSubjectLists").empty();
 
     var param;
-
-    // autocomplete select를 하지 않았을 때
-    if (selectItem.label.length == 0) {
-        //$("#menuSubjectLists").attr('alt', "검색결과");
+    $("#menuSubjectLists").attr('alt', selectItem.label);
+    if ($("input[id='professorName']:checked").prop("checked")) {
         param = {
-            nowItem: $("#subject").val(),
+            nowItem: selectItem.professor,
             num: 1
         }
         if ($("input[id='thisSem']:checked").prop("checked")) {
             param.num = 2;
         }
-
-        if ($("input[id='professorName']:checked").prop("checked")) {
-            callPostService("findSubBySubstr", param, function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    $("#menuSubjectLists").attr('alt', "검색결과");
-                    var param2 = {
-                        nowItem: data[i],
-                        num: 1
-                    }
-                    if ($("input[id='thisSem']:checked").prop("checked")) {
-                        param2.num = 2;
-                    }
-                    findSubByProf(param2);
-                }
-            })
-        }
-        else {
-            callPostService("findProfBySubstr", param, function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    $("#menuSubjectLists").attr('alt', "검색결과");
-                    var param2 = {
-                        nowItem: data[i],
-                        num: 1
-                    }
-                    if ($("input[id='thisSem']:checked").prop("checked")) {
-                        param2.num = 2;
-                    }
-                    findProfBySubject(param2);
-                }
-            })
-        }
-    }
-    // autocomplete select를 했을 때
-    else {
-        $("#menuSubjectLists").attr('alt', selectItem.label);
-        if ($("input[id='professorName']:checked").prop("checked")) {
+        findSubByProf(param);
+    } else {
+        if (selectItem.label.length != 0) {
             param = {
-                nowItem: selectItem.professor,
+                nowItem: selectItem.subjectNO,
+                code: selectItem.code,
+                major: selectItem.major,
                 num: 1
             }
-            if ($("input[id='thisSem']:checked").prop("checked")) {
-                param.num = 2;
-            }
-            findSubByProf(param);
-        } else {
-            if (selectItem.label.length != 0) {
-                param = {
-                    nowItem: selectItem.subjectNO,
-                    code: selectItem.code,
-                    major: selectItem.major,
-                    num: 1
-                }
-            }
-            if ($("input[id='thisSem']:checked").prop("checked")) {
-                param.num = 2;
-            }
-            findProfBySubject(param);
         }
+        if ($("input[id='thisSem']:checked").prop("checked")) {
+            param.num = 2;
+        }
+        findProfBySubject(param);
     }
 
     //$("#hideSubjectLists").append.html("<li>메뉴1-1</li>")
@@ -274,20 +233,43 @@ function showSearchData() {
 
 function findProfBySubject(param) {
     callPostService("findProfBySubject", param, function (data) {
-        for (var i = 0; i < data.length; i++) {
-            var rowData = [
-                {
+        if(data.length != 1) {
+            var rowData = [{
+                    code: param.code,
+                    major: param.major,
+                    subjectNO: param.nowItem,
+                    _attributes: {
+                        expanded: false
+                    },
+                     _children: []
+                }];
+
+            for (var i = 0; i < data.length; i++) {
+                var child = {
                     code: param.code,
                     major: param.major,
                     subjectNO: param.nowItem,
                     professor: data[i],
-                    quality: 0,
-                    gradeSatis: 0
+                    quality: "0",
+                    gradeSatis: "0"
                 }
-            ];
-            schedule.appendRows(rowData);
-            $("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+                rowData[0]._children.push(child);
+            }
+            schedule.resetData(rowData);
         }
+        else {
+            var rowData = {
+                    code: param.code,
+                    major: param.major,
+                    subjectNO: param.nowItem,
+                    professor: data[0],
+                    quality: "0",
+                    gradeSatis: "0"
+                };
+            //schedule.appendRow(rowData);
+        }
+        schedule.appendRow(rowData);
+        //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
     })
 }
 
