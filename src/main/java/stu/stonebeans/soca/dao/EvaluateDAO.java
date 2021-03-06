@@ -1,6 +1,7 @@
 package stu.stonebeans.soca.dao;
 import org.apache.ibatis.annotations.Mapper;
 
+import stu.stonebeans.soca.vo.CountVO;
 import stu.stonebeans.soca.vo.EvaluateResultVO;
 import stu.stonebeans.soca.vo.EvaluateVO;
 import stu.stonebeans.soca.vo.SubjectVO;
@@ -55,4 +56,13 @@ public interface EvaluateDAO {
 
     //강의평가 과목별 결과 가져오기
     EvaluateResultVO getEvaluateData(HashMap<String,String> map);
+
+    //difficulty count 가져오기
+    List<CountVO> getDiffCount(HashMap<String,String> map);
+
+    //homework count 가져오기
+    List<CountVO> getHomeCount(HashMap<String,String> map);
+
+    //coverage count 가져오기
+    List<CountVO> getCoverCount(HashMap<String,String> map);
 }

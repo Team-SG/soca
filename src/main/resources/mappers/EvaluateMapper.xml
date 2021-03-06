@@ -111,4 +111,25 @@
         FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
         WHERE B.code=#{code} AND B.professor=#{professor}
     </select>
+
+    <select id="getDiffCount"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.CountVO">
+        SELECT difficulty AS options, COUNT(*) AS cnt FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} GROUP BY difficulty
+    </select>
+
+    <select id="getHomeCount"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.CountVO">
+        SELECT homework AS options, COUNT(*) AS cnt FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} GROUP BY homework
+    </select>
+
+    <select id="getCoverCount"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.CountVO">
+        SELECT coverage AS options, COUNT(*) AS cnt FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} GROUP BY coverage
+    </select>
 </mapper>

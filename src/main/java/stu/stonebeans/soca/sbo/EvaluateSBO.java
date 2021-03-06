@@ -41,4 +41,7 @@ public interface EvaluateSBO {
 
     //강의평가 과목별 결과 가져오기/*HashMap<String,Object>*/
     EvaluateResultVO getEvaluateData(HashMap<String,String> map);
+
+    //항목별 count 가져오기
+    int[] getSelectCount(HashMap<String,String> map);
 }

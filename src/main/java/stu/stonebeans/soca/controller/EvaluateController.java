@@ -114,9 +114,13 @@ public class EvaluateController {
     //강의평가 과목별 결과 가져오기
    @RequestMapping(value="/getEvaluateData",method = RequestMethod.POST)
     public EvaluateResultVO getEvaluateData(@RequestBody HashMap<String,String> map){
-        /*ResultVO resultVO=new ResultVO();
-        resultVO.setMsg(evaluateSBO.getEvaluateData(map).toString());
-        return resultVO;*/
        return evaluateSBO.getEvaluateData(map);
     }
+
+    //항목별 count 가져오기
+    @RequestMapping(value="/getSelectCount",method=RequestMethod.POST)
+    public int[] getSelectCount(@RequestBody HashMap<String,String> map){
+        return evaluateSBO.getSelectCount(map);
+    }
+
 }
