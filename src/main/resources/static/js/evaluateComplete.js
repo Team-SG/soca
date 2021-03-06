@@ -6,6 +6,7 @@
 var evaluateResult;
 var subjectID;
 var isRecommended;
+var postNum;
 
 $(document).ready(function() {
     initEvaluateComplete();
@@ -29,7 +30,6 @@ function initEvaluateComplete(){
     var result=getQuery2();
     subjectID=result.get("subjectID");
 
-
     var param={
         subjectID : subjectID
     };
@@ -39,10 +39,21 @@ function initEvaluateComplete(){
         $("#professor").append(tabChar()+"-"+data.professor+" 교수님");
     });
 
-    callPostService("/getEvaluateComplete",param,function(data){
-        evaluateResult=data;
+    if(result.has("postNum")){
+        postNum=result.get("postNum");
+        var par={
+            postNum : parseInt(postNum)
+        }
+        callPostService("getEvalCompleteByPostNum",par,function(data){
+            evaluateResult=data;
+        })
+    }
+    else{
+        callPostService("/getEvaluateComplete",param,function(data){
+            evaluateResult=data;
+        })
+    }
 
-    })
 
     $("#grade").append(evaluateResult.grade);
     $("#commentFinal").append(evaluateResult.commentFinal)

@@ -44,4 +44,11 @@ public interface EvaluateSBO {
 
     //항목별 count 가져오기
     int[] getSelectCount(HashMap<String,String> map);
+
+    //해당 과목, 교수의 최근 강의 평가 가져오기
+    List<EvaluateVO> getRecentSubjectEval(HashMap<String,String> map);
+
+    //주어진 postNum의 강의 평가 결과를 가져옴
+    EvaluateVO getEvalCompleteByPostNum(HashMap<String,Integer> map);
+
 }

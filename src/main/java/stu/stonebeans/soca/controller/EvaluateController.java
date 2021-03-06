@@ -123,4 +123,15 @@ public class EvaluateController {
         return evaluateSBO.getSelectCount(map);
     }
 
+    // 현재과목의 최근 강의 평가 가져오기
+    @RequestMapping(value = "/getRecentSubjectEval", method = RequestMethod.POST)
+    public List<EvaluateVO> getRecentSubjectEval(@RequestBody HashMap<String,String> map) {
+        return evaluateSBO.getRecentSubjectEval(map);
+    }
+
+    //주어진 postNum의 강의 평가 결과를 가져옴
+    @RequestMapping(value="/getEvalCompleteByPostNum",method=RequestMethod.POST)
+    public EvaluateVO getEvalCompleteByPostNum(@RequestBody HashMap<String,Integer> map){
+        return evaluateSBO.getEvalCompleteByPostNum(map);
+    }
 }

@@ -9,4 +9,8 @@ import lombok.*;
 public class ResultVO {
     private int status; // 상태 (성공이면 1, 실패면 -1)
     private String msg; // 메시지
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }
