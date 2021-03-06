@@ -43,26 +43,32 @@ public interface EvaluateDAO {
     void saveEvaluateWrite(EvaluateVO evaluateVO);
 
     //학생의 강의 평가 결과를 가져옴
-    EvaluateVO getEvaluateComplete(HashMap<String,String> map);
+    EvaluateVO getEvaluateComplete(HashMap<String, String> map);
 
     //추천여부확인
-    HashMap<String,Object> isRecommended( HashMap<String,Object> map);
+    HashMap<String, Object> isRecommended(HashMap<String, Object> map);
 
     //추천하기
-    void addRecommend(HashMap<String,Object> map);
+    void addRecommend(HashMap<String, Object> map);
 
     //추천해제하기
-    void deleteRecommend(HashMap<String,Object> map);
+    void deleteRecommend(HashMap<String, Object> map);
 
     //강의평가 과목별 결과 가져오기
-    EvaluateResultVO getEvaluateData(HashMap<String,String> map);
+    EvaluateResultVO getEvaluateData(HashMap<String, String> map);
 
     //difficulty count 가져오기
-    List<CountVO> getDiffCount(HashMap<String,String> map);
+    List<CountVO> getDiffCount(HashMap<String, String> map);
 
     //homework count 가져오기
-    List<CountVO> getHomeCount(HashMap<String,String> map);
+    List<CountVO> getHomeCount(HashMap<String, String> map);
 
     //coverage count 가져오기
-    List<CountVO> getCoverCount(HashMap<String,String> map);
+    List<CountVO> getCoverCount(HashMap<String, String> map);
+
+    // 현재 과목, 교수의 최근 강의 평가
+    List<EvaluateVO> getRecentSubjectEval(HashMap<String, String> map);
+
+    //주어진 postNum의 강의 평가 결과를 가져옴
+    EvaluateVO getEvalCompleteByPostNum(HashMap<String, Integer> map);
 }

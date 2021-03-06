@@ -133,4 +133,15 @@ public class EvaluateSBOImpl implements EvaluateSBO {
         return result;
     }
 
+    // 현재 과목, 교수의 최근 강의 평가
+    @Override
+    public List<EvaluateVO> getRecentSubjectEval(HashMap<String,String> map) {
+        return evaluateDAO.getRecentSubjectEval(map);
+    }
+
+    //주어진 postNum의 강의 평가 결과를 가져옴
+    @Override
+    public EvaluateVO getEvalCompleteByPostNum(HashMap<String,Integer> map){
+        return evaluateDAO.getEvalCompleteByPostNum(map);
+    }
 }

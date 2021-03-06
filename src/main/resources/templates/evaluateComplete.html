@@ -118,18 +118,20 @@
                         </div>
 
                         <!--추가 정보-->
-                        <div class=" d-inline-block ml-4" style="width:40%">
-                            <h5 class="mb-3">추가 정보</h5>
+                        <div class=" d-inline-flex ml-4 justify-content-between" style="width:40%; flex-direction: column">
+                            <div><h5 class="mb-3">추가 정보</h5>
 
-                            <!--시험정보-->
-                            <span class="badge badge-dark fs-095 font-weight-light m-2">시험 정보</span>
-                            <div id="testData" style="width:100%"></div>
+                                <!--시험정보-->
+                                <span class="badge badge-dark fs-095 font-weight-light m-2">시험 정보</span>
+                                <div id="testData" style="width:100%"></div>
+                            </div>
+
 
                             <!--추가정보 코멘트-->
-                            <span class="badge badge-danger fs-095 font-weight-light m-2 mb-1">
-                             시험 세부사항
-                            </span>
-                            <textarea id="commentTest" name="commentTest" class="d-block w-100 ml-2 mr-2" style="border:1px solid #dddddd;height:100px;resize:none; outline-style: none;" readonly onfocus="this.blur()"></textarea>
+                            <div>
+                                <span class="badge badge-danger fs-095 font-weight-light m-2 mb-1">시험 세부사항</span>
+                                <textarea id="commentTest" name="commentTest" class="d-block w-100 ml-2 mr-2" style="border:1px solid #dddddd;height:100px;resize:none; outline-style: none;" readonly onfocus="this.blur()"></textarea>
+                            </div>
                         </div>
 
                     </div>

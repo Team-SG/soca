@@ -132,4 +132,16 @@
         SELECT coverage AS options, COUNT(*) AS cnt FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
         WHERE B.code=#{code} AND B.professor=#{professor} GROUP BY coverage
     </select>
+
+    <select id="getRecentSubjectEval"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} ORDER BY A.postTime
+    </select>
+
+    <select id="getEvalCompleteByPostNum"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT * FROM evaluate WHERE postNum=#{postNum}
+    </select>
 </mapper>
