@@ -117,7 +117,15 @@ function initGrid() {
                 width: 'auto',
                 minWidth: '100',
                 align: 'center',
-                name: 'quality',
+                name: 'evaluationAvg',
+                sortable: true,
+            },
+            {
+                header: '강의력',
+                width: 'auto',
+                minWidth: '100',
+                align: 'center',
+                name: 'qualityAvg',
                 sortable: true,
             },
             {
@@ -125,7 +133,7 @@ function initGrid() {
                 width: 'auto',
                 minWidth: '100',
                 align: 'center',
-                name: 'gradeSatis',
+                name: 'gradeSatisAvg',
                 sortable: true,
             }
         ]
@@ -250,9 +258,15 @@ function findProfBySubject(param) {
                     major: param.major,
                     subjectNO: param.nowItem,
                     professor: data[i],
-                    quality: "0",
-                    gradeSatis: "0"
+                    evaluationAvg: "0",
+                    qualityAvg: "0",
+                    gradeSatisAvg: "0"
                 }
+                callPostService("getEvaluateData", child, function(data){
+                    child.evaluationAvg = data.evaluationAvg;
+                    child.qualityAvg = data.qualityAvg;
+                    child.gradeSatisAvg = data.gradeSatisAvg;
+                })
                 rowData[0]._children.push(child);
             }
             schedule.resetData(rowData);
@@ -266,6 +280,11 @@ function findProfBySubject(param) {
                     quality: "0",
                     gradeSatis: "0"
                 };
+            callPostService("getEvaluateData", rowData, function(data){
+                rowData.evaluationAvg = data.evaluationAvg/2;
+                rowData.qualityAvg = data.qualityAvg/2;
+                rowData.gradeSatisAvg = data.gradeSatisAvg/2;
+            })
             //schedule.appendRow(rowData);
         }
         schedule.appendRow(rowData);
@@ -281,7 +300,9 @@ function findSubByProf(param) {
                     code: data[i].code,
                     major: data[i].major,
                     subjectNO: data[i].subjectNO,
-                    professor: param.nowItem
+                    professor: param.nowItem,
+                    quality: "0",
+                    gradeSatis: "0"
                 }
             ];
             schedule.appendRows(rowData);
