@@ -95,7 +95,6 @@ function saveEvaluateWrite(){
                 commentTest: $("#commentTest").val()
             }
             callPostService("/saveEvaluateWrite",param,null);
-            //location.replace("/myEvaluate");
             history.back();
         }
     })

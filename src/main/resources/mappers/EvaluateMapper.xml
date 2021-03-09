@@ -104,11 +104,44 @@
 
     <select id="getEvaluateData"
             parameterType="HashMap"
-            resultType="HashMap">
-        SELECT AVG(evaluation) AS evaluationAvg,COUNT(evaluation) AS evaluationCnt,
-               AVG(quality) AS qualityAvg,AVG(gradeSatis) AS gradeSatisAvg,AVG(difficulty) AS difficultyAvg,
+            resultType="stu.stonebeans.soca.vo.EvaluateResultVO">
+        SELECT AVG(evaluation) AS evaluationAvg, COUNT(evaluation) AS evaluationCnt,
+               AVG(quality) AS qualityAvg, AVG(gradeSatis) AS gradeSatisAvg, AVG(difficulty) AS difficultyAvg,
                AVG(homework) AS homeworkAvg,AVG(coverage) AS coverageAvg
         FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
         WHERE B.code=#{code} AND B.professor=#{professor}
+    </select>
+
+    <select id="getDiffCount"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.CountVO">
+        SELECT difficulty AS options, COUNT(*) AS cnt FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} GROUP BY difficulty
+    </select>
+
+    <select id="getHomeCount"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.CountVO">
+        SELECT homework AS options, COUNT(*) AS cnt FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} GROUP BY homework
+    </select>
+
+    <select id="getCoverCount"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.CountVO">
+        SELECT coverage AS options, COUNT(*) AS cnt FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} GROUP BY coverage
+    </select>
+
+    <select id="getRecentSubjectEval"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} ORDER BY A.postTime
+    </select>
+
+    <select id="getEvalCompleteByPostNum"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT * FROM evaluate WHERE postNum=#{postNum}
     </select>
 </mapper>

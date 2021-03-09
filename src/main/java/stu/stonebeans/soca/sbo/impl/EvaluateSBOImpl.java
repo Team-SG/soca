@@ -1,7 +1,9 @@
 package stu.stonebeans.soca.sbo.impl;
 
+import com.sun.jdi.IntegerValue;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,7 @@ import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.dao.EvaluateDAO;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -108,22 +109,39 @@ public class EvaluateSBOImpl implements EvaluateSBO {
 
     //강의평가 과목별 결과 가져오기
     @Override
-    public String getEvaluateData(HashMap<String,String> map){/*HashMap<String,Object>*/
-        //if(evaluateDAO.getEvaluateData(map)==null) return "false";
-        //else return "true";
-       /* HashMap<String,Object> result= evaluateDAO.getEvaluateData(map);
-        HashMap<String,Object> s=new HashMap<>();
-        s.put("email",2);*/
-        return "ahwl";
-        /*HashMap<String,Object> data=new HashMap<>();
-        data.put("evaluationAvg", result.get("AVG(evaluation)"));
-        data.put("evaluationCnt", result.get("COUNT(evaluation)"));
-        data.put("qualityAvg", result.get("AVG(quality)"));
-        data.put("gradeSatisAvg",result.get("AVG(gradeSatis)"));
-        data.put("difficultyAvg",result.get("AVG(difficulty)"));
-        data.put("homeworkAvg",result.get("AVG(homework)"));
-        data.put("coverageAvg",result.get("AVG(coverage)"));
-*/
-      //  return result;
+    public EvaluateResultVO getEvaluateData(HashMap<String,String> map){/*HashMap<String,Object>*/
+        return evaluateDAO.getEvaluateData(map);
+    }
+
+    //항목별 count 가져오기
+    @Override
+    public int[] getSelectCount(HashMap<String,String> map){
+        int[] result={0,0,0,0,0};
+        String flag=map.get("flag");
+        List<CountVO> data;
+
+        if(flag.equals("difficulty"))
+            data=evaluateDAO.getDiffCount(map);
+        else if(flag.equals("homework"))
+            data=evaluateDAO.getHomeCount(map);
+        else
+            data=evaluateDAO.getCoverCount(map);
+
+        for(int i=0;i<data.size();i++){
+           result[data.get(i).getOptions()-1]=data.get(i).getCnt();
+        }
+        return result;
+    }
+
+    // 현재 과목, 교수의 최근 강의 평가
+    @Override
+    public List<EvaluateVO> getRecentSubjectEval(HashMap<String,String> map) {
+        return evaluateDAO.getRecentSubjectEval(map);
+    }
+
+    //주어진 postNum의 강의 평가 결과를 가져옴
+    @Override
+    public EvaluateVO getEvalCompleteByPostNum(HashMap<String,Integer> map){
+        return evaluateDAO.getEvalCompleteByPostNum(map);
     }
 }
