@@ -46,7 +46,7 @@
 
     <select id="findThisYearSub"
             parameterType="string"
-            resultType="string">
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
         SELECT DISTINCT subjectNo, major, code FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
     </select>
 

@@ -280,6 +280,7 @@ function findProfBySubject(param) {
                     major: param.major,
                     subjectNO: param.nowItem,
                     professor: data[0],
+                    evaluationAvg: "0",
                     quality: "0",
                     gradeSatis: "0"
                 };
@@ -300,68 +301,25 @@ function findSubByProf(param) {
         if(data.length == 0) {
             return;
         }
-        else if(data.length != 1) {
-            var rowData = [{
-                code: param.code,
-                major: param.major,
-                subjectNO: param.nowItem,
-                _attributes: {
-                    expanded: false
-                },
-                _children: []
-            }];
-
-            for (var i = 0; i < data.length; i++) {
-                var child = {
-                    code: param.code,
-                    major: param.major,
-                    subjectNO: param.nowItem,
-                    professor: data[i],
-                    evaluationAvg: "0",
-                    qualityAvg: "0",
-                    gradeSatisAvg: "0"
-                }
-                callPostService("getEvaluateData", child, function(data){
-                    child.evaluationAvg = data.evaluationAvg;
-                    child.qualityAvg = data.qualityAvg;
-                    child.gradeSatisAvg = data.gradeSatisAvg;
-                })
-                rowData[0]._children.push(child);
-            }
-            schedule.resetData(rowData);
-        }
-        else {
-            var rowData = {
-                code: param.code,
-                major: param.major,
-                subjectNO: param.nowItem,
-                professor: data[0],
-                quality: "0",
-                gradeSatis: "0"
-            };
-            callPostService("getEvaluateData", rowData, function(data){
-                rowData.evaluationAvg = data.evaluationAvg/2;
-                rowData.qualityAvg = data.qualityAvg/2;
-                rowData.gradeSatisAvg = data.gradeSatisAvg/2;
-            })
-            //schedule.appendRow(rowData);
-        }
-        schedule.appendRow(rowData);
-        /*
+        var rowData = [];
         for (var i = 0; i < data.length; i++) {
-            var rowData = [
-                {
-                    code: data[i].code,
-                    major: data[i].major,
-                    subjectNO: data[i].subjectNO,
-                    professor: param.nowItem,
-                    quality: "0",
-                    gradeSatis: "0"
-                }
-            ];
-            schedule.appendRows(rowData);
-            //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
-        }*/
+            var child = {
+                code: data[i].code,
+                major: data[i].major,
+                subjectNO: data[i].subjectNO,
+                professor: param.nowItem,
+                evaluationAvg: "0",
+                qualityAvg: "0",
+                gradeSatisAvg: "0"
+            }
+            callPostService("getEvaluateData", child, function(data){
+                child.evaluationAvg = data.evaluationAvg/2;
+                child.qualityAvg = data.qualityAvg/2;
+                child.gradeSatisAvg = data.gradeSatisAvg/2;
+            })
+            rowData.push(child);
+        }
+        schedule.appendRows(rowData);
     })
 }
 
