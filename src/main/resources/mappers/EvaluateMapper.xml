@@ -53,7 +53,7 @@
     <select id="findThisYearProf"
             parameterType="string"
             resultType="string">
-        SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
+        SELECT DISTINCT professor FROM subject WHERE subjectNO=#{nowItem} AND year="2021" AND semester="1" ORDER BY professor
     </select>
 
     <select id="findSubBySubstr"
