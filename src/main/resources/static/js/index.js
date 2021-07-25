@@ -19,8 +19,8 @@ function getNewEvaluateResult() {
                 subjectID: data[dataN].subjectID
             }
             callPostService("getSubjectData", param, function (data2) {
-                var text = '<a href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'" className="p-1" style="color:#000000; display: block">'
-                    + '<span className="badge badge-danger fs-090 mr-1">N</span>'
+                var text = '<a href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'" class="p-1" style="color:#000000; display: block">'
+                    + '<span class="badge badge-danger fs-090 mr-1">N</span>'
                     + '<span>'+ data2.subjectNO + ' - ' + data2.professor+'</span>'
                     + '</a>';
 
@@ -28,6 +28,5 @@ function getNewEvaluateResult() {
                 $("#mainRecentEval").append(text);
             })
         }
-
     })
 }
