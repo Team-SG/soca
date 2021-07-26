@@ -374,7 +374,7 @@ function getRecentEval() {
 
                 // comment
                 text += '</div>' + '</br></br>'
-                    + '<a class="ml-3" style="color:#000000">' + data[dataN].commentFinal + '</a>'
+                    + '<span class="ml-3" style="color:#000000">' + data[dataN].commentFinal + '</span>'
                     + '</li>'
 
                 // 삽입
