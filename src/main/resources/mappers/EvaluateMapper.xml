@@ -63,8 +63,9 @@
     </select>
 
     <select id="getRecentEval"
+            parameterType="integer"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
-        SELECT * FROM evaluate ORDER BY postTime
+        SELECT * FROM evaluate ORDER BY postTime DESC LIMIT 0, #{num}
     </select>
 
     <select id="saveEvaluateWrite"

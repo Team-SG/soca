@@ -22,7 +22,7 @@ public interface EvaluateSBO {
 
     List<String> findProfBySubstr(String nowItem, String num);
 
-    List<EvaluateVO> getRecentEval();
+    List<EvaluateVO> getRecentEval(int num);
 
     //강의 평가 저장하기
     void saveEvaluateWrite(EvaluateVO evaluateVO);
