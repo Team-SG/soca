@@ -77,8 +77,8 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     }
 
     @Override
-    public List<EvaluateVO> getRecentEval() {
-        return evaluateDAO.getRecentEval();
+    public List<EvaluateVO> getRecentEval(int num) {
+        return evaluateDAO.getRecentEval(num);
     }
 
     //강의 평가 저장하기

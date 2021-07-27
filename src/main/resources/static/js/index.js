@@ -12,9 +12,9 @@ $(document).ready(function() {
 
 // 수강년도 및 학기 데이터 가져오기
 function getNewEvaluateResult() {
-    callPostService('getRecentEval', null, function(data){
-        for(var dataN=data.length-1 ; dataN>=data.length-5 ;dataN--){
-            if(dataN<0) break;
+    callPostService('getRecentEval', 5, function(data){
+        for(var dataN=0 ; dataN<data.length ;dataN++){
+           // if(dataN<0) break;
             var param = {
                 subjectID: data[dataN].subjectID
             }
