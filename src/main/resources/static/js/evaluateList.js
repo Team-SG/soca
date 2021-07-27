@@ -403,13 +403,16 @@ function getRecentEval() {
 
 function goSelected(param) {
 
-    var goform = $("<form>", {
+    /*var goform = $("<form>", {
         method: "post",
         action: "evaluateSelected",
         target: "_self",
-        vals : param
+        html: "<input type='hidden' name='code' value='" + param.code + "'>",
+        value : [["code", param.code],
+                ["subjectNO", param.subjectNO],
+                ["professor", param.professor]]
     }).appendTo("body");
 
-    goform.submit();
-    //location.href = "evaluateSelected"
+    goform.submit();*/
+    location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor
 }

@@ -70,4 +70,8 @@ public class IndexController {
     // 최근 강의 평가 목록 호출
     @RequestMapping(value="/recentEvalRes")
     public String recentEvalRes(){ return "recentEvalRes";}
+
+    // 선택한 강의 평가 목록 호출
+    @RequestMapping(value="/evaluateSelected")
+    public String evaluateSelected() { return "evaluateSelected";}
 }

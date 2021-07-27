@@ -134,4 +134,11 @@ public class EvaluateController {
     public EvaluateVO getEvalCompleteByPostNum(@RequestBody HashMap<String,Integer> map){
         return evaluateSBO.getEvalCompleteByPostNum(map);
     }
+
+    @RequestMapping(value="/findSelected", method=RequestMethod.POST)
+    public boolean findSelected(HttpSession session, @RequestBody HashMap<String,Object> map) {
+        String code = (String)map.get("code");
+        String professor = (String)map.get("professor");
+        return true;
+    }
 }
