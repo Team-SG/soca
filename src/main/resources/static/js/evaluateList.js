@@ -139,6 +139,11 @@ function initGrid() {
         ]
     });
 
+    schedule.on('click', (ev) => {
+        if(ev.columnName == "subjectNO")
+            goSelected(schedule.getRow(ev.rowKey));
+    })
+
     schedule.resetData(data);
 }
 
@@ -394,4 +399,17 @@ function getRecentEval() {
             })
         }
     })
+}
+
+function goSelected(param) {
+
+    var goform = $("<form>", {
+        method: "post",
+        action: "evaluateSelected",
+        target: "_self",
+        vals : param
+    }).appendTo("body");
+
+    goform.submit();
+    //location.href = "evaluateSelected"
 }
