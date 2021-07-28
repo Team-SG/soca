@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 function getRecentEval() {
 
-    callPostService("getRecentEval", 10, function(data){
+    callPostService("getRecentEval", 8, function(data){
         for(var dataN = 0; dataN < data.length ; dataN++) {
             var param = {
                 subjectID: data[dataN].subjectID
