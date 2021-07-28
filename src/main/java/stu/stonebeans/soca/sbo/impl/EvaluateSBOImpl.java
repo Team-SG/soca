@@ -144,4 +144,10 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public EvaluateVO getEvalCompleteByPostNum(HashMap<String,Integer> map){
         return evaluateDAO.getEvalCompleteByPostNum(map);
     }
+
+    // 선택된 과목의 강의 평가 가져오기
+    @Override
+    public List<EvaluateVO> findSelected(HashMap<String, Object> map) {
+        return evaluateDAO.findSelected(map);
+    }
 }

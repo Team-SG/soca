@@ -51,4 +51,6 @@ public interface EvaluateSBO {
     //주어진 postNum의 강의 평가 결과를 가져옴
     EvaluateVO getEvalCompleteByPostNum(HashMap<String,Integer> map);
 
+    // 선택된 과목의 강의 평가 가져오기
+    List<EvaluateVO> findSelected(HashMap<String, Object> map);
 }

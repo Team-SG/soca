@@ -135,10 +135,9 @@ public class EvaluateController {
         return evaluateSBO.getEvalCompleteByPostNum(map);
     }
 
+    // 선택된 과목의 강의 평가 가져오기
     @RequestMapping(value="/findSelected", method=RequestMethod.POST)
-    public boolean findSelected(HttpSession session, @RequestBody HashMap<String,Object> map) {
-        String code = (String)map.get("code");
-        String professor = (String)map.get("professor");
-        return true;
+    public List<EvaluateVO> findSelected(HttpSession session, @RequestBody HashMap<String,Object> map) {
+        return evaluateSBO.findSelected(map);
     }
 }

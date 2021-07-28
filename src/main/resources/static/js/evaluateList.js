@@ -140,8 +140,10 @@ function initGrid() {
     });
 
     schedule.on('click', (ev) => {
-        if(ev.columnName == "subjectNO")
-            goSelected(schedule.getRow(ev.rowKey));
+        if(ev.columnName == "subjectNO") {
+            if(schedule.getRow(ev.rowKey).professor != null)
+                goSelected(schedule.getRow(ev.rowKey));
+        }
     })
 
     schedule.resetData(data);

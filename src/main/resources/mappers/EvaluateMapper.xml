@@ -145,4 +145,11 @@
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
         SELECT * FROM evaluate WHERE postNum=#{postNum}
     </select>
+
+    <select id="findSelected"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor}
+    </select>
 </mapper>
