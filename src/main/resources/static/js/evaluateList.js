@@ -416,5 +416,5 @@ function goSelected(param) {
     }).appendTo("body");
 
     goform.submit();*/
-    location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&#=1"
+    location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1"
 }

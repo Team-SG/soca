@@ -7,18 +7,19 @@ $(document).ready(function() {
             var text = "작성된 강의평가가 없습니다."
             $("#selectedEval").append(text);
         }
-
-        showEval(1, data);
-        paging(1, data);
+        else {
+            showEval(parseInt(param.page), data);
+            paging(parseInt(param.page), data, param);
+        }
     });
 })
 
-function paging(currentPage, data) {
+function paging(currentPage, data, param) {
     let dataLength = data.length;
-    let dataPerPage = 10;
-    let pageCount = 5;
-    let totalPage = Math.ceil(dataLength / dataPerPage); // 한 페이지 10개 가정
-    let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 번호 5개
+    let dataPerPage = 1; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
+    let pageCount = 5; // 페이지 번호 5개
+    let totalPage = Math.ceil(dataLength / dataPerPage);
+    let pageGroup = Math.ceil(currentPage / pageCount);
     let lastPage = pageGroup * pageCount;
     if(lastPage > totalPage)
         lastPage = totalPage;
@@ -39,9 +40,15 @@ function paging(currentPage, data) {
     }
 
     if(lastPage < totalPage)
-        text += "<a href='#' id='next'> > </a>";
+        text += "<li><a href='#' id='next'> > </a></li>";
 
-    $("#pages").html(text);
+    $("#pages").html(text).css({
+        "text-align": "center",
+    });
+    $("#pages a").css({
+        "text-align": "center",
+        "display": "block"
+    })
     $("#pages a#" + currentPage).css("color", "black");
 
     $("#pages a").click(function() {
@@ -53,13 +60,14 @@ function paging(currentPage, data) {
         if($id == "prev")
             selectedPage = prev;
 
-        paging(selectedPage, data);
+        location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=" + selectedPage;
+        paging(selectedPage, data, param);
         showEval(selectedPage, data);
     })
 }
 
 function showEval(currentPage, data) {
-    let dataPerPage = 10;
+    let dataPerPage = 1;
     let first = (currentPage - 1) * dataPerPage;
     let last;
     if(currentPage == Math.floor(data.length / dataPerPage) + 1)
