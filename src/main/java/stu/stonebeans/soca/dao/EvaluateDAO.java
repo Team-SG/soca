@@ -74,4 +74,7 @@ public interface EvaluateDAO {
 
     // 선택된 과목의 강의 평가 가져오기
     List<EvaluateVO> findSelected(HashMap<String, Object> map);
+
+    //강의 평가 전체 개수 가져오기
+    Integer getRecentEvalCnt();
 }

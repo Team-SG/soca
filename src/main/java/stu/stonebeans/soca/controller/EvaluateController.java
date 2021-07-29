@@ -140,4 +140,10 @@ public class EvaluateController {
     public List<EvaluateVO> findSelected(HttpSession session, @RequestBody HashMap<String,Object> map) {
         return evaluateSBO.findSelected(map);
     }
+
+    //강의 평가 전체 개수 가져오기
+    @RequestMapping(value = "/getRecentEvalCnt", method = RequestMethod.POST)
+    public Integer getRecentEvalCnt() {
+        return evaluateSBO.getRecentEvalCnt();
+    }
 }

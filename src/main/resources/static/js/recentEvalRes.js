@@ -3,11 +3,28 @@
     최초 작성자 : KDB
     평가방 - 최근 강의평가 더보기 목록
  */
+var dataLength;
+var dataPerPage = 8;
+var pageCount = 5;
+var totalPage;
+var pageGroup;
+var firstPage;
+var lastPage;
+var prev;
+var next;
 
 $(document).ready(function(){
+    dataLength = getRecentEvalCnt();
     getRecentEval();
 })
 
+function getRecentEvalCnt(){
+    var cnt;
+    callPostService("getRecentEvalCnt",null,function(data){
+        cnt = data;
+    })
+    return cnt;
+}
 
 function getRecentEval() {
 
