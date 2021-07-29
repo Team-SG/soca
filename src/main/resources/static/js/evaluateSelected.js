@@ -33,23 +33,19 @@ function paging(currentPage, data, param) {
     let text = "";
 
     if(prev > 0)
-        text += "<li><a href='#' id='prev'> < </a></li>";
+        text += "<li class='page-item'><a class='page-link' href='#' id='prev'> < </a></li>";
 
     for(let i = firstPage; i <= lastPage; i++) {
-        text += "<li><a href='#' id='" + i + "'>" + i + "</a></li>";
+        if(i == currentPage)
+            text += "<li class='page-item active'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
+        else
+            text += "<li class='page-item'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
     }
 
     if(lastPage < totalPage)
-        text += "<li><a href='#' id='next'> > </a></li>";
+        text += "<li class='page-item'><a class='page-link' href='#' id='next'> > </a></li>";
 
-    $("#pages").html(text).css({
-        "text-align": "center",
-    });
-    $("#pages a").css({
-        "text-align": "center",
-        "display": "block"
-    })
-    $("#pages a#" + currentPage).css("color", "black");
+    $("#pages").html(text);
 
     $("#pages a").click(function() {
         let $id = $(this).attr("id");
@@ -61,8 +57,6 @@ function paging(currentPage, data, param) {
             selectedPage = prev;
 
         location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=" + selectedPage;
-        paging(selectedPage, data, param);
-        showEval(selectedPage, data);
     })
 }
 
