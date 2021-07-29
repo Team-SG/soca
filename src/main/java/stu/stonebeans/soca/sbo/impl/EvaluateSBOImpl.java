@@ -150,4 +150,10 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public List<EvaluateVO> findSelected(HashMap<String, Object> map) {
         return evaluateDAO.findSelected(map);
     }
+
+    //강의 평가 전체 개수 가져오기
+    @Override
+    public Integer getRecentEvalCnt(){
+        return evaluateDAO.getRecentEvalCnt();
+    }
 }

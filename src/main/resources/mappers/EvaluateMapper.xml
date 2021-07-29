@@ -152,4 +152,9 @@
         SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
         WHERE B.code=#{code} AND B.professor=#{professor}
     </select>
+
+    <select id="getRecentEvalCnt"
+            resultType="integer">
+        SELECT COUNT(*) FROM evaluate
+    </select>
 </mapper>
