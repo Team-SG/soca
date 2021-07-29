@@ -15,7 +15,6 @@ var next;
 
 $(document).ready(function(){
     dataLength = getRecentEvalCnt();
-    swal(dataLength+"");
     getRecentEval();
 })
 
