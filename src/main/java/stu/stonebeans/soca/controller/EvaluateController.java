@@ -72,8 +72,8 @@ public class EvaluateController {
 
     // 최근 강의 평가 가져오기
     @RequestMapping(value = "/getRecentEval", method = RequestMethod.POST)
-    public List<EvaluateVO> getRecentEval(@RequestBody int num) {
-        return evaluateSBO.getRecentEval(num);
+    public List<EvaluateVO> getRecentEval(@RequestBody HashMap<String,Integer> map) {
+        return evaluateSBO.getRecentEval(map);
     }
 
     //강의 평가 결과를 저장

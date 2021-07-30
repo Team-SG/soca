@@ -63,9 +63,9 @@
     </select>
 
     <select id="getRecentEval"
-            parameterType="integer"
+            parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
-        SELECT * FROM evaluate ORDER BY postTime DESC LIMIT 0, #{num}
+        SELECT * FROM evaluate ORDER BY postTime DESC LIMIT #{offset}, #{num}
     </select>
 
     <select id="saveEvaluateWrite"

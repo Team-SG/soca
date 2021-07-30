@@ -360,8 +360,11 @@ function getAllSubjects() {
 }
 
 function getRecentEval() {
-
-    callPostService("getRecentEval", 3, function(data){
+    var param={
+        offset : 0,
+        num : 3
+    }
+    callPostService("getRecentEval", param, function(data){
         for(var dataN = 0; dataN < data.length ; dataN++) {
             var param = {
                 subjectID: data[dataN].subjectID

@@ -4,19 +4,67 @@
     평가방 - 최근 강의평가 더보기 목록
  */
 var dataLength;
-var dataPerPage = 8;
+var dataPerPage = 1;
 var pageCount = 5;
 var totalPage;
 var pageGroup;
+var currentPage;
 var firstPage;
 var lastPage;
-var prev;
-var next;
+var prevPage;
+var nextPage;
 
 $(document).ready(function(){
-    dataLength = getRecentEvalCnt();
-    getRecentEval();
+    paging();
+
+    var offset = (currentPage-1) * dataPerPage;
+    getRecentEval(offset, dataPerPage);
+
+    $("#pages a").click(function(){
+        var $id=$(this).attr("id");
+        var selectedPage = $(this).text();
+
+        if($id == "prev") selectedPage = prevPage;
+        if($id == "next") selectedPage = nextPage;
+
+        location.href = "/recentEvalRes?page=" + selectedPage;
+    })
 })
+
+function paging(){
+    var param = getQuery2()
+    currentPage = parseInt(param.get("page"));
+    dataLength = getRecentEvalCnt();
+    totalPage = Math.ceil(dataLength/dataPerPage);
+    pageGroup = Math.ceil(currentPage/pageCount);
+    lastPage = pageGroup * pageCount;
+    if(lastPage>totalPage) lastPage = totalPage;
+    firstPage = lastPage-pageCount;
+    if(firstPage<1) firstPage = 1;
+
+    prevPage = currentPage - 1;
+    nextPage = currentPage + 1;
+
+    if(prevPage < 1){
+        const element = document.getElementById('prevPage');
+        element.classList.add("disabled");
+    }
+    if(nextPage > totalPage){
+        const element = document.getElementById('nextPage');
+        element.classList.add("disabled");
+    }
+
+    var text = "";
+
+    for(var i = firstPage; i <= lastPage ;i++){
+        if(i == currentPage)
+            text += '<li class="page-item active"><a class="page-link" id="' + i + '">' + i + '</a></li>';
+        else
+            text += '<li class="page-item"><a class="page-link" id="' + i + '">' + i + '</a></li>';
+    }
+
+    $("#prevPage").after(text);
+}
 
 function getRecentEvalCnt(){
     var cnt;
@@ -26,9 +74,13 @@ function getRecentEvalCnt(){
     return cnt;
 }
 
-function getRecentEval() {
+function getRecentEval(offset, num) {
 
-    callPostService("getRecentEval", 8, function(data){
+    var param={
+        offset : offset,
+        num : num
+    }
+    callPostService("getRecentEval", param, function(data){
         for(var dataN = 0; dataN < data.length ; dataN++) {
             var param = {
                 subjectID: data[dataN].subjectID

@@ -77,8 +77,8 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     }
 
     @Override
-    public List<EvaluateVO> getRecentEval(int num) {
-        return evaluateDAO.getRecentEval(num);
+    public List<EvaluateVO> getRecentEval(HashMap<String,Integer> map) {
+        return evaluateDAO.getRecentEval(map);
     }
 
     //강의 평가 저장하기

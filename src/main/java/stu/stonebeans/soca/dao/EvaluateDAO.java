@@ -37,7 +37,7 @@ public interface EvaluateDAO {
 
     List<String> findThisYearBySubstr(String nowItem);
 
-    List<EvaluateVO> getRecentEval(int num);
+    List<EvaluateVO> getRecentEval(HashMap<String,Integer> map);
 
     //강의 평가 저장하기
     void saveEvaluateWrite(EvaluateVO evaluateVO);
