@@ -12,6 +12,13 @@ var thisYearProfessors = [];
 var selectItem;
 
 $(document).ready(function() {
+    if(self.name != 'reload') {
+        self.name = 'reload';
+        self.location.reload();
+    }
+    else
+        self.name = "";
+
     initGrid(); // 그리드 초기 세팅
     getAllMajors();
     getAllSubjects();
@@ -419,5 +426,5 @@ function goSelected(param) {
     }).appendTo("body");
 
     goform.submit();*/
-    location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1"
+    location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
 }
