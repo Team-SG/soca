@@ -45,7 +45,7 @@ function paging(){
     prevPage = currentPage - 1;
     nextPage = currentPage + 1;
 
-    if(prevPage < 1){
+    if(prevPage <= 0){
         const element = document.getElementById('prevPage');
         element.classList.add("disabled");
     }
