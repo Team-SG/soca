@@ -33,17 +33,17 @@ function paging(currentPage, data, param) {
     let text = "";
 
     if(prev > 0)
-        text += "<li class='page-item'><a class='page-link' href='#' id='prev'> < </a></li>";
+        text += "<li class='page-item'><a class='page-link' id='prev'> < </a></li>";
 
     for(let i = firstPage; i <= lastPage; i++) {
         if(i == currentPage)
-            text += "<li class='page-item active'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
+            text += "<li class='page-item active'><a class='page-link' id='" + i + "'>" + i + "</a></li>";
         else
-            text += "<li class='page-item'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
+            text += "<li class='page-item'><a class='page-link' id='" + i + "'>" + i + "</a></li>";
     }
 
     if(lastPage < totalPage)
-        text += "<li class='page-item'><a class='page-link' href='#' id='next'> > </a></li>";
+        text += "<li class='page-item'><a class='page-link' id='next'> > </a></li>";
 
     $("#pages").html(text);
 
