@@ -4,7 +4,7 @@
     평가방 - 최근 강의평가 더보기 목록
  */
 var dataLength;
-var dataPerPage = 1;
+var dataPerPage = 2;
 var pageCount = 5;
 var totalPage;
 var pageGroup;
@@ -26,6 +26,8 @@ $(document).ready(function(){
 
         if($id == "prev") selectedPage = prevPage;
         if($id == "next") selectedPage = nextPage;
+        if($id == "first") selectedPage = 1;
+        if($id == "last") selectedPage = totalPage;
 
         location.href = "/recentEvalRes?page=" + selectedPage;
     })
@@ -58,13 +60,18 @@ function paging(){
     prevPage = currentPage - 1;
     nextPage = currentPage + 1;
 
+
     if(prevPage <= 0){
-        const element = document.getElementById('prevPage');
-        element.classList.add("disabled");
+        const prev = document.getElementById('prevPage');
+        prev.classList.add("disabled");
+        const first = document.getElementById('firstPage');
+        first.classList.add("disabled");
     }
     if(nextPage > totalPage){
-        const element = document.getElementById('nextPage');
-        element.classList.add("disabled");
+        const next = document.getElementById('nextPage');
+        next.classList.add("disabled");
+        const last = document.getElementById('lastPage');
+        last.classList.add("disabled");
     }
 
     var text = "";
