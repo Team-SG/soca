@@ -37,10 +37,23 @@ function paging(){
     dataLength = getRecentEvalCnt();
     totalPage = Math.ceil(dataLength/dataPerPage);
     pageGroup = Math.ceil(currentPage/pageCount);
-    lastPage = pageGroup * pageCount;
-    if(lastPage>totalPage) lastPage = totalPage;
-    firstPage = lastPage-pageCount;
-    if(firstPage<1) firstPage = 1;
+    lastPage = currentPage + Math.floor(pageCount/2);
+    firstPage = currentPage - Math.floor(pageCount/2);
+
+    if(totalPage <= pageCount){
+        firstPage = 1;
+        lastPage = totalPage;
+    }
+    else{
+        if(lastPage > totalPage) {
+            lastPage = totalPage;
+            firstPage = lastPage - pageCount + 1;
+        }
+        if(firstPage < 1) {
+            firstPage = 1;
+            lastPage = firstPage + pageCount - 1;
+        }
+    }
 
     prevPage = currentPage - 1;
     nextPage = currentPage + 1;
