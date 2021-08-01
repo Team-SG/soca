@@ -74,4 +74,16 @@ public class IndexController {
     // 선택한 강의 평가 목록 호출
     @RequestMapping(value="/evaluateSelected")
     public String evaluateSelected() { return "evaluateSelected";}
+
+    // 질문방 질문 게시글 목록 호출
+    @RequestMapping(value="/questionPostList")
+    public String questionPostList() { return "questionPostList";}
+
+    // 질문방 질문 게시글 작성
+    @RequestMapping(value="/questionPostFill")
+    public String questionPostFill() { return "questionPostFill";}
+
+    // 질문방 작성된 질문 게시글 조회
+    @RequestMapping(value="/questionPostCheck")
+    public String questionPostCheck() { return "questionPostCheck";}
 }
