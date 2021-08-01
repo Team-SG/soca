@@ -19,13 +19,9 @@ function paging(currentPage, data, param) {
     let dataPerPage = 1; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
     let pageCount = 5; // 페이지 번호 5개
     let totalPage = Math.ceil(dataLength / dataPerPage);
-    let pageGroup = Math.ceil(currentPage / pageCount);
-    let lastPage = pageGroup * pageCount;
-    if(lastPage > totalPage)
-        lastPage = totalPage;
-    let firstPage = lastPage - (pageCount - 1);
-    if(firstPage < 1)
-        firstPage = 1;
+    //let pageGroup = Math.ceil(currentPage / pageCount);
+    let lastPage =  Math.floor((currentPage - 1)/pageCount)*pageCount + pageCount;
+    let firstPage = Math.floor((currentPage - 1)/pageCount)*pageCount + 1;
 
     let next = lastPage + 1;
     let prev = firstPage - 1;
@@ -36,6 +32,8 @@ function paging(currentPage, data, param) {
         text += "<li class='page-item'><a class='page-link' id='prev'> < </a></li>";
 
     for(let i = firstPage; i <= lastPage; i++) {
+        if(i > totalPage)
+            break;
         if(i == currentPage)
             text += "<li class='page-item active'><a class='page-link' id='" + i + "'>" + i + "</a></li>";
         else
