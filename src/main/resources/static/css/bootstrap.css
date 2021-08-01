@@ -5023,7 +5023,7 @@ input[type="button"].btn-block {
   margin-left: 0;
   line-height: 1.25;
   color: #fff;
-  background-color: #18bc9c;
+  background-color: #2c3e50;
   border: 0 solid transparent;
 }
 
@@ -5031,7 +5031,7 @@ input[type="button"].btn-block {
   z-index: 2;
   color: #fff;
   text-decoration: none;
-  background-color: #0f7864;
+  background-color: #1a252f;
   border-color: transparent;
 }
 
@@ -5055,7 +5055,7 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #0f7864;
+  background-color: #1a252f;
   border-color: transparent;
 }
 
@@ -5063,7 +5063,7 @@ input[type="button"].btn-block {
   color: #ecf0f1;
   pointer-events: none;
   cursor: auto;
-  background-color: #3be6c4;
+  background-color: rgba(44, 62, 80, 0.5);
   border-color: transparent;
 }
 

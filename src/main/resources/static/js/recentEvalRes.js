@@ -3,19 +3,47 @@
     최초 작성자 : KDB
     평가방 - 최근 강의평가 더보기 목록
  */
-var dataLength;
-var dataPerPage = 2;
-var pageCount = 5;
-var totalPage;
-var pageGroup;
-var currentPage;
-var firstPage;
-var lastPage;
-var prevPage;
-var nextPage;
+
 
 $(document).ready(function(){
     paging();
+})
+
+function paging(){
+    var param = getQuery2()
+    var currentPage = parseInt(param.get("page"));
+    var dataLength = getRecentEvalCnt();
+    var dataPerPage = 2;
+    var pageCount = 5;
+    var totalPage = Math.ceil(dataLength/dataPerPage);
+    var pageGroup = Math.ceil(currentPage/pageCount);
+    var lastPage = pageGroup * pageCount;
+    var firstPage = lastPage - pageCount + 1;
+    var prevPage;
+    var nextPage;
+
+    if(lastPage > totalPage) lastPage = totalPage;
+    if(firstPage < 1) firstPage = 1;
+
+    nextPage = lastPage + 1;
+    prevPage = firstPage - pageCount;
+
+    var text = "";
+
+    if(prevPage > 0) text += '<li class="page-item"><a class="page-link" href="#" id="first"> << </a></li>'
+        +  '<li class="page-item"><a class="page-link" href="#" id="prev"> < </a></li>';
+
+    for(var i = firstPage; i <= lastPage ;i++){
+        if(i == currentPage)
+            text += '<li class="page-item active"><a class="page-link" id="' + i + '">' + i + '</a></li>';
+        else
+            text += '<li class="page-item"><a class="page-link" id="' + i + '">' + i + '</a></li>';
+    }
+
+    if(nextPage <= totalPage) text += '<li class="page-item"><a class="page-link" href="#" id="next"> > </a></li>'
+                                    + '<li class="page-item"><a class="page-link" href="#" id="last"> >> </a></li>';
+
+    $("#pages").append(text);
 
     var offset = (currentPage-1) * dataPerPage;
     getRecentEval(offset, dataPerPage);
@@ -31,59 +59,6 @@ $(document).ready(function(){
 
         location.href = "/recentEvalRes?page=" + selectedPage;
     })
-})
-
-function paging(){
-    var param = getQuery2()
-    currentPage = parseInt(param.get("page"));
-    dataLength = getRecentEvalCnt();
-    totalPage = Math.ceil(dataLength/dataPerPage);
-    pageGroup = Math.ceil(currentPage/pageCount);
-    lastPage = currentPage + Math.floor(pageCount/2);
-    firstPage = currentPage - Math.floor(pageCount/2);
-
-    if(totalPage <= pageCount){
-        firstPage = 1;
-        lastPage = totalPage;
-    }
-    else{
-        if(lastPage > totalPage) {
-            lastPage = totalPage;
-            firstPage = lastPage - pageCount + 1;
-        }
-        if(firstPage < 1) {
-            firstPage = 1;
-            lastPage = firstPage + pageCount - 1;
-        }
-    }
-
-    prevPage = currentPage - 1;
-    nextPage = currentPage + 1;
-
-
-    if(prevPage <= 0){
-        const prev = document.getElementById('prevPage');
-        prev.classList.add("disabled");
-        const first = document.getElementById('firstPage');
-        first.classList.add("disabled");
-    }
-    if(nextPage > totalPage){
-        const next = document.getElementById('nextPage');
-        next.classList.add("disabled");
-        const last = document.getElementById('lastPage');
-        last.classList.add("disabled");
-    }
-
-    var text = "";
-
-    for(var i = firstPage; i <= lastPage ;i++){
-        if(i == currentPage)
-            text += '<li class="page-item active"><a class="page-link" id="' + i + '">' + i + '</a></li>';
-        else
-            text += '<li class="page-item"><a class="page-link" id="' + i + '">' + i + '</a></li>';
-    }
-
-    $("#prevPage").after(text);
 }
 
 function getRecentEvalCnt(){
@@ -107,8 +82,9 @@ function getRecentEval(offset, num) {
             }
             callPostService("getSubjectData", param, function (data2) {
                 var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
-                    + '<span class="badge badge-primary">New</span>'
+                    + '<span class="badge badge-primary">'+data[dataN].postNum+'</span>'
                     + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
+
 
                 if(data[dataN].score1 != 0) {
                     text += '<ion-icon name="add-circle-outline"></ion-icon>';
