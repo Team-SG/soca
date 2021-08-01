@@ -148,7 +148,10 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     // 선택된 과목의 강의 평가 가져오기
     @Override
     public List<EvaluateVO> findSelected(HashMap<String, Object> map) {
-        return evaluateDAO.findSelected(map);
+        if(map.get("state").equals("1"))
+            return evaluateDAO.findSelected(map);
+        else
+            return evaluateDAO.findSelected2(map);
     }
 
     //강의 평가 전체 개수 가져오기

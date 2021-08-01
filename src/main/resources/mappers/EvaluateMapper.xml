@@ -150,7 +150,14 @@
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
         SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
-        WHERE B.code=#{code} AND B.professor=#{professor}
+        WHERE B.code=#{code} AND B.professor=#{professor} ORDER BY A.postNum desc
+    </select>
+
+    <select id="findSelected2"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} ORDER BY A.evaluation desc, A.postNum desc
     </select>
 
     <select id="getRecentEvalCnt"

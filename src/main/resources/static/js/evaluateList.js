@@ -391,13 +391,13 @@ function getRecentEval() {
                     + '<span class="pl-1 pr-3">' + data[dataN].recommendNum + '</span>'
 
                 // 별점
-                for (var i = 2; i <= data[dataN].quality; i = i + 2) {
+                for (var i = 2; i <= data[dataN].evaluation; i = i + 2) {
                     text += '<ion-icon name="star"></ion-icon>';
                 }
-                if (data[dataN].quality % 2 == 1) {
+                if (data[dataN].evaluation % 2 == 1) {
                     text += '<ion-icon name="star-half"></ion-icon>'
                 }
-                for (var i = data[dataN].quality; i < 9; i = i + 2) {
+                for (var i = data[dataN].evaluation; i < 9; i = i + 2) {
                     text += '<ion-icon name="star-outline"></ion-icon>'
                 }
 
@@ -426,5 +426,6 @@ function goSelected(param) {
     }).appendTo("body");
 
     goform.submit();*/
+    sessionStorage.setItem("state", "1");
     location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
 }

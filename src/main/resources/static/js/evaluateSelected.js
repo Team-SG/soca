@@ -1,7 +1,19 @@
 $(document).ready(function() {
-    //console.log(location.search)
-    //console.log($("#code").val());
     var param = getQuery();
+    param.state =  sessionStorage.getItem("state");
+    selectedFunction(param);
+    $("#newest").click(function(){
+        sessionStorage.setItem("state", "1");
+        location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
+    })
+    $("#highest").click(function(){
+        sessionStorage.setItem("state", "2");
+        location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
+    })
+
+})
+
+function selectedFunction(param) {
     callPostService("findSelected", param, function(data){
         if(data.length == 0 ) {
             var text = "작성된 강의평가가 없습니다."
@@ -12,7 +24,7 @@ $(document).ready(function() {
             paging(parseInt(param.page), data, param);
         }
     });
-})
+}
 
 function paging(currentPage, data, param) {
     let dataLength = data.length;
@@ -31,9 +43,10 @@ function paging(currentPage, data, param) {
 
     let text = "";
 
-    if(prev > 0)
+    if(prev > 0) {
+        text += "<li class='page-item'><a class='page-link' id='first'> << </a></li>";
         text += "<li class='page-item'><a class='page-link' id='prev'> < </a></li>";
-
+    }
     for(let i = firstPage; i <= lastPage; i++) {
         if(i == currentPage)
             text += "<li class='page-item active'><a class='page-link' id='" + i + "'>" + i + "</a></li>";
@@ -41,9 +54,10 @@ function paging(currentPage, data, param) {
             text += "<li class='page-item'><a class='page-link' id='" + i + "'>" + i + "</a></li>";
     }
 
-    if(lastPage < totalPage)
+    if(lastPage < totalPage) {
         text += "<li class='page-item'><a class='page-link' id='next'> > </a></li>";
-
+        text += "<li class='page-item'><a class='page-link' id='last'> >> </a></li>";
+    }
     $("#pages").html(text);
 
     $("#pages a").click(function() {
@@ -54,6 +68,10 @@ function paging(currentPage, data, param) {
             selectedPage = next;
         if($id == "prev")
             selectedPage = prev;
+        if($id == "first")
+            selectedPage = 1;
+        if($id == "last")
+            selectedPage = totalPage;
 
         location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=" + selectedPage;
     })
@@ -75,7 +93,6 @@ function showEval(currentPage, data) {
         }
         callPostService("getSubjectData", param, function (data2) {
             text += '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
-                + '<span class="badge badge-primary">New</span>'
                 + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
 
             if(data[dataN].score1 != 0) {
@@ -88,13 +105,13 @@ function showEval(currentPage, data) {
                 + '<span class="pl-1 pr-3">' + data[dataN].recommendNum + '</span>'
 
             // 별점
-            for (var i = 2; i <= data[dataN].quality; i = i + 2) {
+            for (var i = 2; i <= data[dataN].evaluation; i = i + 2) {
                 text += '<ion-icon name="star"></ion-icon>';
             }
-            if (data[dataN].quality % 2 == 1) {
+            if (data[dataN].evaluation % 2 == 1) {
                 text += '<ion-icon name="star-half"></ion-icon>'
             }
-            for (var i = data[dataN].quality; i < 9; i = i + 2) {
+            for (var i = data[dataN].evaluation; i < 9; i = i + 2) {
                 text += '<ion-icon name="star-outline"></ion-icon>'
             }
 
