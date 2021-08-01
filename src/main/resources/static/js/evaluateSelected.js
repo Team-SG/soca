@@ -24,7 +24,7 @@ function paging(currentPage, data, param) {
     let firstPage = Math.floor((currentPage - 1)/pageCount)*pageCount + 1;
 
     let next = lastPage + 1;
-    let prev = firstPage - 1;
+    let prev = Math.floor((firstPage - 6)/pageCount)*pageCount +  1;
 
     let text = "";
 
