@@ -24,7 +24,10 @@ function paging(currentPage, data, param) {
     let firstPage = Math.floor((currentPage - 1)/pageCount)*pageCount + 1;
 
     let next = lastPage + 1;
-    let prev = Math.floor((firstPage - 6)/pageCount)*pageCount +  1;
+    let prev = firstPage - 5;
+
+    if(lastPage > totalPage)
+        lastPage = totalPage;
 
     let text = "";
 
@@ -32,8 +35,6 @@ function paging(currentPage, data, param) {
         text += "<li class='page-item'><a class='page-link' id='prev'> < </a></li>";
 
     for(let i = firstPage; i <= lastPage; i++) {
-        if(i > totalPage)
-            break;
         if(i == currentPage)
             text += "<li class='page-item active'><a class='page-link' id='" + i + "'>" + i + "</a></li>";
         else
