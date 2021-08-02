@@ -2,8 +2,8 @@ $(document).ready(function() {
     var param = getQuery();
     callPostService("getAllPosts", null, function(data){
         if (data.length != 0) {
-            //showEval(parseInt(param.page), data);
             paging(parseInt(param.page), data);
+            showPosts(param.page, data);
         }
     });
 })
@@ -57,4 +57,19 @@ function paging(currentPage, data) {
 
         location.href = "postList?page=" + selectedPage;
     })
+}
+
+function showPosts(currentPage, data) {
+    let dataPerPage = 1;
+    let first = (currentPage - 1) * dataPerPage;
+    let last;
+    if(currentPage == Math.floor(data.length / dataPerPage) + 1)
+        last = first + data.length % dataPerPage;
+    else
+        last = first + dataPerPage
+
+    var text = ""
+    for(var dataN = first; dataN < last; dataN++) {
+
+    }
 }
