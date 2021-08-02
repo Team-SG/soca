@@ -86,4 +86,7 @@ public class IndexController {
     // 질문방 작성된 질문 게시글 조회
     @RequestMapping(value="/questionPostCheck")
     public String questionPostCheck() { return "questionPostCheck";}
+
+    @RequestMapping(value="/postList")
+    public String postList() { return "postList";}
 }
