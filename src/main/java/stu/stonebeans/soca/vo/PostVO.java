@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 public class PostVO {
     private int postNum;
-    private String title, email, content;
+    private String title, email, content, postTime;
     private boolean solYN, delYN;
     private int view, replyNum;
     private String subjectID;
@@ -20,6 +20,7 @@ public class PostVO {
                 ", title=" + title +
                 ", email=" + email +
                 ", content=" + content +
+                ", postTime=" + postTime +
                 ", solYN=" + solYN +
                 ", delYN=" + delYN +
                 ", view=" + view +
