@@ -93,6 +93,7 @@ function showEval(currentPage, data) {
         }
         callPostService("getSubjectData", param, function (data2) {
             text += '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                + '<span class="badge badge-primary">'+data[dataN].postNum+'</span>'
                 + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
 
             if(data[dataN].score1 != 0) {
