@@ -1,6 +1,20 @@
 $(document).ready(function() {
     var param = getQuery();
     param.state =  sessionStorage.getItem("state");
+    if(param.state == 1) {
+        $("#newest").css({
+            "background-color": "#2c3e50",
+            "border-color": "#2c3e50",
+            "color": "#fff"
+        });
+    }
+    else {
+        $("#highest").css({
+            "background-color": "#2c3e50",
+            "border-color": "#2c3e50",
+            "color": "#fff"
+        });
+    }
     selectedFunction(param);
     $("#newest").click(function(){
         sessionStorage.setItem("state", "1");
