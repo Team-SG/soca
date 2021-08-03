@@ -89,4 +89,8 @@ public class IndexController {
 
     @RequestMapping(value="/postList")
     public String postList() { return "postList";}
+
+    // 질문글 조회
+    @RequestMapping(value="/questionRead")
+    public String questionRead() { return "questionRead";}
 }
