@@ -12,4 +12,10 @@
             resultType="stu.stonebeans.soca.vo.PostVO">
         SELECT * FROM post where postNum=#{postNum}
     </select>
+
+    <select id="getSubjectName"
+            parameterType="HashMap"
+            resultType="string">
+        SELECT distinct subjectNO FROM subject where code=#{code}
+    </select>
 </mapper>

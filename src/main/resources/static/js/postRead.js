@@ -21,8 +21,12 @@ function initPostRead(){
 function callGetPostByNum(data){
     $("#postNum").append(data.postNum);
 
-    callPostService("getSubjectName",data.subjectID,function(data){
-        $("#subjectName").append(data);
+    //$("#subjectName").append(data.subjectID);
+    var param = {
+        code : data.subjectID
+    }
+    callPostService("getSubjectName",param,function(data2){
+        $("#subjectName").append(data2);
     });
 
     $("#writer").append(data.email);

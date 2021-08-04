@@ -29,4 +29,10 @@ public class PostController {
     public PostVO getPostByNum(@RequestBody int postNum) {
         return postSBO.getPostByNum(postNum);
     }
+
+    // 해당 subjectID의 과목이름을 불러옴
+    @RequestMapping(value = "/getSubjectName", method = RequestMethod.POST)
+    public String getSubjectName(@RequestBody HashMap<String, String> map) {
+        return postSBO.getSubjectName(map);
+    }
 }
