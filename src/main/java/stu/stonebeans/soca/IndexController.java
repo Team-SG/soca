@@ -91,6 +91,6 @@ public class IndexController {
     public String postList() { return "postList";}
 
     // 질문글 조회
-    @RequestMapping(value="/questionRead")
-    public String questionRead() { return "questionRead";}
+    @RequestMapping(value="/postRead")
+    public String postRead() { return "postRead";}
 }

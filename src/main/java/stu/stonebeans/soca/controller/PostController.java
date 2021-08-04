@@ -23,4 +23,16 @@ public class PostController {
     public List<PostVO> getAllPosts(@RequestBody Object checked) {
         return postSBO.getAllPosts(checked);
     }
+
+    // 해당 postNum의 게시글을 불러옴
+    @RequestMapping(value = "/getPostByNum", method = RequestMethod.POST)
+    public PostVO getPostByNum(@RequestBody int postNum) {
+        return postSBO.getPostByNum(postNum);
+    }
+
+    // 해당 subjectID의 과목이름을 불러옴
+    @RequestMapping(value = "/getSubjectName", method = RequestMethod.POST)
+    public String getSubjectName(@RequestBody HashMap<String, String> map) {
+        return postSBO.getSubjectName(map);
+    }
 }

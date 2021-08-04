@@ -19,4 +19,16 @@
         where a.delYN = 0 and a.solYN = 0
         order by postNum desc
     </select>
+
+    <select id="getPostByNum"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT * FROM post where postNum=#{postNum}
+    </select>
+
+    <select id="getSubjectName"
+            parameterType="HashMap"
+            resultType="string">
+        SELECT distinct subjectNO FROM subject where code=#{code}
+    </select>
 </mapper>
