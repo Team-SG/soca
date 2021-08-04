@@ -23,4 +23,10 @@ public class PostController {
     public List<PostVO> getAllPosts() {
         return postSBO.getAllPosts();
     }
+
+    // 해당 postNum의 게시글을 불러옴
+    @RequestMapping(value = "/getPostByNum", method = RequestMethod.POST)
+    public PostVO getPostByNum(@RequestBody int postNum) {
+        return postSBO.getPostByNum(postNum);
+    }
 }

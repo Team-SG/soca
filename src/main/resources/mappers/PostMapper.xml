@@ -6,4 +6,10 @@
             resultType="stu.stonebeans.soca.vo.PostVO">
         SELECT * FROM post order by postNum desc
     </select>
+
+    <select id="getPostByNum"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT * FROM post where postNum=#{postNum}
+    </select>
 </mapper>
