@@ -20,7 +20,7 @@ public class PostController {
     public PostController(PostSBO postSBO) { this.postSBO = postSBO;}
 
     @RequestMapping(value = "/getAllPosts", method = RequestMethod.POST)
-    public List<PostVO> getAllPosts() {
-        return postSBO.getAllPosts();
+    public List<PostVO> getAllPosts(@RequestBody Object checked) {
+        return postSBO.getAllPosts(checked);
     }
 }

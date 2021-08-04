@@ -4,6 +4,19 @@
 
     <select id="getAllPosts"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT * FROM post order by postNum desc
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0
+        order by postNum desc
+    </select>
+
+    <select id="getUnsolvedPosts"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 and a.solYN = 0
+        order by postNum desc
     </select>
 </mapper>

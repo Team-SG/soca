@@ -1,6 +1,24 @@
 $(document).ready(function() {
-    var param = getQuery();
-    callPostService("getAllPosts", null, function(data){
+    let param = getQuery();
+    let checkedYN = sessionStorage.getItem("checked");
+    if(checkedYN == null)
+        sessionStorage.setItem("checked", "0");
+
+    if(checkedYN === "0")
+        $("#checked").prop("checked", false);
+    else
+        $("#checked").prop("checked", true);
+
+    $("#checked").change(function(){
+        if(checkedYN === "0")
+            sessionStorage.setItem("checked", "1");
+        else
+            sessionStorage.setItem("checked", "0");
+
+        location.href = "postList?page=1";
+        }
+    )
+    callPostService("getAllPosts", sessionStorage.getItem("checked"), function(data){
         if (data.length != 0) {
             paging(parseInt(param.page), data);
             showPosts(param.page, data);
@@ -68,8 +86,20 @@ function showPosts(currentPage, data) {
     else
         last = first + dataPerPage
 
-    var text = ""
-    for(var dataN = first; dataN < last; dataN++) {
+    let text = ""
 
+    for(var dataN = first; dataN < last; dataN++) {
+        text += "<tr>"
+        text += "<td>" + data[dataN].postNum + "</td>";
+        text += "<td>" + data[dataN].subjectNo + "</td>";
+        text += "<td onclick=\"location.href='questionRead'\">" + data[dataN].title + "</td>";
+        text += "<td>" + data[dataN].nickname + "</td>";
+        text += "<td>" + data[dataN].postTime + "</td>";
+        if(data[dataN].solYN == true)
+            text += "<td>O</td>";
+        else
+            text += "<td>X</td>";
+        text += "</tr>"
     }
+    $("#postData").append(text);
 }

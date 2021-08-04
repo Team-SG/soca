@@ -15,8 +15,11 @@ public class PostSBOImpl implements PostSBO {
     private PostDAO postDAO;
 
     @Override
-    public List<PostVO> getAllPosts() {
-        return postDAO.getAllPosts();
+    public List<PostVO> getAllPosts(Object checked) {
+        if(checked.equals("0"))
+            return postDAO.getAllPosts();
+        else
+            return postDAO.getUnsolvedPosts();
     }
 }
 

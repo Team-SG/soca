@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface PostDAO {
     List<PostVO> getAllPosts();
+    List<PostVO> getUnsolvedPosts();
 }

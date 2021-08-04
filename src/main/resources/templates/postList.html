@@ -10,19 +10,41 @@
             <strong class="mr-auto mt-2 mb-2" style="color:#000000">게시글</strong>
         </div>
         <div class="toast-body mt-1 mb-1">
-            <input type="checkbox" class="custom-checkbox ml-3"> 미해결 질문만 표시
+            <input type="checkbox" id="checked" class="custom-checkbox ml-3"> 미해결 질문만 표시
             <span>
                         <select id="selectCondtion" class="form-control d-inline-block ml-5" style="width: 150px">
                             <option>과목 검색</option>
                             <option>제목 검색</option>
                         </select>
             </span>
-            <input type="text" id="subject" name="subject" class="form-control d-inline-block mr-1" style="width: 200px" placeholder="">
+            <input type="text" id="subject" name="subject" class="form-control d-inline-block mr-1" style="width: 500px" placeholder="">
             <button type="button" id="btnSearch" class="btn btn-outline-primary align-top mr-1">검색</button>
             <button class="btn btn-outline-primary form-row float-right align-top mr-1" id="question">질문하기</button>
         </div>
         <div class="toast-body mt-1 mb-1">
-            <ul class="list-group mt-3 pl-2 pr-2 fs-090" id="postData" name="postData">
+            <ul class="list-group mt-3 pl-2 pr-2 fs-090">
+                <table class="table-hover">
+                    <thead>
+                    <tr>
+                        <th>질문번호</th>
+                        <th>과목</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성 시간</th>
+                        <th>해결</th>
+                    </tr>
+                    </thead>
+                    <tbody id="postData">
+                    <!-- <tr>
+                        <td>1</td>
+                        <td>컴퓨팅사고력</td>
+                        <td>넘모어려워요</td>
+                        <td>tjdqls031</td>
+                        <td>2021-08-04 12:21:38</td>
+                        <td>X</td>
+                    </tr> -->
+                    </tbody>
+                </table>
             </ul>
         </div>
         <nav aria-label="Page navigation example">

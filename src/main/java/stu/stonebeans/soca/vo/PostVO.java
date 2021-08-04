@@ -8,17 +8,17 @@ import lombok.*;
 @Builder
 public class PostVO {
     private int postNum;
-    private String title, email, content, postTime;
+    private String title, nickname, content, postTime;
     private boolean solYN, delYN;
     private int view, replyNum;
-    private String subjectID;
+    private String subjectID, subjectNo;
 
     @Override
     public String toString() {
         return "PostVO{" +
                 "postNum=" + postNum +
                 ", title=" + title +
-                ", email=" + email +
+                ", nickname=" + nickname +
                 ", content=" + content +
                 ", postTime=" + postTime +
                 ", solYN=" + solYN +
@@ -26,6 +26,7 @@ public class PostVO {
                 ", view=" + view +
                 ", replyNum=" + replyNum +
                 ", subjectID=" + subjectID +
+                ", subjectNo=" + subjectNo +
                 "}";
     }
 }
