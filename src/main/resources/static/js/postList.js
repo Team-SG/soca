@@ -4,7 +4,7 @@ let selectItem = [];
 $(document).ready(function() {
     let param = getQuery();
     let checkedYN = sessionStorage.getItem("checked");
-    if(checkedYN == null)
+    if(checkedYN == "")
         sessionStorage.setItem("checked", "0");
 
     if(checkedYN === "1")
@@ -21,18 +21,39 @@ $(document).ready(function() {
         location.href = "postList?page=1";
         }
     )
-    callPostService("getAllPosts", sessionStorage.getItem("checked"), function(data){
-        if (data.length !== 0) {
-            paging(parseInt(param.page), data);
-            showPosts(param.page, data);
-        }
-    });
 
+    if(sessionStorage.getItem("searchKey") === "") {
+        callPostService("getAllPosts", sessionStorage.getItem("checked"), function (data) {
+            if (data.length !== 0) {
+                paging(parseInt(param.page), data);
+                showPosts(param.page, data);
+            }
+        });
+    }
+    else {
+        let param2 = {};
+        param2.searchKey = sessionStorage.getItem("searchKey");
+        param2.searchType = sessionStorage.getItem("searchType");
+        $("#searchKey").val(sessionStorage.getItem("searchLabel"));
+        if(param2.searchType === "title") {
+            $("#selectCondition").val("title").prop("checked", true);
+        }
+        else {
+            $("#selectCondition").val("subject").prop("checked", true);
+        }
+        callPostService("getSelectedPosts", param2, function (data) {
+            if (data.length !== 0) {
+                paging(parseInt(param.page), data);
+                showPosts(param.page, data);
+            }
+        })
+    }
+
+    callPostService("getAllSubjects", 1, function(data){
+        autoData = data;
+    })
     let selected = $("#selectCondition option:selected").val();
     if(selected === "subject") {
-        callPostService("getAllSubjects", 1, function(data){
-            autoData = data;
-        })
         autoCompletePost();
     }
 
@@ -56,17 +77,17 @@ $(document).ready(function() {
         param2.searchType = selected;
         if(selected === "subject") {
             param2.searchKey = selectItem.code;
+            param2.searchLabel = selectItem.subjectNO;
         }
         else if(selected === 'title') {
             param2.searchKey = "%" + $("#searchKey").val() + "%";
+            param2.searchLabel = $("#searchKey").val();
         }
 
-        callPostService("getSelectedPosts", param2, function(data){
-            if (data.length !== 0) {
-                paging(1, data);
-                showPosts(1, data);
-            }
-        })
+        sessionStorage.setItem("searchKey", param2.searchKey);
+        sessionStorage.setItem("searchType", param2.searchType);
+        sessionStorage.setItem("searchLabel", param2.searchLabel);
+        location.href = "postList?page=1";
     })
 })
 
