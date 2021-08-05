@@ -13,6 +13,9 @@ public interface PostDAO {
     List<PostVO> getAllPosts();
     List<PostVO> getUnsolvedPosts();
 
+    List<PostVO> getSelectedBySubject(HashMap<String, Object> map);
+    List<PostVO> getSelectedByTitle(HashMap<String, Object> map);
+
     // 해당 postNum의 게시글을 불러옴
     PostVO getPostByNum(int postNum);
 

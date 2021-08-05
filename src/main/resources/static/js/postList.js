@@ -1,13 +1,16 @@
+let autoData = [];
+let selectItem = [];
+
 $(document).ready(function() {
     let param = getQuery();
     let checkedYN = sessionStorage.getItem("checked");
     if(checkedYN == null)
         sessionStorage.setItem("checked", "0");
 
-    if(checkedYN === "0")
-        $("#checked").prop("checked", false);
-    else
+    if(checkedYN === "1")
         $("#checked").prop("checked", true);
+    else
+        $("#checked").prop("checked", false);
 
     $("#checked").change(function(){
         if(checkedYN === "0")
@@ -19,11 +22,52 @@ $(document).ready(function() {
         }
     )
     callPostService("getAllPosts", sessionStorage.getItem("checked"), function(data){
-        if (data.length != 0) {
+        if (data.length !== 0) {
             paging(parseInt(param.page), data);
             showPosts(param.page, data);
         }
     });
+
+    let selected = $("#selectCondition option:selected").val();
+    if(selected === "subject") {
+        callPostService("getAllSubjects", 1, function(data){
+            autoData = data;
+        })
+        autoCompletePost();
+    }
+
+    $("#selectCondition").change(function(){
+        selected = $("#selectCondition option:selected").val();
+        if(selected === "subject") {
+            autoCompletePost();
+            $("#searchKey").val('');
+        }
+        else if(selected === "title") {
+            $("#searchKey").autocomplete({
+                disabled: true
+            });
+            $("#searchKey").val('');
+        }
+    })
+
+    $("#btnSearch").click(function(){
+        selected = $("#selectCondition option:selected").val();
+        let param2 = {};
+        param2.searchType = selected;
+        if(selected === "subject") {
+            param2.searchKey = selectItem.code;
+        }
+        else if(selected === 'title') {
+            param2.searchKey = "%" + $("#searchKey").val() + "%";
+        }
+
+        callPostService("getSelectedPosts", param2, function(data){
+            if (data.length !== 0) {
+                paging(1, data);
+                showPosts(1, data);
+            }
+        })
+    })
 })
 
 function paging(currentPage, data) {
@@ -89,10 +133,10 @@ function showPosts(currentPage, data) {
     let text = ""
 
     for(var dataN = first; dataN < last; dataN++) {
-        text += "<tr>"
+        text += "<tr onclick=\"location.href='postRead?postNum=" + data[dataN].postNum + "'\">"
         text += "<td>" + data[dataN].postNum + "</td>";
         text += "<td>" + data[dataN].subjectNo + "</td>";
-        text += "<td onclick=\"location.href='questionRead'\">" + data[dataN].title + "</td>";
+        text += "<td>" + data[dataN].title + "</td>";
         text += "<td>" + data[dataN].nickname + "</td>";
         text += "<td>" + data[dataN].postTime + "</td>";
         if(data[dataN].solYN == true)
@@ -101,5 +145,35 @@ function showPosts(currentPage, data) {
             text += "<td>X</td>";
         text += "</tr>"
     }
+    $("#postData").empty();
     $("#postData").append(text);
+}
+
+function autoCompletePost() {
+    $("#searchKey").autocomplete({
+        disabled: false,
+        source : function(request, response) {
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.map(autoData, function(item) {
+                var testVal = item.subjectNO
+                if (matcher.test(testVal)) {
+                    var result = {
+                        label: item.subjectNO + "[" + item.code + "]",
+                        value: item.subjectNO + item.code,
+                        code: item.code,
+                        major: item.major,
+                        professor: item.professor,
+                        subjectNO: item.subjectNO,
+                        num: 1
+                    }
+                    return result;
+                }
+            }));
+        },
+        select : function(event, ui) {
+            event.preventDefault();
+            $("#searchKey").val(ui.item.label);
+            selectItem = ui.item;
+        }
+    })
 }
