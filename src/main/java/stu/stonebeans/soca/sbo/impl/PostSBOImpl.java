@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import stu.stonebeans.soca.dao.PostDAO;
 import stu.stonebeans.soca.sbo.PostSBO;
 import stu.stonebeans.soca.vo.PostVO;
+import stu.stonebeans.soca.vo.SubjectVO;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,10 @@ public class PostSBOImpl implements PostSBO {
 
     // 해당 subjectID의 과목이름을 불러옴
     @Override
-    public String getSubjectName(HashMap<String, String> map){ return postDAO.getSubjectName(map);}
+    public SubjectVO getSubjectName(HashMap<String, String> map){ return postDAO.getSubjectName(map);}
+
+    //답글 쓰기
+    @Override
+    public void writeReply(HashMap<String,Object> map){ postDAO.writeReply(map);}
 }
 

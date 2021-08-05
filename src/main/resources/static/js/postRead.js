@@ -4,8 +4,15 @@
     평가방 - 질문방 게스글 읽기
  */
 
+var postNum;
+
 $(document).ready(function(){
     initPostRead();
+
+    $("#btnReplyWrite").click(function(event){
+        writeReply();
+
+    })
 
     $("#btnGoToList").click(function(event){
         history.back();
@@ -13,20 +20,32 @@ $(document).ready(function(){
 })
 
 function initPostRead(){
-    var param = getQuery2();
-    var postNum = parseInt(param.get("postNum"));
+    postNum = parseInt(getQuery2().get("postNum"));
     callPostService("/getPostByNum",postNum, "callGetPostByNum");
 }
 
-function callGetPostByNum(data){
-    $("#postNum").append(data.postNum);
+function writeReply(){
+    if($("#replyContent").val().length==0)
+        swal("답글을 입력해주세요.");
+    else{
+        var param = {
+            postNum : postNum,
+            content : $("#replyContent").val()
+        }
+        callPostService("/writeReply",param, function(){
+            location.href;
+        })
+    }
 
-    //$("#subjectName").append(data.subjectID);
+}
+function callGetPostByNum(data){
+    $("#postNum").append(postNum);
+
     var param = {
         code : data.subjectID
-    }
+    };
     callPostService("getSubjectName",param,function(data2){
-        $("#subjectName").append(data2);
+        $("#subjectName").append(data2.subjectNO);
     });
 
     $("#writer").append(data.email);
