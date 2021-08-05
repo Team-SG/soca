@@ -16,6 +16,8 @@ public interface PostDAO {
 
     List<PostVO> getSelectedBySubject(HashMap<String, Object> map);
     List<PostVO> getSelectedByTitle(HashMap<String, Object> map);
+    List<PostVO> getUnsolvedBySubject(HashMap<String, Object> map);
+    List<PostVO> getUnsolvedByTitle(HashMap<String, Object> map);
 
     // 해당 postNum의 게시글을 불러옴
     PostVO getPostByNum(int postNum);
@@ -25,4 +27,6 @@ public interface PostDAO {
 
     //답글 쓰기
     void writeReply(HashMap<String,Object> map);
+
+
 }

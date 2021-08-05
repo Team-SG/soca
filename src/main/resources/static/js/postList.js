@@ -3,47 +3,46 @@ let selectItem = [];
 
 $(document).ready(function() {
     let param = getQuery();
-    let checkedYN = sessionStorage.getItem("checked");
-    if(checkedYN == "")
-        sessionStorage.setItem("checked", "0");
 
-    if(checkedYN === "1")
+    if(param.checked === "1")
         $("#checked").prop("checked", true);
     else
         $("#checked").prop("checked", false);
 
-    $("#checked").change(function(){
-        if(checkedYN === "0")
-            sessionStorage.setItem("checked", "1");
+    $("#searchKey").val(param.search);
+    if(param.type === "title") {
+        $("#selectCondition").val("title").prop("checked", true);
+    }
+    else {
+        $("#selectCondition").val("subject").prop("checked", true);
+    }
+
+    $("#checked").change(function() {
+        let href = "postList?page=1&checked="
+        if (param.checked === "0")
+            href += "1";
         else
-            sessionStorage.setItem("checked", "0");
+            href += "0";
+        href += "&type=" + param.type + "&search=" + param.search;
+        location.href = href;
+    })
 
-        location.href = "postList?page=1";
-        }
-    )
-
-    if(sessionStorage.getItem("searchKey") === "") {
-        callPostService("getAllPosts", sessionStorage.getItem("checked"), function (data) {
+    if(param.search === "") {
+        callPostService("getAllPosts", param.checked, function (data) {
             if (data.length !== 0) {
-                paging(parseInt(param.page), data);
+                paging(parseInt(param.page), data, param);
                 showPosts(param.page, data);
             }
         });
     }
     else {
-        let param2 = {};
-        param2.searchKey = sessionStorage.getItem("searchKey");
-        param2.searchType = sessionStorage.getItem("searchType");
-        $("#searchKey").val(sessionStorage.getItem("searchLabel"));
-        if(param2.searchType === "title") {
-            $("#selectCondition").val("title").prop("checked", true);
-        }
-        else {
-            $("#selectCondition").val("subject").prop("checked", true);
-        }
-        callPostService("getSelectedPosts", param2, function (data) {
+        if(param.type === "subject")
+            param.searchKey = param.search;
+        else
+            param.searchKey = "%" + param.search + "%";
+        callPostService("getSelectedPosts", param, function (data) {
             if (data.length !== 0) {
-                paging(parseInt(param.page), data);
+                paging(parseInt(param.page), data, param);
                 showPosts(param.page, data);
             }
         })
@@ -73,25 +72,16 @@ $(document).ready(function() {
 
     $("#btnSearch").click(function(){
         selected = $("#selectCondition option:selected").val();
-        let param2 = {};
-        param2.searchType = selected;
-        if(selected === "subject") {
-            param2.searchKey = selectItem.code;
-            param2.searchLabel = selectItem.subjectNO;
-        }
-        else if(selected === 'title') {
-            param2.searchKey = "%" + $("#searchKey").val() + "%";
-            param2.searchLabel = $("#searchKey").val();
-        }
-
-        sessionStorage.setItem("searchKey", param2.searchKey);
-        sessionStorage.setItem("searchType", param2.searchType);
-        sessionStorage.setItem("searchLabel", param2.searchLabel);
-        location.href = "postList?page=1";
+        let href = "postList?page=1&checked=" + param.checked + "&type=" + selected + "&search=";
+        if(selected === "subject")
+            href += selectItem.label;
+        else if(selected === "title")
+            href += $("#searchKey").val();
+        location.href = href;
     })
 })
 
-function paging(currentPage, data) {
+function paging(currentPage, data, param) {
     let dataLength = data.length;
     let dataPerPage = 1; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
     let pageCount = 5; // 페이지 번호 5개
@@ -138,7 +128,7 @@ function paging(currentPage, data) {
         if($id === "last")
             selectedPage = totalPage;
 
-        location.href = "postList?page=" + selectedPage;
+        location.href = "postList?page=" + selectedPage + "&checked=" + param.checked + "&type=" + param.type + "&search=" + param.search;
     })
 }
 
@@ -179,8 +169,8 @@ function autoCompletePost() {
                 var testVal = item.subjectNO
                 if (matcher.test(testVal)) {
                     var result = {
-                        label: item.subjectNO + "[" + item.code + "]",
-                        value: item.subjectNO + item.code,
+                        label: item.subjectNO,
+                        value: item.subjectNO,
                         code: item.code,
                         major: item.major,
                         professor: item.professor,

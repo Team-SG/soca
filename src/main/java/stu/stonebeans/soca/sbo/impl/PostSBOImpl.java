@@ -27,11 +27,17 @@ public class PostSBOImpl implements PostSBO {
 
     @Override
     public List<PostVO> getSelectedPosts(HashMap<String, Object> map) {
-        if(map.get("searchType").equals("subject")) {
-            return postDAO.getSelectedBySubject(map);
+        if(map.get("type").equals("subject")) {
+            if(map.get("checked").equals("0"))
+                return postDAO.getSelectedBySubject(map);
+            else
+                return postDAO.getUnsolvedBySubject(map);
         }
-        else if (map.get("searchType").equals("title")) {
-            return postDAO.getSelectedByTitle(map);
+        else if (map.get("type").equals("title")) {
+            if(map.get("checked").equals("0"))
+                return postDAO.getSelectedByTitle(map);
+            else
+                return postDAO.getUnsolvedByTitle(map);
         }
         return null;
     }

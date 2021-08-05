@@ -34,10 +34,3 @@ function getNewEvaluateResult() {
         }
     })
 }
-
-function goPostList() {
-    sessionStorage.setItem("checked", "");
-    sessionStorage.setItem("searchType", "");
-    sessionStorage.setItem("searchKey", "");
-    location.href = "postList?page=1";
-}
