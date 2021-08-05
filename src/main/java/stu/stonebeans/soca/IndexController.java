@@ -76,21 +76,14 @@ public class IndexController {
     public String evaluateSelected() { return "evaluateSelected";}
 
     // 질문방 질문 게시글 목록 호출
-    @RequestMapping(value="/questionPostList")
-    public String questionPostList() { return "questionPostList";}
-
-    // 질문방 질문 게시글 작성
-    @RequestMapping(value="/questionPostFill")
-    public String questionPostFill() { return "questionPostFill";}
-
-    // 질문방 작성된 질문 게시글 조회
-    @RequestMapping(value="/questionPostCheck")
-    public String questionPostCheck() { return "questionPostCheck";}
-
     @RequestMapping(value="/postList")
     public String postList() { return "postList";}
 
-    // 질문글 조회
+    // 질문방 질문글 조회
     @RequestMapping(value="/postRead")
     public String postRead() { return "postRead";}
+
+    // 질문방 질문 게시글 작성
+    @RequestMapping(value="/postFill")
+    public String questionPostFill() { return "postFill";}
 }
