@@ -12,12 +12,15 @@
         <div class="toast-body mt-1 mb-1">
             <input type="checkbox" id="checked" class="custom-checkbox ml-3"> 미해결 질문만 표시
             <span>
-                        <select id="selectCondtion" class="form-control d-inline-block ml-5" style="width: 150px">
-                            <option>과목 검색</option>
-                            <option>제목 검색</option>
+                        <select id="selectCondition" class="form-control d-inline-block ml-5" style="width: 150px">
+                            <option value="subject">과목 검색</option>
+                            <option value="title">제목 검색</option>
                         </select>
             </span>
-            <input type="text" id="subject" name="subject" class="form-control d-inline-block mr-1" style="width: 500px" placeholder="">
+            <link rel="stylesheet" href="css/jquery-ui.css" type="text/css"/>
+            <script src="//code.jquery.com/jquery.min.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+            <input type="text" id="searchKey" name="searchKey" class="form-control d-inline-block mr-1" style="width: 500px" placeholder="">
             <button type="button" id="btnSearch" class="btn btn-outline-primary align-top mr-1">검색</button>
             <button class="btn btn-outline-primary form-row float-right align-top mr-1" id="question" onclick="location.href='/postFill'">질문하기</button>
         </div>

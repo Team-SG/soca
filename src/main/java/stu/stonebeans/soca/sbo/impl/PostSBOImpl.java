@@ -23,6 +23,17 @@ public class PostSBOImpl implements PostSBO {
             return postDAO.getUnsolvedPosts();
     }
 
+    @Override
+    public List<PostVO> getSelectedPosts(HashMap<String, Object> map) {
+        if(map.get("searchType").equals("subject")) {
+            return postDAO.getSelectedBySubject(map);
+        }
+        else if (map.get("searchType").equals("title")) {
+            return postDAO.getSelectedByTitle(map);
+        }
+        return null;
+    }
+
     // 해당 postNum의 게시글을 불러옴
     @Override
     public PostVO getPostByNum(int postNum){ return postDAO.getPostByNum(postNum);}
