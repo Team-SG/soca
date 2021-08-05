@@ -9,6 +9,8 @@ import stu.stonebeans.soca.sbo.EvaluateSBO;
 import stu.stonebeans.soca.sbo.PostSBO;
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
+import stu.stonebeans.soca.vo.ReplyVO;
+
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;

@@ -3,6 +3,7 @@ package stu.stonebeans.soca.dao;
 import org.apache.ibatis.annotations.Mapper;
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
+import stu.stonebeans.soca.vo.ReplyVO;
 
 
 import java.util.HashMap;

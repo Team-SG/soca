@@ -54,6 +54,7 @@
 
     <select id="writeReply"
             parameterType="HashMap">
-        UPDATE post SET replyNum=replyNum+1 where postNum=#{postNum};
+        UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
+        INSERT INTO reply (postNum,nickname,content,replyTime,accusedYN) VALUES(#{postNum},#{nickname},#{content},NOW(),0);
     </select>
 </mapper>

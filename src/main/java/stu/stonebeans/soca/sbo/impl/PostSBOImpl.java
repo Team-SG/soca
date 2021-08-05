@@ -6,7 +6,7 @@ import stu.stonebeans.soca.dao.PostDAO;
 import stu.stonebeans.soca.sbo.PostSBO;
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
-
+import stu.stonebeans.soca.vo.ReplyVO;
 
 import java.util.HashMap;
 import java.util.List;

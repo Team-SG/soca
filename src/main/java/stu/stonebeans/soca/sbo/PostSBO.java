@@ -2,7 +2,7 @@ package stu.stonebeans.soca.sbo;
 
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
-
+import stu.stonebeans.soca.vo.ReplyVO;
 
 import java.util.HashMap;
 import java.util.List;

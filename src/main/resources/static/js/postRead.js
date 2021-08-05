@@ -33,7 +33,7 @@ function writeReply(){
             content : $("#replyContent").val()
         }
         callPostService("/writeReply",param, function(){
-            location.href;
+            location.reload();
         })
     }
 
@@ -48,10 +48,24 @@ function callGetPostByNum(data){
         $("#subjectName").append(data2.subjectNO);
     });
 
-    $("#writer").append(data.email);
+    $("#writer").append(data.nickname);
     $("#postTime").append(data.postTime);
     $("#view").append(data.view);
     $("#title").append('<strong>'+data.title+'</strong>');
     $("#content").append(data.content);
     $("#replyNum").append("답글 "+data.replyNum+"개");
+
+    callPostService("getReplies", postNum, "callGetReplies");
+}
+
+function callGetReplies(data){
+    for(var i=0;i<data.length;i++){
+        var text = '<li class="list-group-item d-flex justify-content-between align-items-center">';
+        text += '<div>' + data[i].content + '</div>';
+        text += '<div class="d-flex justify-content-center">';
+        text += '<div class="mr-1">'+ data[i].nickname + '</div>';
+        text += '<div>'+ data[i].replyTime + '</div></div></li>';
+
+        $("#reply").append(text);
+    }
 }
