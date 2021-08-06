@@ -52,5 +52,10 @@ public class PostController {
     @RequestMapping(value = "/writeReply", method = RequestMethod.POST)
     public void writeReply(HttpSession session ,@RequestBody HashMap<String,Object> map){
         map.put("nickname",(String)session.getAttribute("nickname"));
-        postSBO.writeReply(map); }
+        postSBO.writeReply(map);
+    }
+
+    //답글 불러오기
+    @RequestMapping(value = "/getReplies", method = RequestMethod.POST)
+    public List<ReplyVO> getReplies(@RequestBody int postNum) { return postSBO.getReplies(postNum); }
 }

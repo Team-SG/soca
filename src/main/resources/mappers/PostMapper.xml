@@ -74,7 +74,13 @@
 
     <select id="writeReply"
             parameterType="HashMap">
-        UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
         INSERT INTO reply (postNum,nickname,content,replyTime,accusedYN) VALUES(#{postNum},#{nickname},#{content},NOW(),0);
+        UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
+    </select>
+
+    <select id="getReplies"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.ReplyVO">
+        SELECT * FROM reply WHERE postNum=#{postNum}
     </select>
 </mapper>

@@ -11,7 +11,7 @@ $(document).ready(function(){
 
     $("#btnReplyWrite").click(function(event){
         writeReply();
-
+        location.reload();
     })
 
     $("#btnGoToList").click(function(event){
@@ -63,8 +63,21 @@ function callGetReplies(data){
         var text = '<li class="list-group-item d-flex justify-content-between align-items-center">';
         text += '<div>' + data[i].content + '</div>';
         text += '<div class="d-flex justify-content-center">';
-        text += '<div class="mr-1">'+ data[i].nickname + '</div>';
-        text += '<div>'+ data[i].replyTime + '</div></div></li>';
+        text += '<div class="mr-1"> ['+ data[i].nickname + '] </div>';
+        text += '<div> ['+ data[i].replyTime + '] </div>';
+        text += '<div class="dropdown">';
+        text += '<button class="btn btn-link btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+        text += /*'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical ml-2" viewBox="0 0 16 16" style="color:#868e96">'
+                + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
+
+            + '</svg>'*/
+            + ' '
+            + '</button>'
+            + '<div class="dropdown-menu">'
+            + '<a class="dropdown-item fs-090">답글 달기</a>'
+            + '<a class="dropdown-item fs-090">신고하기</a>'
+            + '</div>'
+    +'</div></div></li>';
 
         $("#reply").append(text);
     }

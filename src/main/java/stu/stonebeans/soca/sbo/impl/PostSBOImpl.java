@@ -53,5 +53,9 @@ public class PostSBOImpl implements PostSBO {
     //답글 쓰기
     @Override
     public void writeReply(HashMap<String,Object> map){ postDAO.writeReply(map);}
+
+    //답글 불러오기
+    @Override
+    public List<ReplyVO> getReplies(int postNum) { return postDAO.getReplies(postNum); }
 }
 

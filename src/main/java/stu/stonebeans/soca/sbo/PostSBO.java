@@ -22,4 +22,7 @@ public interface PostSBO {
 
     //답글 쓰기
     void writeReply(HashMap<String,Object> map);
+
+    //답글 불러오기
+    List<ReplyVO> getReplies(int postNum);
 }
