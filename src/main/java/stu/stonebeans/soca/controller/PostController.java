@@ -42,16 +42,10 @@ public class PostController {
         return postSBO.getPostByNum(postNum);
     }
 
-    // 해당 subjectID의 과목이름을 불러옴
-    @RequestMapping(value = "/getSubjectName", method = RequestMethod.POST)
-    public SubjectVO getSubjectName(@RequestBody HashMap<String, String> map) {
-        return postSBO.getSubjectName(map);
-    }
-
     //답글 쓰기
     @RequestMapping(value = "/writeReply", method = RequestMethod.POST)
     public void writeReply(HttpSession session ,@RequestBody HashMap<String,Object> map){
-        map.put("nickname",(String)session.getAttribute("nickname"));
+        map.put("email",(String)session.getAttribute("email"));
         postSBO.writeReply(map);
     }
 

@@ -40,14 +40,7 @@ function writeReply(){
 }
 function callGetPostByNum(data){
     $("#postNum").append(postNum);
-
-    var param = {
-        code : data.subjectID
-    };
-    callPostService("getSubjectName",param,function(data2){
-        $("#subjectName").append(data2.subjectNO);
-    });
-
+    $("#subjectName").append(data.subjectNo);
     $("#writer").append(data.nickname);
     $("#postTime").append(data.postTime);
     $("#view").append(data.view);

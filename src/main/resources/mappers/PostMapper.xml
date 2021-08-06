@@ -63,7 +63,11 @@
     <select id="getPostByNum"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT * FROM post where postNum=#{postNum}
+        SELECT DISTINCT a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.replyNum, a.subjectID, c.subjectNo
+        FROM post AS a
+        JOIN student AS b ON a.email = b.email
+        JOIN subject AS c ON c.code = a.subjectID
+        where a.postNum=#{postNum}
     </select>
 
     <select id="getSubjectName"
@@ -74,13 +78,15 @@
 
     <select id="writeReply"
             parameterType="HashMap">
-        INSERT INTO reply (postNum,nickname,content,replyTime,accusedYN) VALUES(#{postNum},#{nickname},#{content},NOW(),0);
+        INSERT INTO reply (postNum,email,content,replyTime,accusedYN) VALUES(#{postNum},#{email},#{content},NOW(),0);
         UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
     </select>
 
     <select id="getReplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.ReplyVO">
-        SELECT * FROM reply WHERE postNum=#{postNum}
+        SELECT a.replyNum, a.postNum, b.nickname, a.content, a.replyTime, a.accusedYN
+        FROM reply AS a JOIN student AS b ON a.email = b.email
+        WHERE a.postNum=#{postNum}
     </select>
 </mapper>

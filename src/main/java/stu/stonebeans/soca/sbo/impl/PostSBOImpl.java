@@ -46,10 +46,6 @@ public class PostSBOImpl implements PostSBO {
     @Override
     public PostVO getPostByNum(int postNum){ return postDAO.getPostByNum(postNum);}
 
-    // 해당 subjectID의 과목이름을 불러옴
-    @Override
-    public SubjectVO getSubjectName(HashMap<String, String> map){ return postDAO.getSubjectName(map);}
-
     //답글 쓰기
     @Override
     public void writeReply(HashMap<String,Object> map){ postDAO.writeReply(map);}
