@@ -100,16 +100,27 @@ function showEval(currentPage, data) {
     else
         last = first + dataPerPage
 
+    let today = new Date();
+
     var text = ""
     for(var dataN = first; dataN < last; dataN++) {
         var param = {
             subjectID: data[dataN].subjectID
         }
+        let postTime = new Date(data[dataN].postTime);
+        let dateDiff = Math.ceil((today.getTime() - postTime.getTime())/(1000*3600*24));
         callPostService("getSubjectData", param, function (data2) {
-            text += '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
-                + '<span class="badge badge-primary">'+data[dataN].postNum+'</span>'
-                + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
-
+            if(dateDiff > 1) {
+                text += '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                    + '<span class="badge badge-primary">' + data[dataN].postNum + '</span>'
+                    + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum=' + data[dataN].postNum + '&subjectID=' + data[dataN].subjectID + '">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
+            }
+            else {
+                text += '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                    + '<span class="badge badge-primary">' + data[dataN].postNum + '</span>'
+                    + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum=' + data[dataN].postNum + '&subjectID=' + data[dataN].subjectID + '">' + data2.subjectNO + ' - ' + data2.professor + '</a>'
+                    + '<span class="badge badge-primary">new</span>';
+            }
             if(data[dataN].score1 != 0) {
                 text += '<ion-icon name="add-circle-outline"></ion-icon>';
             }

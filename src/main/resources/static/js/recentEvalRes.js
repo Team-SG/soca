@@ -75,16 +75,26 @@ function getRecentEval(offset, num) {
         offset : offset,
         num : num
     }
+    let today = new Date();
     callPostService("getRecentEval", param, function(data){
         for(var dataN = 0; dataN < data.length ; dataN++) {
             var param = {
                 subjectID: data[dataN].subjectID
             }
+            let postTime = new Date(data[dataN].postTime);
+            let dateDiff = Math.ceil((today.getTime() - postTime.getTime())/(1000*3600*24));
             callPostService("getSubjectData", param, function (data2) {
-                var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
-                    + '<span class="badge badge-primary">'+data[dataN].postNum+'</span>'
-                    + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
-
+                if(dateDiff > 1) {
+                    var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                        + '<span class="badge badge-primary">' + data[dataN].postNum + '</span>'
+                        + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum=' + data[dataN].postNum + '&subjectID=' + data[dataN].subjectID + '">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
+                }
+                else {
+                    var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                        + '<span class="badge badge-primary">'+data[dataN].postNum+'</span>'
+                        + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'">' + data2.subjectNO + ' - ' + data2.professor + '</a>'
+                        + '<span class="badge badge-primary">new</span>';
+                }
 
                 if(data[dataN].score1 != 0) {
                     text += '<ion-icon name="add-circle-outline"></ion-icon>';
