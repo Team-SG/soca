@@ -38,6 +38,13 @@ function writeReply(){
     }
 
 }
+
+function replyClick(id){
+    //swal(id.substring(12)+"");
+    var replyNum=id.substring(12);
+    $("#reply"+replyNum).after("우이");
+}
+
 function callGetPostByNum(data){
     $("#postNum").append(postNum);
     $("#subjectName").append(data.subjectNo);
@@ -53,7 +60,7 @@ function callGetPostByNum(data){
 
 function callGetReplies(data){
     for(var i=0;i<data.length;i++){
-        var text = '<li class="list-group-item d-flex justify-content-between align-items-center">';
+        var text = '<li id="reply' + data[i].replyNum + '" class="list-group-item d-flex justify-content-between align-items-center">';
         text += '<div>' + data[i].content + '</div>';
         text += '<div class="d-flex justify-content-center align-items-center">';
         text += '<div class="mr-1"> ['+ data[i].nickname + '] </div>';
@@ -63,12 +70,14 @@ function callGetReplies(data){
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="color:#868e96">'
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>';
-        text += '<div class="dropdown-menu">'
-                + '<a class="dropdown-item fs-090">답글 달기</a>'
-                + '<a class="dropdown-item fs-090">신고하기</a>'
+        text += '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
+                + '<a id="writeRereply' + data[i].replyNum + '" class="dropdown-item fs-090" onClick="replyClick(this.id)">답글 달기</a>'
+                + '<a id="accuse' + i + '" class="dropdown-item fs-090">신고하기</a>'
                 + '</div>';
         text += '</div></div></li>';
 
         $("#reply").append(text);
     }
+
 }
+
