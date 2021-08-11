@@ -78,14 +78,14 @@
 
     <select id="writeReply"
             parameterType="HashMap">
-        INSERT INTO reply (postNum,email,content,replyTime,accusedYN) VALUES(#{postNum},#{email},#{content},NOW(),0);
+        INSERT INTO reply (postNum,email,content,postTime,accusedYN) VALUES(#{postNum},#{email},#{content},NOW(),0);
         UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
     </select>
 
     <select id="getReplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.ReplyVO">
-        SELECT a.replyNum, a.postNum, b.nickname, a.content, a.replyTime, a.accusedYN
+        SELECT a.replyNum, a.postNum, b.nickname, a.content, a.postTime, a.accusedYN
         FROM reply AS a JOIN student AS b ON a.email = b.email
         WHERE a.postNum=#{postNum}
     </select>

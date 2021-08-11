@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 public class ReplyVO {
     private int replyNum, postNum;
-    private String nickname, content, replyTime;
+    private String nickname, content, postTime;
     private boolean accusedYN;
 
     @Override
@@ -18,7 +18,7 @@ public class ReplyVO {
                 ", postNum=" + postNum +
                 ", nickname='" + nickname + '\'' +
                 ", content='" + content + '\'' +
-                ", replyTime='" + replyTime + '\'' +
+                ", replyTime='" + postTime + '\'' +
                 ", accusedYN=" + accusedYN +
                 '}';
     }
