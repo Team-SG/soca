@@ -5,6 +5,7 @@
  */
 
 const Grid = tui.Grid;
+var GridLists;
 var subjectLists = [];
 var professors = [];
 var thisYearSubjectLists = [];
@@ -26,7 +27,7 @@ $(document).ready(function() {
         label: ""
     }
     $("#selectMajor").change(function(){
-        schedule.clear();
+        GridLists.clear();
         $("#subject").val("");
     })
 
@@ -35,7 +36,7 @@ $(document).ready(function() {
     // 기본 설정이 과목번호 이므로 autocomplete 1
     autoComplete(1);
     $("input[name='searchCondition']").change(function() {
-        schedule.clear();
+        GridLists.clear();
         $("#subject").val("");
         $("#selectMajor").val("전공");
         if($("input[id='courseNum']:checked").prop("checked")) {
@@ -65,7 +66,7 @@ $(document).ready(function() {
 
     $("#subjectLists").hide();
     $("#btnSearch").click(function(){
-        schedule.clear();
+        GridLists.clear();
         showSearchData();
         $("#subjectLists").show(); //slideUp slideDown..
     });
@@ -82,7 +83,7 @@ $(document).ready(function() {
 // 그리드 초기 세팅
 function initGrid() {
     const data = [];
-    schedule = new Grid({
+    GridLists = new Grid({
         el: document.getElementById('grid'),
         data: data,
         // rowHeaders: ['checkbox'],
@@ -146,14 +147,14 @@ function initGrid() {
         ]
     });
 
-    schedule.on('click', (ev) => {
+    GridLists.on('click', (ev) => {
         if(ev.columnName == "subjectNO") {
-            if(schedule.getRow(ev.rowKey).professor != null)
-                goSelected(schedule.getRow(ev.rowKey));
+            if(GridLists.getRow(ev.rowKey).professor != null)
+                goSelected(GridLists.getRow(ev.rowKey));
         }
     })
 
-    schedule.resetData(data);
+    GridLists.resetData(data);
 }
 
 
@@ -286,7 +287,7 @@ function findProfBySubject(param) {
                 })
                 rowData[0]._children.push(child);
             }
-            schedule.resetData(rowData);
+            GridLists.resetData(rowData);
         }
         else {
             var rowData = {
@@ -303,9 +304,9 @@ function findProfBySubject(param) {
                 rowData.qualityAvg = data.qualityAvg/2;
                 rowData.gradeSatisAvg = data.gradeSatisAvg/2;
             })
-            //schedule.appendRow(rowData);
+            //GridLists.appendRow(rowData);
         }
-        schedule.appendRow(rowData);
+        GridLists.appendRow(rowData);
         //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
     })
 }
@@ -333,7 +334,7 @@ function findSubByProf(param) {
             })
             rowData.push(child);
         }
-        schedule.appendRows(rowData);
+        GridLists.appendRows(rowData);
     })
 }
 
