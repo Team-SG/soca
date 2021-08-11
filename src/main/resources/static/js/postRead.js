@@ -11,7 +11,6 @@ $(document).ready(function(){
 
     $("#btnReplyWrite").click(function(event){
         writeReply();
-        location.reload();
     })
 
     $("#btnGoToList").click(function(event){
@@ -36,13 +35,28 @@ function writeReply(){
             location.reload();
         })
     }
-
 }
 
 function replyClick(id){
-    //swal(id.substring(12)+"");
+    $("#writeRereply").remove();
     var replyNum=id.substring(12);
-    $("#reply"+replyNum).after("우이");
+    var text = '<li id="writeRereply" class="list-group-item d-flex justify-content-between align-items-center">'
+                + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right mr-2" viewBox="0 0 16 16">'
+                + '<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>'
+                + '</svg>'
+                + '<textarea id="rereplyContent" class="d-block" style="border:1px solid #dddddd; width:90%; height:40px;resize:none"></textarea>'
+                + '<button type="button" id="btnRereplyWrite" class="btn btn-primary font-weight-normal ml-2">작성</button>'
+                + '</li>';
+    $("#reply"+replyNum).after(text);
+
+    $("#btnRereplyWrite").click(function(){
+        if($("#rereplyContent").val().length==0){
+            swal("내용을 입력해 주세요.");
+        }
+        else{
+            $("#writeRereply").remove();
+        }
+    })
 }
 
 function callGetPostByNum(data){
@@ -64,7 +78,7 @@ function callGetReplies(data){
         text += '<div>' + data[i].content + '</div>';
         text += '<div class="d-flex justify-content-center align-items-center">';
         text += '<div class="mr-1"> ['+ data[i].nickname + '] </div>';
-        text += '<div> ['+ data[i].replyTime + '] </div>';
+        text += '<div> ['+ data[i].postTime + '] </div>';
         text += '<div class="dropdown">';
         text += '<a class="ml-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="color:#868e96">'
