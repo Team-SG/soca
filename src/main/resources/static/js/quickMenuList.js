@@ -9,6 +9,12 @@ $(document).ready(function() {
     getAllMajors();
     getAllSubjects();
     autoComplete(1);
+
+    $("#selectMajor").change(function(){
+        gridData.clear();
+        $("#subject").val("");
+    })
+
     $("input[name='searchCondition']").change(function() {
         gridData.clear();
         $("#subject").val("");
