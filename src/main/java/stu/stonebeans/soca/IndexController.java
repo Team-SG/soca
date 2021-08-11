@@ -86,4 +86,8 @@ public class IndexController {
     // 질문방 질문 게시글 작성
     @RequestMapping(value="/postFill")
     public String questionPostFill() { return "postFill";}
+
+    // 퀵 메뉴 : 즐겨찾기 추가 페이지
+    @RequestMapping(value="/quickMenu")
+    public String quickMenu() { return "quickMenu";}
 }
