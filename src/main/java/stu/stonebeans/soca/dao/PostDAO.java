@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 import stu.stonebeans.soca.vo.ReplyVO;
-
+import stu.stonebeans.soca.vo.RereplyVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,4 +27,10 @@ public interface PostDAO {
 
     //답글 불러오기
     List<ReplyVO> getReplies(int postNum);
+
+    //대댓글 쓰기
+    void writeRereply(HashMap<String,String> map);
+
+    //답글 불러오기
+    List<RereplyVO> getRereplies(int replyNum);
 }

@@ -10,6 +10,8 @@ import stu.stonebeans.soca.sbo.PostSBO;
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 import stu.stonebeans.soca.vo.ReplyVO;
+import stu.stonebeans.soca.vo.RereplyVO;
+
 
 
 import javax.servlet.http.HttpSession;
@@ -52,4 +54,16 @@ public class PostController {
     //답글 불러오기
     @RequestMapping(value = "/getReplies", method = RequestMethod.POST)
     public List<ReplyVO> getReplies(@RequestBody int postNum) { return postSBO.getReplies(postNum); }
+
+
+    //대댓글 쓰기
+    @RequestMapping(value = "/writeRereply", method = RequestMethod.POST)
+    public void writeRereply(HttpSession session ,@RequestBody HashMap<String,String> map){
+        map.put("email",(String)session.getAttribute("email"));
+        postSBO.writeRereply(map);
+    }
+
+    //대댓글 불러오기
+    @RequestMapping(value = "/getRereplies", method = RequestMethod.POST)
+    public List<RereplyVO> getRereplies(@RequestBody int replyNum) { return postSBO.getRereplies(replyNum); }
 }

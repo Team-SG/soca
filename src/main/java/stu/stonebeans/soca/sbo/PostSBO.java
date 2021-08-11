@@ -3,6 +3,7 @@ package stu.stonebeans.soca.sbo;
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 import stu.stonebeans.soca.vo.ReplyVO;
+import stu.stonebeans.soca.vo.RereplyVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,4 +23,10 @@ public interface PostSBO {
 
     //답글 불러오기
     List<ReplyVO> getReplies(int postNum);
+
+    //대댓글 쓰기
+    void writeRereply(HashMap<String,String> map);
+
+    //대댓글 불러오기
+    List<RereplyVO> getRereplies(int replyNum);
 }

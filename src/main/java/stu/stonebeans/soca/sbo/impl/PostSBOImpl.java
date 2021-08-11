@@ -7,6 +7,7 @@ import stu.stonebeans.soca.sbo.PostSBO;
 import stu.stonebeans.soca.vo.PostVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 import stu.stonebeans.soca.vo.ReplyVO;
+import stu.stonebeans.soca.vo.RereplyVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,5 +54,13 @@ public class PostSBOImpl implements PostSBO {
     //답글 불러오기
     @Override
     public List<ReplyVO> getReplies(int postNum) { return postDAO.getReplies(postNum); }
+
+    //대댓글 쓰기
+    @Override
+    public void writeRereply(HashMap<String,String> map){ postDAO.writeRereply(map);}
+
+    //대댓글 불러오기
+    @Override
+    public List<RereplyVO> getRereplies(int replyNum) { return postDAO.getRereplies(replyNum); }
 }
 

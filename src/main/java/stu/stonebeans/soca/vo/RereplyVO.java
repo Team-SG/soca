@@ -6,17 +6,16 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class ReplyVO {
-    private int replyNum, postNum, rereplyCnt;
+public class RereplyVO {
+    private int rereplyNum, replyNum;
     private String nickname, content, postTime;
     private boolean accusedYN;
 
     @Override
     public String toString() {
-        return "ReplyVO{" +
-                "replyNum=" + replyNum +
-                ", postNum=" + postNum +
-                ", rereplyCnt=" + rereplyCnt +
+        return "RereplyVO{" +
+                "rereplyNum=" + rereplyNum +
+                ", replyNum=" + replyNum +
                 ", nickname='" + nickname + '\'' +
                 ", content='" + content + '\'' +
                 ", postTime='" + postTime + '\'' +

@@ -78,15 +78,28 @@
 
     <select id="writeReply"
             parameterType="HashMap">
-        INSERT INTO reply (postNum,email,content,postTime,accusedYN) VALUES(#{postNum},#{email},#{content},NOW(),0);
+        INSERT INTO reply (postNum,email,content,postTime,accusedYN, rereplyCnt) VALUES(#{postNum},#{email},#{content},NOW(),0,0);
         UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
     </select>
 
     <select id="getReplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.ReplyVO">
-        SELECT a.replyNum, a.postNum, b.nickname, a.content, a.postTime, a.accusedYN
+        SELECT a.replyNum, a.postNum, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt
         FROM reply AS a JOIN student AS b ON a.email = b.email
         WHERE a.postNum=#{postNum}
+    </select>
+
+    <select id="writeRereply"
+            parameterType="HashMap">
+        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN) VALUES(#{replyNum},#{email},#{content},NOW(),0)
+    </select>
+
+    <select id="getRereplies"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.ReplyVO">
+        SELECT a.rereplyNum, a.replyNum, b.nickname, a.content, a.postTime, a.accusedYN
+        FROM rereply AS a JOIN student AS b ON a.email = b.email
+        WHERE a.replyNum=#{replyNum}
     </select>
 </mapper>
