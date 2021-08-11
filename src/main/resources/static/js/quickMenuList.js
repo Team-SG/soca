@@ -2,9 +2,9 @@ const Grid = tui.Grid;
 let gridData;
 
 $(document).ready(function() {
+    $("#quick").load("/quickMenu");
     initGrid();
     getAllMajors();
-    callGetAllMajors();
 })
 
 
