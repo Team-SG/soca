@@ -92,7 +92,10 @@
 
     <select id="writeRereply"
             parameterType="HashMap">
-        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN) VALUES(#{replyNum},#{email},#{content},NOW(),0)
+        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN) VALUES(#{replyNum},#{email},#{content},NOW(),0);
+        UPDATE reply SET rereplyCnt=rereplyCnt + 1 where replyNum = #{replyNum};
+        UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
+
     </select>
 
     <select id="getRereplies"

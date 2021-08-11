@@ -57,6 +57,7 @@ function replyClick(id, rereplyCnt){
         }
         else{
             var param={
+                postNum:postNum,
                 replyNum:replyNum,
                 content:$("#rereplyContent").val()
             }
