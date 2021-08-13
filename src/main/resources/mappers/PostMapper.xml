@@ -87,22 +87,22 @@
             resultType="stu.stonebeans.soca.vo.ReplyVO">
         SELECT a.replyNum, a.postNum, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt
         FROM reply AS a JOIN student AS b ON a.email = b.email
-        WHERE a.postNum=#{postNum}
+        WHERE a.postNum = #{postNum}
     </select>
 
     <select id="writeRereply"
             parameterType="HashMap">
         INSERT INTO rereply (replyNum,email,content,postTime,accusedYN) VALUES(#{replyNum},#{email},#{content},NOW(),0);
-        UPDATE reply SET rereplyCnt=rereplyCnt + 1 where replyNum = #{replyNum};
-        UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
+        UPDATE reply SET rereplyCnt = rereplyCnt + 1 WHERE replyNum = #{replyNum};
+        UPDATE post SET replyNum = replyNum + 1 WHERE postNum = #{postNum};
 
     </select>
 
     <select id="getRereplies"
             parameterType="integer"
-            resultType="stu.stonebeans.soca.vo.ReplyVO">
+            resultType="stu.stonebeans.soca.vo.RereplyVO">
         SELECT a.rereplyNum, a.replyNum, b.nickname, a.content, a.postTime, a.accusedYN
         FROM rereply AS a JOIN student AS b ON a.email = b.email
-        WHERE a.replyNum=#{replyNum}
+        WHERE a.replyNum = #{replyNum}
     </select>
 </mapper>
