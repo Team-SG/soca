@@ -63,7 +63,7 @@
     <select id="getPostByNum"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT DISTINCT a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.replyNum, a.subjectID, c.subjectNo
+        SELECT DISTINCT a.postNum, a.title, a.email, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.replyNum, a.subjectID, c.subjectNo
         FROM post AS a
         JOIN student AS b ON a.email = b.email
         JOIN subject AS c ON c.code = a.subjectID
@@ -85,7 +85,7 @@
     <select id="getReplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.ReplyVO">
-        SELECT a.replyNum, a.postNum, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt
+        SELECT a.replyNum, a.postNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt
         FROM reply AS a JOIN student AS b ON a.email = b.email
         WHERE a.postNum = #{postNum}
     </select>
@@ -101,7 +101,7 @@
     <select id="getRereplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.RereplyVO">
-        SELECT a.rereplyNum, a.replyNum, b.nickname, a.content, a.postTime, a.accusedYN
+        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN
         FROM rereply AS a JOIN student AS b ON a.email = b.email
         WHERE a.replyNum = #{replyNum}
     </select>

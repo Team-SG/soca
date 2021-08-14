@@ -6,6 +6,8 @@
 
 var postNum;
 var replyIdx = 0;
+var postWriter;
+var viewer;
 
 $(document).ready(function(){
     initPostRead();
@@ -67,12 +69,35 @@ function replyClick(id, index, offset){
 }
 
 function callGetPostByNum(data){
+    postWriter = data.email;
+
     $("#postNum").append(postNum);
     $("#subjectName").append(data.subjectNo);
     $("#writer").append(data.nickname);
     $("#postTime").append(data.postTime);
     $("#view").append(data.view);
     $("#title").append('<strong>'+data.title+'</strong>');
+
+    callPostService("/getViewerEmail",null,function(data){
+        viewer = data.email;
+    })
+
+    var text = '';
+    if(postWriter == viewer) {
+        if (data.solYN)
+            text += '<button class="btn btn-success mr-1">해결</button>';
+        else
+            text += '<button class="btn btn-warning  mr-1">미해결</button>';
+    }
+    else{
+        if (data.solYN)
+            text += '<button class="btn btn-outline-success  mr-1">해결</button>';
+        else
+            text += '<button class="btn btn-outline-warning mr-1">미해결</button>';
+    }
+    text += ' <button id="btnAccuse" class="btn btn-danger mr-1">신고</button>';
+    $("#postOption").append(text);
+
     $("#content").append(data.content);
     $("#replyNum").append("답글 "+data.replyNum+"개");
 
@@ -82,9 +107,19 @@ function callGetPostByNum(data){
 function callGetReplies(reply){
     for(var i=0;i<reply.length;i++){
         var text = '<li id="' + (++replyIdx) + '" class="list-group-item d-flex justify-content-between align-items-center">';
-        text += '<div>' +replyIdx+' '+ reply[i].content + '</div>';
-        text += '<div class="d-flex justify-content-center align-items-center">';
-        text += '<div class="mr-1"> ['+ reply[i].nickname + '] </div>';
+
+        if(postWriter == reply[i].email){
+            text += '<div style="color:#e74c3c">' +replyIdx+' '+ reply[i].content + '</div>'
+                + '<div class="d-flex justify-content-center align-items-center">'
+                + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
+
+        }
+        else{
+            text += '<div>' +replyIdx+' '+ reply[i].content + '</div>'
+                + '<div class="d-flex justify-content-center align-items-center">'
+                + '<div class="mr-1"> ['+ reply[i].nickname + '] </div>';
+        }
+
         text += '<div> ['+ reply[i].postTime + '] </div>';
         text += '<div class="dropdown">';
         text += '<a class="ml-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -111,11 +146,20 @@ function callGetRereplies(rereply){
                 + '<div class="d-flex justify-content-center align-items-center">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right mr-2" viewBox="0 0 16 16">'
                 + '<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>'
-                + '</svg>'
-                + '<div>' + replyIdx+' '+rereply[i].content + ' '+rereply[i].rereplyNum+ '</div></div>'
+                + '</svg>';
+
+        if(postWriter == rereply[i].email){
+            text += '<div style="color:#e74c3c">' + replyIdx+' '+rereply[i].content + ' '+rereply[i].rereplyNum+ '</div></div>'
                 + '<div class="d-flex justify-content-center align-items-center">'
-                + '<div class="mr-1"> ['+ rereply[i].nickname + '] </div>'
-                + '<div> ['+ rereply[i].postTime + '] </div>'
+                + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
+        }
+        else{
+            text += '<div>' + replyIdx+' '+rereply[i].content + ' '+rereply[i].rereplyNum+ '</div></div>'
+                + '<div class="d-flex justify-content-center align-items-center">'
+                + '<div class="mr-1"> ['+ rereply[i].nickname + '] </div>';
+        }
+
+        text += '<div> ['+ rereply[i].postTime + '] </div>'
                 + '<div class="dropdown">'
                 + '<a class="ml-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="color:#868e96">'

@@ -66,4 +66,12 @@ public class PostController {
     //대댓글 불러오기
     @RequestMapping(value = "/getRereplies", method = RequestMethod.POST)
     public List<RereplyVO> getRereplies(@RequestBody int replyNum) { return postSBO.getRereplies(replyNum); }
+
+    //viewer email 가져오기
+    @RequestMapping(value = "/getViewerEmail", method = RequestMethod.POST)
+    public HashMap<String,String> getViewerEmail(HttpSession session){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("email",(String)session.getAttribute("email"));
+        return map;
+    }
 }
