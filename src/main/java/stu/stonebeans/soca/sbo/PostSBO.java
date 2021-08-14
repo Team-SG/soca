@@ -29,4 +29,7 @@ public interface PostSBO {
 
     //대댓글 불러오기
     List<RereplyVO> getRereplies(int replyNum);
+
+    //해결된 질문으로 변경
+    void updateSolved(int postNum);
 }

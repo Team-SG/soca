@@ -62,5 +62,9 @@ public class PostSBOImpl implements PostSBO {
     //대댓글 불러오기
     @Override
     public List<RereplyVO> getRereplies(int replyNum) { return postDAO.getRereplies(replyNum); }
+
+    //해결된 질문으로 변경
+    @Override
+    public void updateSolved(int postNum){ postDAO.updateSolved(postNum); }
 }
 

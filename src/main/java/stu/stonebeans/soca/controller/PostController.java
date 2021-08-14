@@ -74,4 +74,8 @@ public class PostController {
         map.put("email",(String)session.getAttribute("email"));
         return map;
     }
+
+    //해결된 질문으로 변경
+    @RequestMapping(value = "/updateSolved", method = RequestMethod.POST)
+    public void updateSolved(@RequestBody int postNum){ postSBO.updateSolved(postNum); }
 }

@@ -105,4 +105,9 @@
         FROM rereply AS a JOIN student AS b ON a.email = b.email
         WHERE a.replyNum = #{replyNum}
     </select>
+
+    <select id="updateSolved"
+            parameterType="integer">
+        UPDATE post SET solYN = 1 WHERE postNum = #{postNum}
+    </select>
 </mapper>

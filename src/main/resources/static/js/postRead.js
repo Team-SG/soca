@@ -12,6 +12,11 @@ var viewer;
 $(document).ready(function(){
     initPostRead();
 
+    $("#btnUnsolved").click(function(event){
+        callPostService("/updateSolved",postNum,null);
+        location.reload();
+    })
+
     $("#btnReplyWrite").click(function(event){
         writeReply();
     })
@@ -85,15 +90,15 @@ function callGetPostByNum(data){
     var text = '';
     if(postWriter == viewer) {
         if (data.solYN)
-            text += '<button class="btn btn-success mr-1">해결</button>';
+            text += '<div class="btn btn-success disabled mr-1">해결</div>';
         else
-            text += '<button class="btn btn-warning  mr-1">미해결</button>';
+            text += '<button id="btnUnsolved" class="btn btn-warning mr-1">미해결</button>';
     }
     else{
         if (data.solYN)
-            text += '<button class="btn btn-outline-success  mr-1">해결</button>';
+            text += '<div class="btn btn-outline-success disabled mr-1">해결</div>';
         else
-            text += '<button class="btn btn-outline-warning mr-1">미해결</button>';
+            text += '<div class="btn btn-outline-warning disabled mr-1">미해결</div>';
     }
     text += ' <button id="btnAccuse" class="btn btn-danger mr-1">신고</button>';
     $("#postOption").append(text);
