@@ -3,7 +3,7 @@
     <div class="toast show shadow-none">
         <div class="toast-header">
             <form>
-                <div class="float-left pt-2">
+                <div class="float-left pt-2" id="buttons">
                     <button type="button" id="btnGoBack" class="btn btn-outline-primary font-weight-normal mb-3" style="text-align: center">돌아가기</button>
                 </div>
                 <br><br><br>
@@ -17,9 +17,9 @@
                                 <th>수 강 중</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr><td>알고리즘 설계와 분석</td></tr>
-                            <tr><td>JAVA 언어</td></tr>
+                            <tbody id="thisSemesterTaken">
+                            <!-- <tr><td>알고리즘 설계와 분석</td></tr>
+                            <tr><td>JAVA 언어</td></tr> -->
                             </tbody>
                         </table>
                     </ul>
@@ -32,14 +32,15 @@
                                 <th>즐 겨 찾 기</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr><td>미적분학I</td></tr>
-                            <tr><td>컴퓨팅 사고력</td></tr>
+                            <tbody id="liked">
+                            <!-- <tr><td>미적분학I</td></tr>
+                            <tr><td>컴퓨팅 사고력</td></tr> -->
                             </tbody>
                         </table>
                     </ul>
                 </div>
             </form>
         </div>
+        <script src="js/quickMenu.js" type="text/javascript"></script>
     </div>
 </html>
