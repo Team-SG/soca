@@ -97,9 +97,4 @@ public class ScheduleSBOImpl implements ScheduleSBO {
         if(result.getEvaluateYN().equals("Y")) return true;
         else return false;
     }
-
-    @Override
-    public List<LikedVO> findLiked(String email) {
-        return scheduleDAO.findLiked(email);
-    }
 }

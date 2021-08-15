@@ -80,6 +80,14 @@ function initGrid() {
         ]
     });
 
+    gridData.on('click', (ev) => {
+        if(confirm("즐겨찾기에 추가하시겠습니까?") === true) {
+            if (gridData.getRow(ev.rowKey).subjectNO != null) {
+                insertLiked(gridData.getRow(ev.rowKey).code, gridData.getRow(ev.rowKey).subjectNO);
+            }
+        }
+    })
+
     gridData.resetData(data);
 }
 
@@ -158,4 +166,18 @@ function showSearchData() {
     rowData.forEach(row => {
         gridData.appendRow(row);
     });
+}
+
+function insertLiked(code, subjectNO) {
+    let text = "";
+    text += "<tr>"
+    text += "<td>" + subjectNO + "</td>"
+    text += "<td><input type='button' class='btnDeleteLiked' value='X'></td>"
+    text += "</tr>"
+    $("#liked").append(text);
+    let param = {
+        code: code,
+        subjectNO: subjectNO
+    }
+    callPostService("insertLiked", param, null);
 }

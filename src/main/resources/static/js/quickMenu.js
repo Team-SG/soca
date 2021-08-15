@@ -24,8 +24,15 @@ function getSubjectList() {
 
     callPostService("getSubjectList", param, function(data) {
         let text = "";
-        for(let dataN = 0; dataN < data.length; dataN++) {
-            text += "<tr><td>" + data[dataN].subjectNO +"</td></tr>"
+        if(window.location.href === "http://localhost:8080/quickMenuList") {
+            for (let dataN = 0; dataN < data.length; dataN++) {
+                text += "<tr><td>" + data[dataN].subjectNO + "</td></tr>"
+            }
+        }
+        else {
+            for (let dataN = 0; dataN < data.length; dataN++) {
+                text += "<tr><td>" + data[dataN].subjectNO + "</td></tr>"
+            }
         }
         $("#thisSemesterTaken").append(text);
     })
@@ -34,16 +41,37 @@ function getSubjectList() {
 function getLiked() {
     callPostService("findLiked", null, function(data) {
         let text = "";
-        for(let dataN = 0; dataN < data.length; dataN++) {
-            text += "<tr>"
-            text += "<td>" + data[dataN].subjectNO +"</td>"
-            text += "<td onclick='deleteLiked'>X</td>"
-            text += "</tr>"
+        if(window.location.href === "http://localhost:8080/quickMenuList") {
+            for (let dataN = 0; dataN < data.length; dataN++) {
+                text += "<tr>"
+                text += "<td>" + data[dataN].subjectNO + "</td>"
+                text += "<td><input type='button' class='btnDeleteLiked' value='X'></td>"
+                text += "</tr>"
+            }
+        }
+        else {
+            for (let dataN = 0; dataN < data.length; dataN++) {
+                text += "<tr>"
+                text += "<td>" + data[dataN].subjectNO + "</td>"
+                text += "</tr>"
+            }
         }
         $("#liked").append(text);
     })
-}
 
-function deleteLiked() {
-
+    let btnDeleteLiked = $(".btnDeleteLiked");
+    btnDeleteLiked.css({
+        "background-color": "white",
+        "border": "0px",
+        "color": "#212529"
+    })
+    btnDeleteLiked.click(function(){
+        if(confirm("삭제하시겠습니까?") === true) {
+            let btnDelete = $(this);
+            let tr = btnDelete.parent().parent();
+            let data = tr.children().eq(0).text();
+            callPostService("deleteLiked", data, null);
+            tr.remove();
+        }
+    })
 }
