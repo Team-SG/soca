@@ -24,6 +24,14 @@ $(document).ready(function(){
     $("#btnGoToList").click(function(event){
         history.back();
     })
+
+    $("#reason1, #reason2, #reason3").click(function(event){
+        $("#accuseContent").attr("disabled",true);
+    })
+
+    $("#reason4").click(function(event){
+        $("#accuseContent").attr("disabled",false);
+    })
 })
 
 function initPostRead(){
@@ -133,7 +141,7 @@ function callGetReplies(reply){
                 + '</svg></a>';
         text += '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
                 + '<a id="writeRereply' + reply[i].replyNum + '" class="dropdown-item fs-090" onClick="replyClick(this.id,' + replyIdx+','+reply[i].rereplyCnt + ')">답글 달기</a>'
-                + '<a class="dropdown-item fs-090">신고하기</a>'
+                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse">신고하기</a>'
                 + '</div>';
         text += '</div></div></li>';
 
@@ -171,7 +179,7 @@ function callGetRereplies(rereply){
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>'
                 + '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
-                + '<a class="dropdown-item fs-090">신고하기</a>'
+                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse">신고하기</a>'
                 + '</div>'
                 + '</div></div></li>';
     }

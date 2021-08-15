@@ -50,6 +50,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="accuse" tabindex="-1" role="dialog" aria-labelledby="accuseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accuseModalLabel">신고하기</h5>
+                    <button type="button" id="btnAccuseClose" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="accuseForm" name="accuseForm">
+                    <div class="modal-body w-100 m-auto">
+                        <div id="accuseReason" class="ml-3 mt-2">
+                            <label for="reason1"><input type="radio" class="radioCover" name="accuseReason" id="reason1" value="1">&nbsp;부적적한 내용이 게시글에 포함됨(개인 정보, 홍보 등)</label><br>
+                            <label for="reason2"><input type="radio" class="radioCover" name="accuseReason" id="reason2" value="2">&nbsp;욕설, 비방 등의 내용이 게시글에 포함됨</label><br>
+                            <label for="reason3"><input type="radio" class="radioCover" name="accuseReason" id="reason3" value="3">&nbsp;게시글 내용이 선택된 과목과 불일치함</label><br>
+                            <label for="reason4"><input type="radio" class="radioCover" name="accuseReason" id="reason4" value="4">
+                                &nbsp;기타
+                                <textarea disabled id="accuseContent" class="d-block mt-1 ml-3" style="border:1px solid #dddddd; width:400px; height:60px; resize:none"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" id="btnAccuse" class="btn btn-primary font-weight-normal">신고하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="js/postRead.js" type="text/javascript"></script>
 </div>
 </html>
