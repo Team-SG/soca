@@ -34,7 +34,5 @@ public interface ScheduleDAO {
 
     //해당학생이 해당과목의 강의평가를 완료하였는지 확인
     public ScheduleVO isEvaluated(HashMap<String, String> map);
-
-    public List<LikedVO> findLiked(String email);
 }
 

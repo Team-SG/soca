@@ -59,10 +59,4 @@
             resultType="stu.stonebeans.soca.vo.ScheduleVO">
         SELECT evaluateYN from schedule WHERE email=#{email} AND subjectID=#{subjectID}
     </select>
-
-    <select id="findLiked"
-            parameterType="String"
-            resultType="stu.stonebeans.soca.vo.LikedVO">
-        SELECT * from liked where email = #{email}
-    </select>
 </mapper>

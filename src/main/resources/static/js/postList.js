@@ -2,6 +2,7 @@ let autoData = [];
 let selectItem = [];
 
 $(document).ready(function() {
+    $("#quick").load("/quickMenu");
     let param = getQuery();
 
     if(param.checked === "1")

@@ -117,9 +117,4 @@ public class ScheduleController {
         map.put("email",(String)session.getAttribute("email"));
         return scheduleSBO.isEvaluated(map);
     }
-
-    @RequestMapping(value="/findLiked", method=RequestMethod.POST)
-    public List<LikedVO> findLiked(HttpSession session) {
-        return scheduleSBO.findLiked((String)session.getAttribute("email"));
-    }
 }
