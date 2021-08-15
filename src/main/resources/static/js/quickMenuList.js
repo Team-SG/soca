@@ -179,5 +179,22 @@ function insertLiked(code, subjectNO) {
         code: code,
         subjectNO: subjectNO
     }
+
+    let btnDeleteLiked = $(".btnDeleteLiked");
+    btnDeleteLiked.css({
+        "background-color": "white",
+        "border": "0px",
+        "color": "#212529"
+    })
+    btnDeleteLiked.click(function(){
+        if(confirm("삭제하시겠습니까?") === true) {
+            let btnDelete = $(this);
+            let tr = btnDelete.parent().parent();
+            let data = tr.children().eq(0).text();
+            callPostService("deleteLiked", data, null);
+            tr.remove();
+        }
+    })
+
     callPostService("insertLiked", param, null);
 }
