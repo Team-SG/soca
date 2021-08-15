@@ -123,7 +123,7 @@ function callGetPostByNum(data){
         else
             text += '<div class="btn btn-outline-warning disabled mr-1">미해결</div>';
     }
-    text += ' <button id="btnAccuse" class="btn btn-danger mr-1" data-toggle="modal" data-target="#accuse" data-test="1_'+ postNum +'">신고</button>';
+    text += ' <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#accuse" data-test="1_'+ postNum +'">신고</button>';
     $("#postOption").append(text);
 
     $("#content").append(data.content);
