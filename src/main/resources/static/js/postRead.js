@@ -25,12 +25,27 @@ $(document).ready(function(){
         history.back();
     })
 
+    $("#accuse").on('shown.bs.modal',function(event){
+        var data = $(event.relatedTarget).data("test");
+        var type = data.substring(0,1);
+        var num = data.substring(2);
+        $("#accuseType").val(type);
+        $("#accuseNum").val(num);
+    })
+
     $("#reason1, #reason2, #reason3").click(function(event){
         $("#accuseContent").attr("disabled",true);
     })
 
     $("#reason4").click(function(event){
         $("#accuseContent").attr("disabled",false);
+    })
+
+    $("#btnAccuse").click(function(event){
+        //swal("done");
+        var type = $("#accuseType").val();
+        var num = $("#accuseNum").val();
+        swal(type+" "+num);
     })
 })
 
@@ -108,7 +123,7 @@ function callGetPostByNum(data){
         else
             text += '<div class="btn btn-outline-warning disabled mr-1">미해결</div>';
     }
-    text += ' <button id="btnAccuse" class="btn btn-danger mr-1">신고</button>';
+    text += ' <button id="btnAccuse" class="btn btn-danger mr-1" data-toggle="modal" data-target="#accuse" data-test="1_'+ postNum +'">신고</button>';
     $("#postOption").append(text);
 
     $("#content").append(data.content);
@@ -141,7 +156,7 @@ function callGetReplies(reply){
                 + '</svg></a>';
         text += '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
                 + '<a id="writeRereply' + reply[i].replyNum + '" class="dropdown-item fs-090" onClick="replyClick(this.id,' + replyIdx+','+reply[i].rereplyCnt + ')">답글 달기</a>'
-                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse">신고하기</a>'
+                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="2_'+ reply[i].replyNum +'">신고하기</a>'
                 + '</div>';
         text += '</div></div></li>';
 
@@ -179,7 +194,7 @@ function callGetRereplies(rereply){
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>'
                 + '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
-                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse">신고하기</a>'
+                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_'+ rereply[i].rereplyNum +'">신고하기</a>'
                 + '</div>'
                 + '</div></div></li>';
     }
