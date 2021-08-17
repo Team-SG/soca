@@ -1,7 +1,11 @@
 $(document).ready(function() {
     let href = window.location.href;
     if(href !== "http://localhost:8080/quickMenuList") {
-        let text = '<button type="button" id="btnGoEdit" class="btn btn-outline-primary font-weight-normal mb-3 ml-4" style="text-align: center">수정하기</button>';
+        let text = '<button type="button" id="btnGoEdit" class="btn btn-outline-primary font-weight-normal mb-3" style="text-align: center">수정하기</button>';
+        $("#buttons").append(text);
+    }
+    else {
+        let text = '<button type="button" id="btnGoBack" class="btn btn-outline-primary font-weight-normal mb-3" style="text-align: center">돌아가기</button>'
         $("#buttons").append(text);
     }
     getSubjectList();
@@ -12,6 +16,7 @@ $(document).ready(function() {
     })
 
     $("#btnGoBack").click(function(){
+        window.location = document.referrer;
         history.back();
     })
 })

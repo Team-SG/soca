@@ -4,7 +4,7 @@
     <select id="findLiked"
             parameterType="String"
             resultType="stu.stonebeans.soca.vo.LikedVO">
-        SELECT * from liked where email = #{email} order by subjectNO
+        SELECT * from liked where email = #{email}
     </select>
 
     <select id="deleteLiked"
@@ -15,5 +15,11 @@
     <select id="insertLiked"
             parameterType="HashMap">
         insert into liked values (#{email}, #{code}, #{subjectNO})
+    </select>
+
+    <select id="duplicateLiked"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.LikedVO">
+        SELECT * from liked where email = #{email} and subjectNo = #{subjectNO}
     </select>
 </mapper>

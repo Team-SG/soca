@@ -10,4 +10,6 @@ public interface LikedSBO {
     void deleteLiked(HashMap<String, String> map);
 
     void insertLiked(HashMap<String, String> map);
+
+    boolean duplicateLiked(HashMap<String, String> map);
 }

@@ -82,9 +82,17 @@ function initGrid() {
 
     gridData.on('click', (ev) => {
         if(confirm("즐겨찾기에 추가하시겠습니까?") === true) {
-            if (gridData.getRow(ev.rowKey).subjectNO != null) {
-                insertLiked(gridData.getRow(ev.rowKey).code, gridData.getRow(ev.rowKey).subjectNO);
-            }
+            callPostService('duplicateLiked', gridData.getRow(ev.rowKey).subjectNO, function(data) {
+                if(data === false) {
+                    alert("이미 추가된 데이터입니다.");
+                }
+                else {
+                    if (gridData.getRow(ev.rowKey).subjectNO != null) {
+                        insertLiked(gridData.getRow(ev.rowKey).code, gridData.getRow(ev.rowKey).subjectNO);
+                    }
+                }
+            })
+
         }
     })
 

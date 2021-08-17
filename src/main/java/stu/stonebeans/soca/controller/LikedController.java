@@ -45,4 +45,12 @@ public class LikedController {
         map.put("email",(String)session.getAttribute("email"));
         likedSBO.insertLiked(map);
     }
+
+    @RequestMapping(value="/duplicateLiked", method=RequestMethod.POST)
+    public boolean duplicateLiked(HttpSession session, @RequestBody String data) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("email",(String)session.getAttribute("email"));
+        map.put("subjectNO", data.substring(1, data.length() - 1));
+        return likedSBO.duplicateLiked(map);
+    }
 }

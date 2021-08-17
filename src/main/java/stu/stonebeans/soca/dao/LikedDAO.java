@@ -15,4 +15,6 @@ public interface LikedDAO {
     public void deleteLiked(HashMap<String, String> map);
 
     public void insertLiked(HashMap<String, String> map);
+
+    public LikedVO duplicateLiked(HashMap<String, String> map);
 }

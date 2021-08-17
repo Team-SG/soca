@@ -32,4 +32,10 @@ public class LikedSBOImpl implements LikedSBO{
 
     @Override
     public void insertLiked(HashMap<String, String> map) { likedDAO.insertLiked(map); }
+
+    @Override
+    public boolean duplicateLiked(HashMap<String, String> map) {
+        LikedVO likedVO = likedDAO.duplicateLiked(map);
+        return likedVO == null;
+    }
 }
