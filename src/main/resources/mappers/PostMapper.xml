@@ -119,13 +119,13 @@
 
     <select id="accuseReply"
             parameterType="HashMap">
-        UPDATE reply SET accusedYN = 1 where postNum = #{postNum};
+        UPDATE reply SET accusedYN = 1 where replyNum = #{postNum};
         INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
     </select>
 
     <select id="accuseRereply"
             parameterType="HashMap">
-        UPDATE rereply SET accusedYN = 1 where postNum = #{postNum};
+        UPDATE rereply SET accusedYN = 1 where rereplyNum = #{postNum};
         INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
     </select>
 </mapper>

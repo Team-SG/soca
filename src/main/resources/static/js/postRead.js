@@ -125,7 +125,10 @@ function callGetPostByNum(data){
     $("#postOption").append(text);
 
     if(data.accusedYN){
-        $("#content").append("게시글이 신고 되어 일시적으로 표시할 수 없습니다.");
+        $("#content").append("게시글이 신고 되어 일시적으로 표시할 수 없습니다." + "<br><br><br>");
+        $("#mainReply").remove();
+        $("#mainReplyWrite").remove();
+        $("hr").remove();
         return;
     }
 
@@ -139,29 +142,35 @@ function callGetReplies(reply){
     for(var i=0;i<reply.length;i++){
         var text = '<li id="' + (++replyIdx) + '" class="list-group-item d-flex justify-content-between align-items-center">';
 
-        if(postWriter == reply[i].email){
-            text += '<div style="color:#e74c3c">' +replyIdx+' '+ reply[i].content + '</div>'
-                + '<div class="d-flex justify-content-center align-items-center">'
-                + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
-
+        if(reply[i].accusedYN){
+            text += '<div>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</div>'
+                    + '</li>';
         }
         else{
-            text += '<div>' +replyIdx+' '+ reply[i].content + '</div>'
-                + '<div class="d-flex justify-content-center align-items-center">'
-                + '<div class="mr-1"> ['+ reply[i].nickname + '] </div>';
-        }
+            if(postWriter == reply[i].email){
+                text += '<div style="color:#e74c3c">' +replyIdx+' '+ reply[i].content + '</div>'
+                    + '<div class="d-flex justify-content-center align-items-center">'
+                    + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
+            }
+            else{
+                text += '<div>' +replyIdx+' '+ reply[i].content + '</div>'
+                    + '<div class="d-flex justify-content-center align-items-center">'
+                    + '<div class="mr-1"> ['+ reply[i].nickname + '] </div>';
+            }
 
-        text += '<div> ['+ reply[i].postTime + '] </div>';
-        text += '<div class="dropdown">';
-        text += '<a class="ml-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+            text += '<div> ['+ reply[i].postTime + '] </div>';
+            text += '<div class="dropdown">';
+            text += '<a class="ml-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="color:#868e96">'
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>';
-        text += '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
+            text += '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
                 + '<a id="writeRereply' + reply[i].replyNum + '" class="dropdown-item fs-090" onClick="replyClick(this.id,' + replyIdx+','+reply[i].rereplyCnt + ')">답글 달기</a>'
                 + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="2_'+ reply[i].replyNum +'">신고하기</a>'
                 + '</div>';
-        text += '</div></div></li>';
+            text += '</div></div></li>';
+        }
+
 
         $("#reply").append(text);
 
@@ -179,27 +188,32 @@ function callGetRereplies(rereply){
                 + '<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>'
                 + '</svg>';
 
-        if(postWriter == rereply[i].email){
-            text += '<div style="color:#e74c3c">' + replyIdx+' '+rereply[i].content + ' '+rereply[i].rereplyNum+ '</div></div>'
-                + '<div class="d-flex justify-content-center align-items-center">'
-                + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
+        if(rereply[i].accusedYN){
+            text += '<div>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</div>'
+                + '</div></li>';
         }
-        else{
-            text += '<div>' + replyIdx+' '+rereply[i].content + ' '+rereply[i].rereplyNum+ '</div></div>'
-                + '<div class="d-flex justify-content-center align-items-center">'
-                + '<div class="mr-1"> ['+ rereply[i].nickname + '] </div>';
-        }
+        else {
+            if (postWriter == rereply[i].email) {
+                text += '<div style="color:#e74c3c">' + replyIdx + ' ' + rereply[i].content + ' ' + rereply[i].rereplyNum + '</div></div>'
+                    + '<div class="d-flex justify-content-center align-items-center">'
+                    + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
+            } else {
+                text += '<div>' + replyIdx + ' ' + rereply[i].content + ' ' + rereply[i].rereplyNum + '</div></div>'
+                    + '<div class="d-flex justify-content-center align-items-center">'
+                    + '<div class="mr-1"> [' + rereply[i].nickname + '] </div>';
+            }
 
-        text += '<div> ['+ rereply[i].postTime + '] </div>'
+            text += '<div> [' + rereply[i].postTime + '] </div>'
                 + '<div class="dropdown">'
                 + '<a class="ml-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="color:#868e96">'
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>'
                 + '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
-                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_'+ rereply[i].rereplyNum +'">신고하기</a>'
+                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_' + rereply[i].rereplyNum + '">신고하기</a>'
                 + '</div>'
                 + '</div></div></li>';
+        }
     }
     $("#"+start).after(text);
 }

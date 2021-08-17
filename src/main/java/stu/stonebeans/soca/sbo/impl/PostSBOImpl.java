@@ -71,9 +71,9 @@ public class PostSBOImpl implements PostSBO {
     @Override
     public void accuse(HashMap<String,String> map){
         String type = map.get("type");
-        if(type=="1") postDAO.accusePost(map);
-        else if(type=="2") postDAO.accuseReply(map);
-        else if(type=="3") postDAO.accuseRereply(map);
+        if(type.equals("1")) postDAO.accusePost(map);
+        else if(type.equals("2")) postDAO.accuseReply(map);
+        else if(type.equals("3")) postDAO.accuseRereply(map);
     };
 }
 
