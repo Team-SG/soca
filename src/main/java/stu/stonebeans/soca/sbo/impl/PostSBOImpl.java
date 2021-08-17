@@ -66,5 +66,14 @@ public class PostSBOImpl implements PostSBO {
     //해결된 질문으로 변경
     @Override
     public void updateSolved(int postNum){ postDAO.updateSolved(postNum); }
+
+    //신고하기
+    @Override
+    public void accuse(HashMap<String,String> map){
+        String type = map.get("type");
+        if(type=="1") postDAO.accusePost(map);
+        else if(type=="2") postDAO.accuseReply(map);
+        else if(type=="3") postDAO.accuseRereply(map);
+    };
 }
 

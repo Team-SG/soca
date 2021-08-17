@@ -36,4 +36,13 @@ public interface PostDAO {
 
     //해결된 질문으로 변경
     void updateSolved(int postNum);
+
+    // post 신고하기
+    void accusePost(HashMap<String,String> map);
+
+    // reply 신고하기
+    void accuseReply(HashMap<String,String> map);
+
+    // rereply 신고하기
+    void accuseRereply(HashMap<String,String> map);
 }

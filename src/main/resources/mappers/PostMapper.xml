@@ -4,7 +4,7 @@
 
     <select id="getAllPosts"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.view, a.subjectID, c.subjectNo FROM post as a
         join student as b on a.email = b.email
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0
@@ -13,7 +13,7 @@
 
     <select id="getUnsolvedPosts"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.view, a.subjectID, c.subjectNo FROM post as a
         join student as b on a.email = b.email
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0 and a.solYN = 0
@@ -23,7 +23,7 @@
     <select id="getSelectedBySubject"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.view, a.subjectID, c.subjectNo FROM post as a
         join student as b on a.email = b.email
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0 and c.subjectNo = #{searchKey}
@@ -33,7 +33,7 @@
     <select id="getSelectedByTitle"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.view, a.subjectID, c.subjectNo FROM post as a
         join student as b on a.email = b.email
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0 and a.title like #{searchKey}
@@ -43,7 +43,7 @@
     <select id="getUnsolvedBySubject"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.view, a.subjectID, c.subjectNo FROM post as a
         join student as b on a.email = b.email
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0 and a.solYN = 0 and c.subjectNo = #{searchKey}
@@ -53,7 +53,7 @@
     <select id="getUnsolvedByTitle"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.subjectID, c.subjectNo FROM post as a
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.view, a.subjectID, c.subjectNo FROM post as a
         join student as b on a.email = b.email
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0 and a.solYN = 0 and a.title like #{searchKey}
@@ -63,7 +63,7 @@
     <select id="getPostByNum"
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.PostVO">
-        SELECT DISTINCT a.postNum, a.title, a.email, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.view, a.replyNum, a.subjectID, c.subjectNo
+        SELECT DISTINCT a.postNum, a.title, a.email, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.view, a.replyNum, a.subjectID, c.subjectNo
         FROM post AS a
         JOIN student AS b ON a.email = b.email
         JOIN subject AS c ON c.code = a.subjectID
@@ -109,5 +109,23 @@
     <select id="updateSolved"
             parameterType="integer">
         UPDATE post SET solYN = 1 WHERE postNum = #{postNum}
+    </select>
+
+    <select id="accusePost"
+            parameterType="HashMap">
+        UPDATE post SET accusedYN = 1 where postNum = #{postNum};
+        INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
+    </select>
+
+    <select id="accuseReply"
+            parameterType="HashMap">
+        UPDATE reply SET accusedYN = 1 where postNum = #{postNum};
+        INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
+    </select>
+
+    <select id="accuseRereply"
+            parameterType="HashMap">
+        UPDATE rereply SET accusedYN = 1 where postNum = #{postNum};
+        INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
     </select>
 </mapper>

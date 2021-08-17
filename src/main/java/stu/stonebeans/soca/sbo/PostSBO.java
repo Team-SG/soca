@@ -32,4 +32,7 @@ public interface PostSBO {
 
     //해결된 질문으로 변경
     void updateSolved(int postNum);
+
+    //신고하기
+    void accuse(HashMap<String,String> map);
 }

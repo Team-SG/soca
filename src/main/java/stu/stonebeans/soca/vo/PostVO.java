@@ -9,7 +9,7 @@ import lombok.*;
 public class PostVO {
     private int postNum;
     private String title, email, nickname, content, postTime;
-    private boolean solYN, delYN;
+    private boolean solYN, delYN, accusedYN;
     private int view, replyNum;
     private String subjectID, subjectNo;
 
@@ -24,6 +24,7 @@ public class PostVO {
                 ", postTime='" + postTime + '\'' +
                 ", solYN=" + solYN +
                 ", delYN=" + delYN +
+                ", accuseYN=" + accusedYN +
                 ", view=" + view +
                 ", replyNum=" + replyNum +
                 ", subjectID='" + subjectID + '\'' +

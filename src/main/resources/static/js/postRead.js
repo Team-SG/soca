@@ -25,12 +25,13 @@ $(document).ready(function(){
         history.back();
     })
 
-    $("#accuse").on('shown.bs.modal',function(event){
+    $("#accuse").on('show.bs.modal',function(event){
         var data = $(event.relatedTarget).data("test");
         var type = data.substring(0,1);
         var num = data.substring(2);
         $("#accuseType").val(type);
         $("#accuseNum").val(num);
+        $('input[name="accuseReason"]:radio[value="1"]').prop("checked",true);
     })
 
     $("#reason1, #reason2, #reason3").click(function(event){
@@ -42,10 +43,7 @@ $(document).ready(function(){
     })
 
     $("#btnAccuse").click(function(event){
-        //swal("done");
-        var type = $("#accuseType").val();
-        var num = $("#accuseNum").val();
-        swal(type+" "+num);
+       accuse();
     })
 })
 
@@ -126,6 +124,11 @@ function callGetPostByNum(data){
     text += ' <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#accuse" data-test="1_'+ postNum +'">신고</button>';
     $("#postOption").append(text);
 
+    if(data.accusedYN){
+        $("#content").append("게시글이 신고 되어 일시적으로 표시할 수 없습니다.");
+        return;
+    }
+
     $("#content").append(data.content);
     $("#replyNum").append("답글 "+data.replyNum+"개");
 
@@ -199,4 +202,27 @@ function callGetRereplies(rereply){
                 + '</div></div></li>';
     }
     $("#"+start).after(text);
+}
+
+function accuse(){
+    var type = $("#accuseType").val();
+    var num = $("#accuseNum").val();
+    var reason = $('input[name="accuseReason"]:checked').val();
+    var text = "";
+    if(reason=="4") {
+        text = $("#accuseContent").val();
+        if(text.length==0){
+            swal("신고 내용을 입력해주세요.");
+            return;
+        }
+    }
+    else text = $('label[for="reason'+ reason +'"]').text();
+    var param = {
+        type : type,
+        postNum : num,
+        content : text
+    }
+
+    callPostService("accuse",param,null);
+    location.reload();
 }

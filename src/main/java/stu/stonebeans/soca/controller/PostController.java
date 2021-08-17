@@ -78,4 +78,8 @@ public class PostController {
     //해결된 질문으로 변경
     @RequestMapping(value = "/updateSolved", method = RequestMethod.POST)
     public void updateSolved(@RequestBody int postNum){ postSBO.updateSolved(postNum); }
+
+    //신고하기
+    @RequestMapping(value = "/accuse", method = RequestMethod.POST)
+    public void accuse(@RequestBody HashMap<String,String> map){ postSBO.accuse(map); }
 }
