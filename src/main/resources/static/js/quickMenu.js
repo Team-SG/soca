@@ -19,6 +19,14 @@ $(document).ready(function() {
         window.location = document.referrer;
         history.back();
     })
+
+    $(".findSelectedPost").click(function(){
+        let td = $(this).parent()
+        let data = td.children().eq(0).text();
+        if(href.indexOf("postList") !== -1) {
+            location.href = "postList?page=1&checked=0&type=subject&search=" + data;
+        }
+    })
 })
 
 function getSubjectList() {
@@ -32,6 +40,11 @@ function getSubjectList() {
         if(window.location.href === "http://localhost:8080/quickMenuList") {
             for (let dataN = 0; dataN < data.length; dataN++) {
                 text += "<tr><td>" + data[dataN].subjectNO + "</td></tr>"
+            }
+        }
+        else if(window.location.href.indexOf("postList") !== -1){
+            for (let dataN = 0; dataN < data.length; dataN++) {
+                text += "<tr><td class='findSelectedPost'>" + data[dataN].subjectNO + "</td></tr>"
             }
         }
         else {
@@ -51,6 +64,13 @@ function getLiked() {
                 text += "<tr>"
                 text += "<td>" + data[dataN].subjectNO + "</td>"
                 text += "<td><input type='button' class='btnDeleteLiked' value='X'></td>"
+                text += "</tr>"
+            }
+        }
+        else if(window.location.href.indexOf("postList") !== -1){
+            for (let dataN = 0; dataN < data.length; dataN++) {
+                text += "<tr>"
+                text += "<td class='findSelectedPost'>" + data[dataN].subjectNO + "</td>"
                 text += "</tr>"
             }
         }
