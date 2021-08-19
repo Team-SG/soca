@@ -12,7 +12,7 @@ var viewer;
 $(document).ready(function(){
     initPostRead();
 
-    $("#btnUnsolved").click(function(event){
+    $("#btnToSolved").click(function(event){
         callPostService("/updateSolved",postNum,null);
         location.reload();
     })
@@ -112,8 +112,11 @@ function callGetPostByNum(data){
     if(postWriter == viewer) {
         if (data.solYN)
             text += '<div class="btn btn-success disabled mr-1">해결</div>';
-        else
-            text += '<button id="btnUnsolved" class="btn btn-warning mr-1">미해결</button>';
+        else{
+            text += '<button class="btn btn-warning mr-1" data-toggle="modal" data-target="#toSolved" data-test="1_'+ postNum +'">미해결</button>';
+            text += '<button class="btn btn-danger mr-1">수정</button>';
+            text += '<button class="btn btn-danger mr-1">삭제</button>';
+        }
     }
     else{
         if (data.solYN)
@@ -125,7 +128,10 @@ function callGetPostByNum(data){
     $("#postOption").append(text);
 
     if(data.accusedYN){
-        $("#content").append("게시글이 신고 되어 일시적으로 표시할 수 없습니다." + "<br><br><br>");
+        $("#headInfo").remove();
+        $(".toast-header").remove();
+        $("#content").addClass("text-center");
+        $("#content").append("<br><br>" + "<h5><strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong></h5>" + "<br><br><br>");
         $("#mainReply").remove();
         $("#mainReplyWrite").remove();
         $("hr").remove();
@@ -143,7 +149,7 @@ function callGetReplies(reply){
         var text = '<li id="' + (++replyIdx) + '" class="list-group-item d-flex justify-content-between align-items-center">';
 
         if(reply[i].accusedYN){
-            text += '<div>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</div>'
+            text += '<strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong>'
                     + '</li>';
         }
         else{
@@ -189,7 +195,7 @@ function callGetRereplies(rereply){
                 + '</svg>';
 
         if(rereply[i].accusedYN){
-            text += '<div>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</div>'
+            text += '<strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong>'
                 + '</div></li>';
         }
         else {

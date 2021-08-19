@@ -6,7 +6,7 @@
 </head>
 <div layout:fragment="content">
     <div class="toast show shadow-none mt-3">
-        <div class="d-flex justify-content-between ml-2 mr-2" style="color:#000000">
+        <div id="headInfo" class="d-flex justify-content-between ml-2 mr-2" style="color:#000000">
             <div>
                 <small id="postNum"> [질문 번호] </small>
                 <small id="subjectName"> [과목] </small>
@@ -22,7 +22,7 @@
             <!-- 작성자라면 해결 or 해결되지 않음 버튼
                  아니라면 누를 수 없게 -->
             <div id="postOption">
-               <!-- 해결/미해결 신고 버튼 -->
+                <!-- 해결/미해결 신고 버튼 -->
             </div>
         </div>
         <div class="toast-body mt-1 mb-1" id="content">
@@ -50,6 +50,7 @@
         </div>
     </div>
 
+    <!-- 신고하기 modal -->
     <div class="modal fade" id="accuse" tabindex="-1" role="dialog" aria-labelledby="accuseModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -78,6 +79,28 @@
                         <button type="button" id="btnAccuse" class="btn btn-primary font-weight-normal">신고하기</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 미해결 -> 해결 modal -->
+    <div class="modal fade" id="toSolved" tabindex="-1" role="dialog" aria-labelledby="accuseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">해결 완료</h5>
+                    <button type="button" id="btnToSolvedModalClose" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body w-100 m-auto text-center">
+                           <br> 해결 완료를 선택시 게시글을 삭제, 수정 할 수 없습니다. <br><br>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center align-items-center">
+                        <button type="button" id="btnToSolved" class="btn btn-primary font-weight-normal">확인</button>
+                        <button type="button" id="btnCancelToSolved" class="btn btn-danger font-weight-normal">취소</button>
+                    </div>
+
             </div>
         </div>
     </div>
