@@ -13,8 +13,26 @@ $(document).ready(function(){
     initPostRead();
 
     $("#btnToSolved").click(function(event){
-        callPostService("/updateSolved",postNum,null);
-        location.reload();
+        swal({
+            text: "해결된 질문은 다시 미해결 상태로 만들 수 없습니다.",
+            buttons: ["취소", "확인"]
+        })
+        /*Swal.fire({
+            icon: "warning",
+            text : "\n\n해결된 질문은 다시 미해결 상태로 만들 수 없습니다.\n",
+            showCancelButton: true,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#2c3e50",
+            cancelButtonText: "취소",
+            cancelButtonColor: "#e74c3c"
+        }).then((result) => {
+            if(result.isConfirmed){
+                Swal.fire("알겠습니다");
+            }
+        });*/
+
+        //callPostService("/updateSolved",postNum,null);
+        //location.reload();
     })
 
     $("#btnReplyWrite").click(function(event){
@@ -113,7 +131,7 @@ function callGetPostByNum(data){
         if (data.solYN)
             text += '<div class="btn btn-success disabled mr-1">해결</div>';
         else{
-            text += '<button class="btn btn-warning mr-1" data-toggle="modal" data-target="#toSolved" data-test="1_'+ postNum +'">미해결</button>';
+            text += '<button id="btnToSolved" class="btn btn-warning mr-1">미해결</button>';
             text += '<button class="btn btn-danger mr-1">수정</button>';
             text += '<button class="btn btn-danger mr-1">삭제</button>';
         }
@@ -123,8 +141,9 @@ function callGetPostByNum(data){
             text += '<div class="btn btn-outline-success disabled mr-1">해결</div>';
         else
             text += '<div class="btn btn-outline-warning disabled mr-1">미해결</div>';
+
+        text += ' <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#accuse" data-test="1_'+ postNum +'">신고</button>';
     }
-    text += ' <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#accuse" data-test="1_'+ postNum +'">신고</button>';
     $("#postOption").append(text);
 
     if(data.accusedYN){
@@ -171,9 +190,12 @@ function callGetReplies(reply){
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>';
             text += '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
-                + '<a id="writeRereply' + reply[i].replyNum + '" class="dropdown-item fs-090" onClick="replyClick(this.id,' + replyIdx+','+reply[i].rereplyCnt + ')">답글 달기</a>'
-                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="2_'+ reply[i].replyNum +'">신고하기</a>'
-                + '</div>';
+                + '<a id="writeRereply' + reply[i].replyNum + '" class="dropdown-item fs-090" onClick="replyClick(this.id,' + replyIdx+','+reply[i].rereplyCnt + ')">답글 달기</a>';
+            if(postWriter == reply[i].email)
+                text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="2_'+ reply[i].replyNum +'">삭제하기</a>';
+            else
+                text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="2_'+ reply[i].replyNum +'">신고하기</a>';
+            text += '</div>';
             text += '</div></div></li>';
         }
 
@@ -215,9 +237,12 @@ function callGetRereplies(rereply){
                 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="color:#868e96">'
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>'
-                + '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
-                + '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_' + rereply[i].rereplyNum + '">신고하기</a>'
-                + '</div>'
+                + '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">';
+            if(postWriter == rereply[i].email)
+                text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_' + rereply[i].rereplyNum + '">삭제하기</a>';
+            else
+                text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_' + rereply[i].rereplyNum + '">신고하기</a>';
+            text += '</div>'
                 + '</div></div></li>';
         }
     }
