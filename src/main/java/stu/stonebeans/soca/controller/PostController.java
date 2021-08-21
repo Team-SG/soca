@@ -91,7 +91,7 @@ public class PostController {
     @RequestMapping(value = "/writePost", method = RequestMethod.POST)
     public Integer writePost(HttpSession session, @RequestBody HashMap<String,String> map){
         map.put("email", (String)session.getAttribute("email"));
-        String text = (map.get("content")).replace("\r\n","<br>");
+        String text = (map.get("content")).replace("\n","<br>");
         map.put("content",text);
         return postSBO.writePost(map);
     }

@@ -38,7 +38,7 @@ $(document).ready(function(){
                     content: $("#postContent").val()
                 }
                 callPostService("/revisePost",param,null);
-                location.href = "/postRead?postNum="+postNum;
+                history.back();
             }
 
         }
@@ -48,6 +48,6 @@ $(document).ready(function(){
 function initPostFill(){
     callPostService("getPostByNum", postNum, function(data){
         $("#postTitle").append(data.title);
-        $("#postContent").append(data.content);
+        $("#postContent").append(data.content.replaceAll("<br>","\n"));
     })
 }
