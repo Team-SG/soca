@@ -54,4 +54,7 @@ public interface PostDAO {
 
     // rereply 삭제하기
     void deleteRereply(HashMap<String,String> map);
+
+    //게시물 작성하기
+    void writePost(HashMap<String,String> map);
 }

@@ -1,7 +1,7 @@
 /*
     2021.08.04
     최초 작성자 : KDB
-    평가방 - 질문방 게스글 읽기
+    평가방 - 질문방 게시글 읽기
  */
 
 var postNum;
@@ -111,7 +111,7 @@ function callGetPostByNum(data){
     $("#subjectName").append(data.subjectNo);
     $("#writer").append(data.nickname);
     $("#postTime").append(data.postTime);
-    $("#view").append(data.view);
+    $("#view").append(data.viewCnt);
     $("#title").append('<strong>'+data.title+'</strong>');
 
     callPostService("/getViewerEmail",null,function(data){
@@ -124,9 +124,9 @@ function callGetPostByNum(data){
             text += '<div class="btn btn-success disabled mr-1">해결</div>';
         else{
             text += '<button id="btnToSolved" class="btn btn-warning mr-1">미해결</button>';
-            if(data.replyNum==0) {
-                text += '<button class="btn btn-danger mr-1">수정</button>';
-                text += '<button class="btn btn-danger mr-1">삭제</button>';
+            if(data.replyNum == 0) {
+                text += '<button class="btn btn-primary mr-1">수정</button>';
+                text += '<button class="btn btn-primary mr-1" onClick="deletePost(1,'+ postNum +')">삭제</button>';
             }
         }
     }
@@ -140,11 +140,14 @@ function callGetPostByNum(data){
     }
     $("#postOption").append(text);
 
-    if(data.accusedYN){
+    if(data.accusedYN || data.delYN){
         $("#headInfo").remove();
         $(".toast-header").remove();
         $("#content").addClass("text-center");
-        $("#content").append("<br><br>" + "<h5><strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong></h5>" + "<br><br><br>");
+        if(data.accusedYN)
+            $("#content").append("<br><br>" + "<h5><strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong></h5>" + "<br><br><br>");
+        else if(data.delYN)
+            $("#content").append("<br><br>" + "<h5><strong>게시글이 삭제 되었습니다.</strong></h5>" + "<br><br><br>");
         $("#mainReply").remove();
         $("#mainReplyWrite").remove();
         $("hr").remove();

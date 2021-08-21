@@ -86,4 +86,11 @@ public class PostController {
     //삭제하기
     @RequestMapping(value = "/deletePost", method = RequestMethod.POST)
     public void deletePost(@RequestBody HashMap<String,String> map){ postSBO.deletePost(map); }
+
+    //게시물 작성하기
+    @RequestMapping(value = "/writePost", method = RequestMethod.POST)
+    public void writePost(HttpSession session, @RequestBody HashMap<String,String> map){
+        map.put("email", (String)session.getAttribute("email"));
+        postSBO.writePost(map);
+    }
 }

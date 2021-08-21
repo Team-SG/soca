@@ -10,7 +10,7 @@ public class PostVO {
     private int postNum;
     private String title, email, nickname, content, postTime;
     private boolean solYN, delYN, accusedYN;
-    private int view, replyNum;
+    private int viewCnt, replyNum;
     private String subjectID, subjectNo;
 
     @Override
@@ -25,7 +25,7 @@ public class PostVO {
                 ", solYN=" + solYN +
                 ", delYN=" + delYN +
                 ", accuseYN=" + accusedYN +
-                ", view=" + view +
+                ", viewCnt=" + viewCnt +
                 ", replyNum=" + replyNum +
                 ", subjectID='" + subjectID + '\'' +
                 ", subjectNo='" + subjectNo + '\'' +

@@ -14,7 +14,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     // 세션 체크
     public List includePath = Arrays.asList("/myPage", "/schedule", "/evaluateList", "/myEvaluate", "/evaluateComplete", "/recentEvalRes", "/evaluateSelected",
-            "/postList", "/postFill");
+            "/postList", "/postRead");
 
     // 세션 체크 제외 화면
     public List excludePath = Arrays.asList("/css/**", "/js/**", "/images/**", "/", "/index");
