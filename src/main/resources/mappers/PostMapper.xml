@@ -78,21 +78,21 @@
 
     <select id="writeReply"
             parameterType="HashMap">
-        INSERT INTO reply (postNum,email,content,postTime,accusedYN, rereplyCnt) VALUES(#{postNum},#{email},#{content},NOW(),0,0);
+        INSERT INTO reply (postNum,email,content,postTime,accusedYN, rereplyCnt, delYN) VALUES(#{postNum},#{email},#{content},NOW(),0,0,0);
         UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
     </select>
 
     <select id="getReplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.ReplyVO">
-        SELECT a.replyNum, a.postNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt
+        SELECT a.replyNum, a.postNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt, a.delYN
         FROM reply AS a JOIN student AS b ON a.email = b.email
         WHERE a.postNum = #{postNum}
     </select>
 
     <select id="writeRereply"
             parameterType="HashMap">
-        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN) VALUES(#{replyNum},#{email},#{content},NOW(),0);
+        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN, delYN) VALUES(#{replyNum},#{email},#{content},NOW(),0,0);
         UPDATE reply SET rereplyCnt = rereplyCnt + 1 WHERE replyNum = #{replyNum};
         UPDATE post SET replyNum = replyNum + 1 WHERE postNum = #{postNum};
 
@@ -101,7 +101,7 @@
     <select id="getRereplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.RereplyVO">
-        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN
+        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.delYN
         FROM rereply AS a JOIN student AS b ON a.email = b.email
         WHERE a.replyNum = #{replyNum}
     </select>
@@ -113,19 +113,34 @@
 
     <select id="accusePost"
             parameterType="HashMap">
-        UPDATE post SET accusedYN = 1 where postNum = #{postNum};
+        UPDATE post SET accusedYN = 1 WHERE postNum = #{postNum};
         INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
     </select>
 
     <select id="accuseReply"
             parameterType="HashMap">
-        UPDATE reply SET accusedYN = 1 where replyNum = #{postNum};
+        UPDATE reply SET accusedYN = 1 WHERE replyNum = #{postNum};
         INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
     </select>
 
     <select id="accuseRereply"
             parameterType="HashMap">
-        UPDATE rereply SET accusedYN = 1 where rereplyNum = #{postNum};
+        UPDATE rereply SET accusedYN = 1 WHERE rereplyNum = #{postNum};
         INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
+    </select>
+
+    <select id="deletePost"
+            parameterType="HashMap">
+        UPDATE post SET delYN = 1 WHERE postNum = #{postNum}
+    </select>
+
+    <select id="deleteReply"
+            parameterType="HashMap">
+        UPDATE reply SET delYN = 1 WHERE replyNum = #{postNum}
+    </select>
+
+    <select id="deleteRereply"
+            parameterType="HashMap">
+        UPDATE rereply SET delYN = 1 WHERE rereplyNum = #{postNum}
     </select>
 </mapper>

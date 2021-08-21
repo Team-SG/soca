@@ -82,4 +82,8 @@ public class PostController {
     //신고하기
     @RequestMapping(value = "/accuse", method = RequestMethod.POST)
     public void accuse(@RequestBody HashMap<String,String> map){ postSBO.accuse(map); }
+
+    //삭제하기
+    @RequestMapping(value = "/deletePost", method = RequestMethod.POST)
+    public void deletePost(@RequestBody HashMap<String,String> map){ postSBO.deletePost(map); }
 }

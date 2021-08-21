@@ -45,4 +45,13 @@ public interface PostDAO {
 
     // rereply 신고하기
     void accuseRereply(HashMap<String,String> map);
+
+    // post 삭제하기
+    void deletePost(HashMap<String,String> map);
+
+    // reply 삭제하기
+    void deleteReply(HashMap<String,String> map);
+
+    // rereply 삭제하기
+    void deleteRereply(HashMap<String,String> map);
 }

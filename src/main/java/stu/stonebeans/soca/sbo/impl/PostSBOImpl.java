@@ -75,5 +75,14 @@ public class PostSBOImpl implements PostSBO {
         else if(type.equals("2")) postDAO.accuseReply(map);
         else if(type.equals("3")) postDAO.accuseRereply(map);
     };
+
+    //삭제하기
+    @Override
+    public void deletePost(HashMap<String,String> map){
+        String type = map.get("type");
+        if(type.equals("1")) postDAO.deletePost(map);
+        else if(type.equals("2")) postDAO.deleteReply(map);
+        else if(type.equals("3")) postDAO.deleteRereply(map);
+    }
 }
 

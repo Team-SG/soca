@@ -35,4 +35,7 @@ public interface PostSBO {
 
     //신고하기
     void accuse(HashMap<String,String> map);
+
+    //삭제하기
+    void deletePost(HashMap<String,String> map);
 }

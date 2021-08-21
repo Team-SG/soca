@@ -15,24 +15,16 @@ $(document).ready(function(){
     $("#btnToSolved").click(function(event){
         swal({
             text: "해결된 질문은 다시 미해결 상태로 만들 수 없습니다.",
-            buttons: ["취소", "확인"]
-        })
-        /*Swal.fire({
-            icon: "warning",
-            text : "\n\n해결된 질문은 다시 미해결 상태로 만들 수 없습니다.\n",
-            showCancelButton: true,
-            confirmButtonText: "확인",
-            confirmButtonColor: "#2c3e50",
-            cancelButtonText: "취소",
-            cancelButtonColor: "#e74c3c"
-        }).then((result) => {
-            if(result.isConfirmed){
-                Swal.fire("알겠습니다");
+            buttons: {
+                cancel : "취소",
+                confirm : "확인"
             }
-        });*/
-
-        //callPostService("/updateSolved",postNum,null);
-        //location.reload();
+        }).then(function(result){
+            if(result) {
+                callPostService("/updateSolved",postNum,null);
+                location.reload();
+            }
+        })
     })
 
     $("#btnReplyWrite").click(function(event){
@@ -132,8 +124,10 @@ function callGetPostByNum(data){
             text += '<div class="btn btn-success disabled mr-1">해결</div>';
         else{
             text += '<button id="btnToSolved" class="btn btn-warning mr-1">미해결</button>';
-            text += '<button class="btn btn-danger mr-1">수정</button>';
-            text += '<button class="btn btn-danger mr-1">삭제</button>';
+            if(data.replyNum==0) {
+                text += '<button class="btn btn-danger mr-1">수정</button>';
+                text += '<button class="btn btn-danger mr-1">삭제</button>';
+            }
         }
     }
     else{
@@ -171,14 +165,18 @@ function callGetReplies(reply){
             text += '<strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong>'
                     + '</li>';
         }
+        else if(reply[i].delYN){
+            text += '<strong>게시글이 삭제 되었습니다.</strong>'
+                + '</div></li>';
+        }
         else{
             if(postWriter == reply[i].email){
-                text += '<div style="color:#e74c3c">' +replyIdx+' '+ reply[i].content + '</div>'
+                text += '<div style="color:#e74c3c">' + reply[i].content + '</div>'
                     + '<div class="d-flex justify-content-center align-items-center">'
                     + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
             }
             else{
-                text += '<div>' +replyIdx+' '+ reply[i].content + '</div>'
+                text += '<div>'+ reply[i].content + '</div>'
                     + '<div class="d-flex justify-content-center align-items-center">'
                     + '<div class="mr-1"> ['+ reply[i].nickname + '] </div>';
             }
@@ -191,8 +189,8 @@ function callGetReplies(reply){
                 + '</svg></a>';
             text += '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">'
                 + '<a id="writeRereply' + reply[i].replyNum + '" class="dropdown-item fs-090" onClick="replyClick(this.id,' + replyIdx+','+reply[i].rereplyCnt + ')">답글 달기</a>';
-            if(postWriter == reply[i].email)
-                text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="2_'+ reply[i].replyNum +'">삭제하기</a>';
+            if(viewer == reply[i].email)
+                text += '<a class="dropdown-item fs-090" onClick="deletePost(2,'+ reply[i].replyNum +')">삭제하기</a>';
             else
                 text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="2_'+ reply[i].replyNum +'">신고하기</a>';
             text += '</div>';
@@ -220,13 +218,17 @@ function callGetRereplies(rereply){
             text += '<strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong>'
                 + '</div></li>';
         }
+        else if(rereply[i].delYN){
+            text += '<strong>게시글이 삭제 되었습니다.</strong>'
+                + '</div></li>';
+        }
         else {
             if (postWriter == rereply[i].email) {
-                text += '<div style="color:#e74c3c">' + replyIdx + ' ' + rereply[i].content + ' ' + rereply[i].rereplyNum + '</div></div>'
+                text += '<div style="color:#e74c3c">' + rereply[i].content + '</div></div>'
                     + '<div class="d-flex justify-content-center align-items-center">'
                     + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
             } else {
-                text += '<div>' + replyIdx + ' ' + rereply[i].content + ' ' + rereply[i].rereplyNum + '</div></div>'
+                text += '<div>' + rereply[i].content + '</div></div>'
                     + '<div class="d-flex justify-content-center align-items-center">'
                     + '<div class="mr-1"> [' + rereply[i].nickname + '] </div>';
             }
@@ -238,8 +240,8 @@ function callGetRereplies(rereply){
                 + '<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>'
                 + '</svg></a>'
                 + '<div class="dropdown-menu" style="text-align: center; min-width: 5rem;">';
-            if(postWriter == rereply[i].email)
-                text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_' + rereply[i].rereplyNum + '">삭제하기</a>';
+            if(viewer == rereply[i].email)
+                text += '<a class="dropdown-item fs-090" onClick="deletePost(3,'+ rereply[i].rereplyNum +')">삭제하기</a>';
             else
                 text += '<a class="dropdown-item fs-090" data-toggle="modal" data-target="#accuse" data-test="3_' + rereply[i].rereplyNum + '">신고하기</a>';
             text += '</div>'
@@ -270,4 +272,21 @@ function accuse(){
 
     callPostService("accuse",param,null);
     location.reload();
+}
+
+function deletePost(type, postNum){
+    swal({
+        text: "삭제하면 복원할 수 없습니다.",
+        buttons: ["취소","확인"]
+    }).then(function(result){
+        if(result){
+            var param = {
+                type : type,
+                postNum : postNum
+            }
+            callPostService("/deletePost", param, null);
+            location.reload();
+        }
+    })
+
 }

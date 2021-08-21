@@ -9,7 +9,7 @@ import lombok.*;
 public class ReplyVO {
     private int replyNum, postNum, rereplyCnt;
     private String email, nickname, content, postTime;
-    private boolean accusedYN;
+    private boolean accusedYN, delYN;
 
     @Override
     public String toString() {
@@ -22,6 +22,7 @@ public class ReplyVO {
                 ", content='" + content + '\'' +
                 ", postTime='" + postTime + '\'' +
                 ", accusedYN=" + accusedYN +
+                ", delYN=" + delYN +
                 '}';
     }
 }
