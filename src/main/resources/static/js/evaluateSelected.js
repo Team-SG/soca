@@ -42,7 +42,7 @@ function selectedFunction(param) {
 
 function paging(currentPage, data, param) {
     let dataLength = data.length;
-    let dataPerPage = 1; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
+    let dataPerPage = 3; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
     let pageCount = 5; // 페이지 번호 5개
     let totalPage = Math.ceil(dataLength / dataPerPage);
     //let pageGroup = Math.ceil(currentPage / pageCount);
@@ -92,7 +92,7 @@ function paging(currentPage, data, param) {
 }
 
 function showEval(currentPage, data) {
-    let dataPerPage = 1;
+    let dataPerPage = 3;
     let first = (currentPage - 1) * dataPerPage;
     let last;
     if(currentPage == Math.floor(data.length / dataPerPage) + 1)

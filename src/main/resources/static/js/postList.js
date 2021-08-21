@@ -37,11 +37,14 @@ $(document).ready(function() {
         });
     }
     else {
+
         if(param.type === "subject")
             param.searchKey = param.search;
         else
             param.searchKey = "%" + param.search + "%";
         callPostService("getSelectedPosts", param, function (data) {
+            let text = param.search + "의 검색 결과입니다.(" + data.length + "개)";
+            $(".searchResult").text(text)
             if (data.length !== 0) {
                 paging(parseInt(param.page), data, param);
                 showPosts(param.page, data);
@@ -84,7 +87,7 @@ $(document).ready(function() {
 
 function paging(currentPage, data, param) {
     let dataLength = data.length;
-    let dataPerPage = 1; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
+    let dataPerPage = 2; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
     let pageCount = 5; // 페이지 번호 5개
     let totalPage = Math.ceil(dataLength / dataPerPage);
     //let pageGroup = Math.ceil(currentPage / pageCount);
@@ -134,7 +137,7 @@ function paging(currentPage, data, param) {
 }
 
 function showPosts(currentPage, data) {
-    let dataPerPage = 1;
+    let dataPerPage = 2;
     let first = (currentPage - 1) * dataPerPage;
     let last;
     if(currentPage == Math.floor(data.length / dataPerPage) + 1)
@@ -145,12 +148,23 @@ function showPosts(currentPage, data) {
     let text = ""
 
     for(var dataN = first; dataN < last; dataN++) {
-        text += "<tr onclick=\"location.href='postRead?postNum=" + data[dataN].postNum + "'\">"
-        text += "<td>" + data[dataN].postNum + "</td>";
-        text += "<td>" + data[dataN].subjectNo + "</td>";
-        text += "<td>" + data[dataN].title + "</td>";
-        text += "<td>" + data[dataN].nickname + "</td>";
-        text += "<td>" + data[dataN].postTime + "</td>";
+        if(data[dataN].accusedYN === false) {
+            text += "<tr onclick=\"location.href='postRead?postNum=" + data[dataN].postNum + "'\">";
+            text += "<td>" + data[dataN].postNum + "</td>";
+            text += "<td>" + data[dataN].subjectNo + "</td>";
+            text += "<td>" + data[dataN].title + "</td>";
+            text += "<td>" + data[dataN].nickname + "</td>";
+            text += "<td>" + data[dataN].postTime + "</td>";
+        }
+        else {
+            text += "<tr class='accusedY'>";
+            text += "<td>" + data[dataN].postNum + "</td>";
+            text += "<td>" + data[dataN].subjectNo + "</td>";
+            text += "<td>신고 접수된 게시글입니다.</td>";
+            text += "<td>???</td>";
+            text += "<td>" + data[dataN].postTime + "</td>"
+        }
+
         if(data[dataN].solYN == true)
             text += "<td>O</td>";
         else
@@ -159,6 +173,7 @@ function showPosts(currentPage, data) {
     }
     $("#postData").empty();
     $("#postData").append(text);
+    $(".accusedY").css("color", "#d3d3d3");
 }
 
 function autoCompletePost() {
