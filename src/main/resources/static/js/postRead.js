@@ -125,7 +125,7 @@ function callGetPostByNum(data){
         else{
             text += '<button id="btnToSolved" class="btn btn-warning mr-1">미해결</button>';
             if(data.replyNum == 0) {
-                text += '<button class="btn btn-primary mr-1">수정</button>';
+                text += '<button class="btn btn-primary mr-1" onClick="location.href=\'/postFill?postNum='+postNum+'\'">수정</button>';
                 text += '<button class="btn btn-primary mr-1" onClick="deletePost(1,'+ postNum +')">삭제</button>';
             }
         }

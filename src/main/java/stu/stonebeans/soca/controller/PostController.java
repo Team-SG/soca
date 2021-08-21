@@ -89,8 +89,17 @@ public class PostController {
 
     //게시물 작성하기
     @RequestMapping(value = "/writePost", method = RequestMethod.POST)
-    public void writePost(HttpSession session, @RequestBody HashMap<String,String> map){
+    public Integer writePost(HttpSession session, @RequestBody HashMap<String,String> map){
         map.put("email", (String)session.getAttribute("email"));
-        postSBO.writePost(map);
+        String text = (map.get("content")).replace("\r\n","<br>");
+        map.put("content",text);
+        return postSBO.writePost(map);
     }
+
+    //게시물 수정하기
+    @RequestMapping(value = "/revisePost", method = RequestMethod.POST)
+    public void revisePost( @RequestBody HashMap<String,String> map){
+        String text = (map.get("content")).replace("\n","<br>");
+        map.put("content",text);
+        postSBO.revisePost(map); }
 }

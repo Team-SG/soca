@@ -87,6 +87,10 @@ public class PostSBOImpl implements PostSBO {
 
     //게시물 작성하기
     @Override
-    public void writePost(HashMap<String,String> map){ postDAO.writePost(map); }
+    public Integer writePost(HashMap<String,String> map){ return postDAO.writePost(map); }
+
+    //게시물 수정하기
+    @Override
+    public void revisePost(HashMap<String,String> map){ postDAO.revisePost(map); }
 }
 

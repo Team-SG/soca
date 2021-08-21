@@ -145,8 +145,16 @@
     </select>
 
     <select id="writePost"
-            parameterType="HashMap">
+            parameterType="HashMap"
+            resultType="Integer">
         INSERT INTO post(title, email, content, postTime, solYN, delYN, viewCnt, replyNum, subjectID, accusedYN)
-        VALUES (#{title}, #{email}, #{content}, NOW(), 0, 0, 0, 0, #{code}, 0)
+        VALUES (#{title}, #{email}, #{content}, NOW(), 0, 0, 0, 0, #{code}, 0);
+        SELECT MAX(postNum) FROM post;
+    </select>
+
+    <select id="revisePost"
+            parameterType="HashMap">
+        UPDATE post SET title = #{title}, content = #{content}
+        WHERE postNum = #{postNum}
     </select>
 </mapper>

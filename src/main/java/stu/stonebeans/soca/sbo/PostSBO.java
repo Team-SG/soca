@@ -40,5 +40,8 @@ public interface PostSBO {
     void deletePost(HashMap<String,String> map);
 
     //게시물 작성하기
-    void writePost(HashMap<String,String> map);
+    Integer writePost(HashMap<String,String> map);
+
+    //게시물 수정하기
+    void revisePost(HashMap<String,String> map);
 }
