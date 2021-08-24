@@ -27,7 +27,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/evaluate" role="button" aria-haspopup="true" aria-expanded="false">평가방</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item fs-090" href="/evaluateList">평가 목록</a>
+                        <a class="dropdown-item fs-090" onclick="function goEvaluateList() {
+                            location.href = 'evaluateList';
+                            location.name = 'reload';
+                        }
+                        goEvaluateList()">평가 목록</a>
                         <a class="dropdown-item fs-090" href="/myEvaluate">나의 강의평가</a>
                     </div>
                 </li>
