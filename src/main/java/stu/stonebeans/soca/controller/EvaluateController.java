@@ -146,4 +146,12 @@ public class EvaluateController {
     public Integer getRecentEvalCnt() {
         return evaluateSBO.getRecentEvalCnt();
     }
+
+    // 인기 강의 가져오기
+    @RequestMapping(value = "/getFavoriteSub", method = RequestMethod.POST)
+    public List<SubjectVO> getFavoriteSub() { return evaluateSBO.getFavoriteSub(); }
+
+    // 인기 교수 가져오기
+    @RequestMapping(value = "/getFavoriteProf", method = RequestMethod.POST)
+    public List<String> getFavoriteProf() { return evaluateSBO.getFavoriteProf(); }
 }

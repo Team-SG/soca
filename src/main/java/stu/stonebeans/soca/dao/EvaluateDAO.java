@@ -75,9 +75,15 @@ public interface EvaluateDAO {
     // 선택된 과목의 강의 평가 가져오기
     List<EvaluateVO> findSelected(HashMap<String, Object> map);
     List<EvaluateVO> findSelected2(HashMap<String, Object> map);
+    List<EvaluateVO> findSelected3(HashMap<String, Object> map);
+    List<EvaluateVO> findSelected4(HashMap<String, Object> map);
 
     //강의 평가 전체 개수 가져오기
     Integer getRecentEvalCnt();
+
+    // 인기 강의/교수 가져오기
+    List<SubjectVO> getFavoriteSub();
+    List<String> getFavoriteProf();
 
 
 }

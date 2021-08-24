@@ -60,4 +60,6 @@ public interface PostDAO {
 
     //게시물 수정하기
     void revisePost(HashMap<String,String> map);
+
+    List<PostVO> getMainPost();
 }

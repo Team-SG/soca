@@ -157,4 +157,12 @@
         UPDATE post SET title = #{title}, content = #{content}
         WHERE postNum = #{postNum}
     </select>
+
+    <select id="getMainPost"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, a.viewCnt, c.subjectNo, a.replyNum FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 order by postNum desc limit 5
+    </select>
 </mapper>

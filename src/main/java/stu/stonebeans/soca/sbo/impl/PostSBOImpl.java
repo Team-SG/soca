@@ -92,5 +92,9 @@ public class PostSBOImpl implements PostSBO {
     //게시물 수정하기
     @Override
     public void revisePost(HashMap<String,String> map){ postDAO.revisePost(map); }
+
+    // 메인 post 가져오기
+    @Override
+    public List<PostVO> getMainPost() { return postDAO.getMainPost(); }
 }
 

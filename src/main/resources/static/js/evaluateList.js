@@ -281,9 +281,9 @@ function findProfBySubject(param) {
                     gradeSatisAvg: "0"
                 }
                 callPostService("getEvaluateData", child, function(data){
-                    child.evaluationAvg = data.evaluationAvg;
-                    child.qualityAvg = data.qualityAvg;
-                    child.gradeSatisAvg = data.gradeSatisAvg;
+                    child.evaluationAvg = data.evaluationAvg/2;
+                    child.qualityAvg = data.qualityAvg/2;
+                    child.gradeSatisAvg = data.gradeSatisAvg/2;
                 })
                 rowData[0]._children.push(child);
             }

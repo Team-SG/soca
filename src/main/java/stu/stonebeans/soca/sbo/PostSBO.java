@@ -44,4 +44,7 @@ public interface PostSBO {
 
     //게시물 수정하기
     void revisePost(HashMap<String,String> map);
+
+    // 메인 Post 가져오기
+    List<PostVO> getMainPost();
 }

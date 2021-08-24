@@ -101,5 +101,12 @@ public class PostController {
     public void revisePost( @RequestBody HashMap<String,String> map){
         String text = (map.get("content")).replace("\n","<br>");
         map.put("content",text);
-        postSBO.revisePost(map); }
+        postSBO.revisePost(map);
+    }
+
+    // 메인 Post 가져오기
+    @RequestMapping(value = "getMainPost", method = RequestMethod.POST)
+    public List<PostVO> getMainPost(){
+        return postSBO.getMainPost();
+    }
 }

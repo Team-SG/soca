@@ -56,4 +56,8 @@ public interface EvaluateSBO {
 
     //강의 평가 전체 개수 가져오기
     Integer getRecentEvalCnt();
+
+    // 인기 강의&교수 가져오기
+    List<SubjectVO> getFavoriteSub();
+    List<String> getFavoriteProf();
 }
