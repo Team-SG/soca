@@ -47,4 +47,7 @@ public interface PostSBO {
 
     // 메인 Post 가져오기
     List<PostVO> getMainPost();
+
+    // 과목이름으로 code 가져오기
+    SubjectVO getSubjectCode(HashMap<String,String> map);
 }

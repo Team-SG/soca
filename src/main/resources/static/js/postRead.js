@@ -32,10 +32,10 @@ $(document).ready(function(){
     })
 
     $("#btnGoToList").click(function(event){
-        //var referrer = document.referrer;
-        //if(referrer.indexOf("postFill") < 0)
+        var referrer = document.referrer;
+        if(referrer.indexOf("postFill") < 0)
              history.back();
-        //else location.href = "/postList?page=1&checked=0&type=subject&search=";
+        else location.href = "/postList?page=1&checked=0&type=subject&search=";
     })
 
     $("#accuse").on('show.bs.modal',function(event){

@@ -5,6 +5,8 @@
  */
 var postNum;
 var type = 0;
+var autoData = [];
+var code;
 
 $(document).ready(function(){
     var info = getQuery2();
@@ -14,15 +16,22 @@ $(document).ready(function(){
         initPostFill();
     }
 
+    callPostService("getAllSubjects", 1, function(data){
+        autoData = data;
+    })
+
+    autoCompletePost();
+
     $("#btnPostWrite").click(function(event){
         if($("#postTitle").val().length==0)
             swal("게시글의 제목을 입력해주세요.");
         else if($("#postContent").val().length==0)
             swal("게시글의 내용을 입력해주세요.");
         else{
-            if(type == 0){
+
+           if(type == 0){
                 var param = {
-                    code: "CSE3040",
+                    code: code,
                     title: $("#postTitle").val(),
                     content: $("#postContent").val()
                 }
@@ -38,16 +47,47 @@ $(document).ready(function(){
                     content: $("#postContent").val()
                 }
                 callPostService("/revisePost",param,null);
-                history.back();
+                //location.href = "/postRead?postNum="+postNum;
+               history.back();
             }
-
         }
     })
 })
 
 function initPostFill(){
     callPostService("getPostByNum", postNum, function(data){
-        $("#postTitle").append(data.title);
-        $("#postContent").append(data.content.replaceAll("<br>","\n"));
+        $("#subject").val(data.subjectNo);
+        $("#postTitle").val(data.title);
+        $("#postContent").val(data.content.replaceAll("<br>","\n"));
+    })
+}
+
+function autoCompletePost() {
+    $("#subject").autocomplete({
+        disabled: false,
+        source : function(request, response) {
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.map(autoData, function(item) {
+                var testVal = item.subjectNO
+                if (matcher.test(testVal)) {
+                    var result = {
+                        label: item.subjectNO,
+                        value: item.subjectNO,
+                        code: item.code,
+                        major: item.major,
+                        professor: item.professor,
+                        subjectNO: item.subjectNO,
+                        num: 1
+                    }
+                    return result;
+                }
+            }));
+        },
+        select : function(event, ui) {
+            event.preventDefault();
+            $("#subject").val(ui.item.label);
+            code = ui.item.code;
+            selectItem = ui.item;
+        }
     })
 }

@@ -165,4 +165,10 @@
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0 order by postNum desc limit 5
     </select>
+
+    <select id="getSubjectCode"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT DISTINCT code FROM subject WHERE subjectNo = #{subjectNo}
+    </select>
 </mapper>

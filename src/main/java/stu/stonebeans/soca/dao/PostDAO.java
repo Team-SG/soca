@@ -58,6 +58,9 @@ public interface PostDAO {
     //게시물 작성하기
     Integer writePost(HashMap<String,String> map);
 
+    // 과목이름으로 code 가져오기
+    SubjectVO getSubjectCode(HashMap<String,String> map);
+
     //게시물 수정하기
     void revisePost(HashMap<String,String> map);
 

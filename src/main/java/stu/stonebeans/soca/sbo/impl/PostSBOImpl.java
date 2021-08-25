@@ -96,5 +96,9 @@ public class PostSBOImpl implements PostSBO {
     // 메인 post 가져오기
     @Override
     public List<PostVO> getMainPost() { return postDAO.getMainPost(); }
+
+    // 과목이름으로 code 가져오기
+    @Override
+    public SubjectVO getSubjectCode(HashMap<String,String> map) { return postDAO.getSubjectCode(map); }
 }
 
