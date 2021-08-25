@@ -39,7 +39,7 @@ $(document).ready(function(){
                     code: selectItem.code,
                     title: $("#postTitle").val(),
                     content: $("#postContent").val()
-                }
+                };
                 callPostService("/writePost",param,function(data){
                     location.href = "/postRead?postNum="+data;
                 });
@@ -50,7 +50,7 @@ $(document).ready(function(){
                     postNum: postNum,
                     title: $("#postTitle").val(),
                     content: $("#postContent").val()
-                }
+                };
                 callPostService("/revisePost",param,null);
                 //location.href = "/postRead?postNum="+postNum;
                history.back();
