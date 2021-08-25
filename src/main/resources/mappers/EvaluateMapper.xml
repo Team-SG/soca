@@ -164,7 +164,7 @@
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
         SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
-        WHERE B.professor=#{professor} ORDER BY A.evaluation desc, A.postNum desc
+        WHERE B.professor=#{professor} ORDER BY A.postNum desc
     </select>
 
     <select id="findSelected4"
@@ -183,13 +183,13 @@
             resultType="stu.stonebeans.soca.vo.SubjectVO">
         select substring(e.subjectID, 6, 7) as code, b.professor, b.subjectNo from evaluate e
         join subject b on b.subjectID = e.subjectID
-        group by substring(e.subjectID, 6, 7), b.professor, b.subjectNo order by AVG(e.evaluation) desc limit 5
+        group by substring(e.subjectID, 6, 7), b.professor, b.subjectNo order by AVG(e.evaluation) desc
     </select>
 
     <select id="getFavoriteProf"
             resultType="string">
         select b.professor from evaluate e
         join subject b on b.subjectID = e.subjectID
-        group by b.professor order by AVG(e.evaluation) desc limit 5
+        group by b.professor order by AVG(e.evaluation) desc
     </select>
 </mapper>

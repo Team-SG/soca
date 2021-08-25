@@ -39,8 +39,8 @@ function getNewEvaluateResult() {
 
 function getFavorite() {
     callPostService('getFavoriteSub', null, function(data){
-        sessionStorage.setItem("state", "1");
-        for(let dataN=0; dataN<data.length; dataN++) {
+        sessionStorage.setItem("state", 1);
+        for(let dataN=0; dataN<5; dataN++) {
             let goSelectedEval = 'evaluateSelected?code=' + data[dataN].code + '&professor=' + data[dataN].professor +'&page=1';
             let text = '<a href=' + goSelectedEval +  ' class="p-1" style="color:#000000; display: block">'
                 + '<span class="badge badge-warning fs-090 mr-1">' + (dataN + 1) +'</span>'
@@ -52,7 +52,7 @@ function getFavorite() {
     })
 
     callPostService('getFavoriteProf', null, function(data){
-        for(let dataN=0; dataN<data.length; dataN++) {
+        for(let dataN=0; dataN<5; dataN++) {
             let goSelectedEval = 'evaluateSelected?code=' + '&professor=' + data[dataN] +'&page=1';
             let text = '<a href=' + goSelectedEval + ' class="p-1" style="color:#000000; display: block">'
                 + '<span class="badge badge-success fs-090 mr-1">' + (dataN + 1) + '</span>'
