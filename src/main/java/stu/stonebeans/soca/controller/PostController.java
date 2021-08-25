@@ -110,7 +110,4 @@ public class PostController {
         return postSBO.getMainPost();
     }
 
-    // 과목이름으로 code가져오기
-    @RequestMapping(value="getSubjectCode",method = RequestMethod.POST)
-    public SubjectVO getSubjectCode(HashMap<String,String> map){ return postSBO.getSubjectCode(map); }
 }

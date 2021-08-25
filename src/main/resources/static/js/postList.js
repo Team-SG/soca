@@ -99,7 +99,7 @@ $(document).ready(function() {
 
 function paging(currentPage, data, param) {
     let dataLength = data.length;
-    let dataPerPage = 2; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
+    let dataPerPage = 5; // 한 페이지 10개 가정; 현재 페이지 확인 위해 1개로 설정해놓음.
     let pageCount = 5; // 페이지 번호 5개
     let totalPage = Math.ceil(dataLength / dataPerPage);
     //let pageGroup = Math.ceil(currentPage / pageCount);
@@ -149,7 +149,7 @@ function paging(currentPage, data, param) {
 }
 
 function showPosts(currentPage, data) {
-    let dataPerPage = 2;
+    let dataPerPage = 5;
     let first = (currentPage - 1) * dataPerPage;
     let last;
     if(currentPage == Math.floor(data.length / dataPerPage) + 1)

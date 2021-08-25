@@ -6,7 +6,10 @@
 var postNum;
 var type = 0;
 var autoData = [];
-var code;
+var selectItem = {
+    label: "",
+    code: "",
+};
 
 $(document).ready(function(){
     var info = getQuery2();
@@ -23,15 +26,17 @@ $(document).ready(function(){
     autoCompletePost();
 
     $("#btnPostWrite").click(function(event){
-        if($("#postTitle").val().length==0)
+        if(selectItem.label === "")
+            swal("과목 검색 후 선택해주세요.");
+        else if($("#postTitle").val().length === 0)
             swal("게시글의 제목을 입력해주세요.");
-        else if($("#postContent").val().length==0)
+        else if($("#postContent").val().length === 0)
             swal("게시글의 내용을 입력해주세요.");
         else{
 
-           if(type == 0){
+           if(type === 0){
                 var param = {
-                    code: code,
+                    code: selectItem.code,
                     title: $("#postTitle").val(),
                     content: $("#postContent").val()
                 }
@@ -40,7 +45,7 @@ $(document).ready(function(){
                 });
 
             }
-            else if(type == 1){
+            else if(type === 1){
                 var param = {
                     postNum: postNum,
                     title: $("#postTitle").val(),
@@ -86,7 +91,6 @@ function autoCompletePost() {
         select : function(event, ui) {
             event.preventDefault();
             $("#subject").val(ui.item.label);
-            code = ui.item.code;
             selectItem = ui.item;
         }
     })
