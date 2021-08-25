@@ -29,6 +29,9 @@ $(document).ready(function() {
     $("#selectMajor").change(function(){
         GridLists.clear();
         $("#subject").val("");
+        selectItem = {
+            label: ""
+        }
     })
 
     getRecentEval();
@@ -39,6 +42,9 @@ $(document).ready(function() {
         GridLists.clear();
         $("#subject").val("");
         $("#selectMajor").val("전공");
+        selectItem = {
+            label: ""
+        }
         if($("input[id='courseNum']:checked").prop("checked")) {
             //$("#majortext").show();
             $("#major").show();
@@ -225,6 +231,8 @@ function showSearchData() {
     //$("#subjectLists").append(selectItem.label);
     $("#hideSubjectLists").empty();
 
+    if(selectItem.label === "")
+        return;
     var param;
     $("#menuSubjectLists").attr('alt', selectItem.label);
     if ($("input[id='professorName']:checked").prop("checked")) {

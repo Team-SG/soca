@@ -94,4 +94,8 @@ public class IndexController {
     // 퀵 메뉴
     @RequestMapping(value="/quickMenu")
     public String quickMenu() { return "quickMenu";}
+
+    // 인기 과목/교수 목록
+    @RequestMapping(value="/favoriteList")
+    public String favoriteList() { return "favoriteList"; }
 }

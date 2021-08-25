@@ -5,6 +5,10 @@ $(document).ready(function() {
     $("#quick").load("/quickMenu");
     let param = getQuery();
 
+    selectItem = {
+        label: ""
+    }
+
     if(param.checked === "1")
         $("#checked").prop("checked", true);
     else
@@ -62,6 +66,9 @@ $(document).ready(function() {
 
     $("#selectCondition").change(function(){
         selected = $("#selectCondition option:selected").val();
+        selectItem = {
+            label: ""
+        }
         if(selected === "subject") {
             autoCompletePost();
             $("#searchKey").val('');
@@ -77,8 +84,13 @@ $(document).ready(function() {
     $("#btnSearch").click(function(){
         selected = $("#selectCondition option:selected").val();
         let href = "postList?page=1&checked=" + param.checked + "&type=" + selected + "&search=";
-        if(selected === "subject")
+        if(selected === "subject") {
+            if(selectItem.label === "") {
+                alert("과목 검색 후 선택해주세요.");
+                return;
+            }
             href += selectItem.label;
+        }
         else if(selected === "title")
             href += $("#searchKey").val();
         location.href = href;
