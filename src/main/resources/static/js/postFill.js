@@ -33,7 +33,6 @@ $(document).ready(function(){
         else if($("#postContent").val().length === 0)
             swal("게시글의 내용을 입력해주세요.");
         else{
-
            if(type === 0){
                 var param = {
                     code: selectItem.code,
@@ -52,8 +51,7 @@ $(document).ready(function(){
                     content: $("#postContent").val()
                 };
                 callPostService("/revisePost",param,null);
-                //location.href = "/postRead?postNum="+postNum;
-               history.back();
+                history.back();
             }
         }
     })
@@ -64,6 +62,10 @@ function initPostFill(){
         $("#subject").val(data.subjectNo);
         $("#postTitle").val(data.title);
         $("#postContent").val(data.content.replaceAll("<br>","\n"));
+        selectItem = {
+            label: data.subjectNo,
+            code: data.subjectID
+        }
     })
 }
 
