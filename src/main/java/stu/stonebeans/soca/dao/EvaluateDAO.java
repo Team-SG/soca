@@ -85,5 +85,5 @@ public interface EvaluateDAO {
     List<SubjectVO> getFavoriteSub();
     List<String> getFavoriteProf();
 
-    String getSubByCode(String code);
+    List<String> getSubByCode(String code);
 }

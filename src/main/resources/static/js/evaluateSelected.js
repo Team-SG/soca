@@ -4,10 +4,16 @@ $(document).ready(function() {
     let newest = $("#newest");
     let highest = $("#highest");
 
-    callPostService('getSubByCode', param.code, function(data){
-        let text = "'" + param.professor + "'교수님의 '" + data + "' 과목 강의 평가 검색 결과입니다."
-        $(".searchResult").text(text)
-    })
+    if(param.code !== "") {
+        callPostService("getSubByCode", param.code, function (data) {
+            let text = "'" + param.professor + "' 교수님의 '" + data[0] + "' 과목 강의 평가 검색 결과입니다.";
+            $(".searchResult").text(text);
+        })
+    }
+    else {
+        let text = "'" + param.professor + "' 교수님의 강의 평가 검색 결과입니다.";
+        $(".searchResult").text(text);
+    }
 
     if(param.state == 1) {
         newest.css({
@@ -58,8 +64,8 @@ $(document).ready(function() {
     })
 
     $("#btnGoBack").click(function(){
-        location.href = document.referrer;
         history.back();
+        location.href = document.referrer;
     })
 
 })

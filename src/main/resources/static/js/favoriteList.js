@@ -16,6 +16,11 @@ $(document).ready(function() {
             showFavoriteLists(param, data);
         })
     }
+
+    $("#btnGoBack").click(function(){
+        history.back();
+        location.href = document.referrer;
+    })
 })
 
 function paging(param, data) {

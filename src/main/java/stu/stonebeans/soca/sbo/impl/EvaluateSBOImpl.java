@@ -177,5 +177,5 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public List<String> getFavoriteProf() { return evaluateDAO.getFavoriteProf(); }
 
     @Override
-    public String getSubByCode(String code) { return evaluateDAO.getSubByCode(code); }
+    public List<String> getSubByCode(String code) { return evaluateDAO.getSubByCode(code); }
 }

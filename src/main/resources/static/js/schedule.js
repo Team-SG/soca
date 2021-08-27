@@ -76,8 +76,8 @@ $(document).ready(function() {
     })
 
     $("#btnGoBack").click(function(){
-        location.href = document.referrer;
         history.back();
+        location.href = document.referrer;
     })
 
 });

@@ -157,8 +157,7 @@ public class EvaluateController {
 
     // 과목코드 -> 과목명 가져오기
     @RequestMapping(value = "/getSubByCode", method = RequestMethod.POST)
-    public String getSubByCode(@RequestBody String code) {
-        String a = evaluateSBO.getSubByCode(code.substring(1, 8));
-        return a;
+    public List<String> getSubByCode(@RequestBody String code) {
+        return evaluateSBO.getSubByCode(code.substring(1, 8));
     }
 }

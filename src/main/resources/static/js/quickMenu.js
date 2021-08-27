@@ -16,8 +16,8 @@ $(document).ready(function() {
     })
 
     $("#btnGoBack").click(function(){
-        window.location = document.referrer;
         history.back();
+        location.href = document.referrer;
     })
 
     $(".findSelectedPost").click(function(){
