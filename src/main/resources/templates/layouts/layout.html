@@ -181,6 +181,28 @@
             </div>
         </div>
     </div>
+    <!-- 기술 문의 -->
+    <div class="modal fade" id="ask" tabindex="-1" role="dialog" aria-labelledby="askModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="askModalLabel">기술 문의</h5>
+                    <button type="button" id="btnAskClose" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="askForm" name="askForm">
+                    <div class="modal-body w-75 m-auto">
+                            <textarea id="askText" class="form-control" style="height: 100px"></textarea>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <div></div>
+                        <button type="button" id="btnAsk" class="btn btn-primary font-weight-normal float-right">전송</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <footer th:replace="fragments/footer :: footerFragment"></footer>
 </html>

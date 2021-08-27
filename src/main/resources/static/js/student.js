@@ -213,6 +213,24 @@ $(document).ready(function() {
     $("#btnMyPageSave").click(function(event){
        saveMyPageChange();
     });
+
+    $("#btnAsk").click(function(){
+
+    })
+
+    $("#btnAskClose").click(function(){
+        $("#askForm").each(function(){
+            this.reset();
+        });
+    })
+
+    $(document).click(function(event){
+        if($("#ask").is(event.target)){
+            $("#askForm").each(function(){
+                this.reset();
+            });
+        }
+    });
 });
 
 
