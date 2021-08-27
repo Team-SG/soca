@@ -6,9 +6,12 @@
 </head>
 <div layout:fragment="content">
     <div class="toast show shadow-none mt-3">
-        <div class="toast-header" id="favoriteHeader">
-            <!-- <strong class="mr-auto mt-2 mb-2" style="color:#000000">게시글</strong> -->
+        <div class="toast-header">
+            <div id="favoriteHeader"></div>
+            <strong class="mr-auto mt-2 mb-2"></strong>
+            <button type="button" id="btnGoBack" class="btn btn-outline-primary align-top mr-1" style="text-align: center">이전으로</button>
         </div>
+
         <div class="toast-body mt-1 mb-1">
             <ul class="list-group mt-3 pl-2 pr-2 fs-090">
                 <table class="table-hover">

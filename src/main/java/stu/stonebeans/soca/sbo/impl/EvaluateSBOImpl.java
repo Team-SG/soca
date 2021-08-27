@@ -175,4 +175,7 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     // 인기 교수 가져오기
     @Override
     public List<String> getFavoriteProf() { return evaluateDAO.getFavoriteProf(); }
+
+    @Override
+    public String getSubByCode(String code) { return evaluateDAO.getSubByCode(code); }
 }

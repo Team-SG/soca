@@ -47,7 +47,7 @@ $(document).ready(function() {
         else
             param.searchKey = "%" + param.search + "%";
         callPostService("getSelectedPosts", param, function (data) {
-            let text = param.search + "의 검색 결과입니다.(" + data.length + "개)";
+            let text = "'" + param.search + "'의 검색 결과입니다.(" + data.length + "개)";
             $(".searchResult").text(text)
             if (data.length !== 0) {
                 paging(parseInt(param.page), data, param);

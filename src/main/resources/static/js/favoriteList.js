@@ -41,7 +41,7 @@ function paging(param, data) {
         text += "<li class='page-item'><a class='page-link' id='prev'> < </a></li>";
     }
     for(let i = firstPage; i <= lastPage; i++) {
-        if(i === currentPage)
+        if(i == currentPage)
             text += "<li class='page-item active'><a class='page-link' id='" + i + "'>" + i + "</a></li>";
         else
             text += "<li class='page-item'><a class='page-link' id='" + i + "'>" + i + "</a></li>";

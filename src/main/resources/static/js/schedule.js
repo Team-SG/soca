@@ -74,6 +74,12 @@ $(document).ready(function() {
         $("#selectMajor").val("전공");
         //schedule.resetData(data);
     })
+
+    $("#btnGoBack").click(function(){
+        location.href = document.referrer;
+        history.back();
+    })
+
 });
 
 // ================================ Custom Function ================================

@@ -192,4 +192,10 @@
         join subject b on b.subjectID = e.subjectID
         group by b.professor order by AVG(e.evaluation) desc
     </select>
+
+    <select id="getSubByCode"
+            parameterType="string"
+            resultType="string">
+        select distinct subjectNo from subject where code like #{code} limit 1
+    </select>
 </mapper>

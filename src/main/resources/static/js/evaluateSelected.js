@@ -1,28 +1,65 @@
 $(document).ready(function() {
     var param = getQuery();
     param.state =  sessionStorage.getItem("state");
+    let newest = $("#newest");
+    let highest = $("#highest");
+
+    callPostService('getSubByCode', param.code, function(data){
+        let text = "'" + param.professor + "'교수님의 '" + data + "' 과목 강의 평가 검색 결과입니다."
+        $(".searchResult").text(text)
+    })
+
     if(param.state == 1) {
-        $("#newest").css({
+        newest.css({
             "background-color": "#2c3e50",
             "border-color": "#2c3e50",
-            "color": "#fff"
+            "color": "#fff",
         });
+        highest.on("mouseover focus", function(){
+            highest.css({
+                "background-color": "#95a5a6",
+                "border-color": "#95a5a6",
+            })
+        })
+        highest.on("mouseout blur", function(){
+            highest.css({
+                "background-color": "#fff",
+                "border-color": "#2c3e50"
+            })
+        })
     }
     else {
-        $("#highest").css({
+        highest.css({
             "background-color": "#2c3e50",
             "border-color": "#2c3e50",
             "color": "#fff"
         });
+        newest.on("mouseover focus", function(){
+            $("#newest").css({
+                "background-color": "#95a5a6",
+                "border-color": "#95a5a6",
+            })
+        })
+        newest.on("mouseout blur", function(){
+            $("#newest").css({
+                "background-color": "#fff",
+                "border-color": "#2c3e50"
+            })
+        })
     }
     selectedFunction(param);
-    $("#newest").click(function(){
+    newest.click(function(){
         sessionStorage.setItem("state", "1");
         location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
     })
-    $("#highest").click(function(){
+    highest.click(function(){
         sessionStorage.setItem("state", "2");
         location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
+    })
+
+    $("#btnGoBack").click(function(){
+        location.href = document.referrer;
+        history.back();
     })
 
 })

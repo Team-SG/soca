@@ -154,4 +154,11 @@ public class EvaluateController {
     // 인기 교수 가져오기
     @RequestMapping(value = "/getFavoriteProf", method = RequestMethod.POST)
     public List<String> getFavoriteProf() { return evaluateSBO.getFavoriteProf(); }
+
+    // 과목코드 -> 과목명 가져오기
+    @RequestMapping(value = "/getSubByCode", method = RequestMethod.POST)
+    public String getSubByCode(@RequestBody String code) {
+        String a = evaluateSBO.getSubByCode(code.substring(1, 8));
+        return a;
+    }
 }
