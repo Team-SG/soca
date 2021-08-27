@@ -96,5 +96,8 @@ public class PostSBOImpl implements PostSBO {
     // 메인 post 가져오기
     @Override
     public List<PostVO> getMainPost() { return postDAO.getMainPost(); }
+
+    @Override
+    public void updateViews(int postNum) { postDAO.updateViews(postNum); }
 }
 

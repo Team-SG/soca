@@ -47,4 +47,7 @@ public interface PostSBO {
 
     // 메인 Post 가져오기
     List<PostVO> getMainPost();
+
+    // 조회수 업데이트
+    void updateViews(int postNum);
 }

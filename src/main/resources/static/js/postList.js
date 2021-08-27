@@ -161,7 +161,7 @@ function showPosts(currentPage, data) {
 
     for(var dataN = first; dataN < last; dataN++) {
         if(data[dataN].accusedYN === false) {
-            text += "<tr onclick=\"location.href='postRead?postNum=" + data[dataN].postNum + "'\">";
+            text += "<tr onclick='goSelectedPost(" + data[dataN].postNum + ")'>";
             text += "<td>" + data[dataN].postNum + "</td>";
             text += "<td>" + data[dataN].subjectNo + "</td>";
             text += "<td>" + data[dataN].title + "</td>";
@@ -215,4 +215,9 @@ function autoCompletePost() {
             selectItem = ui.item;
         }
     })
+}
+
+function goSelectedPost(postNum){
+    callPostService('updateViews', postNum, null);
+    location.href = 'postRead?postNum=' + postNum;
 }

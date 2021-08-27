@@ -110,4 +110,9 @@ public class PostController {
         return postSBO.getMainPost();
     }
 
+    // 조회수 업데이트
+    @RequestMapping(value = "/updateViews", method = RequestMethod.POST)
+    public void updateViews(@RequestBody int postNum) {
+        postSBO.updateViews(postNum);
+    }
 }

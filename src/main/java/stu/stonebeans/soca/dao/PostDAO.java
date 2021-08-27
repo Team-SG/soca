@@ -62,4 +62,6 @@ public interface PostDAO {
     void revisePost(HashMap<String,String> map);
 
     List<PostVO> getMainPost();
+
+    void updateViews(int postNum);
 }

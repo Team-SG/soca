@@ -148,7 +148,7 @@
             parameterType="HashMap"
             resultType="Integer">
         INSERT INTO post(title, email, content, postTime, solYN, delYN, viewCnt, replyNum, subjectID, accusedYN)
-        VALUES (#{title}, #{email}, #{content}, NOW(), 0, 0, 0, 0, #{code}, 0);
+        VALUES (#{title}, #{email}, #{content}, date_Add(now(), interval 9 hour), 0, 0, 0, 0, #{code}, 0);
         SELECT MAX(postNum) FROM post;
     </select>
 
@@ -164,5 +164,10 @@
         join student as b on a.email = b.email
         join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
         where a.delYN = 0 order by postNum desc limit 5
+    </select>
+
+    <select id="updateViews"
+            parameterType="Integer">
+        update post set viewCnt = viewCnt + 1 where postNum = #{postNum}
     </select>
 </mapper>
