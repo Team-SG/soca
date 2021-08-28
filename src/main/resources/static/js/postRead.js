@@ -33,7 +33,6 @@ $(document).ready(function(){
 
     $("#btnGoToList").click(function(event){
         var referrer = document.referrer;
-       // swal(referrer.indexOf("postFill")+"");
         if(referrer.indexOf("postFill") < 0)
             history.back();
         else location.href = "/postList?page=1&checked=0&type=subject&search=";
