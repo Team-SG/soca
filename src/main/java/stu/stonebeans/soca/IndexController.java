@@ -98,4 +98,8 @@ public class IndexController {
     // 인기 과목/교수 목록
     @RequestMapping(value="/favoriteList")
     public String favoriteList() { return "favoriteList"; }
+
+    // 관리자
+    @RequestMapping(value="/admin")
+    public String admin() { return "admin"; }
 }
