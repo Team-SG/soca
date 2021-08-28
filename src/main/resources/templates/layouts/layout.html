@@ -152,12 +152,16 @@
                             <input type="text" id="registerEmail" name="email" class="form-control" placeholder="이메일">
                             <span class="input-group-text ml-2" id="basic-addon2">@sogang.ac.kr</span>
                         </div>
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 d-flex align-items-center">
                             <button type="button" id="btnSendAuth" class="btn btn-outline-secondary font-weight-normal mr-2">인증발송</button>
                             <input type="text" id="registerAuthCode" name="authCode" class="form-control" placeholder="인증번호">
                             <input type="hidden" id="emailAuth" class="auth" value="0"/>
                             <button type="button" id="btnAuthCodeCheck" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
-                            <img src="images/check.png" id="validAuthCode" style="width:9%;">
+                            <div class="ml-3" id="validAuthCode" style="color:green">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                    <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
+                                </svg>
+                            </div>
                             <input type="hidden" id="emailCheckAuth" class="auth" value="0"/>
                         </div>
                             <input type="password" id="registerPassword" name="password" class="form-control" placeholder="패스워드(영문+숫자+특수문자 조합 8자~20자)" maxlength="20">
