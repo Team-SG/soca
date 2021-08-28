@@ -215,7 +215,16 @@ $(document).ready(function() {
     });
 
     $("#btnAsk").click(function(){
-
+        if($("#askText").val().length === 0) {
+            swal("내용을 입력해주세요.");
+            return;
+        }
+        else {
+            callPostService('sendAsk', $("#askText").val(), null);
+            swal("정상적으로 전송되었습니다.").then(function() {
+                location.href = "/myPage";
+            })
+        }
     })
 
     $("#btnAskClose").click(function(){

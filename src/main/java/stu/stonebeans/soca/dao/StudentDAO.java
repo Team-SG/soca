@@ -25,4 +25,6 @@ public interface StudentDAO {
     // 마이페이지 정보변경
     public void changeMyPage(HashMap<String,String> map);
 
+    // 기술 문의 보내기
+    public void sendAsk(HashMap<String, String> map);
 }

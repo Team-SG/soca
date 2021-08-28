@@ -81,26 +81,27 @@ function initGrid() {
     });
 
     gridData.on('click', (ev) => {
-        swal({
-            text: "즐겨찾기에 추가하시겠습니까?",
-            buttons: {
-                cancel : "취소",
-                confirm : "확인"
-            }
-        }).then(function(result){
-            if(result) {
-                callPostService('duplicateLiked', gridData.getRow(ev.rowKey).subjectNO, function(data) {
-                    if(data === false) {
-                        swal("이미 추가된 데이터입니다.");
-                    }
-                    else {
-                        if (gridData.getRow(ev.rowKey).subjectNO != null) {
-                            insertLiked(gridData.getRow(ev.rowKey).code, gridData.getRow(ev.rowKey).subjectNO);
+        if(ev.targetType === "cell") {
+            swal({
+                text: "즐겨찾기에 추가하시겠습니까?",
+                buttons: {
+                    cancel: "취소",
+                    confirm: "확인"
+                }
+            }).then(function (result) {
+                if (result) {
+                    callPostService('duplicateLiked', gridData.getRow(ev.rowKey).subjectNO, function (data) {
+                        if (data === false) {
+                            swal("이미 추가된 데이터입니다.");
+                        } else {
+                            if (gridData.getRow(ev.rowKey).subjectNO != null) {
+                                insertLiked(gridData.getRow(ev.rowKey).code, gridData.getRow(ev.rowKey).subjectNO);
+                            }
                         }
-                    }
-                })
-            }
-        })
+                    })
+                }
+            })
+        }
     })
 
     gridData.resetData(data);

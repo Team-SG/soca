@@ -128,5 +128,7 @@ public class StudentSBOImpl implements StudentSBO {
         studentDAO.changeMyPage(map);
     }
 
+    @Override
+    public void sendAsk(HashMap<String, String> map) { studentDAO.sendAsk(map); }
 
 }

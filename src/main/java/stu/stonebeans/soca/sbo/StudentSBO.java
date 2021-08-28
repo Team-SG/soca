@@ -30,4 +30,7 @@ public interface StudentSBO {
 
     // 마이페이지 정보 변경
     void changeMyPage(HashMap<String,String> map);
+
+    // 기술 문의 보내기
+    void sendAsk(HashMap<String, String> map);
 }

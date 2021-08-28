@@ -44,4 +44,10 @@
         SET A.nickname=#{newNickname},A.email=#{newEmail},B.email=#{newEmail}
         WHERE A.email = #{currentEmail}
     </select>
+
+    <!-- 기술 문의 -->
+    <select id="sendAsk"
+            parameterType="HashMap">
+        insert into ask (askNum, email, content) values( (select ifnull(max(askNum) + 1, 1) from ask a), #{email}, #{askText});
+    </select>
 </mapper>

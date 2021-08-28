@@ -166,4 +166,14 @@ public class StudentController {
             return new ResultVO(-1, "이미 사용 중인 이메일입니다.");
         }
     }
+
+    // 기술 문의 보내기
+    @RequestMapping(value = "/sendAsk", method = RequestMethod.POST)
+    public void sendAsk(HttpSession session, @RequestBody String askText) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("email",(String)session.getAttribute("email"));
+        map.put("askText", askText.substring(1, askText.length() - 1));
+        studentSBO.sendAsk(map);
+        return;
+    }
 }
