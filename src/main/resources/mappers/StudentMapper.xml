@@ -48,6 +48,18 @@
     <!-- 기술 문의 -->
     <select id="sendAsk"
             parameterType="HashMap">
-        insert into ask (askNum, email, content) values( (select ifnull(max(askNum) + 1, 1) from ask a), #{email}, #{askText});
+        insert into ask (askNum, email, content, handleYN) values( (select ifnull(max(askNum) + 1, 1) from ask a), #{email}, #{askText}, 0);
+    </select>
+
+    <select id="getAsk"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AskVO">
+        select * from ask;
+    </select>
+
+    <select id="getAsk2"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AskVO">
+        select * from ask where handleYN = 0;
     </select>
 </mapper>

@@ -1,9 +1,6 @@
 package stu.stonebeans.soca.sbo;
 
-import stu.stonebeans.soca.vo.PostVO;
-import stu.stonebeans.soca.vo.SubjectVO;
-import stu.stonebeans.soca.vo.ReplyVO;
-import stu.stonebeans.soca.vo.RereplyVO;
+import stu.stonebeans.soca.vo.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,4 +47,6 @@ public interface PostSBO {
 
     // 조회수 업데이트
     void updateViews(int postNum);
+
+    List<AccuseVO> getAccuse(int checked);
 }

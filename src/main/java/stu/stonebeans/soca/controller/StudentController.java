@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.*;
 import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
+import stu.stonebeans.soca.vo.AskVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class StudentController {
@@ -175,5 +177,11 @@ public class StudentController {
         map.put("askText", askText.substring(1, askText.length() - 1));
         studentSBO.sendAsk(map);
         return;
+    }
+
+    @RequestMapping(value = "/getAsk", method = RequestMethod.POST)
+    public List<AskVO> getAsk(@RequestBody int checked) {
+        List<AskVO> a = studentSBO.getAsk(checked);
+        return a;
     }
 }

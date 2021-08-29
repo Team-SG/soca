@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stu.stonebeans.soca.dao.PostDAO;
 import stu.stonebeans.soca.sbo.PostSBO;
-import stu.stonebeans.soca.vo.PostVO;
-import stu.stonebeans.soca.vo.SubjectVO;
-import stu.stonebeans.soca.vo.ReplyVO;
-import stu.stonebeans.soca.vo.RereplyVO;
+import stu.stonebeans.soca.vo.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -99,5 +96,13 @@ public class PostSBOImpl implements PostSBO {
 
     @Override
     public void updateViews(int postNum) { postDAO.updateViews(postNum); }
+
+    @Override
+    public List<AccuseVO> getAccuse(int checked) {
+        if(checked == 0)
+            return postDAO.getAccuse();
+        else
+            return postDAO.getAccuse2();
+    }
 }
 

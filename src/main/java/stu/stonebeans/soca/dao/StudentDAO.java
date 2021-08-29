@@ -1,8 +1,10 @@
 package stu.stonebeans.soca.dao;
 import org.apache.ibatis.annotations.Mapper;
+import stu.stonebeans.soca.vo.AskVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Mapper
 public interface StudentDAO {
@@ -27,4 +29,7 @@ public interface StudentDAO {
 
     // 기술 문의 보내기
     public void sendAsk(HashMap<String, String> map);
+
+    public List<AskVO> getAsk();
+    public List<AskVO> getAsk2();
 }

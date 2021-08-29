@@ -114,19 +114,19 @@
     <select id="accusePost"
             parameterType="HashMap">
         UPDATE post SET accusedYN = 1 WHERE postNum = #{postNum};
-        INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
+        INSERT INTO accuse(types,postNum,content,handleYN) VALUES (#{type}, #{postNum}, #{content}, 0);
     </select>
 
     <select id="accuseReply"
             parameterType="HashMap">
         UPDATE reply SET accusedYN = 1 WHERE replyNum = #{postNum};
-        INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
+        INSERT INTO accuse(types,postNum,content,handleYN) VALUES (#{type}, #{postNum}, #{content}, 0);
     </select>
 
     <select id="accuseRereply"
             parameterType="HashMap">
         UPDATE rereply SET accusedYN = 1 WHERE rereplyNum = #{postNum};
-        INSERT INTO accuse(types,postNum,content) VALUES (#{type}, #{postNum}, #{content});
+        INSERT INTO accuse(types,postNum,content,handleYN) VALUES (#{type}, #{postNum}, #{content}, 0);
     </select>
 
     <select id="deletePost"
@@ -169,5 +169,15 @@
     <select id="updateViews"
             parameterType="Integer">
         update post set viewCnt = viewCnt + 1 where postNum = #{postNum}
+    </select>
+
+    <select id="getAccuse"
+            resultType="stu.stonebeans.soca.vo.AccuseVO">
+        select * from accuse;
+    </select>
+
+    <select id="getAccuse2"
+            resultType="stu.stonebeans.soca.vo.AccuseVO">
+        select * from accuse where handleYN = 0;
     </select>
 </mapper>

@@ -7,11 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stu.stonebeans.soca.sbo.EvaluateSBO;
 import stu.stonebeans.soca.sbo.PostSBO;
-import stu.stonebeans.soca.vo.PostVO;
-import stu.stonebeans.soca.vo.SubjectVO;
-import stu.stonebeans.soca.vo.ReplyVO;
-import stu.stonebeans.soca.vo.RereplyVO;
-
+import stu.stonebeans.soca.vo.*;
 
 
 import javax.servlet.http.HttpSession;
@@ -114,5 +110,10 @@ public class PostController {
     @RequestMapping(value = "/updateViews", method = RequestMethod.POST)
     public void updateViews(@RequestBody int postNum) {
         postSBO.updateViews(postNum);
+    }
+
+    @RequestMapping(value = "/getAccuse", method = RequestMethod.POST)
+    public List<AccuseVO> getAccuse(@RequestBody int checked) {
+        return postSBO.getAccuse(checked);
     }
 }

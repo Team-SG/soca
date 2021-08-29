@@ -8,7 +8,18 @@
     <div class="toast show shadow-none mt-3">
         <div class="toast-header">
         </div>
-        <div class="toast-body mt-1 mb-1">
+        <div class="toast-body">
+            <input type="checkbox" id="checked" class="custom-checkbox ml-3"> <label style="position:relative; top: -2px">미처리 글만 표시</label>
+            <ul class="list-group fs-090">
+                <table class="table-hover">
+                    <thead>
+                    <tr id="adminHead" style="height: 50px">
+                    </tr>
+                    </thead>
+                    <tbody id="adminData" style="height: 200px">
+                    </tbody>
+                </table>
+            </ul>
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center" id="pages">
