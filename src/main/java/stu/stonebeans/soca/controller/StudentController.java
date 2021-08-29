@@ -176,12 +176,15 @@ public class StudentController {
         map.put("email",(String)session.getAttribute("email"));
         map.put("askText", askText.substring(1, askText.length() - 1));
         studentSBO.sendAsk(map);
-        return;
     }
 
     @RequestMapping(value = "/getAsk", method = RequestMethod.POST)
     public List<AskVO> getAsk(@RequestBody int checked) {
-        List<AskVO> a = studentSBO.getAsk(checked);
-        return a;
+        return studentSBO.getAsk(checked);
+    }
+
+    @RequestMapping(value = "/getAskSelected", method = RequestMethod.POST)
+    public AskVO getAskSelected(@RequestBody int num) {
+        return studentSBO.getAskSelected(num);
     }
 }

@@ -180,4 +180,10 @@
             resultType="stu.stonebeans.soca.vo.AccuseVO">
         select * from accuse where handleYN = 0;
     </select>
+
+    <select id="getAccuseSelected"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AccuseVO">
+        select * from accuse where accuseNum = #{num};
+    </select>
 </mapper>

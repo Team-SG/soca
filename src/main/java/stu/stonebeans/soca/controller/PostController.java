@@ -116,4 +116,9 @@ public class PostController {
     public List<AccuseVO> getAccuse(@RequestBody int checked) {
         return postSBO.getAccuse(checked);
     }
+
+    @RequestMapping(value = "/getAccuseSelected", method = RequestMethod.POST)
+    public AccuseVO getAccuseSelected(@RequestBody int num) {
+        return postSBO.getAccuseSelected(num);
+    }
 }

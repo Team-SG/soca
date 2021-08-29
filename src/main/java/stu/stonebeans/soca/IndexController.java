@@ -102,4 +102,7 @@ public class IndexController {
     // 관리자
     @RequestMapping(value="/admin")
     public String admin() { return "admin"; }
+
+    @RequestMapping(value="/adminList")
+    public String adminList() { return "adminList"; }
 }

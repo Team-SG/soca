@@ -105,7 +105,7 @@ function showPosts(currentPage, data, param) {
 
     if(param.state === "1") {
         for (var dataN = first; dataN < last; dataN++) {
-            text += "<tr style='height: 50px' onclick=>";
+            text += "<tr style='height: 50px' onclick=\"location.href='adminList?state=" + param.state + "&num=" + data[dataN].accuseNum + "'\">";
             text += "<td>" + data[dataN].accuseNum + "</td>";
             text += "<td>" + data[dataN].content + "</td>";
             if (data[dataN].handleYN === false) {
@@ -113,11 +113,12 @@ function showPosts(currentPage, data, param) {
             } else {
                 text += "<td>O</td>"
             }
+            text += "</tr>"
         }
     }
     else if(param.state === "2") {
         for (var dataN = first; dataN < last; dataN++) {
-            text += "<tr style='height: 50px' onclick=>";
+            text += "<tr style='height: 50px' onclick=\"location.href='adminList?state=" + param.state + "&num=" + data[dataN].askNum + "'\">";
             text += "<td>" + data[dataN].askNum + "</td>";
             text += "<td>" + data[dataN].content + "</td>";
             text += "<td>" + data[dataN].email + "</td>";
@@ -126,6 +127,7 @@ function showPosts(currentPage, data, param) {
             } else {
                 text += "<td>O</td>"
             }
+            text += "</tr>"
         }
     }
     $("#adminData").empty();

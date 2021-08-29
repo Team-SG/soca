@@ -62,4 +62,10 @@
             resultType="stu.stonebeans.soca.vo.AskVO">
         select * from ask where handleYN = 0;
     </select>
+
+    <select id="getAskSelected"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AskVO">
+        select * from ask where askNum = #{num};
+    </select>
 </mapper>

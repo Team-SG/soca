@@ -37,4 +37,6 @@ public interface StudentSBO {
     void sendAsk(HashMap<String, String> map);
 
     List<AskVO> getAsk(int checked);
+
+    AskVO getAskSelected(int num);
 }
