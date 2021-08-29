@@ -268,7 +268,7 @@ function findProfBySubject(param) {
             return;
         }
         else if(data.length != 1) {
-            var rowData = [{
+            var rowData = {
                     code: param.code,
                     major: param.major,
                     subjectNO: param.nowItem,
@@ -276,7 +276,7 @@ function findProfBySubject(param) {
                         expanded: false
                     },
                      _children: []
-                }];
+                };
 
             for (var i = 0; i < data.length; i++) {
                 var child = {
@@ -293,9 +293,9 @@ function findProfBySubject(param) {
                     child.qualityAvg = data.qualityAvg/2;
                     child.gradeSatisAvg = data.gradeSatisAvg/2;
                 })
-                rowData[0]._children.push(child);
+                rowData._children.push(child);
             }
-            GridLists.resetData(rowData);
+            GridLists.resetData(rowData._children);
         }
         else {
             var rowData = {
@@ -313,8 +313,8 @@ function findProfBySubject(param) {
                 rowData.gradeSatisAvg = data.gradeSatisAvg/2;
             })
             //GridLists.appendRow(rowData);
+            GridLists.appendRow(rowData);
         }
-        GridLists.appendRow(rowData);
         //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
     })
 }

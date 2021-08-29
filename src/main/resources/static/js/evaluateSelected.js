@@ -64,8 +64,7 @@ $(document).ready(function() {
     })
 
     $("#btnGoBack").click(function(){
-        history.back();
-        location.href = document.referrer;
+        location.href = "evaluateList";
     })
 
 })

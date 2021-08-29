@@ -59,6 +59,10 @@ function paging(){
 
         location.href = "/recentEvalRes?page=" + selectedPage;
     })
+
+    $("#btnGoBack").click(function(){
+        location.href = "evaluateList";
+    })
 }
 
 function getRecentEvalCnt(){
