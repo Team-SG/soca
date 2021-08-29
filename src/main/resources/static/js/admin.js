@@ -105,7 +105,7 @@ function showPosts(currentPage, data, param) {
 
     if(param.state === "1") {
         for (var dataN = first; dataN < last; dataN++) {
-            text += "<tr onclick=>";
+            text += "<tr style='height: 50px' onclick=>";
             text += "<td>" + data[dataN].accuseNum + "</td>";
             text += "<td>" + data[dataN].content + "</td>";
             if (data[dataN].handleYN === false) {
@@ -117,7 +117,7 @@ function showPosts(currentPage, data, param) {
     }
     else if(param.state === "2") {
         for (var dataN = first; dataN < last; dataN++) {
-            text += "<tr onclick=>";
+            text += "<tr style='height: 50px' onclick=>";
             text += "<td>" + data[dataN].askNum + "</td>";
             text += "<td>" + data[dataN].content + "</td>";
             text += "<td>" + data[dataN].email + "</td>";

@@ -161,7 +161,7 @@ function showPosts(currentPage, data) {
 
     for(var dataN = first; dataN < last; dataN++) {
         if(data[dataN].accusedYN === false) {
-            text += "<tr onclick='goSelectedPost(" + data[dataN].postNum + ")'>";
+            text += "<tr style='height: 50px' onclick='goSelectedPost(" + data[dataN].postNum + ")'>";
             text += "<td>" + data[dataN].postNum + "</td>";
             text += "<td>" + data[dataN].subjectNo + "</td>";
             text += "<td>" + data[dataN].title + "</td>";
@@ -169,7 +169,7 @@ function showPosts(currentPage, data) {
             text += "<td>" + data[dataN].postTime + "</td>";
         }
         else {
-            text += "<tr class='accusedY'>";
+            text += "<tr style='height: 50px' class='accusedY'>";
             text += "<td>" + data[dataN].postNum + "</td>";
             text += "<td>" + data[dataN].subjectNo + "</td>";
             text += "<td>신고 접수된 게시글입니다.</td>";
