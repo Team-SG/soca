@@ -106,11 +106,17 @@ public class PostSBOImpl implements PostSBO {
     }
 
     @Override
+    public ReplyVO getReplyByNum(int replyNum) { return postDAO.getReplyByNum(replyNum); }
+
+    @Override
+    public RereplyVO getRereplyByNum(int rereplyNum) { return postDAO.getRereplyByNum(rereplyNum); }
+
+    @Override
     public AccuseVO getAccuseSelected(int num) {
         return postDAO.getAccuseSelected(num);
     }
 
     @Override
     public void updateAccuse(int accuseNum) { postDAO.updateAccuse(accuseNum); }
-}
 
+}

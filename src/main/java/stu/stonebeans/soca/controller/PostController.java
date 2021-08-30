@@ -112,6 +112,15 @@ public class PostController {
         postSBO.updateViews(postNum);
     }
 
+    @RequestMapping(value = "/getReplyByNum", method = RequestMethod.POST)
+    public ReplyVO getReplyByNum(@RequestBody int replyNum) { return postSBO.getReplyByNum(replyNum); }
+
+    @RequestMapping(value = "/getRereplyByNum", method = RequestMethod.POST)
+    public RereplyVO getRereplyByNum(@RequestBody int rereplyNum) {
+        RereplyVO rereplyVO = postSBO.getRereplyByNum(rereplyNum);
+        return rereplyVO;
+    }
+
     @RequestMapping(value = "/getAccuse", method = RequestMethod.POST)
     public List<AccuseVO> getAccuse(@RequestBody int checked) {
         return postSBO.getAccuse(checked);

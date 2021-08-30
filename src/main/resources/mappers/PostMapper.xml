@@ -192,4 +192,21 @@
             parameterType="integer">
         UPDATE accuse SET handleYN = 1 where accuseNum = #{accuseNum}
     </select>
+
+    <select id="getReplyByNum"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.ReplyVO">
+        SELECT a.replyNum, a.postNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt, a.delYN
+        FROM reply AS a JOIN student AS b ON a.email = b.email
+        WHERE a.replyNum = #{replyNum}
+    </select>
+
+    <select id="getRereplyByNum"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.RereplyVO">
+        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.delYN, c.postNum
+        FROM rereply AS a JOIN student AS b ON a.email = b.email
+                          JOIN reply as c on a.replyNum = c.replyNum
+        WHERE a.rereplyNum = #{rereplyNum}
+    </select>
 </mapper>

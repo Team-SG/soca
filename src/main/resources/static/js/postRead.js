@@ -159,6 +159,7 @@ function callGetPostByNum(data){
         }
     }
 
+    $("#content").append("<-- 신고가 접수된 게시글입니다 --><br>");
     $("#content").append(data.content);
     $("#replyNum").append("답글 "+data.replyNum+"개");
 
@@ -180,13 +181,15 @@ function callGetReplies(reply){
         else{
             if(postWriter == reply[i].email){
                 text += '<div style="color:#e74c3c">' + reply[i].content + '</div>'
-                    + '<div class="d-flex justify-content-center align-items-center">'
-                    + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
+                if(reply[i].accusedYN) { text += "<-- 신고가 접수된 댓글입니다. -->"}
+                text += '<div class="d-flex justify-content-center align-items-center">'
+                     + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
             }
             else{
                 text += '<div>'+ reply[i].content + '</div>'
-                    + '<div class="d-flex justify-content-center align-items-center">'
-                    + '<div class="mr-1"> ['+ reply[i].nickname + '] </div>';
+                if(reply[i].accusedYN) { text += "<-- 신고가 접수된 댓글입니다. -->"}
+                text += '<div class="d-flex justify-content-center align-items-center">'
+                     + '<div class="mr-1"> ['+ reply[i].nickname + '] </div>';
             }
 
             text += '<div> ['+ reply[i].postTime + '] </div>';
@@ -233,12 +236,14 @@ function callGetRereplies(rereply){
         else {
             if (postWriter == rereply[i].email) {
                 text += '<div style="color:#e74c3c">' + rereply[i].content + '</div></div>'
-                    + '<div class="d-flex justify-content-center align-items-center">'
-                    + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
+                if(rereply[i].accusedYN) { text += "<-- 신고가 접수된 댓글입니다. -->"}
+                text += '<div class="d-flex justify-content-center align-items-center">'
+                     + '<div class="mr-1" style="color:#e74c3c"> [글쓴이] </div>';
             } else {
-                text += '<div>' + rereply[i].content + '</div></div>'
-                    + '<div class="d-flex justify-content-center align-items-center">'
-                    + '<div class="mr-1"> [' + rereply[i].nickname + '] </div>';
+                text += '<div>' + rereply[i].content + '</div></div>';
+                if(rereply[i].accusedYN) { text += "<-- 신고가 접수된 댓글입니다. -->"}
+                text +='<div class="d-flex justify-content-center align-items-center">'
+                     + '<div class="mr-1"> [' + rereply[i].nickname + '] </div>';
             }
 
             text += '<div> [' + rereply[i].postTime + '] </div>'

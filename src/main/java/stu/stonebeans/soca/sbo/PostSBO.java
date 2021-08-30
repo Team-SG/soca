@@ -48,6 +48,10 @@ public interface PostSBO {
     // 조회수 업데이트
     void updateViews(int postNum);
 
+    ReplyVO getReplyByNum(int replyNum);
+
+    RereplyVO getRereplyByNum(int rereplyNum);
+
     List<AccuseVO> getAccuse(int checked);
 
     AccuseVO getAccuseSelected(int num);

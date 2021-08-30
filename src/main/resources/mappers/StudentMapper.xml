@@ -54,13 +54,16 @@
     <select id="getAsk"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.AskVO">
-        select * from ask;
+        select a.askNum, a.email, a.content, a.handleYN, a.postTime, b.nickname from ask as a
+        join student as b on a.email = b.email
     </select>
 
     <select id="getAsk2"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.AskVO">
-        select * from ask where handleYN = 0;
+        select a.askNum, a.email, a.content, a.handleYN, a.postTime, b.nickname from ask as a
+        join student as b on a.email = b.email
+        where handleYN = 0;
     </select>
 
     <select id="getAskSelected"

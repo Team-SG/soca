@@ -62,6 +62,9 @@ public interface PostDAO {
 
     void updateViews(int postNum);
 
+    ReplyVO getReplyByNum(int replyNum);
+    RereplyVO getRereplyByNum(int rereplyNum);
+
     List<AccuseVO> getAccuse();
     List<AccuseVO> getAccuse2();
 

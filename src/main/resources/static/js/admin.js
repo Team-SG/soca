@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     if(param.state === "1") {
         header.append('<strong class="mr-auto mt-2 mb-2" style="color:#000000">신고 목록</strong>');
-        let text = "<th>번호</th><th>내용</th>><th>해결 여부</th>";
+        let text = "<th style='width: 15%'>번호</th><th style='width: 60%'>내용</th>><th style='width: 20%'>해결 여부</th>";
         adminHeader.html(text);
         callPostService('getAccuse', parseInt(param.checked), function(data){
             if (data.length !== 0) {
@@ -16,7 +16,7 @@ $(document).ready(function() {
     }
     else {
         header.append('<strong class="mr-auto mt-2 mb-2" style="color:#000000">기술 문의 목록</strong>');
-        let text = "<th>번호</th><th>내용</th><th>작성자</th><th>해결 여부</th>";
+        let text = "<th style='width: 15%'>번호</th><th style='width: 60%'>내용</th><th style='width: 15%'>작성자</th><th style='width: 10%'>해결 여부</th>";
         adminHeader.html(text);
         callPostService('getAsk', parseInt(param.checked), function(data){
             if (data.length !== 0) {
@@ -107,7 +107,10 @@ function showPosts(currentPage, data, param) {
         for (var dataN = first; dataN < last; dataN++) {
             text += "<tr style='height: 50px' onclick=\"location.href='adminList?state=" + param.state + "&num=" + data[dataN].accuseNum + "'\">";
             text += "<td>" + data[dataN].accuseNum + "</td>";
-            text += "<td>" + data[dataN].content + "</td>";
+            if(data[dataN].content.length < 50)
+                text += "<td>" + data[dataN].content + "</td>";
+            else
+                text += "<td>" + data[dataN].content+ "</td>";
             if (data[dataN].handleYN === false) {
                 text += "<td>X</td>";
             } else {
@@ -120,8 +123,8 @@ function showPosts(currentPage, data, param) {
         for (var dataN = first; dataN < last; dataN++) {
             text += "<tr style='height: 50px' onclick=\"location.href='adminList?state=" + param.state + "&num=" + data[dataN].askNum + "'\">";
             text += "<td>" + data[dataN].askNum + "</td>";
-            text += "<td>" + data[dataN].content + "</td>";
-            text += "<td>" + data[dataN].email + "</td>";
+            text += "<td>" + data[dataN].content.substring(0, 50).replaceAll("\\n", " ")  + "...</td>";
+            text += "<td>" + data[dataN].nickname + "</td>";
             if (data[dataN].handleYN === false) {
                 text += "<td>X</td>";
             } else {

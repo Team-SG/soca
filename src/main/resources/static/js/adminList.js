@@ -16,29 +16,24 @@ $(document).ready(function() {
             $("#accuseWhy").append(data.content);
 
             if(data.types === 1) {
-                callPostService('getPostByNum', parseInt(param.num), function(data2){accuseData = data2;})
+                callPostService('getPostByNum', parseInt(data.postNum), function(data2){accuseData = data2;})
             }
             else if(data.types === 2){
-                callPostService('getReplies', parseInt(param.num), function(data2){accuseData = data2;})
+                callPostService('getReplyByNum', parseInt(data.postNum), function(data2){accuseData = data2;})
             }
             else {
-                callPostService('getRereplies', parseInt(param.num), function(data2){accuseData = data2;})
+                callPostService('getRereplyByNum', parseInt(data.postNum), function(data2){
+                    accuseData = data2;
+                })
             }
 
-            if(data.types !== 3) {
-                $("#writer").append(accuseData.nickname);
-                $("#postTime").append(accuseData.postTime);
-                $("#goLink").append("<a href='/postRead?postNum=" + accuseData.postNum +"'>게시글로 이동</a>")
-                $("#content").append(accuseData.content);
-                $("#accuseNum").append(accuseData.postNum);
-            }
-            else {
-                $("#writer").append(accuseData[0].nickname);
-                $("#postTime").append(accuseData[0].postTime);
-                $("#goLink").append("<a href='/postRead?postNum=" + accuseData[0].postNum +"'>게시글로 이동</a>")
-                $("#content").append(accuseData[0].content);
-                $("#accuseNum").append(accuseData[0].postNum);
-            }
+
+            $("#writer").append(accuseData.nickname);
+            $("#postTime").append(accuseData.postTime);
+            $("#goLink").append("<a href='/postRead?postNum=" + accuseData.postNum +"'>게시글로 이동</a>")
+            $("#content").append(accuseData.content.replaceAll("\\n", "<br>"));
+            $("#accuseNum").append(param.num);
+
         });
 
 
@@ -70,7 +65,7 @@ $(document).ready(function() {
             $("#askNum").append(data.askNum);
             $("#writer").append(data.nickname);
             $("#postTime").append(data.postTime);
-            $("#content").append(data.content);
+            $("#content").append(data.content.replaceAll("\\n", "<br>"));
         })
 
         $("#btnToSolved").click(function(event){
