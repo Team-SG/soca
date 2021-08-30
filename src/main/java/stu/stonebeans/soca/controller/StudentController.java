@@ -187,4 +187,7 @@ public class StudentController {
     public AskVO getAskSelected(@RequestBody int num) {
         return studentSBO.getAskSelected(num);
     }
+
+    @RequestMapping(value = "/updateAsk", method = RequestMethod.POST)
+    public void updateAsk(@RequestBody int askNum) { studentSBO.updateAsk(askNum); }
 }

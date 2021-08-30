@@ -143,18 +143,20 @@ function callGetPostByNum(data){
     }
     $("#postOption").append(text);
 
-    if(data.accusedYN || data.delYN){
-        $("#headInfo").remove();
-        $(".toast-header").remove();
-        $("#content").addClass("text-center");
-        if(data.accusedYN)
-            $("#content").append("<br><br>" + "<h5><strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong></h5>" + "<br><br><br>");
-        else if(data.delYN)
-            $("#content").append("<br><br>" + "<h5><strong>게시글이 삭제 되었습니다.</strong></h5>" + "<br><br><br>");
-        $("#mainReply").remove();
-        $("#mainReplyWrite").remove();
-        $("hr").remove();
-        return;
+    if(viewer!== "tjdqls031" && viewer !== "dongbin97") {
+        if (data.accusedYN || data.delYN) {
+            $("#headInfo").remove();
+            $(".toast-header").remove();
+            $("#content").addClass("text-center");
+            if (data.accusedYN)
+                $("#content").append("<br><br>" + "<h5><strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong></h5>" + "<br><br><br>");
+            else if (data.delYN)
+                $("#content").append("<br><br>" + "<h5><strong>게시글이 삭제 되었습니다.</strong></h5>" + "<br><br><br>");
+            $("#mainReply").remove();
+            $("#mainReplyWrite").remove();
+            $("hr").remove();
+            return;
+        }
     }
 
     $("#content").append(data.content);
@@ -167,11 +169,11 @@ function callGetReplies(reply){
     for(var i=0;i<reply.length;i++){
         var text = '<li id="' + (++replyIdx) + '" class="list-group-item d-flex justify-content-between align-items-center">';
 
-        if(reply[i].accusedYN){
+        if(reply[i].accusedYN && viewer !== "tjdqls031" && viewer !== "dongbin97"){
             text += '<strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong>'
                     + '</li>';
         }
-        else if(reply[i].delYN){
+        else if(reply[i].delYN && viewer !== "tjdqls031" && viewer !== "dongbin97"){
             text += '<strong>게시글이 삭제 되었습니다.</strong>'
                 + '</div></li>';
         }
@@ -220,11 +222,11 @@ function callGetRereplies(rereply){
                 + '<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>'
                 + '</svg>';
 
-        if(rereply[i].accusedYN){
+        if(rereply[i].accusedYN && viewer !== "tjdqls031" && viewer !== "dongbin97"){
             text += '<strong>게시글이 신고 되어 일시적으로 표시할 수 없습니다.</strong>'
                 + '</div></li>';
         }
-        else if(rereply[i].delYN){
+        else if(rereply[i].delYN && viewer !== "tjdqls031" && viewer !== "dongbin97"){
             text += '<strong>게시글이 삭제 되었습니다.</strong>'
                 + '</div></li>';
         }

@@ -51,4 +51,6 @@ public interface PostSBO {
     List<AccuseVO> getAccuse(int checked);
 
     AccuseVO getAccuseSelected(int num);
+
+    void updateAccuse(int accuseNum);
 }

@@ -39,4 +39,6 @@ public interface StudentSBO {
     List<AskVO> getAsk(int checked);
 
     AskVO getAskSelected(int num);
+
+    void updateAsk(int askNum);
 }

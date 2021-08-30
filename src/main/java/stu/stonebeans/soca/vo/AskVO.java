@@ -10,6 +10,7 @@ public class AskVO {
     private int askNum;
     private String email, content;
     private boolean handleYN;
+    private String postTime, nickname;
 
     @Override
     public String toString() {
@@ -18,6 +19,8 @@ public class AskVO {
                 ", email='" + email + '\'' +
                 ", content='" + content + '\'' +
                 ", handleYN=" + handleYN +
+                ", postTime'" + postTime + '\'' +
+                ", nickname'" + nickname + '\'' +
                 '}';
     }
 }

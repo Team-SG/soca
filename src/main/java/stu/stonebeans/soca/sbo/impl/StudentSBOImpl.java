@@ -147,4 +147,7 @@ public class StudentSBOImpl implements StudentSBO {
         return studentDAO.getAskSelected(num);
     }
 
+    @Override
+    public void updateAsk(int askNum) { studentDAO.updateAsk(askNum); }
+
 }

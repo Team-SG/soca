@@ -78,7 +78,7 @@
 
     <select id="writeReply"
             parameterType="HashMap">
-        INSERT INTO reply (postNum,email,content,postTime,accusedYN, rereplyCnt, delYN) VALUES(#{postNum},#{email},#{content},NOW(),0,0,0);
+        INSERT INTO reply (postNum,email,content,postTime,accusedYN, rereplyCnt, delYN) VALUES(#{postNum},#{email},#{content},date_Add(now(), interval 9 hour),0,0,0);
         UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
     </select>
 
@@ -92,7 +92,7 @@
 
     <select id="writeRereply"
             parameterType="HashMap">
-        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN, delYN) VALUES(#{replyNum},#{email},#{content},NOW(),0,0);
+        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN, delYN) VALUES(#{replyNum},#{email},#{content},date_Add(now(), interval 9 hour),0,0);
         UPDATE reply SET rereplyCnt = rereplyCnt + 1 WHERE replyNum = #{replyNum};
         UPDATE post SET replyNum = replyNum + 1 WHERE postNum = #{postNum};
 
@@ -101,8 +101,9 @@
     <select id="getRereplies"
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.RereplyVO">
-        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.delYN
+        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.delYN, c.postNum
         FROM rereply AS a JOIN student AS b ON a.email = b.email
+                          JOIN reply as c on a.replyNum = c.replyNum
         WHERE a.replyNum = #{replyNum}
     </select>
 
@@ -185,5 +186,10 @@
             parameterType="integer"
             resultType="stu.stonebeans.soca.vo.AccuseVO">
         select * from accuse where accuseNum = #{num};
+    </select>
+
+    <select id="updateAccuse"
+            parameterType="integer">
+        UPDATE accuse SET handleYN = 1 where accuseNum = #{accuseNum}
     </select>
 </mapper>

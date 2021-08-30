@@ -34,4 +34,6 @@ public interface StudentDAO {
     public List<AskVO> getAsk2();
 
     public AskVO getAskSelected(int num);
+
+    void updateAsk(int askNum);
 }

@@ -66,4 +66,6 @@ public interface PostDAO {
     List<AccuseVO> getAccuse2();
 
     AccuseVO getAccuseSelected(int num);
+
+    void updateAccuse(int accuseNum);
 }

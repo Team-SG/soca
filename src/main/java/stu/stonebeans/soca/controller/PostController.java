@@ -121,4 +121,7 @@ public class PostController {
     public AccuseVO getAccuseSelected(@RequestBody int num) {
         return postSBO.getAccuseSelected(num);
     }
+
+    @RequestMapping(value = "/updateAccuse", method = RequestMethod.POST)
+    public void updateAsk(@RequestBody int accuseNum) { postSBO.updateAccuse(accuseNum); }
 }

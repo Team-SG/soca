@@ -10,6 +10,7 @@ public class RereplyVO {
     private int rereplyNum, replyNum;
     private String email, nickname, content, postTime;
     private boolean accusedYN, delYN;
+    private int postNum;
 
     @Override
     public String toString() {
@@ -22,6 +23,7 @@ public class RereplyVO {
                 ", postTime='" + postTime + '\'' +
                 ", accusedYN=" + accusedYN +
                 ", delYN=" + delYN +
+                ", postNum=" + postNum +
                 '}';
     }
 }

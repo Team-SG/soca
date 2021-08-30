@@ -109,5 +109,8 @@ public class PostSBOImpl implements PostSBO {
     public AccuseVO getAccuseSelected(int num) {
         return postDAO.getAccuseSelected(num);
     }
+
+    @Override
+    public void updateAccuse(int accuseNum) { postDAO.updateAccuse(accuseNum); }
 }
 
