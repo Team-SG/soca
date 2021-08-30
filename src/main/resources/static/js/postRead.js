@@ -159,7 +159,8 @@ function callGetPostByNum(data){
         }
     }
 
-    $("#content").append("<-- 신고가 접수된 게시글입니다 --><br>");
+    if(data.accusedYN)
+        $("#content").append("<-- 신고가 접수된 게시글입니다 --><br>");
     $("#content").append(data.content);
     $("#replyNum").append("답글 "+data.replyNum+"개");
 
