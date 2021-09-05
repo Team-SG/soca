@@ -59,6 +59,7 @@ public interface EvaluateSBO {
 
     // 인기 강의&교수 가져오기
     List<SubjectVO> getFavoriteSub();
+
     List<String> getFavoriteProf();
 
     List<String> getSubByCode(String code);

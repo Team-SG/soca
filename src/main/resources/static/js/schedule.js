@@ -170,9 +170,6 @@ function getMajor() {
 // 그리드 선택된 항목 삭제
 function deleteGridData() {
     var checkedRows = schedule.getCheckedRows();
-    /*for(var i=0; i<checkedRows.length; i++){
-        schedule.removeRow(checkedRows);
-    }*/
     schedule.removeCheckedRows(false);
     for(var i = 0; i < checkedRows.length; i++) {
         var param = {
@@ -232,11 +229,8 @@ function getWeekday(data) {
 
 function loadSubjectList() {
     var selectedYear=$("#selectYear").val();
-    //var start=selectedYear.indexOf("년도");
-    //var end=selectedYear.indexOf("학기");
     var year=selectedYear.substring(0,4);
     var semester=selectedYear.substring(4);
-    //swal(selectedYear+"   "+year+semester);
     var param={
         year : year,
         semester : semester

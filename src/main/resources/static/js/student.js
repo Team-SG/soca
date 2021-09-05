@@ -690,8 +690,6 @@ function saveMyPageChange(){
         return;
     }
 
-   // swal("여기까지 통과");
-
     var param={
         email: $("#myPageEmail").val(),
         nickname: $("#myPageNickname").val()
@@ -733,7 +731,6 @@ function callDuplicateNickname(data) {
     if(data === true) {
         swal("'"+$("#registerNickname").val()+"' 은(는) 사용 가능한 닉네임입니다.");
 
-        //[중복확인] 버튼이 사라지고 체크 표시 그림이 나타나는 것도 괜찮을 듯
         $("#btnNicknameCheck").hide();
         $("#validNickname").show();
         $("#nicknameAuth").val(1);
@@ -792,7 +789,6 @@ function callDuplicateMyNickname(data) {
     if(data === true) {
         swal("'"+$("#myPageNickname").val()+"' 은(는) 사용 가능한 닉네임입니다.");
 
-        //[중복확인] 버튼이 사라지고 체크 표시 그림이 나타나는 것도 괜찮을 듯
         $("#btnMyNicknameCheck").hide();
         $("#myValidNickname").show();
         $("#myNicknameAuth").val(1);

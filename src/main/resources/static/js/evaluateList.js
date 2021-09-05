@@ -13,13 +13,6 @@ var thisYearProfessors = [];
 var selectItem;
 
 $(document).ready(function() {
-    /* if(self.name != 'reload') {
-        self.name = 'reload';
-        self.location.reload();
-    }
-    else
-        self.name = "";*/
-
     initGrid(); // 그리드 초기 세팅
     getAllMajors();
     getAllSubjects();
@@ -46,22 +39,18 @@ $(document).ready(function() {
             label: ""
         }
         if($("input[id='courseNum']:checked").prop("checked")) {
-            //$("#majortext").show();
             $("#major").show();
             $("#hideSubjectLists").empty();
             $("#subjectLists").hide();
             // 과목번호 autocomplete
             autoComplete(1);
         } else if($("input[id='courseName']:checked").prop("checked")) {
-            //$("#majortext").show();
-            $("#major").show();
             $("#hideSubjectLists").empty();
             $("#subjectLists").hide();
             // 과목명 autocomplete
             autoComplete(2);
         } else if($("input[id='professorName']:checked").prop("checked")) {
             // 교수 명일 때 소속구분 가리기
-            //$("#majortext").hide();
             $("#major").hide();
             $("#hideSubjectLists").empty();
             $("#subjectLists").hide();
@@ -76,12 +65,6 @@ $(document).ready(function() {
         showSearchData();
         $("#subjectLists").show(); //slideUp slideDown..
     });
-
-    /*
-    $(".menu>a").click(function(){
-        $(this).next("ul").toggleClass("hide");
-    })*/
-
 });
 
 // ================================ Custom Function ================================
@@ -92,7 +75,6 @@ function initGrid() {
     GridLists = new Grid({
         el: document.getElementById('grid'),
         data: data,
-        // rowHeaders: ['checkbox'],
         treeColumnOptions: {
             name: 'code',
             useIcon: false,
@@ -227,8 +209,6 @@ function autoComplete(num) {
 }
 
 function showSearchData() {
-    //$("#subjectLists").cleanData();
-    //$("#subjectLists").append(selectItem.label);
     $("#hideSubjectLists").empty();
 
     if(selectItem.label === "")
@@ -258,8 +238,6 @@ function showSearchData() {
         }
         findProfBySubject(param);
     }
-
-    //$("#hideSubjectLists").append.html("<li>메뉴1-1</li>")
 }
 
 function findProfBySubject(param) {
@@ -312,10 +290,8 @@ function findProfBySubject(param) {
                 rowData.qualityAvg = data.qualityAvg/2;
                 rowData.gradeSatisAvg = data.gradeSatisAvg/2;
             })
-            //GridLists.appendRow(rowData);
             GridLists.appendRow(rowData);
         }
-        //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
     })
 }
 
@@ -433,18 +409,6 @@ function getRecentEval() {
 }
 
 function goSelected(param) {
-
-    /*var goform = $("<form>", {
-        method: "post",
-        action: "evaluateSelected",
-        target: "_self",
-        html: "<input type='hidden' name='code' value='" + param.code + "'>",
-        value : [["code", param.code],
-                ["subjectNO", param.subjectNO],
-                ["professor", param.professor]]
-    }).appendTo("body");
-
-    goform.submit();*/
     sessionStorage.setItem("state", "1");
     location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
 }

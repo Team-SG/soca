@@ -11,15 +11,6 @@ $(document).ready(function() {
         $("#subjectList").empty();
         getSubjectList();
     })
-
-    /*$("#goEvaluateWrite").click(function (event){
-        var param={
-
-        }
-        callPostService("/goEvaluateWrite",param,function(){
-           window.location.href="/evaluateWrite";
-       })
-    });*/
 });
 
 
