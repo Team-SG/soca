@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stu.stonebeans.soca.dao.PostDAO">
+
+    <select id="getAllPosts"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.viewCnt, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0
+        order by postNum desc
+    </select>
+
+    <select id="getUnsolvedPosts"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.viewCnt, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 and a.solYN = 0
+        order by postNum desc
+    </select>
+
+    <select id="getSelectedBySubject"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.viewCnt, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 and c.subjectNo = #{searchKey}
+        order by postNum desc
+    </select>
+
+    <select id="getSelectedByTitle"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.viewCnt, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 and a.title like #{searchKey}
+        order by postNum desc
+    </select>
+
+    <select id="getUnsolvedBySubject"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.viewCnt, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 and a.solYN = 0 and c.subjectNo = #{searchKey}
+        order by postNum desc
+    </select>
+
+    <select id="getUnsolvedByTitle"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.viewCnt, a.subjectID, c.subjectNo FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 and a.solYN = 0 and a.title like #{searchKey}
+        order by postNum desc
+    </select>
+
+    <select id="getPostByNum"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT DISTINCT a.postNum, a.title, a.email, b.nickname, a.content, a.postTime, a.solYN, a.delYN, a.accusedYN, a.viewCnt, a.replyNum, a.subjectID, c.subjectNo
+        FROM post AS a
+        JOIN student AS b ON a.email = b.email
+        JOIN subject AS c ON c.code = a.subjectID
+        where a.postNum=#{postNum}
+    </select>
+
+    <select id="getSubjectName"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        SELECT distinct subjectNO FROM subject where code=#{code}
+    </select>
+
+    <select id="writeReply"
+            parameterType="HashMap">
+        INSERT INTO reply (postNum,email,content,postTime,accusedYN, rereplyCnt, delYN) VALUES(#{postNum},#{email},#{content},date_Add(now(), interval 9 hour),0,0,0);
+        UPDATE post SET replyNum = replyNum+1 where postNum=#{postNum};
+    </select>
+
+    <select id="getReplies"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.ReplyVO">
+        SELECT a.replyNum, a.postNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt, a.delYN
+        FROM reply AS a JOIN student AS b ON a.email = b.email
+        WHERE a.postNum = #{postNum}
+    </select>
+
+    <select id="writeRereply"
+            parameterType="HashMap">
+        INSERT INTO rereply (replyNum,email,content,postTime,accusedYN, delYN) VALUES(#{replyNum},#{email},#{content},date_Add(now(), interval 9 hour),0,0);
+        UPDATE reply SET rereplyCnt = rereplyCnt + 1 WHERE replyNum = #{replyNum};
+        UPDATE post SET replyNum = replyNum + 1 WHERE postNum = #{postNum};
+
+    </select>
+
+    <select id="getRereplies"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.RereplyVO">
+        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.delYN, c.postNum
+        FROM rereply AS a JOIN student AS b ON a.email = b.email
+                          JOIN reply as c on a.replyNum = c.replyNum
+        WHERE a.replyNum = #{replyNum}
+    </select>
+
+    <select id="updateSolved"
+            parameterType="integer">
+        UPDATE post SET solYN = 1 WHERE postNum = #{postNum}
+    </select>
+
+    <select id="accusePost"
+            parameterType="HashMap">
+        UPDATE post SET accusedYN = 1 WHERE postNum = #{postNum};
+        INSERT INTO accuse(types,postNum,content,handleYN) VALUES (#{type}, #{postNum}, #{content}, 0);
+    </select>
+
+    <select id="accuseReply"
+            parameterType="HashMap">
+        UPDATE reply SET accusedYN = 1 WHERE replyNum = #{postNum};
+        INSERT INTO accuse(types,postNum,content,handleYN) VALUES (#{type}, #{postNum}, #{content}, 0);
+    </select>
+
+    <select id="accuseRereply"
+            parameterType="HashMap">
+        UPDATE rereply SET accusedYN = 1 WHERE rereplyNum = #{postNum};
+        INSERT INTO accuse(types,postNum,content,handleYN) VALUES (#{type}, #{postNum}, #{content}, 0);
+    </select>
+
+    <select id="deletePost"
+            parameterType="HashMap">
+        UPDATE post SET delYN = 1 WHERE postNum = #{postNum}
+    </select>
+
+    <select id="deleteReply"
+            parameterType="HashMap">
+        UPDATE reply SET delYN = 1 WHERE replyNum = #{postNum}
+    </select>
+
+    <select id="deleteRereply"
+            parameterType="HashMap">
+        UPDATE rereply SET delYN = 1 WHERE rereplyNum = #{postNum}
+    </select>
+
+    <select id="writePost"
+            parameterType="HashMap"
+            resultType="Integer">
+        INSERT INTO post(title, email, content, postTime, solYN, delYN, viewCnt, replyNum, subjectID, accusedYN)
+        VALUES (#{title}, #{email}, #{content}, date_Add(now(), interval 9 hour), 0, 0, 0, 0, #{code}, 0);
+        SELECT MAX(postNum) FROM post;
+    </select>
+
+    <select id="revisePost"
+            parameterType="HashMap">
+        UPDATE post SET title = #{title}, content = #{content}
+        WHERE postNum = #{postNum}
+    </select>
+
+    <select id="getMainPost"
+            resultType="stu.stonebeans.soca.vo.PostVO">
+        SELECT distinct a.postNum, a.title, a.viewCnt, c.subjectNo, a.replyNum FROM post as a
+        join student as b on a.email = b.email
+        join subject as c on substr(c.subjectID, 6, 7) = a.subjectID
+        where a.delYN = 0 order by postNum desc limit 5
+    </select>
+
+    <select id="updateViews"
+            parameterType="Integer">
+        update post set viewCnt = viewCnt + 1 where postNum = #{postNum}
+    </select>
+
+    <select id="getAccuse"
+            resultType="stu.stonebeans.soca.vo.AccuseVO">
+        select * from accuse;
+    </select>
+
+    <select id="getAccuse2"
+            resultType="stu.stonebeans.soca.vo.AccuseVO">
+        select * from accuse where handleYN = 0;
+    </select>
+
+    <select id="getAccuseSelected"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AccuseVO">
+        select * from accuse where accuseNum = #{num};
+    </select>
+
+    <select id="updateAccuse"
+            parameterType="integer">
+        UPDATE accuse SET handleYN = 1 where accuseNum = #{accuseNum}
+    </select>
+
+    <select id="getReplyByNum"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.ReplyVO">
+        SELECT a.replyNum, a.postNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.rereplyCnt, a.delYN
+        FROM reply AS a JOIN student AS b ON a.email = b.email
+        WHERE a.replyNum = #{replyNum}
+    </select>
+
+    <select id="getRereplyByNum"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.RereplyVO">
+        SELECT a.rereplyNum, a.replyNum, a.email, b.nickname, a.content, a.postTime, a.accusedYN, a.delYN, c.postNum
+        FROM rereply AS a JOIN student AS b ON a.email = b.email
+                          JOIN reply as c on a.replyNum = c.replyNum
+        WHERE a.rereplyNum = #{rereplyNum}
+    </select>
+</mapper>

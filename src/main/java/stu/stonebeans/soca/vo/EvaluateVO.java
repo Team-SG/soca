@@ -12,7 +12,7 @@ public class EvaluateVO {
     private int evaluation,quality, gradeSatis, difficulty, homework, coverage, testNum;
     private String grade;
     private float score1, score2, score3, score4,average1,average2,average3,average4,rank1,rank2,rank3,rank4;
-    private String commentFinal,commentTest;
+    private String commentFinal,commentTest, postTime;
     private int recommendNum;
 
     public void setEmail(String email) {
@@ -47,6 +47,7 @@ public class EvaluateVO {
                 ", rank4=" + rank4 +
                 ", commentFinal='" + commentFinal + '\'' +
                 ", commentTest='" + commentTest + '\'' +
+                ", postTime=" + postTime +
                 ", recommendNum=" + recommendNum +
                 '}';
     }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stu.stonebeans.soca.dao.LikedDAO">
+    <select id="findLiked"
+            parameterType="String"
+            resultType="stu.stonebeans.soca.vo.LikedVO">
+        SELECT * from liked where email = #{email}
+    </select>
+
+    <select id="deleteLiked"
+            parameterType="HashMap">
+        DELETE from liked where email = #{email} and subjectNo = #{subjectNO}
+    </select>
+
+    <select id="insertLiked"
+            parameterType="HashMap">
+        insert into liked values (#{email}, #{code}, #{subjectNO})
+    </select>
+
+    <select id="duplicateLiked"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.LikedVO">
+        SELECT * from liked where email = #{email} and subjectNo = #{subjectNO}
+    </select>
+</mapper>

@@ -11,15 +11,6 @@ $(document).ready(function() {
         $("#subjectList").empty();
         getSubjectList();
     })
-
-    /*$("#goEvaluateWrite").click(function (event){
-        var param={
-
-        }
-        callPostService("/goEvaluateWrite",param,function(){
-           window.location.href="/evaluateWrite";
-       })
-    });*/
 });
 
 
@@ -67,7 +58,10 @@ function callGetSubjectList(data){
             last= '<span class="badge badge-primary fs-090"  onclick="location.href=\'/evaluateWrite?subjectID='+item.subjectID+'\'"  style="cursor:pointer">평가하기</span></li>';
         var prof="";
         if(item.professor!="") prof=tabChar()+" - "+item.professor +" 교수님";
-        var li = start + "<div> <strong>["+item.code+"] </strong>"+ tabChar() +item.subjectNO+prof+"</div>" + last;
+        var li = start + "<div> <strong>["+item.code+"] </strong>"+ tabChar() ;
+        if(isEvaluated(item.subjectID)) li += '<a style="color:#000000"  href="\evaluateComplete?subjectID=' + item.subjectID + '">' + item.subjectNO + prof + '</a>'
+        else li += item.subjectNO+ prof
+        li += "</div>" + last;
         $("#subjectList").append(li);
     })
 }

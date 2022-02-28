@@ -77,8 +77,8 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     }
 
     @Override
-    public List<EvaluateVO> getRecentEval(int num) {
-        return evaluateDAO.getRecentEval(num);
+    public List<EvaluateVO> getRecentEval(HashMap<String,Integer> map) {
+        return evaluateDAO.getRecentEval(map);
     }
 
     //강의 평가 저장하기
@@ -144,4 +144,38 @@ public class EvaluateSBOImpl implements EvaluateSBO {
     public EvaluateVO getEvalCompleteByPostNum(HashMap<String,Integer> map){
         return evaluateDAO.getEvalCompleteByPostNum(map);
     }
+
+    // 선택된 과목의 강의 평가 가져오기
+    @Override
+    public List<EvaluateVO> findSelected(HashMap<String, Object> map) {
+        if(map.get("code").equals("")){
+            if (map.get("state").equals("1"))
+                return evaluateDAO.findSelected3(map);
+            else
+                return evaluateDAO.findSelected4(map);
+        }
+        else {
+            if (map.get("state").equals("1"))
+                return evaluateDAO.findSelected(map);
+            else
+                return evaluateDAO.findSelected2(map);
+        }
+    }
+
+    //강의 평가 전체 개수 가져오기
+    @Override
+    public Integer getRecentEvalCnt(){
+        return evaluateDAO.getRecentEvalCnt();
+    }
+
+    // 인기 강의 가져오기
+    @Override
+    public List<SubjectVO> getFavoriteSub() { return evaluateDAO.getFavoriteSub(); }
+
+    // 인기 교수 가져오기
+    @Override
+    public List<String> getFavoriteProf() { return evaluateDAO.getFavoriteProf(); }
+
+    @Override
+    public List<String> getSubByCode(String code) { return evaluateDAO.getSubByCode(code); }
 }

@@ -5,6 +5,7 @@
  */
 
 const Grid = tui.Grid;
+var GridLists;
 var subjectLists = [];
 var professors = [];
 var thisYearSubjectLists = [];
@@ -19,8 +20,11 @@ $(document).ready(function() {
         label: ""
     }
     $("#selectMajor").change(function(){
-        schedule.clear();
+        GridLists.clear();
         $("#subject").val("");
+        selectItem = {
+            label: ""
+        }
     })
 
     getRecentEval();
@@ -28,26 +32,25 @@ $(document).ready(function() {
     // 기본 설정이 과목번호 이므로 autocomplete 1
     autoComplete(1);
     $("input[name='searchCondition']").change(function() {
-        schedule.clear();
+        GridLists.clear();
         $("#subject").val("");
         $("#selectMajor").val("전공");
+        selectItem = {
+            label: ""
+        }
         if($("input[id='courseNum']:checked").prop("checked")) {
-            //$("#majortext").show();
             $("#major").show();
             $("#hideSubjectLists").empty();
             $("#subjectLists").hide();
             // 과목번호 autocomplete
             autoComplete(1);
         } else if($("input[id='courseName']:checked").prop("checked")) {
-            //$("#majortext").show();
-            $("#major").show();
             $("#hideSubjectLists").empty();
             $("#subjectLists").hide();
             // 과목명 autocomplete
             autoComplete(2);
         } else if($("input[id='professorName']:checked").prop("checked")) {
             // 교수 명일 때 소속구분 가리기
-            //$("#majortext").hide();
             $("#major").hide();
             $("#hideSubjectLists").empty();
             $("#subjectLists").hide();
@@ -58,16 +61,10 @@ $(document).ready(function() {
 
     $("#subjectLists").hide();
     $("#btnSearch").click(function(){
-        schedule.clear();
+        GridLists.clear();
         showSearchData();
         $("#subjectLists").show(); //slideUp slideDown..
     });
-
-    /*
-    $(".menu>a").click(function(){
-        $(this).next("ul").toggleClass("hide");
-    })*/
-
 });
 
 // ================================ Custom Function ================================
@@ -75,10 +72,9 @@ $(document).ready(function() {
 // 그리드 초기 세팅
 function initGrid() {
     const data = [];
-    schedule = new Grid({
+    GridLists = new Grid({
         el: document.getElementById('grid'),
         data: data,
-        // rowHeaders: ['checkbox'],
         treeColumnOptions: {
             name: 'code',
             useIcon: false,
@@ -139,7 +135,14 @@ function initGrid() {
         ]
     });
 
-    schedule.resetData(data);
+    GridLists.on('click', (ev) => {
+        if(ev.columnName == "subjectNO") {
+            if(GridLists.getRow(ev.rowKey).professor != null)
+                goSelected(GridLists.getRow(ev.rowKey));
+        }
+    })
+
+    GridLists.resetData(data);
 }
 
 
@@ -206,10 +209,10 @@ function autoComplete(num) {
 }
 
 function showSearchData() {
-    //$("#subjectLists").cleanData();
-    //$("#subjectLists").append(selectItem.label);
     $("#hideSubjectLists").empty();
 
+    if(selectItem.label === "")
+        return;
     var param;
     $("#menuSubjectLists").attr('alt', selectItem.label);
     if ($("input[id='professorName']:checked").prop("checked")) {
@@ -235,14 +238,15 @@ function showSearchData() {
         }
         findProfBySubject(param);
     }
-
-    //$("#hideSubjectLists").append.html("<li>메뉴1-1</li>")
 }
 
 function findProfBySubject(param) {
     callPostService("findProfBySubject", param, function (data) {
-        if(data.length != 1) {
-            var rowData = [{
+        if(data.length == 0) {
+            return;
+        }
+        else if(data.length != 1) {
+            var rowData = {
                     code: param.code,
                     major: param.major,
                     subjectNO: param.nowItem,
@@ -250,7 +254,7 @@ function findProfBySubject(param) {
                         expanded: false
                     },
                      _children: []
-                }];
+                };
 
             for (var i = 0; i < data.length; i++) {
                 var child = {
@@ -263,13 +267,13 @@ function findProfBySubject(param) {
                     gradeSatisAvg: "0"
                 }
                 callPostService("getEvaluateData", child, function(data){
-                    child.evaluationAvg = data.evaluationAvg;
-                    child.qualityAvg = data.qualityAvg;
-                    child.gradeSatisAvg = data.gradeSatisAvg;
+                    child.evaluationAvg = data.evaluationAvg/2;
+                    child.qualityAvg = data.qualityAvg/2;
+                    child.gradeSatisAvg = data.gradeSatisAvg/2;
                 })
-                rowData[0]._children.push(child);
+                rowData._children.push(child);
             }
-            schedule.resetData(rowData);
+            GridLists.resetData(rowData._children);
         }
         else {
             var rowData = {
@@ -277,6 +281,7 @@ function findProfBySubject(param) {
                     major: param.major,
                     subjectNO: param.nowItem,
                     professor: data[0],
+                    evaluationAvg: "0",
                     quality: "0",
                     gradeSatis: "0"
                 };
@@ -285,29 +290,35 @@ function findProfBySubject(param) {
                 rowData.qualityAvg = data.qualityAvg/2;
                 rowData.gradeSatisAvg = data.gradeSatisAvg/2;
             })
-            //schedule.appendRow(rowData);
+            GridLists.appendRow(rowData);
         }
-        schedule.appendRow(rowData);
-        //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
     })
 }
 
 function findSubByProf(param) {
     callPostService("findSubByProf", param, function (data) {
-        for (var i = 0; i < data.length; i++) {
-            var rowData = [
-                {
-                    code: data[i].code,
-                    major: data[i].major,
-                    subjectNO: data[i].subjectNO,
-                    professor: param.nowItem,
-                    quality: "0",
-                    gradeSatis: "0"
-                }
-            ];
-            schedule.appendRows(rowData);
-            //$("#hideSubjectLists").append("<li>" + data[i] + "</li>")
+        if(data.length == 0) {
+            return;
         }
+        var rowData = [];
+        for (var i = 0; i < data.length; i++) {
+            var child = {
+                code: data[i].code,
+                major: data[i].major,
+                subjectNO: data[i].subjectNO,
+                professor: param.nowItem,
+                evaluationAvg: "0",
+                qualityAvg: "0",
+                gradeSatisAvg: "0"
+            }
+            callPostService("getEvaluateData", child, function(data){
+                child.evaluationAvg = data.evaluationAvg/2;
+                child.qualityAvg = data.qualityAvg/2;
+                child.gradeSatisAvg = data.gradeSatisAvg/2;
+            })
+            rowData.push(child);
+        }
+        GridLists.appendRows(rowData);
     })
 }
 
@@ -341,17 +352,30 @@ function getAllSubjects() {
 }
 
 function getRecentEval() {
-
-    callPostService("getRecentEval", 3, function(data){
+    var param={
+        offset : 0,
+        num : 3
+    }
+    callPostService("getRecentEval", param, function(data){
         for(var dataN = 0; dataN < data.length ; dataN++) {
             var param = {
                 subjectID: data[dataN].subjectID
             }
+            let today = new Date();
+            let postTime = new Date(data[dataN].postTime);
+            let dateDiff = Math.ceil((today.getTime() - postTime.getTime())/(1000*3600*24));
             callPostService("getSubjectData", param, function (data2) {
-                var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
-                    + '<span class="badge badge-primary">New</span>'
-                    + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum='+data[dataN].postNum+'&subjectID='+data[dataN].subjectID+'">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
-
+                if(dateDiff > 1) {
+                    var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                        + '<span class="badge badge-primary">' + data[dataN].postNum + '</span>'
+                        + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum=' + data[dataN].postNum + '&subjectID=' + data[dataN].subjectID + '">' + data2.subjectNO + ' - ' + data2.professor + '</a>';
+                }
+                else {
+                    var text = '<li class="list-group-item justify-content-between align-items-left pt-2 pb-2 pl-3 pr-3">'
+                    + '<span class="badge badge-primary">' + data[dataN].postNum + '</span>'
+                    + '<a class="ml-2 mr-2" style="color:#000000"  href="\evaluateComplete?postNum=' + data[dataN].postNum + '&subjectID=' + data[dataN].subjectID + '">' + data2.subjectNO + ' - ' + data2.professor + '</a>'
+                    + '<span class="badge badge-primary">new</span>';
+                }
                 if(data[dataN].score1 != 0) {
                     text += '<ion-icon name="add-circle-outline"></ion-icon>';
                 }
@@ -362,13 +386,13 @@ function getRecentEval() {
                     + '<span class="pl-1 pr-3">' + data[dataN].recommendNum + '</span>'
 
                 // 별점
-                for (var i = 2; i <= data[dataN].quality; i = i + 2) {
+                for (var i = 2; i <= data[dataN].evaluation; i = i + 2) {
                     text += '<ion-icon name="star"></ion-icon>';
                 }
-                if (data[dataN].quality % 2 == 1) {
+                if (data[dataN].evaluation % 2 == 1) {
                     text += '<ion-icon name="star-half"></ion-icon>'
                 }
-                for (var i = data[dataN].quality; i < 9; i = i + 2) {
+                for (var i = data[dataN].evaluation; i < 9; i = i + 2) {
                     text += '<ion-icon name="star-outline"></ion-icon>'
                 }
 
@@ -382,4 +406,9 @@ function getRecentEval() {
             })
         }
     })
+}
+
+function goSelected(param) {
+    sessionStorage.setItem("state", "1");
+    location.href = "evaluateSelected?code=" + param.code + "&professor=" + param.professor + "&page=1";
 }

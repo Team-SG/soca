@@ -44,4 +44,38 @@
         SET A.nickname=#{newNickname},A.email=#{newEmail},B.email=#{newEmail}
         WHERE A.email = #{currentEmail}
     </select>
+
+    <!-- 기술 문의 -->
+    <select id="sendAsk"
+            parameterType="HashMap">
+        insert into ask (askNum, email, content, handleYN, postTime) values( (select ifnull(max(askNum) + 1, 1) from ask a), #{email}, #{askText}, 0, date_Add(now(), interval 9 hour));
+    </select>
+
+    <select id="getAsk"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AskVO">
+        select a.askNum, a.email, a.content, a.handleYN, a.postTime, b.nickname from ask as a
+        join student as b on a.email = b.email
+    </select>
+
+    <select id="getAsk2"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AskVO">
+        select a.askNum, a.email, a.content, a.handleYN, a.postTime, b.nickname from ask as a
+        join student as b on a.email = b.email
+        where handleYN = 0;
+    </select>
+
+    <select id="getAskSelected"
+            parameterType="integer"
+            resultType="stu.stonebeans.soca.vo.AskVO">
+        select a.askNum, a.email, a.content, a.handleYN, a.postTime, b.nickname from ask as a
+        join student as b on a.email = b.email
+        where askNum = #{num};
+    </select>
+
+    <select id="updateAsk"
+            parameterType="integer">
+        UPDATE ask SET handleYN = 1 where askNum = #{askNum}
+    </select>
 </mapper>

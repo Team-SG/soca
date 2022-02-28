@@ -1,9 +1,11 @@
 package stu.stonebeans.soca.sbo;
 
+import stu.stonebeans.soca.vo.AskVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface StudentSBO {
 
@@ -30,4 +32,13 @@ public interface StudentSBO {
 
     // 마이페이지 정보 변경
     void changeMyPage(HashMap<String,String> map);
+
+    // 기술 문의 보내기
+    void sendAsk(HashMap<String, String> map);
+
+    List<AskVO> getAsk(int checked);
+
+    AskVO getAskSelected(int num);
+
+    void updateAsk(int askNum);
 }

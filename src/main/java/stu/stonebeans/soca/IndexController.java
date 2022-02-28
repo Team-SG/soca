@@ -70,4 +70,39 @@ public class IndexController {
     // 최근 강의 평가 목록 호출
     @RequestMapping(value="/recentEvalRes")
     public String recentEvalRes(){ return "recentEvalRes";}
+
+    // 선택한 강의 평가 목록 호출
+    @RequestMapping(value="/evaluateSelected")
+    public String evaluateSelected() { return "evaluateSelected";}
+
+    // 질문방 질문 게시글 목록 호출
+    @RequestMapping(value="/postList")
+    public String postList() { return "postList";}
+
+    // 질문방 질문글 조회
+    @RequestMapping(value="/postRead")
+    public String postRead() { return "postRead";}
+
+    // 질문방 질문 게시글 작성
+    @RequestMapping(value="/postFill")
+    public String questionPostFill() { return "postFill";}
+
+    // 퀵 메뉴 리스트 : 즐겨찾기 추가 페이지
+    @RequestMapping(value="/quickMenuList")
+    public String quickMenuList() { return "quickMenuList";}
+
+    // 퀵 메뉴
+    @RequestMapping(value="/quickMenu")
+    public String quickMenu() { return "quickMenu";}
+
+    // 인기 과목/교수 목록
+    @RequestMapping(value="/favoriteList")
+    public String favoriteList() { return "favoriteList"; }
+
+    // 관리자
+    @RequestMapping(value="/admin")
+    public String admin() { return "admin"; }
+
+    @RequestMapping(value="/adminList")
+    public String adminList() { return "adminList"; }
 }

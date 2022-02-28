@@ -1,5 +1,6 @@
 package stu.stonebeans.soca.sbo;
 
+import stu.stonebeans.soca.vo.LikedVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.SubjectVO;
@@ -31,4 +32,5 @@ public interface ScheduleSBO {
 
     //해당학생이 해당과목의 강의평가를 완료하였는지 확인
    boolean isEvaluated(HashMap<String,String> map);
+
 }

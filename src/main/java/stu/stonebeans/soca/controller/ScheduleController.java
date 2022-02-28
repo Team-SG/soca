@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stu.stonebeans.soca.sbo.ScheduleSBO;
+import stu.stonebeans.soca.vo.LikedVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.SubjectVO;

@@ -1,6 +1,7 @@
 package stu.stonebeans.soca.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import stu.stonebeans.soca.vo.LikedVO;
 import stu.stonebeans.soca.vo.ScheduleVO;
 import stu.stonebeans.soca.vo.SubjectVO;
 

@@ -46,14 +46,14 @@
 
     <select id="findThisYearSub"
             parameterType="string"
-            resultType="string">
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
         SELECT DISTINCT subjectNo, major, code FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
     </select>
 
     <select id="findThisYearProf"
             parameterType="string"
             resultType="string">
-        SELECT DISTINCT subjectNO FROM subject WHERE professor=#{nowItem} AND year="2021" AND semester="1" ORDER BY subjectNO
+        SELECT DISTINCT professor FROM subject WHERE subjectNO=#{nowItem} AND year="2021" AND semester="1" ORDER BY professor
     </select>
 
     <select id="findSubBySubstr"
@@ -63,9 +63,9 @@
     </select>
 
     <select id="getRecentEval"
-            parameterType="integer"
+            parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
-        SELECT * FROM evaluate ORDER BY postTime DESC LIMIT 0, #{num}
+        SELECT * FROM evaluate ORDER BY postTime DESC LIMIT #{offset}, #{num}
     </select>
 
     <select id="saveEvaluateWrite"
@@ -144,5 +144,58 @@
             parameterType="HashMap"
             resultType="stu.stonebeans.soca.vo.EvaluateVO">
         SELECT * FROM evaluate WHERE postNum=#{postNum}
+    </select>
+
+    <select id="findSelected"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} ORDER BY A.postNum desc
+    </select>
+
+    <select id="findSelected2"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.code=#{code} AND B.professor=#{professor} ORDER BY A.evaluation desc, A.postNum desc
+    </select>
+
+    <select id="findSelected3"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.professor=#{professor} ORDER BY A.postNum desc
+    </select>
+
+    <select id="findSelected4"
+            parameterType="HashMap"
+            resultType="stu.stonebeans.soca.vo.EvaluateVO">
+        SELECT A.* FROM evaluate AS A JOIN subject AS B ON A.subjectID=B.subjectID
+        WHERE B.professor=#{professor} ORDER BY A.evaluation desc, A.postNum desc
+    </select>
+
+    <select id="getRecentEvalCnt"
+            resultType="integer">
+        SELECT COUNT(*) FROM evaluate
+    </select>
+
+    <select id="getFavoriteSub"
+            resultType="stu.stonebeans.soca.vo.SubjectVO">
+        select substring(e.subjectID, 6, 7) as code, b.professor, b.subjectNo from evaluate e
+        join subject b on b.subjectID = e.subjectID
+        group by substring(e.subjectID, 6, 7), b.professor, b.subjectNo order by AVG(e.evaluation) desc
+    </select>
+
+    <select id="getFavoriteProf"
+            resultType="string">
+        select b.professor from evaluate e
+        join subject b on b.subjectID = e.subjectID
+        group by b.professor order by AVG(e.evaluation) desc
+    </select>
+
+    <select id="getSubByCode"
+            parameterType="string"
+            resultType="string">
+        select distinct subjectNo from subject where code like #{code} limit 1
     </select>
 </mapper>

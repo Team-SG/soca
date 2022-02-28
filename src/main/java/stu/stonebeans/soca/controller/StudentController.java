@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.*;
 import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.sbo.MailSBO;
 import stu.stonebeans.soca.sbo.StudentSBO;
+import stu.stonebeans.soca.vo.AskVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class StudentController {
@@ -166,4 +168,26 @@ public class StudentController {
             return new ResultVO(-1, "이미 사용 중인 이메일입니다.");
         }
     }
+
+    // 기술 문의 보내기
+    @RequestMapping(value = "/sendAsk", method = RequestMethod.POST)
+    public void sendAsk(HttpSession session, @RequestBody String askText) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("email",(String)session.getAttribute("email"));
+        map.put("askText", askText.substring(1, askText.length() - 1));
+        studentSBO.sendAsk(map);
+    }
+
+    @RequestMapping(value = "/getAsk", method = RequestMethod.POST)
+    public List<AskVO> getAsk(@RequestBody int checked) {
+        return studentSBO.getAsk(checked);
+    }
+
+    @RequestMapping(value = "/getAskSelected", method = RequestMethod.POST)
+    public AskVO getAskSelected(@RequestBody int num) {
+        return studentSBO.getAskSelected(num);
+    }
+
+    @RequestMapping(value = "/updateAsk", method = RequestMethod.POST)
+    public void updateAsk(@RequestBody int askNum) { studentSBO.updateAsk(askNum); }
 }

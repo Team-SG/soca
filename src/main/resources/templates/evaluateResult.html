@@ -9,9 +9,6 @@
 </head>
 <div layout:fragment="content">
     <div class="toast show shadow-none mt-3">
-        <!-- <div class="toast-header d-flex justify-content-end">
-             <button type="button" id="btnRecommend" class="btn btn-outline-danger font-weight-normal m-2" style="text-align: center;">추천</button>
-         </div>-->
         <div class="toast-body">
             <form>
                 <div class="form-group input-group-sm mt-2 ml-2">
@@ -57,6 +54,7 @@
                             <span class="star starRight"></span>
                         </div>
                     </div>
+
                     <!--학점만족도-->
                     <div id="gradeSatis" class="d-flex align-items-center">
                         <span class="badge badge-dark fs-095 font-weight-light m-2 mb-3">학점만족도</span>
@@ -74,21 +72,25 @@
                         </div>
                     </div>
 
+                    <!--난이도-->
                     <div id="difficulty" class="d-flex align-items-center">
                         <span class="badge badge-dark fs-095 font-weight-light m-2">난이도</span>
                         <div class="progress ml-3" style="width: 40%;"></div>
                     </div>
 
+                    <!--과제량-->
                     <div id="homework" class="d-flex align-items-center">
                         <span class="badge badge-dark fs-095 font-weight-light m-2">과제량</span>
                         <div class="progress ml-3" style="width: 40%;"></div>
                     </div>
 
+                    <!--진도량-->
                     <div id="coverage" class="d-flex align-items-center">
                         <span class="badge badge-dark fs-095 font-weight-light m-2">진도량</span>
                         <div class="progress ml-3" style="width: 40%;"></div>
                     </div>
                     <hr/>
+
                     <!--최근 강의 평가-->
                     <div class="m-3">
                         <strong >최근 강의평가</strong>

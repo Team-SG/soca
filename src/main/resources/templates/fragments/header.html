@@ -21,21 +21,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav mr-auto fs-090">
-                <li class="nav-item pl-1 pr-1">
-                    <a class="nav-link" href="#">공부방</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/evaluate" role="button" aria-haspopup="true" aria-expanded="false">평가방</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item fs-090" href="/evaluateList">평가 목록</a>
+                        <a class="dropdown-item fs-090" onclick="function goEvaluateList() {
+                            location.href = 'evaluateList';
+                            location.name = 'reload';
+                        }
+                        goEvaluateList()">평가 목록</a>
                         <a class="dropdown-item fs-090" href="/myEvaluate">나의 강의평가</a>
                     </div>
                 </li>
-<!--                <li class="nav-item pl-1 pr-1">-->
-<!--                    <a class="nav-link" href="/myEvaluate">평가방</a>-->
-<!--                </li>-->
                 <li class="nav-item pl-1 pr-1">
-                    <a class="nav-link" href="#">질문방</a>
+                    <a class="nav-link" href = "/postList?page=1&checked=0&type=subject&search=">질문방</a>
+                </li>
+
+                <li class="nav-item dropdown float-right" th:if="${session.email == 'tjdqls031' or session.email == 'dongbin97'}">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">관리자</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item fs-090" href="/admin?state=1&page=1&checked=0">신고 목록</a>
+                        <a class="dropdown-item fs-090" href="/admin?state=2&page=1&checked=0">기술 문의</a>
+                    </div>
                 </li>
             </ul>
             <!-- 로그인을 하지 않았을 때 Enable-->

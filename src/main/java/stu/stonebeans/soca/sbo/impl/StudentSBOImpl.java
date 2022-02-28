@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stu.stonebeans.soca.dao.StudentDAO;
 import stu.stonebeans.soca.sbo.StudentSBO;
+import stu.stonebeans.soca.vo.AskVO;
 import stu.stonebeans.soca.vo.ResultVO;
 import stu.stonebeans.soca.vo.StudentVO;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class StudentSBOImpl implements StudentSBO {
@@ -128,5 +130,24 @@ public class StudentSBOImpl implements StudentSBO {
         studentDAO.changeMyPage(map);
     }
 
+    @Override
+    public void sendAsk(HashMap<String, String> map) { studentDAO.sendAsk(map); }
+
+    @Override
+    public List<AskVO> getAsk(int checked)
+    {
+        if(checked == 0)
+            return studentDAO.getAsk();
+        else
+            return studentDAO.getAsk2();
+    }
+
+    @Override
+    public AskVO getAskSelected(int num) {
+        return studentDAO.getAskSelected(num);
+    }
+
+    @Override
+    public void updateAsk(int askNum) { studentDAO.updateAsk(askNum); }
 
 }

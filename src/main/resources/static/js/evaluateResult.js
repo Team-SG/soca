@@ -52,11 +52,6 @@ function initEvaluateResult(){
         $("#gradeSatis .star").eq(i).addClass("on");
     $("#gradeSatis").append('<h6> ( '+(evaluateResult.gradeSatisAvg/2).toFixed(2)+ ' / 5.0 ) </h6>');
 
-/*
-    $("#difficulty").append('<h6 class="ml-3"> ( '+evaluateResult.difficultyAvg.toFixed(2)+ ' / 5.0 ) </h6>');
-    $("#homework").append('<h6 class="ml-3">( '+evaluateResult.homeworkAvg.toFixed(2)+ ' / 5.0 ) </h6>');
-    $("#coverage").append('<h6 class="ml-3">( '+evaluateResult.coverageAvg.toFixed(2)+ ' / 5.0 ) </h6>');*/
-
     var difficulty=getSelectCount("difficulty");
     for(var i=0;i<5;i++){
         var percent=(difficulty[i]/evaluateResult.evaluationCnt)*100;

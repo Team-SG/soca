@@ -28,10 +28,6 @@
         </div>
         <div class="toast-body">
             <div class="d-flex bd-highlight p-3">
-                <div class="p-2 bd-highlight">
-                    <div class="p-4 flex-grow-1 mypage-image">
-                    </div>
-                </div>
                 <div class="p-2 ml-3 bd-highlight mt-4" style="width:800px;">
                     <form id="myPageForm" name="myPageForm">
                         <div class="d-flex">
@@ -40,13 +36,17 @@
                                 <input type="text" id="myPageEmail" name="email" th:value="${session.email}" class="form-control ml-2" style="width:20%" readonly>
                                 <span class="input-group-text ml-2" id="basic-addon2">@sogang.ac.kr</span>
                             </div>
-                            <div  class="input-group mb-3" style="width:25%">
+                            <div  class="input-group mb-3 d-flex align-items-center" style="width:25%">
                                 <button type="button" id="btnChangeEmail" class="btn btn-outline-primary font-weight-normal ml-2">수정</button>
                                 <button type="button" id="btnMySendAuth" class="btn btn-outline-primary font-weight-normal ml-2 mr-2">인증발송</button>
                                 <input type="text" id="myAuthCode" name="authCode" class="form-control ml-2" placeholder="인증번호" >
                                 <input type="hidden" id="myEmailAuth" class="auth" value="0"/>
                                 <button type="button" id="btnMyAuthCodeCheck" class="btn btn-outline-primary font-weight-normal ml-2">확인</button>
-                                <img src="images/check.png" id="myValidAuthCode" class="ml-2" style="width:18%;">
+                                <div class="ml-3" id="myValidAuthCode" style="color:green">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
+                                    </svg>
+                                </div>
                                 <input type="hidden" id="myEmailCheckAuth" class="auth" value="0"/>
                             </div>
                         </div>
@@ -55,10 +55,14 @@
                                 <span class="input-group-text">닉네임</span>
                                 <input type="text" id="myPageNickname" name="nickname" th:value="${session.nickname}" class="form-control ml-2" readonly>
                             </div>
-                            <div class="input-group mb-3" style="width:50%">
+                            <div class="input-group mb-3 d-flex align-items-center" style="width:50%">
                                 <button type="button" id="btnChangeNickname" class="btn btn-outline-primary font-weight-normal ml-2">수정</button>
                                 <button type="button" id="btnMyNicknameCheck" class="btn btn-outline-primary font-weight-normal ml-2" >중복확인</button>
-                                <img src="images/check.png" id="myValidNickname" class="ml-2" style="width:9%;">
+                                <div class="ml-3" id="myValidNickname" style="color:green">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
+                                    </svg>
+                                </div>
                                 <input type="hidden" id="myNicknameAuth" class="auth" value="0" />
                             </div>
                         </div>
@@ -69,7 +73,7 @@
             <div>
                 <button type="button" id="btnPasswordChange" class="btn btn-sm btn-outline-primary mr-1" data-toggle="modal" data-target="#passwordUpdate">패스워드 변경</button>
                 <button type="button" class="btn btn-sm btn-outline-danger mr-1" onclick="location.href='/schedule'">시간표 등록 / 수정</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">기술문의</button>
+                <button type="button" id="btnMyAsk" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#ask">기술문의</button>
             </div>
         </div>
     </div>

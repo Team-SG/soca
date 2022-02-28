@@ -64,11 +64,6 @@ function initEvaluateWrite(){
     $("#evaluation").val(1);
     $("#quality").val(1);
     $("#gradeSatis").val(1);
-   /* $("#difficulty").val($('input[name="difficulty"]:checked').val());
-    $("#homework").val($('input[name="homework"]:checked').val());
-    $("#coverage").val($('input[name="coverage"]:checked').val());*/
-
-
 }
 
 function saveEvaluateWrite(){
